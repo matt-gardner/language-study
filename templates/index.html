@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ greeting }} <br>
+
+<a href='/create-card-list'>Create a new list</a> <br>
+
+Your card lists:
+<ul>
+{% for list in cardlists %}
+<li>{{ list.name }}</li>
+{% endfor %}
+</ul>
+
+You are currently looking at card list: {{ cardlist.name }}.
+
+It has these words:
+{% for card in cards %}
+{{ card.word }}
+{% endfor %}
+
+{% endblock %}
