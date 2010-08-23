@@ -2,22 +2,94 @@
 
 {% block content %}
 
-{{ greeting }} <br>
+<div class="greeting">
+{{ greeting }}
+</div>
 
-<a href='/create-card-list'>Create a new list</a> <br>
+<div class="errors">
+	{% if errors %}
+	<ul>
+	{% for error in errors %}
+	<li>{{ error }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+</div>
 
-Your card lists:
-<ul>
-{% for list in cardlists %}
-<li>{{ list.name }}</li>
-{% endfor %}
-</ul>
+<div class="cardlists">
+{% if cardlists %}
+You are currently looking at card list: 
+<select id="id_cardlist" onchange="get_card_list()">
+	{% for list in cardlists %}
+		<option value="{{ list.name }}"
+		{% ifequal list cardlist %}selected{% endifequal %}>
+		{{ list.name }}
+		</option>
+	{% endfor %}
+</select>
+<input type="submit" value="Delete list" id="id_delete_list" />
+{% else %}
+You don't have any card lists!
+{% endif %}
+<div class="create_list">
+<form method="post" action="create-card-list"> {% csrf_token %}
+New card list:
+<input type="text" name="name" maxlength="128" />
+<input type="submit" value="Create list" id="id_create_list"/>
+</form>
+</div>
 
-You are currently looking at card list: {{ cardlist.name }}.
+</div>
 
-It has these words:
-{% for card in cards %}
-{{ card.word }}
-{% endfor %}
+<div class="review">
+	<div class="cards">
+	{% if cardlist %}
+	Reviewing card {{ card_number }} out of {{ num_cards }}
+	{% endif %}
+	</div>
+	<div class="option_buttons">
+		<input type="checkbox" id="id_randomize" />Randomize
+	</div>
+	<div class="review_word">
+		<div class="text">
+			{{ card.word }}
+		</div>
+	</div>
+	<div class="word_font_buttons">
+		<input type="submit" value="+" id="id_increase_word_size" />
+		<br>
+		<input type="submit" value="&ndash;" id="id_decrease_word_size" />
+	</div>
+	<div class="review_text">
+		<div class="text" style="display:none">
+			{{ card.text }}
+		</div>
+	</div>
+	<div class="text_font_buttons">
+		<input type="submit" value="+" class="increase_font" id="id_increase_text_size" />
+		<br>
+		<input type="submit" value="&ndash;" id="id_decrease_text_size" />
+	</div>
+	<div class="review_buttons">
+		<input type="submit" value="Previous Card" id="id_prev_card"/>
+		<input type="submit" value="Show text" id="id_show_text"/>
+		<input type="submit" value="Next Card" id="id_next_card"/>
+	</div>
+</div>
+
+<div class="add_card">
+
+Add a card:
+<br>
+<form method="post" action="add-card-to-list"> {% csrf_token %}
+<table>
+{{ add_card_form }}
+<tr><td></td>
+<td><input type="submit" name="submit" value="Add Card" /></td></tr>
+</table>
+</form>
+
+
+</div>
 
 {% endblock %}
