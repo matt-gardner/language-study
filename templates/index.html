@@ -42,34 +42,87 @@ New card list:
 </div>
 
 <div class="review">
+
 	<div class="cards">
 	{% if cardlist %}
 	Reviewing card {{ card_number }} out of {{ num_cards }}
 	{% endif %}
 	</div>
+
 	<div class="option_buttons">
-		<input type="checkbox" id="id_randomize" />Randomize
+		<table>
+			<tr>
+				<td>
+					<label for="id_all_words">
+						<input type="radio"
+						name="review_style"
+						value="all_words"
+						id="id_all_words"
+						checked/>
+						Review All Words
+					</label>
+					<table>
+						<tr>
+							<td>
+								<label for="id_randomize">
+									<input type="checkbox"
+									id="id_randomize" />
+									Randomize
+								</label>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="id_daily">
+						<input type="radio"
+					   	name="review_style"
+					   	value="daily"
+					   	id="id_daily"/>
+						Daily Review
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="id_difficulty">
+						<input type="radio"
+					   	name="review_style"
+					   	value="difficulty"
+					   	id="id_difficulty" />
+						Review By Difficulty
+					</label>
+				</td>
+			</tr>
+		</table>
 	</div>
+
 	<div class="review_word">
 		<div class="text">
 			{{ card.word }}
 		</div>
 	</div>
+
 	<div class="word_font_buttons">
 		<input type="submit" value="+" id="id_increase_word_size" />
 		<br>
 		<input type="submit" value="&ndash;" id="id_decrease_word_size" />
 	</div>
+
 	<div class="review_text">
 		<div class="text" style="display:none">
 			{{ card.text }}
 		</div>
 	</div>
+
 	<div class="text_font_buttons">
 		<input type="submit" value="+" class="increase_font" id="id_increase_text_size" />
 		<br>
 		<input type="submit" value="&ndash;" id="id_decrease_text_size" />
 	</div>
+
 	<div class="review_buttons">
 		<input type="submit" value="Previous Card" id="id_prev_card"/>
 		<input type="submit" value="Show text" id="id_show_text"/>

@@ -18,9 +18,18 @@ div.option_buttons
 {
 	position:absolute;
 	top:25%;
-	left:10%;
-	width:15%;
+	left:5%;
+	width:20%;
 	background:#ccf;
+}
+div.option_buttons table
+{
+	text-align:left;
+}
+div.option_buttons table table
+{
+	margin-left:25px;
+	text-align:left;
 }
 div.review_word
 {
