@@ -43,60 +43,70 @@ New card list:
 
 <div class="review">
 
-	<div class="cards">
 	{% if cardlist %}
-	Reviewing card {{ card_number }} out of {{ num_cards }}
-	{% endif %}
+	<div class="cards">
+		Reviewing card {{ card_number }} out of {{ num_cards }}
 	</div>
-
+	<div class="difficulty">
+		Average difficulty: {{ card.average_difficulty }}
+	</div>
+	{% endif %}
 	<div class="option_buttons">
-		<table>
-			<tr>
-				<td>
-					<label for="id_all_words">
-						<input type="radio"
-						name="review_style"
-						value="all_words"
-						id="id_all_words"
-						checked/>
-						Review All Words
-					</label>
-					<table>
-						<tr>
-							<td>
-								<label for="id_randomize">
-									<input type="checkbox"
-									id="id_randomize" />
-									Randomize
-								</label>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="id_daily">
-						<input type="radio"
-					   	name="review_style"
-					   	value="daily"
-					   	id="id_daily"/>
-						Daily Review
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="id_difficulty">
-						<input type="radio"
-					   	name="review_style"
-					   	value="difficulty"
-					   	id="id_difficulty" />
-						Review By Difficulty
-					</label>
-				</td>
-			</tr>
-		</table>
+
+		<div class="review_style" id="all_words">
+			<label for="id_all_words">
+				<input type="radio"
+				name="review_style"
+				value="all_words"
+				id="id_all_words"
+				{% ifequal review_style "all_words" %}
+				checked
+				{% endifequal %}
+				/>
+				Review All Words
+			</label>
+			<table>
+				<tr>
+					<td>
+						<label for="id_randomize" class="option">
+							<input type="checkbox"
+							class="option"
+							id="id_randomize" />
+							Randomize
+						</label>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="review_style" id="daily">
+			<label for="id_daily">
+				<input type="radio"
+				name="review_style"
+				value="daily"
+				id="id_daily"
+				{% ifequal review_style "daily" %}
+				checked
+				{% endifequal %}
+				/>
+				Daily Review
+			</label>
+		</div>
+
+		<div class="review_style" id="difficulty">
+			<label for="id_difficulty">
+				<input type="radio"
+				name="review_style"
+				value="difficulty"
+				id="id_difficulty"
+				{% ifequal review_style "difficulty" %}
+				checked
+				{% endifequal %}
+				/>
+				Review By Difficulty
+			</label>
+		</div>
+
 	</div>
 
 	<div class="review_word">
@@ -124,9 +134,32 @@ New card list:
 	</div>
 
 	<div class="review_buttons">
-		<input type="submit" value="Previous Card" id="id_prev_card"/>
-		<input type="submit" value="Show text" id="id_show_text"/>
-		<input type="submit" value="Next Card" id="id_next_card"/>
+		<input type="submit"
+		value="Previous Card"
+		accesskey=p
+	   	id="id_prev_card"/>
+		<input type="submit"
+		value="Show text"
+		accesskey=s
+		id="id_show_text"/>
+		<input type="submit"
+		value="Next Card"
+		accesskey=n
+		id="id_next_card"/>
+	</div>
+	<div class="review_buttons_below">
+		<input type="submit"
+		value="That was easy"
+		accesskey=e
+	   	id="id_easy"/>
+		<input type="submit"
+		value="I got it, but it took a while"
+		accesskey=m
+		id="id_medium"/>
+		<input type="submit"
+		value="I didn't get it..."
+		accesskey=h
+		id="id_hard"/>
 	</div>
 </div>
 

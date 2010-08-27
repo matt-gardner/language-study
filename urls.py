@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     (r'^feeds/randomize-card-list/$', 'flashcards.views.randomize_card_list'),
     (r'^feeds/unrandomize-card-list/$',
         'flashcards.views.unrandomize_card_list'),
+    (r'^feeds/review-style/(?P<style>[^/]*)$', 'flashcards.views.review_style'),
     (r'^feeds/next-card/(?P<difficulty>[^/]*)$', 'flashcards.views.next_card'),
     (r'^feeds/prev-card/(?P<difficulty>[^/]*)$', 'flashcards.views.prev_card'),
 

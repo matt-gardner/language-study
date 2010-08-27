@@ -1,9 +1,28 @@
+/* Basic page layout */
 div.page
 {
 	position:absolute;
 	left:12.5%;
 	width:75%;
 	height:100%;
+}
+div.greeting
+{
+	position:absolute;
+	top:5%;
+	width:100%;
+	height:5%;
+	background:#aaf;
+	text-align:center;
+}
+div.cardlists
+{
+	position:absolute;
+	top:15%;
+	width:100%;
+	height:7%;
+	background:#aaf;
+	text-align:center;
 }
 div.review
 {
@@ -14,6 +33,17 @@ div.review
 	background:#ccf;
 	text-align:center;
 }
+div.add_card
+{
+	position:absolute;
+	top:75%;
+	width:100%;
+	background:#cdf;
+}
+
+/* Inside the review panel */
+
+/* Review options on the left */
 div.option_buttons
 {
 	position:absolute;
@@ -22,15 +52,16 @@ div.option_buttons
 	width:20%;
 	background:#ccf;
 }
-div.option_buttons table
+div.review_style
 {
 	text-align:left;
 }
-div.option_buttons table table
+div.review_style input.option
 {
 	margin-left:25px;
 	text-align:left;
 }
+ /* The main review box */
 div.review_word
 {
 	position:absolute;
@@ -40,15 +71,6 @@ div.review_word
 	height:35%;
 	background:#eff;
 	display:table;
-}
-div.word_font_buttons
-{
-	position:absolute;
-	top:25%;
-	left:75%;
-	width:5%;
-	height:15%;
-	background:#ccf;
 }
 div.review_text
 {
@@ -60,6 +82,24 @@ div.review_text
 	background:#eef;
 	display:table;
 }
+div.text
+{
+	font-size:2em;
+	overflow:auto;
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+}
+/* The font buttons on the side */
+div.word_font_buttons
+{
+	position:absolute;
+	top:25%;
+	left:75%;
+	width:5%;
+	height:15%;
+	background:#ccf;
+}
 div.text_font_buttons
 {
 	position:absolute;
@@ -69,45 +109,28 @@ div.text_font_buttons
 	height:15%;
 	background:#ccf;
 }
-div.text
-{
-	font-size:2em;
-	overflow:auto;
-	display:table-cell;
-	text-align:center;
-	vertical-align:middle;
-}
+/* The review buttons on the bottom */
 div.review_buttons
 {
 	position:absolute;
 	top:85%;
 	left:25%;
 	width:50%;
-	height:15%;
+	height:7.5%;
 	background:#ccc;
 }
-div.add_card
+div.review_buttons_below
 {
 	position:absolute;
-	top:75%;
-	width:100%;
-	background:#cdf;
+	top:92.5%;
+	left:25%;
+	width:50%;
+	height:7.5%;
+	background:#ccc;
 }
-div.cardlists
+
+/* Other general CSS stuff (coloring, whatever) */
+label[disabled]
 {
-	position:absolute;
-	top:15%;
-	width:100%;
-	height:7%;
-	background:#aaf;
-	text-align:center;
-}
-div.greeting
-{
-	position:absolute;
-	top:5%;
-	width:100%;
-	height:5%;
-	background:#aaf;
-	text-align:center;
+	color:#777;
 }

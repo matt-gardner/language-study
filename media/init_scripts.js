@@ -12,6 +12,15 @@ $("#id_next_card").click(function () {
 $("#id_prev_card").click(function () {
 	prev_word();
 });
+$("#id_easy").click(function () {
+	next_word('easy');
+});
+$("#id_medium").click(function () {
+	next_word('medium');
+});
+$("#id_hard").click(function () {
+	next_word('hard');
+});
 $("#id_delete_list").click(function () {
 	delete_card_list();
 });
@@ -44,4 +53,7 @@ $("#id_decrease_text_size").click(function(){
 });
 $("#id_randomize").click(function() {
 	randomize_list();
+});
+$("input[name=review_style]").click(function() {
+	reset_review_style($("input[name=review_style]:checked").val());
 });
