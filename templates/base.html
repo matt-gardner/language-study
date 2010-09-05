@@ -2,10 +2,13 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <title>Memorization Program</title>
 <link rel="stylesheet" title="default" href="/site-media/style.css" type="text/css" />
 <script type="text/javascript" src="/site-media/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/site-media/scripts.js"></script>
+{% block script_config %}
+{% endblock %}
 </head>
 
 <body>
@@ -14,6 +17,65 @@
 </div>
 
 <div class="page">
+
+{% block greeting %}
+<div class="greeting">
+{{ greeting }}
+</div>
+{% endblock %}
+
+{% block errors %}
+<div class="errors">
+	{% if errors %}
+	<ul>
+	{% for error in errors %}
+	<li>{{ error }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block review_styles %}
+<div class="review_style">
+	Review style:
+	<select id="id_review_style" onChange="switch_review_style()">
+		{% for style in review_styles %}
+		<option value="{{ style.link }}"
+		{% ifequal style.link review_style %} selected {% endifequal %}>
+		{{ style.name }}
+		</option>
+		{% endfor %}
+	</select>
+</div>
+{% endblock %}
+
+
+{% block cardlists %}
+<div class="cardlists">
+	{% if cardlists %}
+	You are currently looking at card list: 
+	<select id="id_cardlist" onchange="get_card_list()">
+		{% for list in cardlists %}
+			<option value="{{ list.name }}"
+			{% ifequal list cardlist %}selected{% endifequal %}>
+			{{ list.name }}
+			</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Delete list" id="id_delete_list" />
+	{% else %}
+	You don't have any card lists!
+	{% endif %}
+	<div class="create_list">
+		<form method="post" action="create-card-list"> {% csrf_token %}
+		New card list:
+		<input type="text" name="name" maxlength="128" />
+		<input type="submit" value="Create list" id="id_create_list"/>
+		</form>
+	</div>
+</div>
+{% endblock %}
 
 {% block content %}
 {% endblock %}

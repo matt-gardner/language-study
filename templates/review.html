@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block script_config %}
+<script charset="utf-8" type="text/javascript">
+	$.fn.message_config = function() {};
+	$.fn.message_config.before_card_number = "Reviewing card  ";
+	$.fn.message_config.after_card_number = " out of ";
+	$.fn.message_config.after_num_cards = "";
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="above_review">
+	{% block card_list_info %}
+
+	{% if cardlist %}
+	<div class="cards">
+		Reviewing card {{ card_number }} out of {{ num_cards }}
+	</div>
+	<div class="cardlist_difficulty">
+		Average difficulty of cards: {{ average_difficulty|floatformat:"2" }}
+	</div>
+	{% endif %}
+
+	{% endblock %}
+
+	<div class="card_difficulty">
+		This card's difficulty: {{ card.average_difficulty|floatformat:"2" }}
+	</div>
+</div>
+
+<div class="review">
+
+	<div class="left_review">
+		<div class="options">
+		{% block options %}
+		{% endblock %}
+		</div>
+	</div>
+
+	<div class="center_review">
+		<div class="review_word">
+			<div class="text">
+				{{ card.word }}
+			</div>
+		</div>
+		<div class="review_text">
+			<div class="text" style="display:none">
+				{{ card.text }}
+			</div>
+		</div>
+		<div class="review_buttons">
+		{% block review_buttons %}
+			<input type="submit"
+			value="Previous Card"
+			accesskey=p
+			id="id_prev_card"/>
+			<input type="submit"
+			value="Show text"
+			accesskey=s
+			id="id_show_text"/>
+			<input type="submit"
+			value="Next Card"
+			accesskey=n
+			id="id_next_card"/>
+		{% endblock %}
+		</div>
+		<div class="review_buttons_below">
+		{% block review_buttons_below %}
+			<input type="submit"
+			value="That was easy"
+			accesskey=y
+			id="id_easy"/>
+			<input type="submit"
+			value="I got it, but it took a while"
+			accesskey=m
+			id="id_medium"/>
+			<input type="submit"
+			value="I didn't get it..."
+			accesskey=h
+			id="id_hard"/>
+		{% endblock %}
+		</div>
+	</div>
+
+	<div class="right_review">
+		<div class="word_font_buttons">
+			<input type="submit" value="+" id="id_increase_word_size" />
+			<br>
+			<input type="submit" value="&ndash;" id="id_decrease_word_size" />
+		</div>
+
+		<div class="text_font_buttons">
+			<input type="submit" value="+" id="id_increase_text_size" />
+			<br>
+			<input type="submit" value="&ndash;" id="id_decrease_text_size" />
+		</div>
+	</div>
+
+</div>
+
+<div class="add_card">
+
+Add a card:
+<br>
+<form method="post" action="add-card-to-list"> {% csrf_token %}
+<table>
+{{ add_card_form }}
+<tr><td></td>
+<td><input type="submit" name="submit" value="Add Card" /></td></tr>
+</table>
+</form>
+
+
+</div>
+
+{% endblock %}

@@ -6,26 +6,41 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', 'flashcards.views.index'),
-    (r'^create-card-list$',
-        'flashcards.views.create_card_list'),
-    (r'^delete-card-list/(?P<name>[^/]*)$',
-        'flashcards.views.delete_card_list'),
-    (r'^add-card-to-list$', 'flashcards.views.add_card_to_list'),
-    (r'accounts/login/$', 'django.contrib.auth.views.login', {'template_name':
-        'login.html'}),
+    # Main index page
+    (r'^$', 'flashcards.main.index'),
 
-    # Feeds
-    (r'^feeds/get-card-list/(?P<name>[^/]*)$',
-        'flashcards.views.get_card_list'),
-    (r'^feeds/randomize-card-list/$', 'flashcards.views.randomize_card_list'),
-    (r'^feeds/unrandomize-card-list/$',
-        'flashcards.views.unrandomize_card_list'),
-    (r'^feeds/review-style/(?P<style>[^/]*)$', 'flashcards.views.review_style'),
-    (r'^feeds/next-card/(?P<difficulty>[^/]*)$', 'flashcards.views.next_card'),
-    (r'^feeds/prev-card/(?P<difficulty>[^/]*)$', 'flashcards.views.prev_card'),
+    # All words urls
+    (r'^all-words/$', 'flashcards.all_words.index'),
+    (r'^all-words/create-card-list$', 'flashcards.all_words.create_card_list'),
+    (r'^all-words/delete-card-list/(?P<name>[^/]*)$',
+        'flashcards.all_words.delete_card_list'),
+    (r'^all-words/add-card-to-list$', 'flashcards.all_words.add_card_to_list'),
+    (r'^all-words/next-card/(?P<difficulty>[^/]*)$',
+        'flashcards.common.next_card'),
+    (r'^all-words/prev-card/$', 'flashcards.common.prev_card'),
+    (r'^all-words/get-card-list/(?P<name>[^/]*)$',
+        'flashcards.common.get_card_list'),
+    (r'^all-words/reorder-card-list/(?P<ordering>[^/]*)$',
+        'flashcards.common.reorder_card_list'),
+
+    # Difficulty urls
+    (r'^difficulty/$', 'flashcards.difficulty.index'),
+    (r'^difficulty/create-card-list$',
+        'flashcards.difficulty.create_card_list'),
+    (r'^difficulty/delete-card-list/(?P<name>[^/]*)$',
+        'flashcards.difficulty.delete_card_list'),
+    (r'^difficulty/add-card-to-list$',
+        'flashcards.difficulty.add_card_to_list'),
+    (r'^difficulty/next-card/(?P<difficulty>[^/]*)$',
+        'flashcards.difficulty.next_card'),
+    (r'^difficulty/get-card-list/(?P<name>[^/]*)$',
+        'flashcards.common.get_card_list'),
 
     # Site media
     (r'^site-media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT}),
+
+    # Login stuff
+    (r'accounts/login/$', 'django.contrib.auth.views.login', {'template_name':
+        'login.html'}),
 )

@@ -1,0 +1,55 @@
+{% extends "review.html" %}
+
+{% block options %}
+<table>
+	<tr>
+		<td>
+			<label for="id_date_entered" class="option">
+				<input type="radio"
+				name="review_order"
+				value="date_entered"
+				class="option"
+				id="id_date_entered"
+				checked />
+				Date Entered
+			</label>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="id_alphabetical" class="option">
+				<input type="radio"
+				name="review_order"
+				value="alphabetical"
+				class="option"
+				id="id_alphabetical" />
+				Alphabetical
+			</label>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="id_randomize" class="option">
+				<input type="radio"
+				name="review_order"
+				value="random"
+				class="option"
+				id="id_randomize" />
+				Randomize
+			</label>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="id_last_reviewed" class="option">
+				<input type="radio"
+				name="review_order"
+				value="last_reviewed"
+				class="option"
+				id="id_last_reviewed" />
+				Last Reviewed
+			</label>
+		</td>
+	</tr>
+</table>
+{% endblock %}

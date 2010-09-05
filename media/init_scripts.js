@@ -51,9 +51,6 @@ $("#id_decrease_text_size").click(function(){
 	var newFontSize = currentFontSizeNum*0.8;
 	$('.review_text .text').css('font-size', newFontSize);
 });
-$("#id_randomize").click(function() {
-	randomize_list();
-});
-$("input[name=review_style]").click(function() {
-	reset_review_style($("input[name=review_style]:checked").val());
+$("input[name=review_order]").click(function() {
+	reorder_words($("input[name=review_order]:checked").val());
 });

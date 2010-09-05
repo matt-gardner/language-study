@@ -5,80 +5,87 @@ div.page
 	left:12.5%;
 	width:75%;
 	height:100%;
+	font-family: "Gentium", "DejaVu LGC Serif", "New Athena Unicode", "Galatia SIL", "Arial Unicode MS", "Lucida Grande";
 }
 div.greeting
 {
-	position:absolute;
-	top:5%;
-	width:100%;
-	height:5%;
+	margin-top:5%;
 	background:#aaf;
 	text-align:center;
 }
+div.review_style
+{
+	text-align:center;
+	background:#abf;
+}
 div.cardlists
 {
-	position:absolute;
-	top:15%;
-	width:100%;
-	height:7%;
 	background:#aaf;
+	text-align:center;
+}
+div.above_review
+{
+	background:#ccc;
 	text-align:center;
 }
 div.review
 {
-	position:absolute;
-	top:22%;
-	width:100%;
-	height:53%;
-	background:#ccf;
+	height:60%;
+	background:#ccc;
 	text-align:center;
 }
 div.add_card
 {
-	position:absolute;
-	top:75%;
-	width:100%;
+	clear:both;
+	margin-top:0;
 	background:#cdf;
 }
 
 /* Inside the review panel */
 
 /* Review options on the left */
-div.option_buttons
+div.options
 {
-	position:absolute;
-	top:25%;
-	left:5%;
-	width:20%;
+	margin-top:25%;
+	margin-right:10%;
 	background:#ccf;
-}
-div.review_style
-{
 	text-align:left;
+	float:right;
 }
-div.review_style input.option
+/* The main review box */
+div.center_review
 {
-	margin-left:25px;
-	text-align:left;
+	width:50%;
+	height:100%;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
 }
- /* The main review box */
+div.left_review
+{
+	width:25%;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+}
+div.right_review
+{
+	width:25%;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+}
 div.review_word
 {
-	position:absolute;
-	top:15%;
-	left:25%;
-	width:50%;
-	height:35%;
+	width:100%;
+	height:40%;
 	background:#eff;
 	display:table;
 }
 div.review_text
 {
-	position:absolute;
-	top:50%;
-	left:25%;
-	width:50%;
-	height:35%;
+	width:100%;
+	height:40%;
 	background:#eef;
 	display:table;
 }
@@ -93,40 +100,28 @@ div.text
 /* The font buttons on the side */
 div.word_font_buttons
 {
-	position:absolute;
-	top:25%;
-	left:75%;
-	width:5%;
-	height:15%;
 	background:#ccf;
+	margin-top:30%;
+	text-align:left;
 }
 div.text_font_buttons
 {
-	position:absolute;
-	top:60%;
-	left:75%;
-	width:5%;
-	height:15%;
 	background:#ccf;
+	margin-top:60%;
+	text-align:left;
 }
 /* The review buttons on the bottom */
 div.review_buttons
 {
-	position:absolute;
-	top:85%;
-	left:25%;
-	width:50%;
-	height:7.5%;
-	background:#ccc;
+	background:#bbb;
+	margin-left:auto;
+	margin-right:auto;
 }
 div.review_buttons_below
 {
-	position:absolute;
-	top:92.5%;
-	left:25%;
-	width:50%;
-	height:7.5%;
-	background:#ccc;
+	background:#bbb;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 /* Other general CSS stuff (coloring, whatever) */

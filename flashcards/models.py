@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import datetime
+
 class CardList(models.Model):
     user = models.ForeignKey('auth.User')
     name = models.CharField(max_length=128)
@@ -12,10 +14,10 @@ class CardList(models.Model):
 class Card(models.Model):
     DIFFICULTY_SCORES = {
             'easy': 1,
-            'medium': 5,
-            'hard': 10,
+            'medium': 20,
+            'hard': 40,
             }
-    DIFFICULTY_ALPHA = .2
+    DIFFICULTY_ALPHA = .4
     list = models.ForeignKey('CardList')
     word = models.CharField(max_length=128)
     text = models.CharField(max_length=4096)
@@ -32,6 +34,10 @@ class Card(models.Model):
         difference = new - old
         self.list.total_difficulty += difference
         self.list.save()
+
+    def reviewed(self):
+        self.last_reviewed = datetime.now()
+        self.save()
 
     def __unicode__(self):
         return u'%s: %s' % (self.list.name, self.word)
