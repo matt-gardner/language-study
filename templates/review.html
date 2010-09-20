@@ -98,20 +98,43 @@
 		</div>
 	</div>
 
+	<div class="tags">
+		<div class="word_tags">
+			{% if card.tags.all %}
+				{% for tag in card.tags.all %}
+				{% if not forloop.first %}, {% endif %}
+				{{ tag }}
+				{% endfor %}
+			{% else %}
+				This word has no tags
+			{% endif %}
+		</div>
+		<div class="add_tag">
+			<select id="id_add_tag">
+				{% for tag in tags %}
+				<option value="{{ tag }}"> {{ tag }} </option>
+				{% endfor %}
+			</select>
+			<input type="submit" value="Add tag" id="id_add_tag_button" />
+		</div>
+		<div class="create_tag">
+			Create new tag:<br>
+			<form method="post" action="add-tag"> {% csrf_token %}
+				<input type="text" name="name" maxlength="128" />
+				<input type="submit" value="Create Tag" id="id_create_tag"/>
+			</form>
+		</div>
+	</div>
+
 </div>
 
 <div class="add_card">
 
-Add a card:
-<br>
 <form method="post" action="add-card-to-list"> {% csrf_token %}
-<table>
-{{ add_card_form }}
-<tr><td></td>
-<td><input type="submit" name="submit" value="Add Card" /></td></tr>
-</table>
+	Word: <input type="text" name="word" maxlength="128" />
+	Text: <input type="text" name="text" maxlength="128" />
+	<input type="submit" value="Add Card" id="id_add_card"/>
 </form>
-
 
 </div>
 

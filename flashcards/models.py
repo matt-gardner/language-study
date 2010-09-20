@@ -5,7 +5,6 @@ from datetime import datetime
 class CardList(models.Model):
     user = models.ForeignKey('auth.User')
     name = models.CharField(max_length=128)
-    total_difficulty = models.FloatField(default=0)
 
     def __unicode__(self):
         return u'%s: %s' % (self.user.first_name, self.name)
@@ -24,6 +23,8 @@ class Card(models.Model):
     last_reviewed = models.DateTimeField()
     date_entered = models.DateTimeField()
     average_difficulty = models.FloatField(default=DIFFICULTY_SCORES['hard'])
+    review_count = models.IntegerField(default=0)
+    tags = models.ManyToManyField('Tag')
 
     def update_difficulty(self, score):
         old = self.average_difficulty
@@ -32,7 +33,7 @@ class Card(models.Model):
         self.average_difficulty = new
         self.save()
         difference = new - old
-        self.list.total_difficulty += difference
+        self.review_count += 1
         self.list.save()
 
     def reviewed(self):
@@ -42,6 +43,16 @@ class Card(models.Model):
     def __unicode__(self):
         return u'%s: %s' % (self.list.name, self.word)
 
+
+class Tag(models.Model):
+    name = models.CharField(max_length=128)
+    list = models.ForeignKey('CardList')
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
 
 
 # vim: et sts=4 sw=4

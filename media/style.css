@@ -39,6 +39,7 @@ div.add_card
 	clear:both;
 	margin-top:0;
 	background:#cdf;
+	text-align:center;
 }
 
 /* Inside the review panel */
@@ -70,10 +71,16 @@ div.left_review
 }
 div.right_review
 {
-	width:25%;
+	width:5%;
 	float:left;
 	margin-left:auto;
 	margin-right:auto;
+}
+div.tags
+{
+	width:20%;
+	float:left;
+	text-align:center;
 }
 div.review_word
 {
@@ -101,13 +108,13 @@ div.text
 div.word_font_buttons
 {
 	background:#ccf;
-	margin-top:30%;
+	margin-top:100%;
 	text-align:left;
 }
 div.text_font_buttons
 {
 	background:#ccf;
-	margin-top:60%;
+	margin-top:220%;
 	text-align:left;
 }
 /* The review buttons on the bottom */
@@ -128,4 +135,9 @@ div.review_buttons_below
 label[disabled]
 {
 	color:#777;
+}
+
+div.add_card input[type=text]
+{
+	width:400px;
 }

@@ -12,6 +12,7 @@ from memorizing.flashcards.common import CardForm
 from memorizing.flashcards.common import review_styles
 from memorizing.flashcards.common import update_card_difficulty_from_session
 from memorizing.flashcards.models import Card
+from memorizing.flashcards.models import Tag
 
 import random
 import simplejson
@@ -44,6 +45,7 @@ def index(request):
         request.session['cardlist-name'] = cardlist.name
 
     context['cardlist'] = cardlist
+    context['tags'] = cardlist.tag_set.all()
     context['add_card_form'] = CardForm()
     cards = cardlist.card_set.all()
     if cards:
@@ -60,6 +62,10 @@ def index(request):
 
 def create_card_list(request):
     return common.create_card_list(request, '/difficulty/')
+
+
+def add_tag(request):
+    return common.add_tag(request, '/difficulty/')
 
 
 def delete_card_list(request, name):
@@ -82,7 +88,6 @@ def get_card_by_difficulty(cards):
 
 def next_card(request, difficulty):
     update_card_difficulty_from_session(request, difficulty)
-    request.session['cards-reviewed'] += 1
 
     cardlist_name = request.session['cardlist-name']
     cardlist = request.user.cardlist_set.get(name=cardlist_name)

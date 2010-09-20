@@ -9,6 +9,7 @@ from memorizing.flashcards import common
 from memorizing.flashcards.common import AjaxWord
 from memorizing.flashcards.common import CardForm
 from memorizing.flashcards.common import review_styles
+from memorizing.flashcards.models import Tag
 
 @login_required
 def index(request):
@@ -38,6 +39,7 @@ def index(request):
         request.session['cardlist-name'] = cardlist.name
 
     context['cardlist'] = cardlist
+    context['tags'] = cardlist.tag_set.all()
     context['add_card_form'] = CardForm()
     cards = cardlist.card_set.all()
     request.session['cards'] = [AjaxWord(c) for c in cards]
@@ -57,6 +59,10 @@ def index(request):
 
 def create_card_list(request):
     return common.create_card_list(request, '/all-words/')
+
+
+def add_tag(request):
+    return common.add_tag(request, '/all-words/')
 
 
 def delete_card_list(request, name):

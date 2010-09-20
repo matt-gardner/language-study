@@ -45,7 +45,8 @@ function new_word(card, card_number, num_cards, average_difficulty) {
 	}
 	switch_text(card.word, card.text);
 	reset_card_number(card_number, num_cards, card.difficulty);
-	reset_card_difficulty(card.difficulty);
+	reset_card_difficulty(card.difficulty, card.review_count);
+	reset_card_tags(card.tags);
 	reset_list_difficulty(average_difficulty);
 }
 function switch_text(word, text) {
@@ -60,11 +61,21 @@ function reset_card_number(card_number, num_cards) {
 	html += $.fn.message_config.after_num_cards;
 	$(".cards").html(html);
 }
-function reset_card_difficulty(difficulty) {
+function reset_card_difficulty(difficulty, review_count) {
 	$(".card_difficulty").html("This card's difficulty: " +
-			difficulty.toFixed(2));
+			difficulty.toFixed(2) + '; Times reviewed: ' +
+			review_count);
+}
+function reset_card_tags(tags) {
+	$(".word_tags").html(tags);
 }
 function reset_list_difficulty(difficulty) {
 	$(".cardlist_difficulty").html('Average difficulty of cards: ' +
 			difficulty.toFixed(2));
+}
+function add_tag() {
+	tag_name = $("#id_add_tag").val();
+	$.getJSON("/add-tag-to-card/"+tag_name, {}, function(data) {
+		$(".word_tags").html(data.tags);
+	});
 }

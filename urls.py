@@ -9,9 +9,14 @@ urlpatterns = patterns('',
     # Main index page
     (r'^$', 'flashcards.main.index'),
 
+    # Common urls
+    (r'^add-tag-to-card/(?P<tag_name>[^/]*)$',
+        'flashcards.common.add_tag_to_card'),
+
     # All words urls
     (r'^all-words/$', 'flashcards.all_words.index'),
     (r'^all-words/create-card-list$', 'flashcards.all_words.create_card_list'),
+    (r'^all-words/add-tag$', 'flashcards.all_words.add_tag'),
     (r'^all-words/delete-card-list/(?P<name>[^/]*)$',
         'flashcards.all_words.delete_card_list'),
     (r'^all-words/add-card-to-list$', 'flashcards.all_words.add_card_to_list'),
@@ -27,6 +32,7 @@ urlpatterns = patterns('',
     (r'^difficulty/$', 'flashcards.difficulty.index'),
     (r'^difficulty/create-card-list$',
         'flashcards.difficulty.create_card_list'),
+    (r'^difficulty/add-tag$', 'flashcards.difficulty.add_tag'),
     (r'^difficulty/delete-card-list/(?P<name>[^/]*)$',
         'flashcards.difficulty.delete_card_list'),
     (r'^difficulty/add-card-to-list$',

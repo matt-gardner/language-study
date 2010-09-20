@@ -54,3 +54,6 @@ $("#id_decrease_text_size").click(function(){
 $("input[name=review_order]").click(function() {
 	reorder_words($("input[name=review_order]:checked").val());
 });
+$("#id_add_tag_button").click(function () {
+		add_tag();
+});
