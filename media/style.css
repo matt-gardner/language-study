@@ -3,7 +3,7 @@ div.page
 {
 	position:absolute;
 	left:12.5%;
-	width:75%;
+	width:85%;
 	height:100%;
 	font-family: "Gentium", "DejaVu LGC Serif", "New Athena Unicode", "Galatia SIL", "Arial Unicode MS", "Lucida Grande";
 }
@@ -140,4 +140,11 @@ label[disabled]
 div.add_card input[type=text]
 {
 	width:400px;
+}
+td.remove {
+	color:#000F3E;
+	text-decoration:none;
+}
+td.remove:hover, td.link:hover, .clickable_text:hover {
+	cursor:pointer;
 }

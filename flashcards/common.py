@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 
-from memorizing.flashcards.models import Card, CardList, Tag
-
 from django import forms
+from django.db.models import Avg
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template import RequestContext
 from django.utils import simplejson
 
 from datetime import datetime
 from random import shuffle
+
+from memorizing.flashcards.models import Card, CardList, Tag
+from memorizing.flashcards.filters import filter_cards
 
 # Card list stuff
 #################
@@ -72,16 +75,18 @@ def reorder_card_list(request, ordering):
         shuffle(request.session['cards'])
         request.session['card-number'] = 0
         return return_card_from_session(request)
-    elif ordering == 'alphabetical':
-        cards = cardlist.card_set.order_by('word')
+    filters = request.session.get('filters', [])
+    cards, _ = filter_cards(cardlist.card_set, filters)
+    if ordering == 'alphabetical':
+        cards = cards.order_by('word')
     elif ordering == 'last_reviewed':
-        cards = cardlist.card_set.order_by('last_reviewed')
+        cards = cards.order_by('last_reviewed')
     elif ordering == 'least_reviewed':
-        cards = cardlist.card_set.order_by('review_count')
+        cards = cards.order_by('review_count')
     elif ordering == 'date_entered':
-        cards = cardlist.card_set.order_by('date_entered')
+        cards = cards.order_by('date_entered')
     elif ordering == 'difficulty':
-        cards = cardlist.card_set.order_by('-average_difficulty')
+        cards = cards.order_by('-average_difficulty')
     request.session['cards'] = [AjaxWord(c) for c in cards]
     request.session['card-number'] = 0
     return return_card_from_session(request)
@@ -130,6 +135,7 @@ def return_card_from_session(request):
     current_card %= num_cards
     request.session['card-number'] = current_card
     request.session['card-id'] = cards[current_card].id
+    cards[current_card].get_tags()
     ret_val['card'] = vars(cards[current_card])
     ret_val['card_number'] = current_card + 1
     ret_val['num_cards'] = num_cards
@@ -172,6 +178,45 @@ def update_card_difficulty_from_session(request, difficulty):
     return card
 
 
+def base_review_context(request):
+    context = RequestContext(request)
+
+    errors = request.session.get('errors', None)
+    if errors:
+        if isinstance(errors, list):
+            context['errors'] = errors
+        else:
+            context['errors'] = [errors]
+        del request.session['errors']
+
+    context['greeting'] = 'Hello %s!' % request.user.first_name
+
+    lists = request.user.cardlist_set.all()
+    context['cardlists'] = lists
+
+    context['review_styles'] = review_styles()
+
+    list_name = request.session.get('cardlist-name', '')
+    if list_name:
+        cardlist = lists.get(name=list_name)
+    else:
+        cardlist = lists[0]
+        request.session['cardlist-name'] = cardlist.name
+
+    context['cardlist'] = cardlist
+
+    context['tags'] = cardlist.tag_set.all()
+    cards = cardlist.card_set
+    filters = request.session.get('filters', [])
+    cards, filter_form = filter_cards(cards, filters)
+    context['filter'] = filter_form
+    context['num_cards'] = len(cards)
+    if cards:
+        ave_difficulty = cards.aggregate(ave=Avg('average_difficulty'))['ave']
+        context['average_difficulty'] = ave_difficulty
+    return context, cards
+
+
 # Classes that help out with things
 ###################################
 
@@ -188,19 +233,13 @@ class AjaxWord(object):
         self.difficulty = card.average_difficulty
         self.review_count = card.review_count
         self.id = card.id
+        self.tags = None
+
+    def get_tags(self):
+        card = Card.objects.get(pk=self.id)
         self.tags = ', '.join(t.name for t in card.tags.all())
         if not self.tags:
             self.tags = 'This card has no tags'
 
-
-class AjaxTag(object):
-    def __init__(self, tag):
-        self.name = tag.name
-
-
-class CardForm(forms.ModelForm):
-    class Meta:
-        model = Card
-        fields = ['word', 'text']
 
 # vim: et sts=4 sw=4

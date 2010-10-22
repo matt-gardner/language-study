@@ -33,11 +33,11 @@ class Card(models.Model):
         self.average_difficulty = new
         self.save()
         difference = new - old
-        self.review_count += 1
         self.list.save()
 
     def reviewed(self):
         self.last_reviewed = datetime.now()
+        self.review_count += 1
         self.save()
 
     def __unicode__(self):

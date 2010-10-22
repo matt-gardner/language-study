@@ -99,6 +99,14 @@
 	</div>
 
 	<div class="tags">
+		<div class="filter">
+			<table>
+				<tbody id="id_filter_form">
+					{{ filter|safe }}
+				</tbody>
+			</table>
+		</div>
+		<hr>
 		<div class="word_tags">
 			{% if card.tags.all %}
 				{% for tag in card.tags.all %}

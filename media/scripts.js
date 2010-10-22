@@ -79,3 +79,37 @@ function add_tag() {
 		$(".word_tags").html(data.tags);
 	});
 }
+function add_new_filter()
+{
+	var link = "/new-filter/" + $("#id_filter").val();
+	$.get(link, {}, function(filter) {
+		$("#id_filter_form").html(filter);
+	});
+}
+function remove_filter(id)
+{
+	var link = "/remove-filter/" + id;
+	$.get(link, {}, function(filter) {
+		$("#id_filter_form").html(filter);
+		location.reload();
+	});
+}
+function update_tag_filter(id)
+{
+	var link = "/update-tag-filter/" + id + "/";
+	link += $("#id_tag_filter_"+id).val();
+	$.get(link, {}, function(filter) {
+		$("#id_filter_form").html(filter);
+		location.reload();
+	});
+}
+function update_difficulty_filter(id)
+{
+	var link = "/update-difficulty-filter/" + id + "/";
+	link += $("#id_difficulty_filter_comp_"+id).val() + "/";
+	link += $("#id_difficulty_filter_value_"+id).val();
+	$.get(link, {}, function(filter) {
+		$("#id_filter_form").html(filter);
+		location.reload();
+	});
+}
