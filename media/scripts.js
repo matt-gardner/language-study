@@ -113,3 +113,12 @@ function update_difficulty_filter(id)
 		location.reload();
 	});
 }
+function update_string_filter(id)
+{
+	var link = "/update-string-filter/" + id + "/";
+	link += $("#id_string_filter_"+id).val();
+	$.get(link, {}, function(filter) {
+		$("#id_filter_form").html(filter);
+		location.reload();
+	});
+}

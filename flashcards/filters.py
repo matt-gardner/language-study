@@ -34,6 +34,8 @@ def possible_card_filters():
     possible_filters = [('None', '-------')]
     possible_filters.append(('tag', 'Tag'))
     possible_filters.append(('difficulty', 'Difficulty'))
+    possible_filters.append(('startswith', 'Starts With'))
+    possible_filters.append(('contains', 'Contains'))
     return possible_filters
 
 
@@ -42,6 +44,10 @@ def get_card_filter_by_name(name):
         return CardFilterByTag
     if name == 'difficulty':
         return CardFilterByDifficulty
+    if name == 'startswith':
+        return CardFilterByStartsWith
+    if name == 'contains':
+        return CardFilterByContains
     raise ValueError('There is no card filter with the name %s' % name)
 
 
@@ -106,6 +112,20 @@ def update_difficulty_filter(request, id, comp, value):
     filter = request.session['filters'][int(id)]
     filter.current_comparator = comp
     filter.current_value = value
+    filter.remake_form()
+    request.session.modified = True
+    filter_form = FilterForm(possible_card_filters())
+    id = 0
+    for filter in request.session.get('filters', []):
+        filter.id = id
+        filter_form.add_filter(filter)
+        id += 1
+    return HttpResponse(filter_form.__unicode__())
+
+
+def update_string_filter(request, id, string):
+    filter = request.session['filters'][int(id)]
+    filter.current_string = string
     filter.remake_form()
     request.session.modified = True
     filter_form = FilterForm(possible_card_filters())
@@ -230,6 +250,70 @@ class DifficultyFilterForm(forms.Form):
                 label='', initial=value)
         self.fields['value'].widget.attrs['onchange'] = \
                 'update_difficulty_filter(%d)' % id
+
+
+class CardFilterByString(object):
+    def __init__(self, id, cardlist):
+        self.id = id
+        self.cardlist = cardlist
+        self.current_string = None
+        self.name = ''
+
+    def apply(self, card_set):
+        if not self.current_string:
+            return card_set
+        return card_set.filter(word__startswith=self.current_string)
+
+    def remake_form(self):
+        self._form = StringFilterForm(self.id, self.current_string,
+                self.cardlist)
+
+    def form(self):
+        # This BoundField business is a bit of a hack to just get the part of
+        # the HTML that I want.  I could build the HTML for it myself, but this
+        # was a little easier.
+        ret_val = '<td>%s:' % self.label
+        string = forms.forms.BoundField(self._form, self._form.fields['string'],
+                'string_filter_%d' % self.id)
+        ret_val += '</td><td>'
+        ret_val += string.as_widget()
+        ret_val += '</td><td class="remove" '
+        ret_val += 'onclick="remove_filter(%d)">X</td>' % self.id
+        return ret_val
+
+
+class CardFilterByStartsWith(CardFilterByString):
+    def __init__(self, id, cardlist):
+        super(CardFilterByStartsWith, self).__init__(id, cardlist)
+        self.label = 'Starts with'
+        self.remake_form()
+
+    def apply(self, card_set):
+        if not self.current_string:
+            return card_set
+        return card_set.filter(word__startswith=self.current_string)
+
+
+class CardFilterByContains(CardFilterByString):
+    def __init__(self, id, cardlist):
+        super(CardFilterByContains, self).__init__(id, cardlist)
+        self.label = 'Contains'
+        self.remake_form()
+
+    def apply(self, card_set):
+        if not self.current_string:
+            return card_set
+        return card_set.filter(word__contains=self.current_string)
+
+
+class StringFilterForm(forms.Form):
+    # This really should be a nested class of TopicFilterByAttribute, but you
+    # can't pickle nested classes...
+    def __init__(self, id, string, cardlist, *args, **kwargs):
+        super(StringFilterForm, self).__init__(*args, **kwargs)
+        self.fields['string'] = forms.CharField(initial=string)
+        self.fields['string'].widget.attrs['onchange'] = \
+                'update_string_filter(%d)' % id
 
 
 # vim: et sw=4 sts=4

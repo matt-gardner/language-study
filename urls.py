@@ -18,6 +18,8 @@ urlpatterns = patterns('',
         'flashcards.filters.update_tag_filter'),
     (r'^update-difficulty-filter/(?P<id>[^/]*)/(?P<comp>[^/]*)/'
         '(?P<value>[^/]*)$', 'flashcards.filters.update_difficulty_filter'),
+    (r'^update-string-filter/(?P<id>[^/]*)/(?P<string>[^/]*)$',
+        'flashcards.filters.update_string_filter'),
 
     # All words urls
     (r'^all-words/$', 'flashcards.all_words.index'),
