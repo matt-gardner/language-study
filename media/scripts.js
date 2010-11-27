@@ -79,6 +79,8 @@ function add_tag() {
 		$(".word_tags").html(data.tags);
 	});
 }
+
+/* Filters */
 function add_new_filter()
 {
 	var link = "/new-filter/" + $("#id_filter").val();
@@ -117,6 +119,18 @@ function update_string_filter(id)
 {
 	var link = "/update-string-filter/" + id + "/";
 	link += $("#id_string_filter_"+id).val();
+	$.get(link, {}, function(filter) {
+		$("#id_filter_form").html(filter);
+		location.reload();
+	});
+}
+function update_date_filter(id)
+{
+	var link = "/update-date-filter/" + id + "/";
+	link += $("#id_date_filter_"+id).val() + "/";
+	link += $("#id_date_filter_"+id+"_year").val() + "/";
+	link += $("#id_date_filter_"+id+"_month").val() + "/";
+	link += $("#id_date_filter_"+id+"_day").val();
 	$.get(link, {}, function(filter) {
 		$("#id_filter_form").html(filter);
 		location.reload();

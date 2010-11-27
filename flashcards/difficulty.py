@@ -10,6 +10,7 @@ from memorizing.flashcards.common import AjaxWord
 from memorizing.flashcards.common import base_review_context
 from memorizing.flashcards.common import review_styles
 from memorizing.flashcards.common import update_card_difficulty_from_session
+from memorizing.flashcards.filters import filter_cards
 from memorizing.flashcards.models import Card
 from memorizing.flashcards.models import Tag
 

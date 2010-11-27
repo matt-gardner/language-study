@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     # Common urls
     (r'^add-tag-to-card/(?P<tag_name>[^/]*)$',
         'flashcards.common.add_tag_to_card'),
+
+    # Filters
     (r'^new-filter/(?P<name>[^/]*)$', 'flashcards.filters.add_filter'),
     (r'^remove-filter/(?P<id>[^/]*)$', 'flashcards.filters.remove_filter'),
     (r'^update-tag-filter/(?P<id>[^/]*)/(?P<tag>[^/]*)$',
@@ -20,6 +22,9 @@ urlpatterns = patterns('',
         '(?P<value>[^/]*)$', 'flashcards.filters.update_difficulty_filter'),
     (r'^update-string-filter/(?P<id>[^/]*)/(?P<string>[^/]*)$',
         'flashcards.filters.update_string_filter'),
+    (r'^update-date-filter/(?P<id>[^/]*)/(?P<comp>[^/]*)/(?P<year>[^/]*)/'
+        '(?P<month>[^/]*)/(?P<day>[^/]*)$',
+        'flashcards.filters.update_date_filter'),
 
     # All words urls
     (r'^all-words/$', 'flashcards.all_words.index'),
