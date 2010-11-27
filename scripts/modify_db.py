@@ -2,7 +2,7 @@
 
 import os, sys
 
-sys.path.append(os.curdir)
+sys.path.append(os.getcwd()+'/..')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'memorizing.settings'
 
 from django.contrib.auth.models import User
