@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+# -*- encoding: utf-8 -*-
 
-from greek_util import add_recessive_accent
+from greek_util import add_recessive_accent, remove_accents
 
 class Conjugation(object):
     def __init__(self):
@@ -35,7 +36,7 @@ class GreekConjugation(Conjugation):
         stem = self.stem_principle_part(principle_part, tense, voice)
         ending_set = self.get_ending_set(tense, mood, voice, principle_part)
         ending = ending_set[person][number]
-        augment = self.get_augment(tense, mood)
+        augment = self.get_augment(tense, mood, principle_part)
         final_form = self.combine_parts(augment, stem, ending)
         return add_recessive_accent(final_form)
 
@@ -54,18 +55,22 @@ class GreekConjugation(Conjugation):
                 kwargs['mood'], kwargs['voice'])
 
     def get_principle_part(self, tense, voice):
+        index = self.get_principle_part_index(tense, voice)
+        return self.principle_parts[self.get_principle_part_index(tense, voice)]
+
+    def get_principle_part_index(self, tense, voice):
         if tense in ['Present', 'Imperfect']:
-            return self.principle_parts[0]
+            return 0
         if tense == 'Future' and voice in ['Active', 'Deponent']:
-            return self.principle_parts[1]
+            return 1
         if tense == 'Aorist' and voice in ['Active', 'Middle', 'Deponent']:
-            return self.principle_parts[2]
+            return 2
         if tense == 'Perfect' and voice == 'Active':
-            return self.principle_parts[3]
+            return 3
         if tense == 'Perfect' and voice in ['Middle', 'Passive', 'Deponent']:
-            return self.principle_parts[4]
+            return 4
         if tense == 'Aorist' and voice == 'Passive':
-            return self.principle_parts[5]
+            return 5
         raise ValueError("Something must have gone wrong, because I don't know "
                 "what principle part to use...")
 
@@ -73,11 +78,22 @@ class GreekConjugation(Conjugation):
         """Note that this should remove accent marks."""
         # This will need to be selectively overridden, but there is enough
         # overlap to justify putting the bulk of the implementation here
-        pass
+        index = self.get_principle_part_index(tense, voice)
+        if index == 0 or index == 1:
+            if voice == 'Active':
+                return remove_accents(principle_part)[:-1]
+            else:
+                return remove_accents(principle_part)[:-4]
+        # TODO: the rest of the principle parts
+
 
     def get_ending_set(self, tense, mood, voice, principle_part):
         """We need the principle part to account for second aorist, root
         aorist, and other such things."""
+        index = self.get_principle_part_index(tense, voice)
+        if index == 0 or index == 1:
+            if voice == 'Active' and mood == 'Indicative':
+                return present_ind_act()
         raise NotImplementedError()
 
     def get_augment(self, tense, mood, principle_part):
@@ -93,7 +109,9 @@ class GreekConjugation(Conjugation):
     def combine_parts(self, augment, stem, ending):
         # I don't think this is different by conjugation; you just have to
         # worry about the augment.  We'll figure out the augment later.
-        pass
+
+        # Really bad right now, but it'll get better
+        return augment + stem + ending
 
 
 class ThematicConjugation(GreekConjugation):
@@ -101,11 +119,30 @@ class ThematicConjugation(GreekConjugation):
         pass
 
 
-def main():
-    pass
+def present_ind_act():
+    endings = {}
+    endings['First Person'] = {}
+    endings['Second Person'] = {}
+    endings['Third Person'] = {}
+    endings['First Person']['Single'] = u'ω'
+    endings['Second Person']['Single'] = u'εις'
+    endings['Third Person']['Single'] = u'ει'
+    endings['First Person']['Plural'] = u'ομεν'
+    endings['Second Person']['Plural'] = u'ετε'
+    endings['Third Person']['Plural'] = u'ουσι'
+    return endings
 
 
 if __name__ == '__main__':
-    main()
+    paideuw = u'παιδεύω, παιδεύσω, ἐπαίδευσα, πεπαίδευκα, πεπαίδευμαι, ' + \
+            u'ἐπαιδεύθην'
+    conj = GreekConjugation(paideuw)
+    args = {}
+    args['tense'] = 'Present'
+    args['mood'] = 'Indicative'
+    args['voice'] = 'Active'
+    args['person'] = 'Second Person'
+    args['number'] = 'Plural'
+    print conj.conjugate(**args)
 
 # vim: et sw=4 sts=4

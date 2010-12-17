@@ -13,11 +13,12 @@ circumflex = u'\u0302'
 # Methods intended to be public
 ###############################
 
-def add_recessive_accent(syllables, long_ending_vowel=False):
+def add_recessive_accent(word, long_ending_vowel=False):
     """long_ending_vowel is for ambigious cases, like α, ι, υ, αι, and οι.
     As we are adding accents here, we assume that there are no diacritics in
     the word already.
     """
+    syllables = split_syllables(word)
     last_vowel = get_vowel(syllables[-1])
     if len(syllables) >= 3:
         if last_vowel in short_vowels and not long_ending_vowel:
@@ -113,8 +114,7 @@ def main():
         print word, remove_accents(word),
         syllables = split_syllables(word)
         print '-'.join(syllables),
-        syllables = split_syllables(remove_accents(word))
-        print add_recessive_accent(syllables)
+        print add_recessive_accent(remove_accents(word))
 
 
 if __name__ == '__main__':
