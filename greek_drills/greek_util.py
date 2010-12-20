@@ -39,9 +39,10 @@ def add_recessive_accent(word, long_ending_vowel=False):
 
 
 def remove_accents(word):
-    # TODO: This should only remove accents, not the diaeresis
+    # This removes accents and breathing marks while leaving the diaeresis and
+    # subscript iota
     normalized = unicodedata.normalize('NFKD', unicode(word))
-    return u''.join([c for c in normalized if not unicodedata.combining(c)])
+    return u''.join([c for c in normalized if not is_accent(c)])
 
 
 # Methods that are intended to be private
@@ -49,6 +50,12 @@ def remove_accents(word):
 # These methods might be useful in other places, so I'm not munging them with
 # a preceding _, but generally they are just helper methods for the public
 # methods above
+
+accents = set([u'\u0301', u'\u0313', u'\u0314', u'\u0342', u'\u0300'])
+def is_accent(character):
+    if character in accents:
+        return True
+    return False
 
 def split_syllables(word):
     """Diacritics cannot have been removed for this method, because they affect
@@ -92,7 +99,7 @@ def past_augment(word):
 def last_non_combining_character(word):
     if not word:
         return u''
-    return remove_accents(word)[-1]
+    return u''.join([c for c in word if not unicodedata.combining(c)])[-1]
 
 
 def get_vowel(syllable):
@@ -109,7 +116,7 @@ def get_vowel(syllable):
 ####################
 
 def main():
-    words = [u'παιδεύω', u'παιδεύομαι', u'βιβλίου', u'δώρου', u'θεός', u'οἰκία']
+    words = [u'παιδεύω', u'παιδεύῃς', u'βιβλίου', u'δώρου', u'θεός', u'οἰκία']
     for word in words:
         print word, remove_accents(word),
         syllables = split_syllables(word)

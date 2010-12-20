@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'memorizing.flashcards',
+    'memorizing.greek_drills',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )

@@ -2,6 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 from greek_util import add_recessive_accent, remove_accents
+from endings import *
 
 class Conjugation(object):
     def __init__(self):
@@ -93,7 +94,11 @@ class GreekConjugation(Conjugation):
         index = self.get_principle_part_index(tense, voice)
         if index == 0 or index == 1:
             if voice == 'Active' and mood == 'Indicative':
-                return present_ind_act()
+                return PresentIndAct()
+            if voice == 'Active' and mood == 'Subjunctive':
+                if index == 1:
+                    raise ValueError("Future subjunctive doesn't exist!")
+                return PresentSubjAct()
         raise NotImplementedError()
 
     def get_augment(self, tense, mood, principle_part):
@@ -119,30 +124,11 @@ class ThematicConjugation(GreekConjugation):
         pass
 
 
-def present_ind_act():
-    endings = {}
-    endings['First Person'] = {}
-    endings['Second Person'] = {}
-    endings['Third Person'] = {}
-    endings['First Person']['Single'] = u'ω'
-    endings['Second Person']['Single'] = u'εις'
-    endings['Third Person']['Single'] = u'ει'
-    endings['First Person']['Plural'] = u'ομεν'
-    endings['Second Person']['Plural'] = u'ετε'
-    endings['Third Person']['Plural'] = u'ουσι'
-    return endings
-
-
 if __name__ == '__main__':
-    paideuw = u'παιδεύω, παιδεύσω, ἐπαίδευσα, πεπαίδευκα, πεπαίδευμαι, ' + \
-            u'ἐπαιδεύθην'
-    conj = GreekConjugation(paideuw)
-    args = {}
-    args['tense'] = 'Present'
-    args['mood'] = 'Indicative'
-    args['voice'] = 'Active'
-    args['person'] = 'Second Person'
-    args['number'] = 'Plural'
-    print conj.conjugate(**args)
+    import unicodedata
+    a = unicodedata.normalize('NFKD', u'ὰ')
+    print [x for x in a]
+    a = unicodedata.normalize('NFKD', u'α')
+    print [x for x in a]
 
 # vim: et sw=4 sts=4
