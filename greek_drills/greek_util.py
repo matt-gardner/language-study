@@ -6,6 +6,7 @@ import unicodedata
 vowels = [u'α', u'ε', u'η', u'ι', u'ο', u'υ', u'ω']
 diphthongs = [u'αι', u'αυ', u'ει', u'ευ', u'ηυ', u'οι', u'ου', u'ωυ']
 short_vowels = [u'α', u'ε', u'ι', u'ο', u'υ', u'αι', u'οι']
+long_optative = [u'οι', u'αι']
 acute_accent = u'\u0301'
 circumflex = u'\u0302'
 
@@ -13,20 +14,24 @@ circumflex = u'\u0302'
 # Methods intended to be public
 ###############################
 
-def add_recessive_accent(word, long_ending_vowel=False):
+def add_recessive_accent(word, optative=False, long_ending_vowel=False):
     """long_ending_vowel is for ambigious cases, like α, ι, υ, αι, and οι.
-    As we are adding accents here, we assume that there are no diacritics in
+    optative is so that the conjugation code doesn't have to check to see if
+    the person and number asked for ends in οι.
+    As we are adding accents here, we assume that there are no accents in
     the word already.
     """
     syllables = split_syllables(word)
     last_vowel = get_vowel(syllables[-1])
     if len(syllables) >= 3:
-        if last_vowel in short_vowels and not long_ending_vowel:
+        if (last_vowel in short_vowels and
+                not should_be_long(last_vowel, optative, long_ending_vowel)):
             syllables[-3] += acute_accent
         else:
             syllables[-2] += acute_accent
     elif len(syllables) == 2:
-        if last_vowel in short_vowels and not long_ending_vowel:
+        if (last_vowel in short_vowels and
+                not should_be_long(last_vowel, optative, long_ending_vowel)):
             syllables[0] += circumflex
         else:
             syllables[0] += acute_accent
@@ -36,6 +41,16 @@ def add_recessive_accent(word, long_ending_vowel=False):
     word = u''.join(syllables)
     word = unicodedata.normalize('NFKD', word)
     return word
+
+
+def should_be_long(vowel, optative, long_ending_vowel):
+    """This assumes that vowel is in short_vowels.  There are only a few simple
+    checks, but it seemed better to separate it into its own method."""
+    if long_ending_vowel:
+        return True
+    if optative and vowel in long_optative:
+        return True
+    return False
 
 
 def remove_accents(word):

@@ -39,7 +39,10 @@ class GreekConjugation(Conjugation):
         ending = ending_set[person][number]
         augment = self.get_augment(tense, mood, principle_part)
         final_form = self.combine_parts(augment, stem, ending)
-        return add_recessive_accent(final_form)
+        if mood == 'Optative':
+            return add_recessive_accent(final_form, optative=True)
+        else:
+            return add_recessive_accent(final_form)
 
     def check_kwargs(self, kwargs):
         if 'tense' not in kwargs:
@@ -87,18 +90,22 @@ class GreekConjugation(Conjugation):
                 return remove_accents(principle_part)[:-4]
         # TODO: the rest of the principle parts
 
-
     def get_ending_set(self, tense, mood, voice, principle_part):
         """We need the principle part to account for second aorist, root
         aorist, and other such things."""
-        index = self.get_principle_part_index(tense, voice)
-        if index == 0 or index == 1:
+        if tense == 'Present' or tense == 'Future':
             if voice == 'Active' and mood == 'Indicative':
                 return PresentIndAct()
             if voice == 'Active' and mood == 'Subjunctive':
-                if index == 1:
+                if tense == 'Future':
                     raise ValueError("Future subjunctive doesn't exist!")
                 return PresentSubjAct()
+            if voice == 'Active' and mood == 'Optative':
+                return PresentOptAct()
+        elif tense == 'Imperfect':
+            if mood != 'Indicative':
+                raise ValueError('Imperfect only has an indicative mood!')
+            return ImperfectIndAct()
         raise NotImplementedError()
 
     def get_augment(self, tense, mood, principle_part):
