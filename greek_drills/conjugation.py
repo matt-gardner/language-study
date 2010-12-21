@@ -84,7 +84,7 @@ class GreekConjugation(Conjugation):
         # overlap to justify putting the bulk of the implementation here
         index = self.get_principle_part_index(tense, voice)
         if index == 0 or index == 1:
-            if voice == 'Active':
+            if principle_part.endswith(u'ω'):
                 return remove_accents(principle_part)[:-1]
             else:
                 return remove_accents(principle_part)[:-4]
@@ -94,14 +94,41 @@ class GreekConjugation(Conjugation):
         """We need the principle part to account for second aorist, root
         aorist, and other such things."""
         if tense == 'Present' or tense == 'Future':
-            if voice == 'Active' and mood == 'Indicative':
-                return PresentIndAct()
-            if voice == 'Active' and mood == 'Subjunctive':
-                if tense == 'Future':
-                    raise ValueError("Future subjunctive doesn't exist!")
-                return PresentSubjAct()
-            if voice == 'Active' and mood == 'Optative':
-                return PresentOptAct()
+            if voice == 'Active':
+                if mood == 'Indicative':
+                    return PresentIndAct()
+                elif mood == 'Subjunctive':
+                    if tense == 'Future':
+                        raise ValueError("Future subjunctive doesn't exist!")
+                    return PresentSubjAct()
+                elif mood == 'Optative':
+                    return PresentOptAct()
+                elif mood == 'Imperative':
+                    return PresentImpAct()
+            elif voice == 'Middle':
+                if mood == 'Indicative':
+                    return PresentIndMP()
+                # NOT DONE PAST HERE
+                elif mood == 'Subjunctive':
+                    if tense == 'Future':
+                        raise ValueError("Future subjunctive doesn't exist!")
+                    return PresentSubjMP()
+                elif mood == 'Optative':
+                    return PresentOptMP()
+                elif mood == 'Imperative':
+                    return PresentImpMP()
+            elif voice == 'Passive':
+                if mood == 'Indicative':
+                    return PresentIndMP()
+                # NOT DONE PAST HERE
+                elif mood == 'Subjunctive':
+                    if tense == 'Future':
+                        raise ValueError("Future subjunctive doesn't exist!")
+                    return PresentSubjMP()
+                elif mood == 'Optative':
+                    return PresentOptMP()
+                elif mood == 'Imperative':
+                    return PresentImpMP()
         elif tense == 'Imperfect':
             if mood != 'Indicative':
                 raise ValueError('Imperfect only has an indicative mood!')

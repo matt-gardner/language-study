@@ -38,28 +38,6 @@ class RegularConjugationTest(TestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
-    def test_imperfect_ind_act(self):
-        """
-        Tests that regular conjugation of imperfect indicative active works
-        """
-        args = {}
-        args['tense'] = 'Imperfect'
-        args['mood'] = 'Indicative'
-        args['voice'] = 'Active'
-        test_dicts = [{'person': 'First Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Second Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'First Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
-        answers = [u'ἐπαίδευον', u'ἐπαίδευες', u'ἐπαίδευε', u'ἐπαιδεύομεν',
-                u'ἐπαιδεύετε', u'ἐπαίδευον']
-        answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(self.paideuw)
-        for case, answer in zip(test_dicts, answers):
-            args.update(case)
-            self.failUnlessEqual(conj.conjugate(**args), answer)
-
     def test_present_subj_act(self):
         """
         Tests that regular conjugation of present subjunctive active works
@@ -102,7 +80,92 @@ class RegularConjugationTest(TestCase):
         conj = GreekConjugation(self.paideuw)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_present_imp_act(self):
+        """
+        Tests that regular conjugation of present imperative active works
+        """
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'παίδευε', u'παιδευέτω', u'παιδεύετε', u'παιδευόντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_present_ind_mid(self):
+        """
+        Tests that regular conjugation of present indicative middle works
+        """
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        test_dicts = [{'person': 'First Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Second Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'First Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'παιδεύομαι', u'παιδεύει', u'παιδεύεται', u'παιδευόμεθα',
+                u'παιδεύεσθε', u'παιδεύονται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
             print conj.conjugate(**args), answer
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_present_ind_pass(self):
+        """
+        Tests that regular conjugation of present indicative middle works
+        """
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Passive'
+        test_dicts = [{'person': 'First Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Second Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'First Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'παιδεύομαι', u'παιδεύει', u'παιδεύεται', u'παιδευόμεθα',
+                u'παιδεύεσθε', u'παιδεύονται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_imperfect_ind_act(self):
+        """
+        Tests that regular conjugation of imperfect indicative active works
+        """
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        test_dicts = [{'person': 'First Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Second Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'First Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'ἐπαίδευον', u'ἐπαίδευες', u'ἐπαίδευε', u'ἐπαιδεύομεν',
+                u'ἐπαιδεύετε', u'ἐπαίδευον']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
     def test_future_ind_act(self):
