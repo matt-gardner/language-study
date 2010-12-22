@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from greek_util import add_recessive_accent, remove_accents
+from collections import defaultdict
 from endings import *
+from greek_util import add_recessive_accent, remove_accents
 
 class Conjugation(object):
     def __init__(self):
@@ -30,13 +31,14 @@ class GreekConjugation(Conjugation):
                 self.principle_parts.append(None)
             else:
                 self.principle_parts.append(part)
+        self.make_ending_set_map()
 
     def conjugate(self, **kwargs):
         person, number, tense, mood, voice = self.check_kwargs(kwargs)
         principle_part = self.get_principle_part(tense, voice)
         stem = self.stem_principle_part(principle_part, tense, voice)
-        ending_set = self.get_ending_set(tense, mood, voice, principle_part)
-        ending = ending_set[person][number]
+        ending = self.get_ending(tense, mood, voice, person, number,
+                principle_part)
         augment = self.get_augment(tense, mood, principle_part)
         final_form = self.combine_parts(augment, stem, ending)
         if mood == 'Optative':
@@ -47,33 +49,39 @@ class GreekConjugation(Conjugation):
     def check_kwargs(self, kwargs):
         if 'tense' not in kwargs:
             raise ValueError('Tense must be specified')
+        tense = kwargs['tense']
         if 'mood' not in kwargs:
             raise ValueError('Mood must be specified')
+        mood = kwargs['mood']
         if 'voice' not in kwargs:
             raise ValueError('Voice must be specified')
+        voice = kwargs['voice']
         if 'person' not in kwargs and kwargs['mood'] != 'Infinitive':
             raise ValueError('Person must be specified')
+        person = kwargs['person'] if 'person' in kwargs else None
         if 'number' not in kwargs and kwargs['mood'] != 'Infinitive':
             raise ValueError('Number must be specified')
-        return (kwargs['person'], kwargs['number'], kwargs['tense'],
-                kwargs['mood'], kwargs['voice'])
+        number = kwargs['number'] if 'number' in kwargs else None
+        return person, number, tense, mood, voice
 
     def get_principle_part(self, tense, voice):
-        index = self.get_principle_part_index(tense, voice)
         return self.principle_parts[self.get_principle_part_index(tense, voice)]
 
     def get_principle_part_index(self, tense, voice):
         if tense in ['Present', 'Imperfect']:
             return 0
-        if tense == 'Future' and voice in ['Active', 'Deponent']:
+        elif tense == 'Future' and voice in ['Active', 'Middle', 'Deponent']:
             return 1
-        if tense == 'Aorist' and voice in ['Active', 'Middle', 'Deponent']:
+        elif tense == 'Aorist' and voice in ['Active', 'Middle', 'Deponent']:
             return 2
-        if tense == 'Perfect' and voice == 'Active':
+        elif tense in ['Perfect', 'Pluperfect'] and voice == 'Active':
             return 3
-        if tense == 'Perfect' and voice in ['Middle', 'Passive', 'Deponent']:
+        elif tense in ['Perfect', 'Pluperfect'] and voice in ['Middle',
+                'Passive', 'Deponent']:
             return 4
-        if tense == 'Aorist' and voice == 'Passive':
+        elif tense == 'Aorist' and voice == 'Passive':
+            return 5
+        elif tense == 'Future' and voice == 'Passive':
             return 5
         raise ValueError("Something must have gone wrong, because I don't know "
                 "what principle part to use...")
@@ -90,50 +98,67 @@ class GreekConjugation(Conjugation):
                 return remove_accents(principle_part)[:-4]
         # TODO: the rest of the principle parts
 
-    def get_ending_set(self, tense, mood, voice, principle_part):
+    def make_ending_set_map(self):
+        self.endings = defaultdict(dict)
+        for tense in ['Present', 'Imperfect', 'Future', 'Aorist', 'Perfect',
+                'Pluperfect']:
+            self.endings[tense]['Active'] = dict()
+            self.endings[tense]['Middle'] = dict()
+            self.endings[tense]['Passive'] = dict()
+
+        # Present Tense
+        self.endings['Present']['Active']['Indicative'] = PresentIndAct()
+        self.endings['Present']['Middle']['Indicative'] = PresentIndMP()
+        self.endings['Present']['Passive']['Indicative'] = PresentIndMP()
+        self.endings['Present']['Active']['Subjunctive'] = PresentSubjAct()
+        self.endings['Present']['Middle']['Subjunctive'] = PresentSubjMP()
+        self.endings['Present']['Passive']['Subjunctive'] = PresentSubjMP()
+        self.endings['Present']['Active']['Optative'] = PresentOptAct()
+        self.endings['Present']['Middle']['Optative'] = PresentOptMP()
+        self.endings['Present']['Passive']['Optative'] = PresentOptMP()
+        self.endings['Present']['Active']['Imperative'] = PresentImpAct()
+        self.endings['Present']['Middle']['Imperative'] = PresentImpMP()
+        self.endings['Present']['Passive']['Imperative'] = PresentImpMP()
+        self.endings['Present']['Active']['Infinitive'] = PresentInfAct()
+        self.endings['Present']['Middle']['Infinitive'] = PresentInfMP()
+        self.endings['Present']['Passive']['Infinitive'] = PresentInfMP()
+
+        # Imperfect Tense
+        self.endings['Imperfect']['Active']['Indicative'] = ImperfectIndAct()
+        self.endings['Imperfect']['Middle']['Indicative'] = ImperfectIndMP()
+        self.endings['Imperfect']['Passive']['Indicative'] = ImperfectIndMP()
+
+        # Future Tense
+        self.endings['Future']['Active']['Indicative'] = PresentIndAct()
+        self.endings['Future']['Middle']['Indicative'] = PresentIndMP()
+        self.endings['Future']['Passive']['Indicative'] = PresentIndMP()
+        self.endings['Future']['Active']['Optative'] = PresentOptAct()
+        self.endings['Future']['Middle']['Optative'] = PresentOptMP()
+        self.endings['Future']['Passive']['Optative'] = PresentOptMP()
+        self.endings['Future']['Active']['Infinitive'] = PresentInfAct()
+        self.endings['Future']['Middle']['Infinitive'] = PresentInfMP()
+        self.endings['Future']['Passive']['Infinitive'] = PresentInfMP()
+
+        # Aorist Tense
+        # Perfect Tense
+        # Pluperfect Tense
+
+    def get_ending(self, tense, mood, voice, person, number, principle_part):
         """We need the principle part to account for second aorist, root
         aorist, and other such things."""
-        if tense == 'Present' or tense == 'Future':
-            if voice == 'Active':
-                if mood == 'Indicative':
-                    return PresentIndAct()
-                elif mood == 'Subjunctive':
-                    if tense == 'Future':
-                        raise ValueError("Future subjunctive doesn't exist!")
-                    return PresentSubjAct()
-                elif mood == 'Optative':
-                    return PresentOptAct()
-                elif mood == 'Imperative':
-                    return PresentImpAct()
-            elif voice == 'Middle':
-                if mood == 'Indicative':
-                    return PresentIndMP()
-                # NOT DONE PAST HERE
-                elif mood == 'Subjunctive':
-                    if tense == 'Future':
-                        raise ValueError("Future subjunctive doesn't exist!")
-                    return PresentSubjMP()
-                elif mood == 'Optative':
-                    return PresentOptMP()
-                elif mood == 'Imperative':
-                    return PresentImpMP()
-            elif voice == 'Passive':
-                if mood == 'Indicative':
-                    return PresentIndMP()
-                # NOT DONE PAST HERE
-                elif mood == 'Subjunctive':
-                    if tense == 'Future':
-                        raise ValueError("Future subjunctive doesn't exist!")
-                    return PresentSubjMP()
-                elif mood == 'Optative':
-                    return PresentOptMP()
-                elif mood == 'Imperative':
-                    return PresentImpMP()
-        elif tense == 'Imperfect':
-            if mood != 'Indicative':
-                raise ValueError('Imperfect only has an indicative mood!')
-            return ImperfectIndAct()
-        raise NotImplementedError()
+        try:
+            # TODO: add special cases here to check for second aorist and so on
+            ending_set = self.endings[tense][voice][mood]
+        except KeyError:
+            raise ValueError('The specified combination of tense, mood and '
+                    'voice (%s %s %s) either is not implemented yet or does '
+                    'not exist' % (tense, mood, voice))
+        try:
+            return ending_set[person][number]
+        except KeyError:
+            raise ValueError('The specified person and number (%s %s) does not'
+                    ' exist for the given tense, mood and voice (%s %s %s)' %
+                    (person, number, tense, mood, voice))
 
     def get_augment(self, tense, mood, principle_part):
         if tense not in ['Imperfect', 'Aorist']:
