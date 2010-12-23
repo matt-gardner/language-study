@@ -3,7 +3,10 @@
 
 from collections import defaultdict
 from endings import *
-from greek_util import add_recessive_accent, remove_accents, split_syllables
+from greek_util import add_recessive_accent
+from greek_util import remove_accents
+from greek_util import split_syllables
+from greek_util import add_penult_accent
 
 class Conjugation(object):
     def __init__(self):
@@ -41,10 +44,8 @@ class GreekConjugation(Conjugation):
                 principle_part)
         augment = self.get_augment(tense, mood, principle_part)
         final_form = self.combine_parts(augment, stem, ending)
-        if mood == 'Optative':
-            return add_recessive_accent(final_form, optative=True)
-        else:
-            return add_recessive_accent(final_form)
+        accented = self.add_accent(final_form, mood, tense, voice)
+        return accented
 
     def check_kwargs(self, kwargs):
         if 'tense' not in kwargs:
@@ -149,19 +150,19 @@ class GreekConjugation(Conjugation):
 
         # Aorist Tense
         self.endings['Aorist']['Active']['Indicative'] = AoristIndAct()
-        #self.endings['Aorist']['Middle']['Indicative'] = AoristIndMP()
+        self.endings['Aorist']['Middle']['Indicative'] = AoristIndMid()
         #self.endings['Aorist']['Passive']['Indicative'] = AoristIndMP()
         self.endings['Aorist']['Active']['Subjunctive'] = PresentSubjAct()
-        #self.endings['Aorist']['Middle']['Subjunctive'] = AoristSubjMP()
+        self.endings['Aorist']['Middle']['Subjunctive'] = PresentSubjMP()
         #self.endings['Aorist']['Passive']['Subjunctive'] = AoristSubjMP()
         self.endings['Aorist']['Active']['Optative'] = AoristOptAct()
-        #self.endings['Aorist']['Middle']['Optative'] = AoristOptMP()
+        self.endings['Aorist']['Middle']['Optative'] = AoristOptMid()
         #self.endings['Aorist']['Passive']['Optative'] = AoristOptMP()
         self.endings['Aorist']['Active']['Imperative'] = AoristImpAct()
-        #self.endings['Aorist']['Middle']['Imperative'] = AoristImpMP()
+        self.endings['Aorist']['Middle']['Imperative'] = AoristImpMid()
         #self.endings['Aorist']['Passive']['Imperative'] = AoristImpMP()
-        #self.endings['Aorist']['Active']['Infinitive'] = AoristInfAct()
-        #self.endings['Aorist']['Middle']['Infinitive'] = AoristInfMP()
+        self.endings['Aorist']['Active']['Infinitive'] = AoristInfAct()
+        self.endings['Aorist']['Middle']['Infinitive'] = AoristInfMid()
         #self.endings['Aorist']['Passive']['Infinitive'] = AoristInfMP()
 
         # Perfect Tense
@@ -200,6 +201,14 @@ class GreekConjugation(Conjugation):
 
         # Really bad right now, but it'll get better
         return augment + stem + ending
+
+    def add_accent(self, verb, mood, tense, voice):
+        if mood == 'Optative':
+            return add_recessive_accent(verb, optative=True)
+        elif mood == 'Infinitive':
+            if tense == 'Aorist' and voice == 'Active':
+                return add_penult_accent(verb)
+        return add_recessive_accent(verb)
 
 
 class ThematicConjugation(GreekConjugation):

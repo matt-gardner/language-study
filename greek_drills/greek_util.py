@@ -6,9 +6,10 @@ import unicodedata
 vowels = [u'α', u'ε', u'η', u'ι', u'ο', u'υ', u'ω']
 diphthongs = [u'αι', u'αυ', u'ει', u'ευ', u'ηυ', u'οι', u'ου', u'ωυ']
 short_vowels = [u'α', u'ε', u'ι', u'ο', u'υ', u'αι', u'οι']
+ambiguous = [u'α', u'ι', u'υ']
 long_optative = [u'οι', u'αι']
 acute_accent = u'\u0301'
-circumflex = u'\u0302'
+circumflex = u'\u0342'
 
 
 # Methods intended to be public
@@ -43,9 +44,28 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
     return word
 
 
+def add_persistent_accent(original, inflected):
+    raise NotImplementedError()
+
+
+def add_penult_accent(word, long_ending_vowel=False, long_penult=False):
+    syllables = split_syllables(word)
+    last_vowel = get_vowel(syllables[-1])
+    penult_vowel = get_vowel(syllables[-2])
+    if last_vowel in short_vowels and penult_vowel not in short_vowels:
+        # This check is inadequate, though how to fix it is tricky, unless I
+        # require macrons to be on long vowels, and I don't really want to do
+        # that...
+        syllables[-2] += circumflex
+    else:
+        syllables[-2] += acute_accent
+    return unicodedata.normalize('NFKD', u''.join(syllables))
+
+
 def should_be_long(vowel, optative, long_ending_vowel):
-    """This assumes that vowel is in short_vowels.  There are only a few simple
-    checks, but it seemed better to separate it into its own method."""
+    """This assumes that vowel is in short_vowels, and that it is the last
+    vowel in a word.  There are only a few simple checks, but it seemed better
+    to separate it into its own method."""
     if long_ending_vowel:
         return True
     if optative and vowel in long_optative:

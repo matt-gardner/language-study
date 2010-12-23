@@ -161,7 +161,7 @@ class AoristIndAct(EndingSet):
         self['Third Person']['Plural'] = u'αν'
 
 
-# Aorist Subjunctive uses present endings
+# Aorist Subjunctive Active uses present endings
 
 class AoristOptAct(EndingSet):
     def __init__(self):
@@ -182,6 +182,52 @@ class AoristImpAct(EndingSet):
         self['Third Person']['Singular'] = u'ατω'
         self['Second Person']['Plural'] = u'ατε'
         self['Third Person']['Plural'] = u'αντων'
+
+
+class AoristInfAct(InfEndingSet):
+    def __init__(self):
+        super(AoristInfAct, self).__init__()
+        self[None][None] = u'αι'
+
+
+class AoristIndMid(EndingSet):
+    def __init__(self):
+        super(AoristIndMid, self).__init__()
+        self['First Person']['Singular'] = u'αμην'
+        self['Second Person']['Singular'] = u'ω'
+        self['Third Person']['Singular'] = u'ατο'
+        self['First Person']['Plural'] = u'αμεθα'
+        self['Second Person']['Plural'] = u'ασθε'
+        self['Third Person']['Plural'] = u'αντο'
+
+
+# Aorist Subjunctive Middle uses present endings
+
+class AoristOptMid(EndingSet):
+    def __init__(self):
+        super(AoristOptMid, self).__init__()
+        self['First Person']['Singular'] = u'αιμην'
+        self['Second Person']['Singular'] = u'αιο'
+        self['Third Person']['Singular'] = u'αιτο'
+        self['First Person']['Plural'] = u'αιμεθα'
+        self['Second Person']['Plural'] = u'αισθε'
+        self['Third Person']['Plural'] = u'αιντο'
+
+
+class AoristImpMid(EndingSet):
+    def __init__(self):
+        super(AoristImpMid, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'αι'
+        self['Third Person']['Singular'] = u'ασθω'
+        self['Second Person']['Plural'] = u'ασθε'
+        self['Third Person']['Plural'] = u'ασθων'
+
+
+class AoristInfMid(InfEndingSet):
+    def __init__(self):
+        super(AoristInfMid, self).__init__()
+        self[None][None] = u'ασθαι'
 
 
 # Perfect Tense
