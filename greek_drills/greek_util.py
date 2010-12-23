@@ -80,6 +80,13 @@ def remove_accents(word):
     return u''.join([c for c in normalized if not is_accent(c)])
 
 
+def remove_augment(word):
+    if split_syllables(word)[0] == u'ε':
+        return word[1:]
+    #TODO: figure out how to handle cases with a tricky augment
+    raise NotImplementedError()
+
+
 # Methods that are intended to be private
 #########################################
 # These methods might be useful in other places, so I'm not munging them with

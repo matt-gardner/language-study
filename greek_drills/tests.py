@@ -14,7 +14,7 @@ import unicodedata
 class RegularConjugationTest(TestCase):
     def setUp(self):
         self.paideuw = u'παιδεύω, παιδεύσω, ἐπαίδευσα, πεπαίδευκα, πεπαίδευμαι,'
-        self.paideuw += u'ἐπαιδεύθην'
+        self.paideuw += u' ἐπαιδεύθην'
         self.cases = [{'person': 'First Person', 'number': 'Singular'}]
         self.cases.append({'person': 'Second Person', 'number': 'Singular'})
         self.cases.append({'person': 'Third Person', 'number': 'Singular'})
@@ -341,6 +341,44 @@ class RegularConjugationTest(TestCase):
         conj = GreekConjugation(self.paideuw)
         self.failUnlessEqual(conj.conjugate(**args), answer)
 
+    def test_future_ind_pass(self):
+        args = {}
+        args['tense'] = 'Future'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Passive'
+        answers = [u'παιδευθήσομαι', u'παιδευθήσει', u'παιδευθήσεται',
+                u'παιδευθησόμεθα', u'παιδευθήσεσθε', u'παιδευθήσονται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_future_opt_pass(self):
+        args = {}
+        args['tense'] = 'Future'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Passive'
+        answers = [u'παιδευθησοίμην', u'παιδευθήσοιο', u'παιδευθήσοιτο',
+                u'παιδευθησοίμεθα', u'παιδευθήσοισθε', u'παιδευθήσοιντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_future_inf_pass(self):
+        args = {}
+        args['tense'] = 'Future'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Passive'
+        args['person'] = None
+        args['number'] = None
+        answer = u'παιδευθήσεσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.paideuw)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
     # AORIST TENSE TESTS
     def test_aorist_ind_act(self):
         args = {}
@@ -473,6 +511,74 @@ class RegularConjugationTest(TestCase):
         args['person'] = None
         args['number'] = None
         answer = u'παιδεύσασθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.paideuw)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_ind_pass(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Passive'
+        answers = [u'ἐπαιδεύθην', u'ἐπαιδεύθης', u'ἐπαιδεύθη',
+                u'ἐπαιδεύθημεν', u'ἐπαιδεύθητε', u'ἐπαιδεύθησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_subj_pass(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Passive'
+        answers = [u'παιδευθῶ', u'παιδευθῇς', u'παιδευθῇ', u'παιδευθῶμεν',
+                u'παιδευθῆτε', u'παιδευθῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_opt_pass(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Passive'
+        answers = [u'παιδευθείην', u'παιδευθείης', u'παιδευθείη',
+                u'παιδευθείημεν', u'παιδευθείητε', u'παιδευθείησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_imp_pass(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Passive'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'παιδεύθητι', u'παιδευθήτω', u'παιδεύθητε',
+                u'παιδευθέντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_inf_pass(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Passive'
+        args['person'] = None
+        args['number'] = None
+        answer = u'παιδευθῆναι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
         self.failUnlessEqual(conj.conjugate(**args), answer)

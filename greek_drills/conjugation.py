@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+import unicodedata
+
 from collections import defaultdict
 from endings import *
 from greek_util import add_recessive_accent
 from greek_util import remove_accents
+from greek_util import remove_augment
 from greek_util import split_syllables
 from greek_util import add_penult_accent
 
@@ -97,14 +100,22 @@ class GreekConjugation(Conjugation):
                 return remove_accents(principle_part)[:-1]
             else:
                 return remove_accents(principle_part)[:-4]
-        if index == 2:
+        elif index == 2:
             if principle_part.endswith(u'α'):
                 with_augment = remove_accents(principle_part)[:-1]
             #TODO: handle second aorist, root aorist, deponent forms
-            if split_syllables(with_augment)[0] == u'ε':
-                return with_augment[1:]
-            #TODO: figure out how to handle cases with a tricky augment
-        # TODO: the rest of the principle parts
+            return remove_augment(with_augment)
+        elif index == 3:
+            pass
+        elif index == 4:
+            pass
+        elif index == 5:
+            with_augment = remove_accents(principle_part)[:-2]
+            no_augment = remove_augment(with_augment)
+            if tense == 'Future':
+                return no_augment + u'ησ'
+            else:
+                return no_augment
         raise NotImplementedError()
 
     def make_ending_set_map(self):
@@ -140,30 +151,30 @@ class GreekConjugation(Conjugation):
         # Future Tense
         self.endings['Future']['Active']['Indicative'] = PresentIndAct()
         self.endings['Future']['Middle']['Indicative'] = PresentIndMP()
-        #self.endings['Future']['Passive']['Indicative'] = PresentIndMP()
+        self.endings['Future']['Passive']['Indicative'] = PresentIndMP()
         self.endings['Future']['Active']['Optative'] = PresentOptAct()
         self.endings['Future']['Middle']['Optative'] = PresentOptMP()
-        #self.endings['Future']['Passive']['Optative'] = PresentOptMP()
+        self.endings['Future']['Passive']['Optative'] = PresentOptMP()
         self.endings['Future']['Active']['Infinitive'] = PresentInfAct()
         self.endings['Future']['Middle']['Infinitive'] = PresentInfMP()
-        #self.endings['Future']['Passive']['Infinitive'] = PresentInfMP()
+        self.endings['Future']['Passive']['Infinitive'] = PresentInfMP()
 
         # Aorist Tense
         self.endings['Aorist']['Active']['Indicative'] = AoristIndAct()
         self.endings['Aorist']['Middle']['Indicative'] = AoristIndMid()
-        #self.endings['Aorist']['Passive']['Indicative'] = AoristIndMP()
+        self.endings['Aorist']['Passive']['Indicative'] = AoristIndPass()
         self.endings['Aorist']['Active']['Subjunctive'] = PresentSubjAct()
         self.endings['Aorist']['Middle']['Subjunctive'] = PresentSubjMP()
-        #self.endings['Aorist']['Passive']['Subjunctive'] = AoristSubjMP()
+        self.endings['Aorist']['Passive']['Subjunctive'] = AoristSubjPass()
         self.endings['Aorist']['Active']['Optative'] = AoristOptAct()
         self.endings['Aorist']['Middle']['Optative'] = AoristOptMid()
-        #self.endings['Aorist']['Passive']['Optative'] = AoristOptMP()
+        self.endings['Aorist']['Passive']['Optative'] = AoristOptPass()
         self.endings['Aorist']['Active']['Imperative'] = AoristImpAct()
         self.endings['Aorist']['Middle']['Imperative'] = AoristImpMid()
-        #self.endings['Aorist']['Passive']['Imperative'] = AoristImpMP()
+        self.endings['Aorist']['Passive']['Imperative'] = AoristImpPass()
         self.endings['Aorist']['Active']['Infinitive'] = AoristInfAct()
         self.endings['Aorist']['Middle']['Infinitive'] = AoristInfMid()
-        #self.endings['Aorist']['Passive']['Infinitive'] = AoristInfMP()
+        self.endings['Aorist']['Passive']['Infinitive'] = AoristInfPass()
 
         # Perfect Tense
         # Pluperfect Tense
@@ -206,8 +217,12 @@ class GreekConjugation(Conjugation):
         if mood == 'Optative':
             return add_recessive_accent(verb, optative=True)
         elif mood == 'Infinitive':
-            if tense == 'Aorist' and voice == 'Active':
+            if tense == 'Aorist' and voice in ['Active', 'Passive']:
                 return add_penult_accent(verb)
+        elif tense == 'Aorist' and mood == 'Subjunctive' and voice == 'Passive':
+            # Silly special case, but it was the easiest way to do this; the
+            # endings already include the accent
+            return unicodedata.normalize('NFKD', verb)
         return add_recessive_accent(verb)
 
 

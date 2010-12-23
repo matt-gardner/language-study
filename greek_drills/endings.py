@@ -230,6 +230,56 @@ class AoristInfMid(InfEndingSet):
         self[None][None] = u'ασθαι'
 
 
+class AoristIndPass(EndingSet):
+    def __init__(self):
+        super(AoristIndPass, self).__init__()
+        self['First Person']['Singular'] = u'ην'
+        self['Second Person']['Singular'] = u'ης'
+        self['Third Person']['Singular'] = u'η'
+        self['First Person']['Plural'] = u'ημεν'
+        self['Second Person']['Plural'] = u'ητε'
+        self['Third Person']['Plural'] = u'ησαν'
+
+
+class AoristSubjPass(EndingSet):
+    def __init__(self):
+        super(AoristSubjPass, self).__init__()
+        self['First Person']['Singular'] = u'ῶ'
+        self['Second Person']['Singular'] = u'ῇς'
+        self['Third Person']['Singular'] = u'ῇ'
+        self['First Person']['Plural'] = u'ῶμεν'
+        self['Second Person']['Plural'] = u'ῆτε'
+        self['Third Person']['Plural'] = u'ῶσι'
+
+
+class AoristOptPass(EndingSet):
+    def __init__(self):
+        super(AoristOptPass, self).__init__()
+        self['First Person']['Singular'] = u'ειην'
+        self['Second Person']['Singular'] = u'ειης'
+        self['Third Person']['Singular'] = u'ειη'
+        self['First Person']['Plural'] = u'ειημεν'
+        self['Second Person']['Plural'] = u'ειητε'
+        self['Third Person']['Plural'] = u'ειησαν'
+
+
+class AoristImpPass(EndingSet):
+    def __init__(self):
+        super(AoristImpPass, self).__init__()
+        del self['First Person']
+        #TODO: the form ηθι needs to be worried about...
+        self['Second Person']['Singular'] = u'ητι'
+        self['Third Person']['Singular'] = u'ητω'
+        self['Second Person']['Plural'] = u'ητε'
+        self['Third Person']['Plural'] = u'εντων'
+
+
+class AoristInfPass(InfEndingSet):
+    def __init__(self):
+        super(AoristInfPass, self).__init__()
+        self[None][None] = u'ηναι'
+
+
 # Perfect Tense
 ###############
 
