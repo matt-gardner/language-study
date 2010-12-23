@@ -161,9 +161,35 @@ class AoristIndAct(EndingSet):
         self['Third Person']['Plural'] = u'αν'
 
 
+# Aorist Subjunctive uses present endings
+
+class AoristOptAct(EndingSet):
+    def __init__(self):
+        super(AoristOptAct, self).__init__()
+        self['First Person']['Singular'] = u'αιμι'
+        self['Second Person']['Singular'] = u'αις'
+        self['Third Person']['Singular'] = u'αι'
+        self['First Person']['Plural'] = u'αιμεν'
+        self['Second Person']['Plural'] = u'αιτε'
+        self['Third Person']['Plural'] = u'αιεν'
+
+
+class AoristImpAct(EndingSet):
+    def __init__(self):
+        super(AoristImpAct, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'ον'
+        self['Third Person']['Singular'] = u'ατω'
+        self['Second Person']['Plural'] = u'ατε'
+        self['Third Person']['Plural'] = u'αντων'
+
+
 # Perfect Tense
 ###############
 
+
+class PerfectIndAct(EndingSet):
+    pass
 
 # Pluperfect Tense
 ##################

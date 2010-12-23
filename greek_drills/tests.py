@@ -353,6 +353,48 @@ class RegularConjugationTest(TestCase):
         conj = GreekConjugation(self.paideuw)
         for case, answer in zip(self.cases, answers):
             args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_subj_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'παιδεύσω', u'παιδεύσῃς', u'παιδεύσῃ', u'παιδεύσωμεν',
+                u'παιδεύσητε', u'παιδεύσωσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aorist_opt_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'παιδεύσαιμι', u'παιδεύσαις', u'παιδεύσαι', u'παιδεύσαιμεν',
+                u'παιδεύσαιτε', u'παιδεύσαιεν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_present_imp_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'παίδευσον', u'παιδευσάτω', u'παιδεύσατε', u'παιδευσάντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
             print conj.conjugate(**args), answer
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
