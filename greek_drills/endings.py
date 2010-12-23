@@ -150,6 +150,16 @@ class ImperfectIndMP(EndingSet):
 # Aorist Tense
 ##############
 
+class AoristIndAct(EndingSet):
+    def __init__(self):
+        super(AoristIndAct, self).__init__()
+        self['First Person']['Singular'] = u'α'
+        self['Second Person']['Singular'] = u'ας'
+        self['Third Person']['Singular'] = u'ε'
+        self['First Person']['Plural'] = u'αμεν'
+        self['Second Person']['Plural'] = u'ατε'
+        self['Third Person']['Plural'] = u'αν'
+
 
 # Perfect Tense
 ###############

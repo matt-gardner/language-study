@@ -342,6 +342,20 @@ class RegularConjugationTest(TestCase):
         self.failUnlessEqual(conj.conjugate(**args), answer)
 
     # AORIST TENSE TESTS
+    def test_aorist_ind_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἐπαίδευσα', u'ἐπαίδευσας', u'ἐπαίδευσε', u'ἐπαιδεύσαμεν',
+                u'ἐπαιδεύσατε', u'ἐπαίδευσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            print conj.conjugate(**args), answer
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
     # PERFECT TENSE TESTS
     # PLUPERFECT TENSE TESTS
 

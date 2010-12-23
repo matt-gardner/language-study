@@ -3,7 +3,7 @@
 
 from collections import defaultdict
 from endings import *
-from greek_util import add_recessive_accent, remove_accents
+from greek_util import add_recessive_accent, remove_accents, split_syllables
 
 class Conjugation(object):
     def __init__(self):
@@ -96,7 +96,15 @@ class GreekConjugation(Conjugation):
                 return remove_accents(principle_part)[:-1]
             else:
                 return remove_accents(principle_part)[:-4]
+        if index == 2:
+            if principle_part.endswith(u'α'):
+                with_augment = remove_accents(principle_part)[:-1]
+            #TODO: handle second aorist, root aorist, deponent forms
+            if split_syllables(with_augment)[0] == u'ε':
+                return with_augment[1:]
+            #TODO: figure out how to handle cases with a tricky augment
         # TODO: the rest of the principle parts
+        raise NotImplementedError()
 
     def make_ending_set_map(self):
         self.endings = defaultdict(dict)
@@ -140,6 +148,22 @@ class GreekConjugation(Conjugation):
         self.endings['Future']['Passive']['Infinitive'] = PresentInfMP()
 
         # Aorist Tense
+        self.endings['Aorist']['Active']['Indicative'] = AoristIndAct()
+        #self.endings['Aorist']['Middle']['Indicative'] = AoristIndMP()
+        #self.endings['Aorist']['Passive']['Indicative'] = AoristIndMP()
+        #self.endings['Aorist']['Active']['Subjunctive'] = AoristSubjAct()
+        #self.endings['Aorist']['Middle']['Subjunctive'] = AoristSubjMP()
+        #self.endings['Aorist']['Passive']['Subjunctive'] = AoristSubjMP()
+        #self.endings['Aorist']['Active']['Optative'] = AoristOptAct()
+        #self.endings['Aorist']['Middle']['Optative'] = AoristOptMP()
+        #self.endings['Aorist']['Passive']['Optative'] = AoristOptMP()
+        #self.endings['Aorist']['Active']['Imperative'] = AoristImpAct()
+        #self.endings['Aorist']['Middle']['Imperative'] = AoristImpMP()
+        #self.endings['Aorist']['Passive']['Imperative'] = AoristImpMP()
+        #self.endings['Aorist']['Active']['Infinitive'] = AoristInfAct()
+        #self.endings['Aorist']['Middle']['Infinitive'] = AoristInfMP()
+        #self.endings['Aorist']['Passive']['Infinitive'] = AoristInfMP()
+
         # Perfect Tense
         # Pluperfect Tense
 
