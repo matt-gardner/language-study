@@ -83,8 +83,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεύειν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -150,8 +148,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεύεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -217,8 +213,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεύεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -296,8 +290,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Future'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεύσειν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -334,8 +326,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Future'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεύσεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -372,8 +362,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Future'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδευθήσεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -440,8 +428,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεῦσαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -508,8 +494,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδεύσασθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -576,8 +560,6 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
-        args['person'] = None
-        args['number'] = None
         answer = u'παιδευθῆναι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuw)
@@ -597,7 +579,102 @@ class RegularConjugationTest(TestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
+    def test_perfect_inf_act(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        answer = u'πεπαιδευκέναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.paideuw)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_perfect_ind_mid(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'πεπαίδευμαι', u'πεπαίδευσαι', u'πεπαίδευται',
+                u'πεπαιδεύμεθα', u'πεπαίδευσθε', u'πεπαίδευνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_perfect_inf_mid(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        answer = u'πεπαιδεῦσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.paideuw)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_perfect_ind_pass(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Passive'
+        answers = [u'πεπαίδευμαι', u'πεπαίδευσαι', u'πεπαίδευται',
+                u'πεπαιδεύμεθα', u'πεπαίδευσθε', u'πεπαίδευνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_perfect_inf_pass(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Passive'
+        answer = u'πεπαιδεῦσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.paideuw)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
     # PLUPERFECT TENSE TESTS
+    def test_pluperfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἐπεπαιδεύκη', u'ἐπεπαιδεύκης', u'ἐπεπαιδεύκει',
+                u'ἐπεπαιδεύκεμεν', u'ἐπεπαιδεύκετε', u'ἐπεπαιδεύκεσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_pluperfect_ind_mid(self):
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἐπεπαιδεύμην', u'ἐπεπαίδευσο', u'ἐπεπαίδευτο',
+                u'ἐπεπαιδεύμεθα', u'ἐπεπαίδευσθε', u'ἐπεπαίδευντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_pluperfect_ind_pass(self):
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Passive'
+        answers = [u'ἐπεπαιδεύμην', u'ἐπεπαίδευσο', u'ἐπεπαίδευτο',
+                u'ἐπεπαιδεύμεθα', u'ἐπεπαίδευσθε', u'ἐπεπαίδευντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
 
 __test__ = {"doctest": """
 Another way to test that 1 + 1 is equal to 2.

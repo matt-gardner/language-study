@@ -293,10 +293,55 @@ class PerfectIndAct(EndingSet):
         self['Second Person']['Plural'] = u'ατε'
         self['Third Person']['Plural'] = u'ασι'
 
+# No subjunctive, optative and imperative yet, because they are uncommon and
+# tricky
+
+class PerfectInfAct(InfEndingSet):
+    def __init__(self):
+        super(PerfectInfAct, self).__init__()
+        self[None][None] = u'εναι'
+
+
+class PerfectIndMP(EndingSet):
+    def __init__(self):
+        super(PerfectIndMP, self).__init__()
+        self['First Person']['Singular'] = u'μαι'
+        self['Second Person']['Singular'] = u'σαι'
+        self['Third Person']['Singular'] = u'ται'
+        self['First Person']['Plural'] = u'μεθα'
+        self['Second Person']['Plural'] = u'σθε'
+        self['Third Person']['Plural'] = u'νται'
+
+
+class PerfectInfMP(InfEndingSet):
+    def __init__(self):
+        super(PerfectInfMP, self).__init__()
+        self[None][None] = u'σθαι'
+
 
 # Pluperfect Tense
 ##################
 
+class PluperfectIndAct(EndingSet):
+    def __init__(self):
+        super(PluperfectIndAct, self).__init__()
+        self['First Person']['Singular'] = u'η'
+        self['Second Person']['Singular'] = u'ης'
+        self['Third Person']['Singular'] = u'ει'
+        self['First Person']['Plural'] = u'εμεν'
+        self['Second Person']['Plural'] = u'ετε'
+        self['Third Person']['Plural'] = u'εσαν'
+
+
+class PluperfectIndMP(EndingSet):
+    def __init__(self):
+        super(PluperfectIndMP, self).__init__()
+        self['First Person']['Singular'] = u'μην'
+        self['Second Person']['Singular'] = u'σο'
+        self['Third Person']['Singular'] = u'το'
+        self['First Person']['Plural'] = u'μεθα'
+        self['Second Person']['Plural'] = u'σθε'
+        self['Third Person']['Plural'] = u'ντο'
 
 
 # vim: et sw=4 sts=4

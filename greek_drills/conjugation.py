@@ -23,13 +23,21 @@ class Conjugation(object):
 
 
 class GreekConjugation(Conjugation):
+    """Conjugates regular Greek verbs like παιδεύω into all possible forms
+
+    Most of the alternate and irregular forms are still based off of the
+    regular conjugation, so things like Athematic and Deponent conjugations are
+    best implemented as subclasses of this.  This class provides the basic
+    structure of how to conjugate a Greek verb, so only parts will need to be
+    overridden.
+    """
     def __init__(self, principle_parts):
         principle_parts = principle_parts.split(', ')
         if len(principle_parts) == 1:
             # We don't have the principle parts for the verb...  What do we do?
             pass
         if principle_parts[2] == 'etc.':
-            # Take the second principle part and go from there
+            # TODO: Take the second principle part and go from there
             pass
         self.principle_parts = []
         for part in principle_parts:
@@ -46,6 +54,7 @@ class GreekConjugation(Conjugation):
         ending = self.get_ending(tense, mood, voice, person, number,
                 principle_part)
         augment = self.get_augment(tense, mood, principle_part)
+        # TODO: add prefixes here
         final_form = self.combine_parts(augment, stem, ending)
         accented = self.add_accent(final_form, mood, tense, voice)
         return accented
@@ -72,6 +81,7 @@ class GreekConjugation(Conjugation):
         return self.principle_parts[self.get_principle_part_index(tense, voice)]
 
     def get_principle_part_index(self, tense, voice):
+        # TODO: passive deponents are really handled correctly
         if tense in ['Present', 'Imperfect']:
             return 0
         elif tense == 'Future' and voice in ['Active', 'Middle', 'Deponent']:
@@ -80,8 +90,7 @@ class GreekConjugation(Conjugation):
             return 2
         elif tense in ['Perfect', 'Pluperfect'] and voice == 'Active':
             return 3
-        elif tense in ['Perfect', 'Pluperfect'] and voice in ['Middle',
-                'Passive', 'Deponent']:
+        elif tense in ['Perfect', 'Pluperfect']:
             return 4
         elif tense == 'Aorist' and voice == 'Passive':
             return 5
@@ -93,7 +102,9 @@ class GreekConjugation(Conjugation):
     def stem_principle_part(self, principle_part, tense, voice):
         """Note that this should remove accent marks."""
         # This will need to be selectively overridden, but there is enough
-        # overlap to justify putting the bulk of the implementation here
+        # overlap to justify putting the bulk of the implementation here.
+        # TODO: In order to selectively override parts of this, actually, this
+        # needs to be split up into separate methods.
         index = self.get_principle_part_index(tense, voice)
         if index == 0 or index == 1:
             if principle_part.endswith(u'ω'):
@@ -119,6 +130,13 @@ class GreekConjugation(Conjugation):
         raise NotImplementedError()
 
     def make_ending_set_map(self):
+        """Maps tense, mood and voice combinations to sets of endings.
+
+        When subclassing this (e.g. to make AthematicConjugation, or
+        DeponentConjugation, or something) remove or change elements of the
+        self.endings dictionary as needed.  For many subclasses most of the
+        dictionary will stay the same.
+        """
         self.endings = defaultdict(dict)
         for tense in ['Present', 'Imperfect', 'Future', 'Aorist', 'Perfect',
                 'Pluperfect']:
@@ -178,16 +196,20 @@ class GreekConjugation(Conjugation):
 
         # Perfect Tense
         self.endings['Perfect']['Active']['Indicative'] = PerfectIndAct()
-        #self.endings['Perfect']['Middle']['Indicative'] = PerfectIndMP()
-        #self.endings['Perfect']['Passive']['Indicative'] = PerfectIndMP()
-        #self.endings['Perfect']['Active']['Infinitive'] = PerfectInfAct()
-        #self.endings['Perfect']['Middle']['Infinitive'] = PerfectInfMP()
-        #self.endings['Perfect']['Passive']['Infinitive'] = PerfectInfMP()
+        self.endings['Perfect']['Middle']['Indicative'] = PerfectIndMP()
+        self.endings['Perfect']['Passive']['Indicative'] = PerfectIndMP()
+        # I'm not doing subjunctive, optative and imperative right now because
+        # they are uncommon and they are tricky forms to get right, unless I do
+        # it in a really ugly way
+        # TODO: figure out how to do this the right way
+        self.endings['Perfect']['Active']['Infinitive'] = PerfectInfAct()
+        self.endings['Perfect']['Middle']['Infinitive'] = PerfectInfMP()
+        self.endings['Perfect']['Passive']['Infinitive'] = PerfectInfMP()
 
         # Pluperfect Tense
-        #self.endings['Pluperfect']['Active']['Indicative'] = PluperfectIndAct()
-        #self.endings['Pluperfect']['Middle']['Indicative'] = PluperfectIndMP()
-        #self.endings['Pluperfect']['Passive']['Indicative'] = PluperfectIndMP()
+        self.endings['Pluperfect']['Active']['Indicative'] = PluperfectIndAct()
+        self.endings['Pluperfect']['Middle']['Indicative'] = PluperfectIndMP()
+        self.endings['Pluperfect']['Passive']['Indicative'] = PluperfectIndMP()
 
     def get_ending(self, tense, mood, voice, person, number, principle_part):
         """We need the principle part to account for second aorist, root
@@ -207,20 +229,22 @@ class GreekConjugation(Conjugation):
                     (person, number, tense, mood, voice))
 
     def get_augment(self, tense, mood, principle_part):
-        if tense not in ['Imperfect', 'Aorist']:
-            return ''
+        if tense not in ['Imperfect', 'Aorist', 'Pluperfect']:
+            return False
         if mood != 'Indicative':
-            return ''
-        # This is woefully inadequate, but it will work for now
-        # Or maybe I should just return True and False, and let combine_parts()
-        # take care of it...
-        return u'ἐ'
+            return False
+        return True
 
     def combine_parts(self, augment, stem, ending):
         # I don't think this is different by conjugation; you just have to
         # worry about the augment.  We'll figure out the augment later.
 
-        # Really bad right now, but it'll get better
+        # TODO: add prefixes
+        # TODO: fix the augment handling; we'll probably need more information
+        if augment:
+            augment = u'ἐ'
+        else:
+            augment = u''
         return augment + stem + ending
 
     def add_accent(self, verb, mood, tense, voice):
@@ -229,6 +253,8 @@ class GreekConjugation(Conjugation):
         elif mood == 'Infinitive':
             if tense == 'Aorist' and voice in ['Active', 'Passive']:
                 return add_penult_accent(verb)
+            if tense == 'Perfect':
+                return add_penult_accent(verb)
         elif tense == 'Aorist' and mood == 'Subjunctive' and voice == 'Passive':
             # Silly special case, but it was the easiest way to do this; the
             # endings already include the accent
@@ -236,9 +262,10 @@ class GreekConjugation(Conjugation):
         return add_recessive_accent(verb)
 
 
-class ThematicConjugation(GreekConjugation):
-    def get_ending_set(self, tense, mood, voice, principle_part):
-        pass
+class AthematicConjugation(GreekConjugation):
+    def __init__(self, principle_parts):
+        super(AthematicConjugation, self).__init__()
+        # TODO: override self.endings
 
 
 if __name__ == '__main__':
