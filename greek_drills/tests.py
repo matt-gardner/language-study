@@ -584,6 +584,19 @@ class RegularConjugationTest(TestCase):
         self.failUnlessEqual(conj.conjugate(**args), answer)
 
     # PERFECT TENSE TESTS
+    def test_perfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'πεπαίδευκα', u'πεπαίδευκας', u'πεπαίδευκε',
+                u'πεπαιδεύκαμεν', u'πεπαιδεύκατε', u'πεπαιδεύκασι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.paideuw)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
     # PLUPERFECT TENSE TESTS
 
 __test__ = {"doctest": """

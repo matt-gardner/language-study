@@ -283,9 +283,16 @@ class AoristInfPass(InfEndingSet):
 # Perfect Tense
 ###############
 
-
 class PerfectIndAct(EndingSet):
-    pass
+    def __init__(self):
+        super(PerfectIndAct, self).__init__()
+        self['First Person']['Singular'] = u'α'
+        self['Second Person']['Singular'] = u'ας'
+        self['Third Person']['Singular'] = u'ε'
+        self['First Person']['Plural'] = u'αμεν'
+        self['Second Person']['Plural'] = u'ατε'
+        self['Third Person']['Plural'] = u'ασι'
+
 
 # Pluperfect Tense
 ##################

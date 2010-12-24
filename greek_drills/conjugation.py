@@ -106,9 +106,9 @@ class GreekConjugation(Conjugation):
             #TODO: handle second aorist, root aorist, deponent forms
             return remove_augment(with_augment)
         elif index == 3:
-            pass
+            return remove_accents(principle_part)[:-1]
         elif index == 4:
-            pass
+            return remove_accents(principle_part)[:-3]
         elif index == 5:
             with_augment = remove_accents(principle_part)[:-2]
             no_augment = remove_augment(with_augment)
@@ -177,7 +177,17 @@ class GreekConjugation(Conjugation):
         self.endings['Aorist']['Passive']['Infinitive'] = AoristInfPass()
 
         # Perfect Tense
+        self.endings['Perfect']['Active']['Indicative'] = PerfectIndAct()
+        #self.endings['Perfect']['Middle']['Indicative'] = PerfectIndMP()
+        #self.endings['Perfect']['Passive']['Indicative'] = PerfectIndMP()
+        #self.endings['Perfect']['Active']['Infinitive'] = PerfectInfAct()
+        #self.endings['Perfect']['Middle']['Infinitive'] = PerfectInfMP()
+        #self.endings['Perfect']['Passive']['Infinitive'] = PerfectInfMP()
+
         # Pluperfect Tense
+        #self.endings['Pluperfect']['Active']['Indicative'] = PluperfectIndAct()
+        #self.endings['Pluperfect']['Middle']['Indicative'] = PluperfectIndMP()
+        #self.endings['Pluperfect']['Passive']['Indicative'] = PluperfectIndMP()
 
     def get_ending(self, tense, mood, voice, person, number, principle_part):
         """We need the principle part to account for second aorist, root
