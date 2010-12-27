@@ -87,8 +87,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'memorizing.flashcards',
-    'memorizing.greek_drills',
+    'language_study.drills',
+    'language_study.attic_greek',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )
