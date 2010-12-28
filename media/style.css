@@ -89,7 +89,7 @@ div.review_word
 	background:#eff;
 	display:table;
 }
-div.review_text
+div.review_definition
 {
 	width:100%;
 	height:40%;
@@ -111,7 +111,7 @@ div.word_font_buttons
 	margin-top:100%;
 	text-align:left;
 }
-div.text_font_buttons
+div.definition_font_buttons
 {
 	background:#ccf;
 	margin-top:220%;

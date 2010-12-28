@@ -45,7 +45,7 @@
 				{{ word.word }}
 			</div>
 		</div>
-		<div class="review_text">
+		<div class="review_definition">
 			<div class="text" style="display:none">
 				{{ word.definition }}
 			</div>
@@ -57,9 +57,9 @@
 			accesskey=p
 			id="id_prev_word"/>
 			<input type="submit"
-			value="Show text"
+			value="Show definition"
 			accesskey=s
-			id="id_show_text"/>
+			id="id_show_definition"/>
 			<input type="submit"
 			value="Next Word"
 			accesskey=n
@@ -91,10 +91,11 @@
 			<input type="submit" value="&ndash;" id="id_decrease_word_size" />
 		</div>
 
-		<div class="text_font_buttons">
-			<input type="submit" value="+" id="id_increase_text_size" />
+		<div class="definition_font_buttons">
+			<input type="submit" value="+" id="id_increase_definition_size" />
 			<br>
-			<input type="submit" value="&ndash;" id="id_decrease_text_size" />
+			<input type="submit" value="&ndash;"
+				id="id_decrease_definition_size" />
 		</div>
 	</div>
 
@@ -140,7 +141,7 @@
 
 <form method="post" action="add-word-to-list"> {% csrf_token %}
 	Word: <input type="text" name="word" maxlength="128" />
-	Text: <input type="text" name="text" maxlength="128" />
+	Text: <input type="text" name="definition" maxlength="128" />
 	<input type="submit" value="Add Word" id="id_add_word"/>
 </form>
 

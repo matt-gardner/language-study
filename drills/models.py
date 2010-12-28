@@ -94,7 +94,7 @@ class Tag(models.Model):
         ordering = ['name']
 
 
-class Word(models.Model):
+class WordModel(models.Model):
     DIFFICULTY_SCORES = {
             'easy': 1,
             'medium': 20,
@@ -112,7 +112,7 @@ class Word(models.Model):
 
     def update_difficulty(self, score):
         old = self.average_difficulty
-        alpha = Word.DIFFICULTY_ALPHA
+        alpha = WordModel.DIFFICULTY_ALPHA
         new = (1 - alpha) * self.average_difficulty + alpha * score
         self.average_difficulty = new
         self.save()
@@ -128,11 +128,11 @@ class Word(models.Model):
         return u'%s: %s' % (self.wordlist.name, self.word)
 
 
-class Verb(Word):
+class Verb(WordModel):
     conjugation = models.ForeignKey('Conjugation')
 
 
-class DeclinableWord(Word):
+class DeclinableWord(WordModel):
     declension = models.ForeignKey('Declension')
     type = models.ForeignKey('DeclinableType')
 

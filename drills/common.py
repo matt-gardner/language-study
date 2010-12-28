@@ -9,7 +9,7 @@ from django.utils import simplejson
 from datetime import datetime
 from random import shuffle
 
-from language_study.drills.models import Word, WordList, Tag
+from language_study.drills.models import WordModel, WordList, Tag
 from language_study.drills.filters import filter_words
 
 # Word list stuff
@@ -36,7 +36,7 @@ def get_word_list(request, name):
     request.session['wordlist-name'] = name
     request.session['word-number'] = 0
     wordlist = request.user.wordlist_set.get(name=name)
-    words = wordlist.word_set.all()
+    words = wordlist.wordmodel_set.all()
     request.session['words'] = [AjaxWord(c) for c in words]
     return return_word_from_session(request)
 
@@ -61,7 +61,7 @@ def add_word_to_list(request, next_url):
     del request.session['errors']
     now = datetime.now()
     wordlist = WordList.objects.get(name=list_name)
-    word = Word(wordlist=wordlist, word=word, definition=definition,
+    word = WordModel(wordlist=wordlist, word=word, definition=definition,
             last_reviewed=now, date_entered=now)
     word.save()
     wordlist.save()
@@ -76,7 +76,7 @@ def reorder_word_list(request, ordering):
         request.session['word-number'] = 0
         return return_word_from_session(request)
     filters = request.session.get('filters', [])
-    words, _ = filter_words(wordlist.word_set, filters)
+    words, _ = filter_words(wordlist.wordmodel_set, filters)
     if ordering == 'alphabetical':
         words = words.order_by('word')
     elif ordering == 'last_reviewed':
@@ -116,7 +116,7 @@ def add_tag_to_word(request, tag_name):
     list_name = request.session.get('wordlist-name', None)
     wordlist = WordList.objects.get(name=list_name)
     tag = wordlist.tag_set.get(name=tag_name)
-    word = wordlist.word_set.get(pk=request.session['word-id'])
+    word = wordlist.wordmodel_set.get(pk=request.session['word-id'])
     word.tags.add(tag)
     ret_val = dict()
     ret_val['tags'] = ', '.join(t.name for t in word.tags.all())
@@ -172,8 +172,8 @@ def prev_word(request):
 def update_word_difficulty_from_session(request, difficulty):
     wordlist_name = request.session['wordlist-name']
     wordlist = request.user.wordlist_set.get(name=wordlist_name)
-    word = wordlist.word_set.get(pk=request.session['word-id'])
-    word.update_difficulty(Word.DIFFICULTY_SCORES[difficulty])
+    word = wordlist.wordmodel_set.get(pk=request.session['word-id'])
+    word.update_difficulty(WordModel.DIFFICULTY_SCORES[difficulty])
     word.reviewed()
     return word
 
@@ -206,7 +206,7 @@ def base_review_context(request):
     context['wordlist'] = wordlist
 
     context['tags'] = wordlist.tag_set.all()
-    words = wordlist.word_set
+    words = wordlist.wordmodel_set
     filters = request.session.get('filters', [])
     words, filter_form = filter_words(words, filters)
     context['filter'] = filter_form
@@ -236,7 +236,7 @@ class AjaxWord(object):
         self.tags = None
 
     def get_tags(self):
-        word = Word.objects.get(pk=self.id)
+        word = WordModel.objects.get(pk=self.id)
         self.tags = ', '.join(t.name for t in word.tags.all())
         if not self.tags:
             self.tags = 'This word has no tags'

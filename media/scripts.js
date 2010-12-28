@@ -39,19 +39,19 @@ function prev_word() {
 	});
 }
 function new_word(word, word_number, num_words, average_difficulty) {
-	if ($("#id_show_text").val() == "Hide text") {
-		$("#id_show_text").val("Show text");
-		$(".review_text .text").toggle(0);
+	if ($("#id_show_definition").val() == "Hide definition") {
+		$("#id_show_definition").val("Show definition");
+		$(".review_definition .definition").toggle(0);
 	}
-	switch_text(word.word, word.text);
+	switch_text(word.word, word.definition);
 	reset_word_number(word_number, num_words, word.difficulty);
 	reset_word_difficulty(word.difficulty, word.review_count);
 	reset_word_tags(word.tags);
 	reset_list_difficulty(average_difficulty);
 }
-function switch_text(word, text) {
+function switch_text(word, definition) {
 	$(".review_word .text").html(word);
-	$(".review_text .text").html(text);
+	$(".review_definition .text").html(definition);
 }
 function reset_word_number(word_number, num_words) {
 	var html = $.fn.message_config.before_word_number;

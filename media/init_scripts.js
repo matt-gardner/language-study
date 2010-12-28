@@ -1,9 +1,9 @@
-$("#id_show_text").click(function () {
-	$(".review_text .text").toggle(0);
-	if ($("#id_show_text").val() == "Show text") {
-		$("#id_show_text").val("Hide text");
+$("#id_show_definition").click(function () {
+	$(".review_definition .text").toggle(0);
+	if ($("#id_show_definition").val() == "Show definition") {
+		$("#id_show_definition").val("Hide definition");
 	} else {
-		$("#id_show_text").val("Show text");
+		$("#id_show_definition").val("Show definition");
 	}
 });
 $("#id_next_word").click(function () {
@@ -39,17 +39,17 @@ $("#id_decrease_word_size").click(function(){
 	var newFontSize = currentFontSizeNum*0.8;
 	$('.review_word .text').css('font-size', newFontSize);
 });
-$("#id_increase_text_size").click(function(){
-	var currentFontSize = $('.review_text .text').css('font-size');
+$("#id_increase_definition_size").click(function(){
+	var currentFontSize = $('.review_definition .text').css('font-size');
 	var currentFontSizeNum = parseFloat(currentFontSize, 10);
 	var newFontSize = currentFontSizeNum*1.2;
-	$('.review_text .text').css('font-size', newFontSize);
+	$('.review_definition .text').css('font-size', newFontSize);
 });
-$("#id_decrease_text_size").click(function(){
-	var currentFontSize = $('.review_text .text').css('font-size');
+$("#id_decrease_definition_size").click(function(){
+	var currentFontSize = $('.review_definition .text').css('font-size');
 	var currentFontSizeNum = parseFloat(currentFontSize, 10);
 	var newFontSize = currentFontSizeNum*0.8;
-	$('.review_text .text').css('font-size', newFontSize);
+	$('.review_definition .text').css('font-size', newFontSize);
 });
 $("input[name=review_order]").click(function() {
 	reorder_words($("input[name=review_order]:checked").val());
