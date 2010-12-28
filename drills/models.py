@@ -77,6 +77,7 @@ class DeclinableType(models.Model):
 class WordList(models.Model):
     user = models.ForeignKey('auth.User')
     name = models.CharField(max_length=128)
+    language = models.ForeignKey('Language')
 
     def __unicode__(self):
         return u'%s: %s' % (self.user.first_name, self.name)

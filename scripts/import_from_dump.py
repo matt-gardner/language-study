@@ -8,8 +8,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 from django.contrib.auth.models import User
 from django.db import transaction
 
-from language_study.drills.models import WordList, Word, Tag
+from language_study.drills.models import *
 
+from collections import defaultdict
 from datetime import datetime
 from optparse import OptionParser
 import os, cjson
@@ -19,31 +20,75 @@ def main(filename, username):
     user = User.objects.get(username=username)
     json = cjson.decode(open(filename).read())
     json_index = 0
-    lists = []
-    words = []
-    tags_ = []
+    types = defaultdict(list)
+    # Organize the JSON dump by model type
     for item in json:
-        if item['model'] == 'drills.wordlist':
-            lists.append(item)
-        elif item['model'] == 'drills.word':
-            words.append(item)
-        elif item['model'] == 'drills.tag':
-            tags_.append(item)
+        types[item['model']].append(item)
+    # Rebuild the models in the necessary order
+    # Languages and associated models first
+    languages = dict()
+    for language in types.get('drills.language', []):
+        languages[language['pk']] = Language(name=language['fields']['name'])
+        languages[language['pk']].save()
+    for declension in types.get('drills.declension', []):
+        x = Declension(name=declension['fields']['name'],
+                language=languages[declension['fields']['language']])
+        x.save()
+    for case in types.get('drills.case', []):
+        x = Case(name=case['fields']['name'],
+                language=languages[case['fields']['language']])
+        x.save()
+    for number in types.get('drills.number', []):
+        x = Number(name=number['fields']['name'],
+                language=languages[number['fields']['language']])
+        x.save()
+    for gender in types.get('drills.gender', []):
+        x = Gender(name=gender['fields']['name'],
+                language=languages[gender['fields']['language']])
+        x.save()
+    for denclinabletype in types.get('drills.denclinabletype', []):
+        x = DeclinableType(name=denclinabletype['fields']['name'],
+                language=languages[denclinabletype['fields']['language']])
+        x.save()
+    for conjugation in types.get('drills.conjugation', []):
+        x = Conjugation(name=conjugation['fields']['name'],
+                language=languages[conjugation['fields']['language']])
+        x.save()
+    for person in types.get('drills.person', []):
+        x = Person(name=person['fields']['name'],
+                language=languages[person['fields']['language']])
+        x.save()
+    for tense in types.get('drills.tense', []):
+        x = Tense(name=tense['fields']['name'],
+                language=languages[tense['fields']['language']])
+        x.save()
+    for voice in types.get('drills.voice', []):
+        x = Voice(name=voice['fields']['name'],
+                language=languages[voice['fields']['language']])
+        x.save()
+    for mood in types.get('drills.mood', []):
+        x = Mood(name=mood['fields']['name'],
+                language=languages[mood['fields']['language']])
+        x.save()
+    # Then users (TODO)
+    # Then word lists and tags
     wordlists = dict()
-    for wordlist in lists:
+    for wordlist in types.get('drills.wordlist', []):
         wordlists[wordlist['pk']] = WordList(user=user,
-                name=wordlist['fields']['name'])
+                name=wordlist['fields']['name'],
+                language=languages[wordlist['fields']['language']])
         wordlists[wordlist['pk']].save()
     now = datetime.now()
     hard = Word.DIFFICULTY_SCORES['hard']
     tags = dict()
-    for tag in tags_:
+    for tag in types.get('drills.tag', []):
         args = dict()
         args['wordlist'] = wordlists[tag['fields']['wordlist']]
         args['name'] = tag['fields']['name']
         tags[tag['pk']] = Tag(**args)
         tags[tag['pk']].save()
-    for word in words:
+    # Then the words themselves
+    for word in types.get('drills.word', []):
         word = word['fields']
         args = dict()
         args['wordlist'] = wordlists[word['wordlist']]
@@ -58,6 +103,7 @@ def main(filename, username):
         w.save()
         for tag_id in word['tags']:
             w.tags.add(tags[tag_id])
+    # And finally the stats (TODO)
     transaction.commit()
 
 
