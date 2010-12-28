@@ -79,7 +79,7 @@ def main(filename, username):
                 language=languages[wordlist['fields']['language']])
         wordlists[wordlist['pk']].save()
     now = datetime.now()
-    hard = WordModel.DIFFICULTY_SCORES['hard']
+    hard = Word.DIFFICULTY_SCORES['hard']
     tags = dict()
     for tag in types.get('drills.tag', []):
         args = dict()
@@ -99,7 +99,7 @@ def main(filename, username):
         #args['date_entered'] = word.get('date_entered', now)
         args['average_difficulty'] = word.get('average_difficulty', hard)
         args['review_count'] = word.get('review_count', 0)
-        w = WordModel(**args)
+        w = Word(**args)
         w.save()
         for tag_id in word['tags']:
             w.tags.add(tags[tag_id])

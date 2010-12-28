@@ -11,7 +11,7 @@ from language_study.drills.common import base_review_context
 from language_study.drills.common import review_styles
 from language_study.drills.common import update_word_difficulty_from_session
 from language_study.drills.filters import filter_words
-from language_study.drills.models import WordModel
+from language_study.drills.models import Word
 from language_study.drills.models import Tag
 
 import random
@@ -67,7 +67,7 @@ def next_word(request, difficulty):
     wordlist = request.user.wordlist_set.get(name=wordlist_name)
 
     filters = request.session.get('filters', [])
-    words = wordlist.wordmodel_set
+    words = wordlist.word_set
     words, filter_form = filter_words(words, filters)
     word, ave_difficulty = get_word_by_difficulty(words)
 
