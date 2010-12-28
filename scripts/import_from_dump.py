@@ -24,16 +24,37 @@ def main(filename, username):
     # Organize the JSON dump by model type
     for item in json:
         types[item['model']].append(item)
+    # Match verbs and declinable words with data from the words, removing the
+    # word so we can insert just once
+    for verb in types.get('drills.verb', []):
+        pk = verb['pk']
+        # this is slow, but we don't run this script much, so it's ok
+        for word in types['drills.word']:
+            if word['pk'] == pk:
+                w = word
+                break
+        verb['fields'].update(w['fields'])
+        types['drills.word'].remove(w)
+    for dw in types.get('drills.declinableword', []):
+        pk = dw['pk']
+        # this is slow, but we don't run this script much, so it's ok
+        for word in types['drills.word']:
+            if word['pk'] == pk:
+                w = word
+                break
+        dw['fields'].update(w['fields'])
+        types['drills.word'].remove(w)
     # Rebuild the models in the necessary order
     # Languages and associated models first
     languages = dict()
     for language in types.get('drills.language', []):
         languages[language['pk']] = Language(name=language['fields']['name'])
         languages[language['pk']].save()
-    for declension in types.get('drills.declension', []):
-        x = Declension(name=declension['fields']['name'],
-                language=languages[declension['fields']['language']])
-        x.save()
+    declensions = dict()
+    for d in types.get('drills.declension', []):
+        declensions[d['pk']] = Declension(name=d['fields']['name'],
+                language=languages[d['fields']['language']])
+        declensions[d['pk']].save()
     for case in types.get('drills.case', []):
         x = Case(name=case['fields']['name'],
                 language=languages[case['fields']['language']])
@@ -46,14 +67,16 @@ def main(filename, username):
         x = Gender(name=gender['fields']['name'],
                 language=languages[gender['fields']['language']])
         x.save()
-    for denclinabletype in types.get('drills.denclinabletype', []):
-        x = DeclinableType(name=denclinabletype['fields']['name'],
-                language=languages[denclinabletype['fields']['language']])
-        x.save()
-    for conjugation in types.get('drills.conjugation', []):
-        x = Conjugation(name=conjugation['fields']['name'],
-                language=languages[conjugation['fields']['language']])
-        x.save()
+    declinabletypes = dict()
+    for dt in types.get('drills.denclinabletype', []):
+        declinabletypes[dt['pk']] = DeclinableType(name=dt['fields']['name'],
+                language=languages[dt['fields']['language']])
+        declinabletypes[dt['pk']].save()
+    conjugations = dict()
+    for c in types.get('drills.conjugation', []):
+        conjugations[c['pk']] = Conjugation(name=c['fields']['name'],
+                language=languages[c['fields']['language']])
+        conjugations[c['pk']].save()
     for person in types.get('drills.person', []):
         x = Person(name=person['fields']['name'],
                 language=languages[person['fields']['language']])
@@ -103,6 +126,39 @@ def main(filename, username):
         w.save()
         for tag_id in word['tags']:
             w.tags.add(tags[tag_id])
+    for verb in types.get('drills.verb', []):
+        verb = verb['fields']
+        args = dict()
+        args['conjugation'] = conjugations[verb['conjugation']]
+        args['wordlist'] = wordlists[verb['wordlist']]
+        args['word'] = verb['word']
+        args['definition'] = verb['definition']
+        args['last_reviewed'] = verb.get('last_reviewed', now)
+        # This is ignored because of auto_now_add
+        #args['date_entered'] = verb.get('date_entered', now)
+        args['average_difficulty'] = verb.get('average_difficulty', hard)
+        args['review_count'] = verb.get('review_count', 0)
+        v = Verb(**args)
+        v.save()
+        for tag_id in verb['tags']:
+            v.tags.add(tags[tag_id])
+    for dw in types.get('drills.declinableword', []):
+        dw = dw['fields']
+        args = dict()
+        args['declension'] = declensions[dw['declension']]
+        args['type'] = declinabletypes[dw['type']]
+        args['wordlist'] = wordlists[dw['wordlist']]
+        args['word'] = dw['word']
+        args['definition'] = dw['definition']
+        args['last_reviewed'] = dw.get('last_reviewed', now)
+        # This is ignored because of auto_now_add
+        #args['date_entered'] = dw.get('date_entered', now)
+        args['average_difficulty'] = dw.get('average_difficulty', hard)
+        args['review_count'] = dw.get('review_count', 0)
+        d = DeclinableWord(**args)
+        d.save()
+        for tag_id in dw['tags']:
+            d.tags.add(tags[tag_id])
     # And finally the stats (TODO)
     transaction.commit()
 
