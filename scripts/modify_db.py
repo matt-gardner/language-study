@@ -3,9 +3,9 @@
 import os, sys
 
 sys.path.append(os.getcwd()+'/..')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'memorizing.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 
 from django.contrib.auth.models import User
-from memorizing.flashcards.models import *
+from language_study.drills.models import *
 
 # vim: et sw=4 sts=4

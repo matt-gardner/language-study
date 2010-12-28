@@ -3,22 +3,22 @@
 {% block script_config %}
 <script charset="utf-8" type="text/javascript">
 	$.fn.message_config = function() {};
-	$.fn.message_config.before_card_number = "You have reviewed ";
-	$.fn.message_config.after_card_number = " cards so far<br>There are ";
-	$.fn.message_config.after_num_cards = " cards in this list.";
+	$.fn.message_config.before_word_number = "You have reviewed ";
+	$.fn.message_config.after_word_number = " words so far<br>There are ";
+	$.fn.message_config.after_num_words = " words in this list.";
 </script>
 {% endblock %}
 
-{% block card_list_info %}
+{% block word_list_info %}
 
-{% if cardlist %}
-<div class="cards">
-	You have reviewed {{ cards_reviewed }} cards so far.
+{% if wordlist %}
+<div class="words">
+	You have reviewed {{ words_reviewed }} words so far.
 	<br>
-	There are {{ num_cards }} cards in this list.
+	There are {{ num_words }} words in this list.
 </div>
-<div class="cardlist_difficulty">
-	Average difficulty of cards: {{ average_difficulty|floatformat:"2" }}
+<div class="wordlist_difficulty">
+	Average difficulty of words: {{ average_difficulty|floatformat:"2" }}
 </div>
 {% endif %}
 

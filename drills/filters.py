@@ -5,7 +5,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from django.http import HttpResponse
 
 from datetime import datetime, date
-from memorizing.flashcards.models import Tag
+from language_study.drills.models import Tag
 
 class FilterForm(forms.Form):
     def __init__(self, possible_filters, *args, **kwargs):
@@ -33,7 +33,7 @@ class FilterForm(forms.Form):
         return ret_val
 
 
-def possible_card_filters():
+def possible_word_filters():
     possible_filters = [('None', '-------')]
     possible_filters.append(('tag', 'Tag'))
     possible_filters.append(('difficulty', 'Difficulty'))
@@ -45,46 +45,46 @@ def possible_card_filters():
     return possible_filters
 
 
-def get_card_filter_by_name(name):
+def get_word_filter_by_name(name):
     if name == 'tag':
-        return CardFilterByTag
+        return WordFilterByTag
     if name == 'difficulty':
-        return CardFilterByDifficulty
+        return WordFilterByDifficulty
     if name == 'startswith':
-        return CardFilterByStartsWith
+        return WordFilterByStartsWith
     if name == 'contains':
-        return CardFilterByContains
+        return WordFilterByContains
     if name == 'defstartswith':
-        return CardFilterByDefStartsWith
+        return WordFilterByDefStartsWith
     if name == 'defcontains':
-        return CardFilterByDefContains
+        return WordFilterByDefContains
     if name == 'lastreviewed':
-        return CardFilterByLastReviewed
-    raise ValueError('There is no card filter with the name %s' % name)
+        return WordFilterByLastReviewed
+    raise ValueError('There is no word filter with the name %s' % name)
 
 
-def filter_cards(cards, filters):
-    filter_form = FilterForm(possible_card_filters())
+def filter_words(words, filters):
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in filters:
         filter.id = id
         id += 1
         filter_form.add_filter(filter)
-        cards = filter.apply(cards)
-    return cards.all(), filter_form
+        words = filter.apply(words)
+    return words.all(), filter_form
 
 
 def add_filter(request, name):
     filters = request.session.get('filters', [])
-    filter_form = FilterForm(possible_card_filters())
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in filters:
         filter.id = id
         filter_form.add_filter(filter)
         id += 1
-    cardlist_name = request.session['cardlist-name']
-    cardlist = request.user.cardlist_set.get(name=cardlist_name)
-    new_filter = get_card_filter_by_name(name)(id, cardlist)
+    wordlist_name = request.session['wordlist-name']
+    wordlist = request.user.wordlist_set.get(name=wordlist_name)
+    new_filter = get_word_filter_by_name(name)(id, wordlist)
     filter_form.add_filter(new_filter)
     filters.append(new_filter)
     request.session['filters'] = filters
@@ -94,7 +94,7 @@ def add_filter(request, name):
 def remove_filter(request, id):
     request.session['filters'].pop(int(id))
     request.session.modified = True
-    filter_form = FilterForm(possible_card_filters())
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in request.session.get('filters', []):
         filter.id = id
@@ -111,7 +111,7 @@ def update_tag_filter(request, id, tag):
         filter.current_tag = tag
     filter.remake_form()
     request.session.modified = True
-    filter_form = FilterForm(possible_card_filters())
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in request.session.get('filters', []):
         filter.id = id
@@ -126,7 +126,7 @@ def update_difficulty_filter(request, id, comp, value):
     filter.current_value = value
     filter.remake_form()
     request.session.modified = True
-    filter_form = FilterForm(possible_card_filters())
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in request.session.get('filters', []):
         filter.id = id
@@ -140,7 +140,7 @@ def update_string_filter(request, id, string):
     filter.current_string = string
     filter.remake_form()
     request.session.modified = True
-    filter_form = FilterForm(possible_card_filters())
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in request.session.get('filters', []):
         filter.id = id
@@ -157,7 +157,7 @@ def update_date_filter(request, id, comp, year, month, day):
     filter.current_day = int(day)
     filter.remake_form()
     request.session.modified = True
-    filter_form = FilterForm(possible_card_filters())
+    filter_form = FilterForm(possible_word_filters())
     id = 0
     for filter in request.session.get('filters', []):
         filter.id = id
@@ -169,30 +169,30 @@ def update_date_filter(request, id, comp, year, month, day):
 # Filter Classes
 ################
 
-#TODO(matt): make a CardFilterByValue, or something, that these subclass
+#TODO(matt): make a WordFilterByValue, or something, that these subclass
 
 # Value Filters
 ################
 
-class CardFilterByTag(object):
-    def __init__(self, id, cardlist):
+class WordFilterByTag(object):
+    def __init__(self, id, wordlist):
         self.id = id
-        self.cardlist = cardlist
+        self.wordlist = wordlist
         self.current_tag = None
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         if not self.current_tag:
-            return card_set
-        tag = self.cardlist.tag_set.get(name=self.current_tag)
-        return card_set.filter(tags=tag)
+            return word_set
+        tag = self.wordlist.tag_set.get(name=self.current_tag)
+        return word_set.filter(tags=tag)
 
     def remake_form(self):
         if self.current_tag:
             tag = self.current_tag
         else:
             tag = 'None'
-        self._form = TagFilterForm(self.id, tag, self.cardlist)
+        self._form = TagFilterForm(self.id, tag, self.wordlist)
 
     def form(self):
         # This BoundField business is a bit of a hack to just get the part of
@@ -209,10 +209,10 @@ class CardFilterByTag(object):
 
 
 class TagFilterForm(forms.Form):
-    def __init__(self, id, tag, cardlist, *args, **kwargs):
+    def __init__(self, id, tag, wordlist, *args, **kwargs):
         super(TagFilterForm, self).__init__(*args, **kwargs)
         tag_choices = [('None', 'All')]
-        tags = cardlist.tag_set.all()
+        tags = wordlist.tag_set.all()
         for t in tags:
             tag_choices.append((t.name, t.name))
         self.fields['tag'] = forms.ChoiceField(tag_choices, label='Tag',
@@ -221,22 +221,22 @@ class TagFilterForm(forms.Form):
                 'update_tag_filter(%d)' % id
 
 
-class CardFilterByDifficulty(object):
-    def __init__(self, id, cardlist):
+class WordFilterByDifficulty(object):
+    def __init__(self, id, wordlist):
         self.id = id
-        self.cardlist = cardlist
+        self.wordlist = wordlist
         self.current_comparator = 'gt'
         self.current_value = None
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         if not self.current_value:
-            return card_set
+            return word_set
         if self.current_comparator == 'gt':
-            return card_set.filter(
+            return word_set.filter(
                     average_difficulty__gt=self.current_value)
         if self.current_comparator == 'lt':
-            return card_set.filter(
+            return word_set.filter(
                     average_difficulty__lt=self.current_value)
         raise ValueError('Current comparator is not supported: %s' %
                 self.current_comparator)
@@ -285,19 +285,19 @@ class DifficultyFilterForm(forms.Form):
 # String Filters
 ################
 
-class CardFilterByString(object):
-    def __init__(self, id, cardlist):
+class WordFilterByString(object):
+    def __init__(self, id, wordlist):
         self.id = id
-        self.cardlist = cardlist
+        self.wordlist = wordlist
         self.current_string = None
         self.label = ''
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         raise NotImplementedError()
 
     def remake_form(self):
         self._form = StringFilterForm(self.id, self.current_string,
-                self.cardlist)
+                self.wordlist)
 
     def form(self):
         # This BoundField business is a bit of a hack to just get the part of
@@ -313,56 +313,56 @@ class CardFilterByString(object):
         return ret_val
 
 
-class CardFilterByStartsWith(CardFilterByString):
-    def __init__(self, id, cardlist):
-        super(CardFilterByStartsWith, self).__init__(id, cardlist)
+class WordFilterByStartsWith(WordFilterByString):
+    def __init__(self, id, wordlist):
+        super(WordFilterByStartsWith, self).__init__(id, wordlist)
         self.label = 'Word starts with'
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         if not self.current_string:
-            return card_set
-        return card_set.filter(word__startswith=self.current_string)
+            return word_set
+        return word_set.filter(word__startswith=self.current_string)
 
 
-class CardFilterByContains(CardFilterByString):
-    def __init__(self, id, cardlist):
-        super(CardFilterByContains, self).__init__(id, cardlist)
+class WordFilterByContains(WordFilterByString):
+    def __init__(self, id, wordlist):
+        super(WordFilterByContains, self).__init__(id, wordlist)
         self.label = 'Word contains'
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         if not self.current_string:
-            return card_set
-        return card_set.filter(word__contains=self.current_string)
+            return word_set
+        return word_set.filter(word__contains=self.current_string)
 
 
-class CardFilterByDefStartsWith(CardFilterByString):
-    def __init__(self, id, cardlist):
-        super(CardFilterByDefStartsWith, self).__init__(id, cardlist)
+class WordFilterByDefStartsWith(WordFilterByString):
+    def __init__(self, id, wordlist):
+        super(WordFilterByDefStartsWith, self).__init__(id, wordlist)
         self.label = 'Text starts with'
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         if not self.current_string:
-            return card_set
-        return card_set.filter(text__startswith=self.current_string)
+            return word_set
+        return word_set.filter(definition__startswith=self.current_string)
 
 
-class CardFilterByDefContains(CardFilterByString):
-    def __init__(self, id, cardlist):
-        super(CardFilterByDefContains, self).__init__(id, cardlist)
+class WordFilterByDefContains(WordFilterByString):
+    def __init__(self, id, wordlist):
+        super(WordFilterByDefContains, self).__init__(id, wordlist)
         self.label = 'Text contains'
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         if not self.current_string:
-            return card_set
-        return card_set.filter(text__contains=self.current_string)
+            return word_set
+        return word_set.filter(definition__contains=self.current_string)
 
 
 class StringFilterForm(forms.Form):
-    def __init__(self, id, string, cardlist, *args, **kwargs):
+    def __init__(self, id, string, wordlist, *args, **kwargs):
         super(StringFilterForm, self).__init__(*args, **kwargs)
         self.fields['string'] = forms.CharField(initial=string)
         self.fields['string'].widget.attrs['onchange'] = \
@@ -372,10 +372,10 @@ class StringFilterForm(forms.Form):
 # Date Filters
 ################
 
-class CardFilterByDate(object):
-    def __init__(self, id, cardlist):
+class WordFilterByDate(object):
+    def __init__(self, id, wordlist):
         self.id = id
-        self.cardlist = cardlist
+        self.wordlist = wordlist
         now = datetime.now()
         self.current_day = now.day
         self.current_month = now.month
@@ -383,12 +383,12 @@ class CardFilterByDate(object):
         self.comparator = 'lt'
         self.label = ''
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         raise NotImplementedError()
 
     def remake_form(self):
         self._form = DateFilterForm(self.id, self.comparator, self.current_day,
-                self.current_month, self.current_year, self.cardlist)
+                self.current_month, self.current_year, self.wordlist)
 
     def form(self):
         # This BoundField business is a bit of a hack to just get the part of
@@ -407,26 +407,26 @@ class CardFilterByDate(object):
         return ret_val
 
 
-class CardFilterByLastReviewed(CardFilterByDate):
-    def __init__(self, id, cardlist):
-        super(CardFilterByLastReviewed, self).__init__(id, cardlist)
+class WordFilterByLastReviewed(WordFilterByDate):
+    def __init__(self, id, wordlist):
+        super(WordFilterByLastReviewed, self).__init__(id, wordlist)
         self.label = 'Last Reviewed'
         self.remake_form()
 
-    def apply(self, card_set):
+    def apply(self, word_set):
         d = date(self.current_year, self.current_month, self.current_day)
         if self.comparator == 'eq':
             d2 = date(self.current_year, self.current_month, self.current_day+1)
-            return card_set.filter(last_reviewed__range=(d, d2))
+            return word_set.filter(last_reviewed__range=(d, d2))
         if self.comparator == 'lt':
-            return card_set.filter(last_reviewed__lt=d)
+            return word_set.filter(last_reviewed__lt=d)
         if self.comparator == 'gt':
-            return card_set.filter(last_reviewed__gt=d)
+            return word_set.filter(last_reviewed__gt=d)
         raise ValueError('Comparator is not supported: %s' % self.comparator)
 
 
 class DateFilterForm(forms.Form):
-    def __init__(self, id, comp, day, month, year, cardlist, *args, **kwargs):
+    def __init__(self, id, comp, day, month, year, wordlist, *args, **kwargs):
         super(DateFilterForm, self).__init__(*args, **kwargs)
         now = datetime.now()
         d = date(year, month, day)

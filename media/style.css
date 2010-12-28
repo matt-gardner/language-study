@@ -18,7 +18,7 @@ div.review_style
 	text-align:center;
 	background:#abf;
 }
-div.cardlists
+div.wordlists
 {
 	background:#aaf;
 	text-align:center;
@@ -34,7 +34,7 @@ div.review
 	background:#ccc;
 	text-align:center;
 }
-div.add_card
+div.add_word
 {
 	clear:both;
 	margin-top:0;
@@ -137,7 +137,7 @@ label[disabled]
 	color:#777;
 }
 
-div.add_card input[type=text]
+div.add_word input[type=text]
 {
 	width:400px;
 }

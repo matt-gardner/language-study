@@ -102,9 +102,9 @@ class Word(models.Model):
     DIFFICULTY_ALPHA = .4
     wordlist = models.ForeignKey('WordList')
     word = models.CharField(max_length=128)
-    text = models.CharField(max_length=4096)
+    definition = models.CharField(max_length=4096)
     last_reviewed = models.DateTimeField()
-    date_entered = models.DateTimeField()
+    date_entered = models.DateTimeField(auto_now_add=True)
     average_difficulty = models.FloatField(default=DIFFICULTY_SCORES['hard'])
     review_count = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag')

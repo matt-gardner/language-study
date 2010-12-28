@@ -3,30 +3,30 @@
 {% block script_config %}
 <script charset="utf-8" type="text/javascript">
 	$.fn.message_config = function() {};
-	$.fn.message_config.before_card_number = "Reviewing card  ";
-	$.fn.message_config.after_card_number = " out of ";
-	$.fn.message_config.after_num_cards = "";
+	$.fn.message_config.before_word_number = "Reviewing word  ";
+	$.fn.message_config.after_word_number = " out of ";
+	$.fn.message_config.after_num_words = "";
 </script>
 {% endblock %}
 
 {% block content %}
 
 <div class="above_review">
-	{% block card_list_info %}
+	{% block word_list_info %}
 
-	{% if cardlist %}
-	<div class="cards">
-		Reviewing card {{ card_number }} out of {{ num_cards }}
+	{% if wordlist %}
+	<div class="words">
+		Reviewing word {{ word_number }} out of {{ num_words }}
 	</div>
-	<div class="cardlist_difficulty">
-		Average difficulty of cards: {{ average_difficulty|floatformat:"2" }}
+	<div class="wordlist_difficulty">
+		Average difficulty of words: {{ average_difficulty|floatformat:"2" }}
 	</div>
 	{% endif %}
 
 	{% endblock %}
 
-	<div class="card_difficulty">
-		This card's difficulty: {{ card.average_difficulty|floatformat:"2" }}
+	<div class="word_difficulty">
+		This word's difficulty: {{ word.average_difficulty|floatformat:"2" }}
 	</div>
 </div>
 
@@ -42,28 +42,28 @@
 	<div class="center_review">
 		<div class="review_word">
 			<div class="text">
-				{{ card.word }}
+				{{ word.word }}
 			</div>
 		</div>
 		<div class="review_text">
 			<div class="text" style="display:none">
-				{{ card.text }}
+				{{ word.definition }}
 			</div>
 		</div>
 		<div class="review_buttons">
 		{% block review_buttons %}
 			<input type="submit"
-			value="Previous Card"
+			value="Previous Word"
 			accesskey=p
-			id="id_prev_card"/>
+			id="id_prev_word"/>
 			<input type="submit"
 			value="Show text"
 			accesskey=s
 			id="id_show_text"/>
 			<input type="submit"
-			value="Next Card"
+			value="Next Word"
 			accesskey=n
-			id="id_next_card"/>
+			id="id_next_word"/>
 		{% endblock %}
 		</div>
 		<div class="review_buttons_below">
@@ -108,8 +108,8 @@
 		</div>
 		<hr>
 		<div class="word_tags">
-			{% if card.tags.all %}
-				{% for tag in card.tags.all %}
+			{% if word.tags.all %}
+				{% for tag in word.tags.all %}
 				{% if not forloop.first %}, {% endif %}
 				{{ tag }}
 				{% endfor %}
@@ -136,12 +136,12 @@
 
 </div>
 
-<div class="add_card">
+<div class="add_word">
 
-<form method="post" action="add-card-to-list"> {% csrf_token %}
+<form method="post" action="add-word-to-list"> {% csrf_token %}
 	Word: <input type="text" name="word" maxlength="128" />
 	Text: <input type="text" name="text" maxlength="128" />
-	<input type="submit" value="Add Card" id="id_add_card"/>
+	<input type="submit" value="Add Word" id="id_add_word"/>
 </form>
 
 </div>

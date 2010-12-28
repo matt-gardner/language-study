@@ -51,25 +51,25 @@
 {% endblock %}
 
 
-{% block cardlists %}
-<div class="cardlists">
-	{% if cardlists %}
-	You are currently looking at card list: 
-	<select id="id_cardlist" onchange="get_card_list()">
-		{% for list in cardlists %}
+{% block wordlists %}
+<div class="wordlists">
+	{% if wordlists %}
+	You are currently looking at word list: 
+	<select id="id_wordlist" onchange="get_word_list()">
+		{% for list in wordlists %}
 			<option value="{{ list.name }}"
-			{% ifequal list cardlist %}selected{% endifequal %}>
+			{% ifequal list wordlist %}selected{% endifequal %}>
 			{{ list.name }}
 			</option>
 		{% endfor %}
 	</select>
 	<input type="submit" value="Delete list" id="id_delete_list" />
 	{% else %}
-	You don't have any card lists!
+	You don't have any word lists!
 	{% endif %}
 	<div class="create_list">
-		<form method="post" action="create-card-list"> {% csrf_token %}
-		New card list:
+		<form method="post" action="create-word-list"> {% csrf_token %}
+		New word list:
 		<input type="text" name="name" maxlength="128" />
 		<input type="submit" value="Create list" id="id_create_list"/>
 		</form>

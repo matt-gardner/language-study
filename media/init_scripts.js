@@ -6,10 +6,10 @@ $("#id_show_text").click(function () {
 		$("#id_show_text").val("Show text");
 	}
 });
-$("#id_next_card").click(function () {
+$("#id_next_word").click(function () {
 	next_word();
 });
-$("#id_prev_card").click(function () {
+$("#id_prev_word").click(function () {
 	prev_word();
 });
 $("#id_easy").click(function () {
@@ -22,10 +22,10 @@ $("#id_hard").click(function () {
 	next_word('hard');
 });
 $("#id_delete_list").click(function () {
-	delete_card_list();
+	delete_word_list();
 });
 $("#id_create_list").click(function () {
-	create_card_list();
+	create_word_list();
 });
 $("#id_increase_word_size").click(function(){
 	var currentFontSize = $('.review_word .text').css('font-size');

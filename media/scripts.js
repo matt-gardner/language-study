@@ -1,15 +1,15 @@
 /* Card list functions */
-function delete_card_list() {
-	var list = $("#id_cardlist").val();
+function delete_word_list() {
+	var list = $("#id_wordlist").val();
 	var result = confirm("Are you sure you want to delete Card List "+list+"?");
 	if (result == true) {
-		window.location = "delete-card-list/"+list;
+		window.location = "delete-word-list/"+list;
 	}
 }
-function get_card_list() {
-	var list = $("#id_cardlist").val();
-	$.getJSON("get-card-list/"+list, {}, function(data) {
-		new_word(data.card, data.card_number, data.num_cards, data.difficulty);
+function get_word_list() {
+	var list = $("#id_wordlist").val();
+	$.getJSON("get-word-list/"+list, {}, function(data) {
+		new_word(data.word, data.word_number, data.num_words, data.difficulty);
 	});
 }
 
@@ -18,64 +18,64 @@ function switch_review_style() {
 	window.location = $("#id_review_style").val();
 }
 function reorder_words(ordering) {
-	$.getJSON("reorder-card-list/"+ordering, {}, function(data) {
-		new_word(data.card, data.card_number, data.num_cards, data.difficulty);
+	$.getJSON("reorder-word-list/"+ordering, {}, function(data) {
+		new_word(data.word, data.word_number, data.num_words, data.difficulty);
 	});
 }
 
 /* Get word functions */
 function next_word(difficulty) {
-	var link = "next-card/"
+	var link = "next-word/"
 	if (difficulty) {
 		link += difficulty
 	}
 	$.getJSON(link, {}, function(data) {
-		new_word(data.card, data.card_number, data.num_cards, data.difficulty);
+		new_word(data.word, data.word_number, data.num_words, data.difficulty);
 	});
 }
 function prev_word() {
-	$.getJSON("prev-card/", {}, function(data) {
-		new_word(data.card, data.card_number, data.num_cards, data.difficulty);
+	$.getJSON("prev-word/", {}, function(data) {
+		new_word(data.word, data.word_number, data.num_words, data.difficulty);
 	});
 }
-function new_word(card, card_number, num_cards, average_difficulty) {
+function new_word(word, word_number, num_words, average_difficulty) {
 	if ($("#id_show_text").val() == "Hide text") {
 		$("#id_show_text").val("Show text");
 		$(".review_text .text").toggle(0);
 	}
-	switch_text(card.word, card.text);
-	reset_card_number(card_number, num_cards, card.difficulty);
-	reset_card_difficulty(card.difficulty, card.review_count);
-	reset_card_tags(card.tags);
+	switch_text(word.word, word.text);
+	reset_word_number(word_number, num_words, word.difficulty);
+	reset_word_difficulty(word.difficulty, word.review_count);
+	reset_word_tags(word.tags);
 	reset_list_difficulty(average_difficulty);
 }
 function switch_text(word, text) {
 	$(".review_word .text").html(word);
 	$(".review_text .text").html(text);
 }
-function reset_card_number(card_number, num_cards) {
-	var html = $.fn.message_config.before_card_number;
-	html += card_number;
-	html += $.fn.message_config.after_card_number;
-	html += num_cards;
-	html += $.fn.message_config.after_num_cards;
-	$(".cards").html(html);
+function reset_word_number(word_number, num_words) {
+	var html = $.fn.message_config.before_word_number;
+	html += word_number;
+	html += $.fn.message_config.after_word_number;
+	html += num_words;
+	html += $.fn.message_config.after_num_words;
+	$(".words").html(html);
 }
-function reset_card_difficulty(difficulty, review_count) {
-	$(".card_difficulty").html("This card's difficulty: " +
+function reset_word_difficulty(difficulty, review_count) {
+	$(".word_difficulty").html("This word's difficulty: " +
 			difficulty.toFixed(2) + '; Times reviewed: ' +
 			review_count);
 }
-function reset_card_tags(tags) {
+function reset_word_tags(tags) {
 	$(".word_tags").html(tags);
 }
 function reset_list_difficulty(difficulty) {
-	$(".cardlist_difficulty").html('Average difficulty of cards: ' +
+	$(".wordlist_difficulty").html('Average difficulty of words: ' +
 			difficulty.toFixed(2));
 }
 function add_tag() {
 	tag_name = $("#id_add_tag").val();
-	$.getJSON("/add-tag-to-card/"+tag_name, {}, function(data) {
+	$.getJSON("/add-tag-to-word/"+tag_name, {}, function(data) {
 		$(".word_tags").html(data.tags);
 	});
 }

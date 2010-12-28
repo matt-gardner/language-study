@@ -9,87 +9,87 @@ from django.utils import simplejson
 from datetime import datetime
 from random import shuffle
 
-from memorizing.flashcards.models import Card, CardList, Tag
-from memorizing.flashcards.filters import filter_cards
+from language_study.drills.models import Word, WordList, Tag
+from language_study.drills.filters import filter_words
 
-# Card list stuff
+# Word list stuff
 #################
 
-def create_card_list(request, next_url):
-    cardlist = CardList(name=request.POST['name'], user=request.user)
-    cardlist.save()
-    request.session['cardlist-name'] = request.POST['name']
-    request.session['card-number'] = 0
-    request.session['cards'] = []
+def create_word_list(request, next_url):
+    wordlist = WordList(name=request.POST['name'], user=request.user)
+    wordlist.save()
+    request.session['wordlist-name'] = request.POST['name']
+    request.session['word-number'] = 0
+    request.session['words'] = []
     return HttpResponseRedirect(next_url)
 
 
-def delete_card_list(request, name, next_url):
-    cardlist = CardList.objects.get(name=name)
-    cardlist.delete()
-    del request.session['cardlist-name']
-    request.session['card-number'] = 0
+def delete_word_list(request, name, next_url):
+    wordlist = WordList.objects.get(name=name)
+    wordlist.delete()
+    del request.session['wordlist-name']
+    request.session['word-number'] = 0
     return HttpResponseRedirect(next_url)
 
 
-def get_card_list(request, name):
-    request.session['cardlist-name'] = name
-    request.session['card-number'] = 0
-    cardlist = request.user.cardlist_set.get(name=name)
-    cards = cardlist.card_set.all()
-    request.session['cards'] = [AjaxWord(c) for c in cards]
-    return return_card_from_session(request)
+def get_word_list(request, name):
+    request.session['wordlist-name'] = name
+    request.session['word-number'] = 0
+    wordlist = request.user.wordlist_set.get(name=name)
+    words = wordlist.word_set.all()
+    request.session['words'] = [AjaxWord(c) for c in words]
+    return return_word_from_session(request)
 
 
-def add_card_to_list(request, next_url):
+def add_word_to_list(request, next_url):
     word = request.POST['word']
     request.session['errors'] = []
     if not word:
         request.session['errors'].append("You didn't enter a word!")
 
-    text = request.POST['text']
-    if not text:
-        request.session['errors'].append("You didn't enter any text!")
+    definition = request.POST['definition']
+    if not definition:
+        request.session['errors'].append("You didn't enter any definition!")
 
-    list_name = request.session.get('cardlist-name', None)
+    list_name = request.session.get('wordlist-name', None)
     if not list_name:
-        request.session['errors'].append("You didn't select a card list!")
+        request.session['errors'].append("You didn't select a word list!")
 
     if request.session['errors']:
         return HttpResponseRedirect(next_url)
 
     del request.session['errors']
     now = datetime.now()
-    cardlist = CardList.objects.get(name=list_name)
-    card = Card(list=cardlist, word=word, text=text, last_reviewed=now,
-            date_entered=now)
-    card.save()
-    cardlist.save()
+    wordlist = WordList.objects.get(name=list_name)
+    word = Word(wordlist=wordlist, word=word, definition=definition,
+            last_reviewed=now, date_entered=now)
+    word.save()
+    wordlist.save()
     return HttpResponseRedirect(next_url)
 
 
-def reorder_card_list(request, ordering):
-    cardlist_name = request.session['cardlist-name']
-    cardlist = request.user.cardlist_set.get(name=cardlist_name)
+def reorder_word_list(request, ordering):
+    wordlist_name = request.session['wordlist-name']
+    wordlist = request.user.wordlist_set.get(name=wordlist_name)
     if ordering == 'random':
-        shuffle(request.session['cards'])
-        request.session['card-number'] = 0
-        return return_card_from_session(request)
+        shuffle(request.session['words'])
+        request.session['word-number'] = 0
+        return return_word_from_session(request)
     filters = request.session.get('filters', [])
-    cards, _ = filter_cards(cardlist.card_set, filters)
+    words, _ = filter_words(wordlist.word_set, filters)
     if ordering == 'alphabetical':
-        cards = cards.order_by('word')
+        words = words.order_by('word')
     elif ordering == 'last_reviewed':
-        cards = cards.order_by('last_reviewed')
+        words = words.order_by('last_reviewed')
     elif ordering == 'least_reviewed':
-        cards = cards.order_by('review_count')
+        words = words.order_by('review_count')
     elif ordering == 'date_entered':
-        cards = cards.order_by('date_entered')
+        words = words.order_by('date_entered')
     elif ordering == 'difficulty':
-        cards = cards.order_by('-average_difficulty')
-    request.session['cards'] = [AjaxWord(c) for c in cards]
-    request.session['card-number'] = 0
-    return return_card_from_session(request)
+        words = words.order_by('-average_difficulty')
+    request.session['words'] = [AjaxWord(c) for c in words]
+    request.session['word-number'] = 0
+    return return_word_from_session(request)
 
 
 # Tag stuff
@@ -98,48 +98,48 @@ def reorder_card_list(request, ordering):
 def add_tag(request, next_url):
     name = request.POST['name']
     request.session['errors'] = []
-    list_name = request.session.get('cardlist-name', None)
+    list_name = request.session.get('wordlist-name', None)
     if not list_name:
-        request.session['errors'].append("You didn't select a card list!")
+        request.session['errors'].append("You didn't select a word list!")
 
     if request.session['errors']:
         return HttpResponseRedirect(next_url)
 
     del request.session['errors']
-    cardlist = CardList.objects.get(name=list_name)
-    tag = Tag(name=name, list=cardlist)
+    wordlist = WordList.objects.get(name=list_name)
+    tag = Tag(name=name, wordlist=wordlist)
     tag.save()
     return HttpResponseRedirect(next_url)
 
 
-def add_tag_to_card(request, tag_name):
-    list_name = request.session.get('cardlist-name', None)
-    cardlist = CardList.objects.get(name=list_name)
-    tag = cardlist.tag_set.get(name=tag_name)
-    card = cardlist.card_set.get(pk=request.session['card-id'])
-    card.tags.add(tag)
+def add_tag_to_word(request, tag_name):
+    list_name = request.session.get('wordlist-name', None)
+    wordlist = WordList.objects.get(name=list_name)
+    tag = wordlist.tag_set.get(name=tag_name)
+    word = wordlist.word_set.get(pk=request.session['word-id'])
+    word.tags.add(tag)
     ret_val = dict()
-    ret_val['tags'] = ', '.join(t.name for t in card.tags.all())
+    ret_val['tags'] = ', '.join(t.name for t in word.tags.all())
     return HttpResponse(simplejson.dumps(ret_val))
 
 
-# The general "return a card" AJAX function
+# The general "return a word" AJAX function
 ###########################################
 
-def return_card_from_session(request):
+def return_word_from_session(request):
     ret_val = dict()
-    cards = request.session['cards']
-    num_cards = len(cards)
-    print num_cards
-    current_card = request.session['card-number']
-    current_card %= num_cards
-    request.session['card-number'] = current_card
-    request.session['card-id'] = cards[current_card].id
-    cards[current_card].get_tags()
-    ret_val['card'] = vars(cards[current_card])
-    ret_val['card_number'] = current_card + 1
-    ret_val['num_cards'] = num_cards
-    ret_val['difficulty'] = sum([c.difficulty for c in cards])/len(cards)
+    words = request.session['words']
+    num_words = len(words)
+    print num_words
+    current_word = request.session['word-number']
+    current_word %= num_words
+    request.session['word-number'] = current_word
+    request.session['word-id'] = words[current_word].id
+    words[current_word].get_tags()
+    ret_val['word'] = vars(words[current_word])
+    ret_val['word_number'] = current_word + 1
+    ret_val['num_words'] = num_words
+    ret_val['difficulty'] = sum([c.difficulty for c in words])/len(words)
     return HttpResponse(simplejson.dumps(ret_val))
 
 
@@ -154,28 +154,28 @@ def review_styles():
     return styles
 
 
-def next_card(request, difficulty=None):
+def next_word(request, difficulty=None):
     if difficulty:
-        card = update_card_difficulty_from_session(request, difficulty)
-        ajaxcard = request.session['cards'][request.session['card-number']]
-        ajaxcard.difficulty = card.average_difficulty
-        ajaxcard.review_count = card.review_count
-    request.session['card-number'] += 1
-    return return_card_from_session(request)
+        word = update_word_difficulty_from_session(request, difficulty)
+        ajaxword = request.session['words'][request.session['word-number']]
+        ajaxword.difficulty = word.average_difficulty
+        ajaxword.review_count = word.review_count
+    request.session['word-number'] += 1
+    return return_word_from_session(request)
 
 
-def prev_card(request):
-    request.session['card-number'] -= 1
-    return return_card_from_session(request)
+def prev_word(request):
+    request.session['word-number'] -= 1
+    return return_word_from_session(request)
 
 
-def update_card_difficulty_from_session(request, difficulty):
-    cardlist_name = request.session['cardlist-name']
-    cardlist = request.user.cardlist_set.get(name=cardlist_name)
-    card = cardlist.card_set.get(pk=request.session['card-id'])
-    card.update_difficulty(Card.DIFFICULTY_SCORES[difficulty])
-    card.reviewed()
-    return card
+def update_word_difficulty_from_session(request, difficulty):
+    wordlist_name = request.session['wordlist-name']
+    wordlist = request.user.wordlist_set.get(name=wordlist_name)
+    word = wordlist.word_set.get(pk=request.session['word-id'])
+    word.update_difficulty(Word.DIFFICULTY_SCORES[difficulty])
+    word.reviewed()
+    return word
 
 
 def base_review_context(request):
@@ -191,30 +191,30 @@ def base_review_context(request):
 
     context['greeting'] = 'Hello %s!' % request.user.first_name
 
-    lists = request.user.cardlist_set.all()
-    context['cardlists'] = lists
+    lists = request.user.wordlist_set.all()
+    context['wordlists'] = lists
 
     context['review_styles'] = review_styles()
 
-    list_name = request.session.get('cardlist-name', '')
+    list_name = request.session.get('wordlist-name', '')
     if list_name:
-        cardlist = lists.get(name=list_name)
+        wordlist = lists.get(name=list_name)
     else:
-        cardlist = lists[0]
-        request.session['cardlist-name'] = cardlist.name
+        wordlist = lists[0]
+        request.session['wordlist-name'] = wordlist.name
 
-    context['cardlist'] = cardlist
+    context['wordlist'] = wordlist
 
-    context['tags'] = cardlist.tag_set.all()
-    cards = cardlist.card_set
+    context['tags'] = wordlist.tag_set.all()
+    words = wordlist.word_set
     filters = request.session.get('filters', [])
-    cards, filter_form = filter_cards(cards, filters)
+    words, filter_form = filter_words(words, filters)
     context['filter'] = filter_form
-    context['num_cards'] = len(cards)
-    if cards:
-        ave_difficulty = cards.aggregate(ave=Avg('average_difficulty'))['ave']
+    context['num_words'] = len(words)
+    if words:
+        ave_difficulty = words.aggregate(ave=Avg('average_difficulty'))['ave']
         context['average_difficulty'] = ave_difficulty
-    return context, cards
+    return context, words
 
 
 # Classes that help out with things
@@ -227,19 +227,19 @@ class ReviewStyle(object):
 
 
 class AjaxWord(object):
-    def __init__(self, card):
-        self.word = card.word
-        self.text = card.text
-        self.difficulty = card.average_difficulty
-        self.review_count = card.review_count
-        self.id = card.id
+    def __init__(self, word):
+        self.word = word.word
+        self.definition = word.definition
+        self.difficulty = word.average_difficulty
+        self.review_count = word.review_count
+        self.id = word.id
         self.tags = None
 
     def get_tags(self):
-        card = Card.objects.get(pk=self.id)
-        self.tags = ', '.join(t.name for t in card.tags.all())
+        word = Word.objects.get(pk=self.id)
+        self.tags = ', '.join(t.name for t in word.tags.all())
         if not self.tags:
-            self.tags = 'This card has no tags'
+            self.tags = 'This word has no tags'
 
 
 # vim: et sts=4 sw=4

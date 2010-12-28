@@ -2,13 +2,13 @@
 
 import os, sys
 
-sys.path.append(os.curdir)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'memorizing.settings'
+sys.path.append(os.getcwd()+'/..')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 
 from django.contrib.auth.models import User
 from django.db import transaction
 
-from memorizing.flashcards.models import CardList, Card
+from language_study.drills.models import WordList, Word, Tag
 
 from datetime import datetime
 from optparse import OptionParser
@@ -19,26 +19,45 @@ def main(filename, username):
     user = User.objects.get(username=username)
     json = cjson.decode(open(filename).read())
     json_index = 0
-    cardlists = dict()
-    while json[json_index]['model'] == 'flashcards.cardlist':
-        list = json[json_index]
-        cardlists[list['pk']] = CardList(user=user, name=list['fields']['name'])
-        cardlists[list['pk']].save()
-        json_index += 1
+    lists = []
+    words = []
+    tags_ = []
+    for item in json:
+        if item['model'] == 'drills.wordlist':
+            lists.append(item)
+        elif item['model'] == 'drills.word':
+            words.append(item)
+        elif item['model'] == 'drills.tag':
+            tags_.append(item)
+    wordlists = dict()
+    for wordlist in lists:
+        wordlists[wordlist['pk']] = WordList(user=user,
+                name=wordlist['fields']['name'])
+        wordlists[wordlist['pk']].save()
     now = datetime.now()
-    hard = Card.DIFFICULTY_SCORES['hard']
-    for item in json[json_index:]:
-        card = item['fields']
+    hard = Word.DIFFICULTY_SCORES['hard']
+    tags = dict()
+    for tag in tags_:
         args = dict()
-        args['list'] = cardlists[card['list']]
-        args['word'] = card['word']
-        args['text'] = card['text']
-        args['last_reviewed'] = card.get('last_reviewed', now)
-        args['date_entered'] = card.get('date_entered', now)
-        args['average_difficulty'] = card.get('average_difficulty', hard)
-        args['review_count'] = card.get('review_count', 0)
-        card = Card(**args)
-        card.save()
+        args['wordlist'] = wordlists[tag['fields']['wordlist']]
+        args['name'] = tag['fields']['name']
+        tags[tag['pk']] = Tag(**args)
+        tags[tag['pk']].save()
+    for word in words:
+        word = word['fields']
+        args = dict()
+        args['wordlist'] = wordlists[word['wordlist']]
+        args['word'] = word['word']
+        args['definition'] = word['definition']
+        args['last_reviewed'] = word.get('last_reviewed', now)
+        # This is ignored because of auto_now_add
+        #args['date_entered'] = word.get('date_entered', now)
+        args['average_difficulty'] = word.get('average_difficulty', hard)
+        args['review_count'] = word.get('review_count', 0)
+        w = Word(**args)
+        w.save()
+        for tag_id in word['tags']:
+            w.tags.add(tags[tag_id])
     transaction.commit()
 
 
@@ -46,11 +65,12 @@ if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option('-f', '--file',
             dest='file',
-            help='Path to old .mem file',
+            help='Path to database dump file',
             )
     parser.add_option('-u', '--user',
             dest='user',
-            help='Username for user to add the list for',
+            help="Username for user to add the lists for (this doesn't"
+            " currently support copying the user information)",
             )
     options, args = parser.parse_args()
     main(options.file, options.user)

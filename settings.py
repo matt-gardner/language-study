@@ -1,4 +1,4 @@
-# Django settings for memorizing project.
+# Django settings for language_study project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'memorizing.urls'
+ROOT_URLCONF = 'language_study.urls'
 
 TEMPLATE_DIRS = (
     'templates'
