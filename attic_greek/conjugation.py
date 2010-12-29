@@ -105,6 +105,8 @@ class GreekConjugation(Conjugation):
         # overlap to justify putting the bulk of the implementation here.
         # TODO: In order to selectively override parts of this, actually, this
         # needs to be split up into separate methods.
+        if not principle_part:
+            raise ValueError('This verb is defective in that principle part')
         index = self.get_principle_part_index(tense, voice)
         if index == 0 or index == 1:
             if principle_part.endswith(u'ω'):

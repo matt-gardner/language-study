@@ -86,6 +86,8 @@ urlpatterns = patterns('',
         'drills.forms.index'),
     (r'^inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
         'drills.forms.inflect_form'),
+    (r'^get-new-verb/'+id+'$',
+        'drills.forms.get_new_verb'),
 
     # Site media
     (r'^site-media/(?P<path>.*)$',

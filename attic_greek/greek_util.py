@@ -95,6 +95,8 @@ def remove_augment(word):
 
 accents = set([u'\u0301', u'\u0313', u'\u0314', u'\u0342', u'\u0300'])
 def is_accent(character):
+    """This also removes breathing marks.  It leaves intact subscript iotas
+    and the dieresis"""
     if character in accents:
         return True
     return False

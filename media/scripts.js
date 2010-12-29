@@ -29,6 +29,12 @@ function get_new_form() {
 		switch_text(data.inflected_form, "");
 	});
 }
+function get_new_verb() {
+	var verb = $("#id_verblist").val();
+	$.getJSON("/get-new-verb/"+verb, {}, function(data) {
+		switch_text(data.inflected_form, "");
+	});
+}
 
 /* Review option functions */
 function switch_review_style() {

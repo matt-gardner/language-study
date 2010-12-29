@@ -112,5 +112,15 @@
 			</table>
 		</div>
 	</div>
+	<div class="right_review">
+		<select id="id_verblist" onchange="get_new_verb()">
+			{% for v in verbs %}
+				<option value="{{ v.id }}"
+				{% ifequal v.id verb_id %}selected{% endifequal %}>
+				{{ v.word }}
+				</option>
+			{% endfor %}
+		</select>
+	</div>
 </div>
 {% endblock %}

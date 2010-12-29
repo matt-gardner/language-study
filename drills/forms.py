@@ -64,7 +64,7 @@ def base_form_drill_context(request):
     filters = request.session.get('filters', [])
     verbs, filter_form = filter_words(verbs, filters)
     context['filter'] = filter_form
-    context['num_words'] = len(verbs)
+    context['verbs'] = verbs
     return context, verbs
 
 
@@ -74,6 +74,7 @@ def index(request):
     if verbs:
         verb = verbs[0]
         request.session['verb-id'] = verb.id
+        context['verb_id'] = verb.id
         context['inflected_form'] = conj_verb_from_session(request.session)
         context['num_verbs'] = verbs.count()
         request.session['verbs-reviewed'] = 0
@@ -102,6 +103,13 @@ def conj_verb_from_session(session):
         return conj.conjugate(**args)
     except ValueError as e:
         return unicode(e)
+
+
+def get_new_verb(request, id):
+    request.session['verb-id'] = id
+    ret_val = dict()
+    ret_val['inflected_form'] = conj_verb_from_session(request.session)
+    return HttpResponse(simplejson.dumps(ret_val))
 
 
 def inflect_form(request, person, number, tense, mood, voice):
