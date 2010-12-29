@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% load custom_filters %}
+
+{% block content %}
+<div class="review">
+	<div class="center_review">
+		<div class="review_word">
+			<div class="text">
+				{{ inflected_form }}
+			</div>
+		</div>
+		<div class="drill_form_buttons">
+			<table>
+				<tr>
+					<td>
+						Person
+						<ul>
+						{% for person in persons %}
+						<li> <label for="id_{{ person|variablize }}"
+								class="person">
+							<input type="radio"
+							name="person"
+							value="{{ person|variablize }}"
+							class="drill_form"
+							id="id_{{ person|variablize }}"
+							{% ifequal person cur_person %}
+							checked
+							{% endifequal %} />
+							{{ person }}
+						</label>
+						{% endfor %}
+						</ul>
+					</td>
+					<td>
+						Number
+						<ul>
+						{% for number in numbers %}
+						<li> <label for="id_{{ number|variablize }}"
+								class="number">
+							<input type="radio"
+							name="number"
+							value="{{ number|variablize }}"
+							class="drill_form"
+							id="id_{{ number|variablize }}"
+							{% ifequal number cur_number %}
+							checked
+							{% endifequal %} />
+							{{ number }}
+						</label>
+						{% endfor %}
+						</ul>
+					</td>
+					<td>
+						Tense
+						<ul>
+						{% for tense in tenses %}
+						<li> <label for="id_{{ tense|variablize }}"
+								class="tense">
+							<input type="radio"
+							name="tense"
+							value="{{ tense|variablize }}"
+							class="drill_form"
+							id="id_{{ tense|variablize }}"
+							{% ifequal tense cur_tense %}
+							checked
+							{% endifequal %} />
+							{{ tense }}
+						</label>
+						{% endfor %}
+						</ul>
+					</td>
+					<td>
+						Mood
+						<ul>
+						{% for mood in moods %}
+						<li> <label for="id_{{ mood|variablize }}"
+								class="mood">
+							<input type="radio"
+							name="mood"
+							value="{{ mood|variablize }}"
+							class="drill_form"
+							id="id_{{ mood|variablize }}"
+							{% ifequal mood cur_mood %}
+							checked
+							{% endifequal %} />
+							{{ mood }}
+						</label>
+						{% endfor %}
+						</ul>
+					</td>
+					<td>
+						Voice
+						<ul>
+						{% for voice in voices %}
+						<li> <label for="id_{{ voice|variablize }}"
+								class="voice">
+							<input type="radio"
+							name="voice"
+							value="{{ voice|variablize }}"
+							class="drill_form"
+							id="id_{{ voice|variablize }}"
+							{% ifequal voice cur_voice %}
+							checked
+							{% endifequal %} />
+							{{ voice }}
+						</label>
+						{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -54,6 +54,9 @@ $("#id_decrease_definition_size").click(function(){
 $("input[name=review_order]").click(function() {
 	reorder_words($("input[name=review_order]:checked").val());
 });
+$("input[class=drill_form]").click(function() {
+	get_new_form();
+});
 $("#id_add_tag_button").click(function () {
 		add_tag();
 });

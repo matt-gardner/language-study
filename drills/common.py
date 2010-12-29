@@ -112,10 +112,10 @@ def add_tag(request, next_url):
     return HttpResponseRedirect(next_url)
 
 
-def add_tag_to_word(request, tag_name):
+def add_tag_to_word(request, tag):
     list_name = request.session.get('wordlist-name', None)
     wordlist = WordList.objects.get(name=list_name)
-    tag = wordlist.tag_set.get(name=tag_name)
+    tag = wordlist.tag_set.get(name=tag)
     word = wordlist.word_set.get(pk=request.session['word-id'])
     word.tags.add(tag)
     ret_val = dict()
@@ -176,6 +176,12 @@ def update_word_difficulty_from_session(request, difficulty):
     word.update_difficulty(Word.DIFFICULTY_SCORES[difficulty])
     word.reviewed()
     return word
+
+
+def devariablize(string):
+    if string == 'none':
+        return None
+    return ' '.join([s.capitalize() for s in string.split('_')])
 
 
 def base_review_context(request):

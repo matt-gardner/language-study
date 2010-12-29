@@ -10,6 +10,7 @@ from optparse import OptionParser
 
 def add_language(incremental=False):
     language_name = 'Attic Greek'
+    module_name = 'attic_greek'
     added = []
     try:
         language = Language.objects.get(name=language_name)
@@ -17,7 +18,7 @@ def add_language(incremental=False):
             raise RuntimeError('%s is already in the database!' % language_name)
     except Language.DoesNotExist:
         added.append('Language: ' + language_name)
-        language = Language(name=language_name)
+        language = Language(name=language_name, module_name=module_name)
         language.save()
     # Declensions
     add_or_fail('First Declension', Declension, language, incremental, added)

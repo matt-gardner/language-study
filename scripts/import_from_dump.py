@@ -48,7 +48,8 @@ def main(filename, username):
     # Languages and associated models first
     languages = dict()
     for language in types.get('drills.language', []):
-        languages[language['pk']] = Language(name=language['fields']['name'])
+        languages[language['pk']] = Language(name=language['fields']['name'],
+                module_name=language['fields']['module_name'])
         languages[language['pk']].save()
     declensions = dict()
     for d in types.get('drills.declension', []):

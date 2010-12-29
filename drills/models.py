@@ -7,7 +7,8 @@ from datetime import datetime
 #################
 
 class Language(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
+    module_name = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.name
@@ -17,50 +18,80 @@ class Declension(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
 
+    def __unicode__(self):
+        return self.name
+
 
 class Case(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
+
+    def __unicode__(self):
+        return self.name
 
 
 class Number(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
 
+    def __unicode__(self):
+        return self.name
+
 
 class Gender(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
+
+    def __unicode__(self):
+        return self.name
 
 
 class Conjugation(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
 
+    def __unicode__(self):
+        return self.name
+
 
 class Tense(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
+
+    def __unicode__(self):
+        return self.name
 
 
 class Voice(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
 
+    def __unicode__(self):
+        return self.name
+
 
 class Mood(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
+
+    def __unicode__(self):
+        return self.name
 
 
 class Person(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
 
+    def __unicode__(self):
+        return self.name
+
 
 class DeclinableType(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
+
+    def __unicode__(self):
+        return self.name
 
 
 # Drilling Models

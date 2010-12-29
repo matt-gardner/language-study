@@ -1,7 +1,7 @@
-/* Card list functions */
+/* Word list functions */
 function delete_word_list() {
 	var list = $("#id_wordlist").val();
-	var result = confirm("Are you sure you want to delete Card List "+list+"?");
+	var result = confirm("Are you sure you want to delete Word List "+list+"?");
 	if (result == true) {
 		window.location = "delete-word-list/"+list;
 	}
@@ -10,6 +10,23 @@ function get_word_list() {
 	var list = $("#id_wordlist").val();
 	$.getJSON("get-word-list/"+list, {}, function(data) {
 		new_word(data.word, data.word_number, data.num_words, data.difficulty);
+	});
+}
+
+/* Form drilling functions */
+function get_new_form() {
+	person = $("input[name=person]:checked").val();
+	number = $("input[name=number]:checked").val();
+	tense = $("input[name=tense]:checked").val();
+	mood = $("input[name=mood]:checked").val();
+	if (mood == 'infinitive') {
+		person = 'none';
+		number = 'none';
+	}
+	voice = $("input[name=voice]:checked").val();
+	link = "/inflect-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
+	$.getJSON(link, {}, function(data) {
+		switch_text(data.inflected_form, "");
 	});
 }
 
