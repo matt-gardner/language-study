@@ -5,11 +5,14 @@ import unicodedata
 
 from collections import defaultdict
 from endings import *
+from greek_util import add_augment
+from greek_util import add_penult_accent
 from greek_util import add_recessive_accent
+from greek_util import get_final_consonant
 from greek_util import remove_accents
 from greek_util import remove_augment
 from greek_util import split_syllables
-from greek_util import add_penult_accent
+from greek_util import vowels
 
 class Conjugation(object):
     def __init__(self):
@@ -55,7 +58,8 @@ class GreekConjugation(Conjugation):
                 principle_part)
         augment = self.get_augment(tense, mood, principle_part)
         # TODO: add prefixes here
-        final_form = self.combine_parts(augment, stem, ending)
+        final_form = self.combine_parts(augment, stem, ending, tense, mood,
+                voice)
         accented = self.add_accent(final_form, mood, tense, voice)
         return accented
 
@@ -237,17 +241,54 @@ class GreekConjugation(Conjugation):
             return False
         return True
 
-    def combine_parts(self, augment, stem, ending):
+    def combine_parts(self, augment, stem, ending, tense, mood, voice):
         # I don't think this is different by conjugation; you just have to
         # worry about the augment.  We'll figure out the augment later.
 
         # TODO: add prefixes
         # TODO: fix the augment handling; we'll probably need more information
         if augment:
-            augment = u'ἐ'
+            stem = add_augment(stem)
+        if (tense in ['Perfect', 'Pluperfect'] and
+                voice in ['Middle', 'Passive']):
+            return self.combine_consonant_stem(stem, ending)
+        return stem + ending
+
+    def combine_consonant_stem(self, stem, ending):
+        if stem[-1] in vowels:
+            # No consonant stem to worry about, so just do the normal thing
+            return stem + ending
+        if stem[-1] == u'λ':
+            # With a λ, there is only one option, so convert it
+            return stem[:-1] + ConsonantLambda.convert(ending)
+        # If the perfect stem ends in anything else, we need to look at the
+        # first principle part in order to determine what to do.
+        if self.principle_parts[0]:
+            last_consonant = get_final_consonant(self.principle_parts[0])
         else:
-            augment = u''
-        return augment + stem + ending
+            # If there is no first principle part, we punt.
+            return stem + ending
+        # Now to test the cases that we have
+        if stem[-1] == u'μ':
+            # Perfect stem ends in μ, so we have three cases
+            if last_consonant in [u'π', u'πτ', u'φ', u'β']:
+                return stem[:-1] + ConsonantLabial.convert(ending)
+            elif last_consonant == u'μπ':
+                return stem[:-1] + ConsonantPempo.convert(ending)
+            elif last_consonant == u'ν':
+                return stem[:-1] + ConsonantNasal.convert(ending)
+        elif stem[-1] == u'γ':
+            # Perfect stem ends in γ, so we have two cases
+            if last_consonant in [u'ττ', u'κ', u'χ', u'ξ']:
+                return stem[:-1] + ConsonantPalatal.convert(ending)
+            elif last_consonant in [u'γχ', u'γκ']:
+                return stem[:-1] + ConsonantGK.convert(ending)
+        elif stem[-1] == u'σ':
+            # Perfect stem ends in σ, so we have two cases
+            if last_consonant == u'ν':
+                return stem[:-1] + ConsonantSigmaNasal.convert(ending)
+            elif last_consonant == u'':
+                return stem[:-1] + ConsonantAddedSigma.convert(ending)
 
     def add_accent(self, verb, mood, tense, voice):
         if mood == 'Optative':
@@ -260,6 +301,10 @@ class GreekConjugation(Conjugation):
         elif tense == 'Aorist' and mood == 'Subjunctive' and voice == 'Passive':
             # Silly special case, but it was the easiest way to do this; the
             # endings already include the accent
+            return unicodedata.normalize('NFKD', verb)
+        elif (tense in ['Perfect', 'Pluperfect'] and
+                voice in ['Middle', 'Passive'] and ' ' in verb):
+            # Another silly special case... Oh well.
             return unicodedata.normalize('NFKD', verb)
         return add_recessive_accent(verb)
 

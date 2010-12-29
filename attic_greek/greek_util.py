@@ -87,6 +87,11 @@ def remove_augment(word):
     raise NotImplementedError()
 
 
+def add_augment(word):
+    #TODO: make this better
+    return u'ἐ' + word
+
+
 # Methods that are intended to be private
 #########################################
 # These methods might be useful in other places, so I'm not munging them with
@@ -154,6 +159,27 @@ def get_vowel(syllable):
     """
     syllable = remove_accents(syllable)
     return u''.join([c for c in syllable if c in vowels])
+
+
+def get_final_consonant(word):
+    """This assumes that we are looking at the first principle part.
+    
+    The purpose of this method is as an aid to determining how to deal with
+    consonant stems in the perfect tenses, so we just care about the first
+    principle part.
+    """
+    word = remove_accents(word)
+    if word[-1] == u'ω':
+        stem = word[:-1]
+    else:
+        stem = word[:-3]
+    if stem[-1] in vowels:
+        return u''
+    consonant = u''
+    while stem[-1] not in vowels:
+        consonant += stem[-1]
+        stem = stem[:-1]
+    return consonant
 
 
 # For testing things

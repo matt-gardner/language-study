@@ -343,5 +343,218 @@ class PluperfectIndMP(EndingSet):
         self['Second Person']['Plural'] = u'σθε'
         self['Third Person']['Plural'] = u'ντο'
 
+# Consonant Stem Endings
+########################
+
+# These are a little different; we take an argument and return an ending,
+# because that was the way it worked out best in the rest of the code
+
+class ConsonantEndingSet(object):
+    @staticmethod
+    def convert(ending):
+        raise NotImplementedError()
+
+
+class ConsonantLambda(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'νται':
+            return u'λμένοι εἰσί'
+        elif ending == u'ντο':
+            return u'λμένοι ἦσαν'
+        elif ending.startswith(u'σθ'):
+            return u'λ' + ending[1:]
+        else:
+            return u'λ' + ending
+
+
+class ConsonantLabial(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'μμαι'
+        elif ending == u'σαι':
+            return u'ψαι'
+        elif ending == u'ται':
+            return u'πται'
+        elif ending == u'μεθα':
+            return u'μμεθα'
+        elif ending == u'σθε':
+            return u'φθε'
+        elif ending == u'νται':
+            return u'μμένοι εἰσί'
+        elif ending == u'μην':
+            return u'μμην'
+        elif ending == u'σο':
+            return u'ψο'
+        elif ending == u'το':
+            return u'πτο'
+        elif ending == u'ντο':
+            return u'μμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'φθαι'
+
+
+class ConsonantPempo(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'μμαι'
+        elif ending == u'σαι':
+            return u'μψαι'
+        elif ending == u'ται':
+            return u'μπται'
+        elif ending == u'μεθα':
+            return u'μμεθα'
+        elif ending == u'σθε':
+            return u'μφθε'
+        elif ending == u'νται':
+            return u'μμένοι εἰσί'
+        elif ending == u'μην':
+            return u'μμην'
+        elif ending == u'σο':
+            return u'μψο'
+        elif ending == u'το':
+            return u'μπτο'
+        elif ending == u'ντο':
+            return u'μμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'μφθαι'
+
+
+class ConsonantNasal(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'μμαι'
+        elif ending == u'σαι':
+            return u'μμένος εἶ'
+        elif ending == u'ται':
+            return u'νται'
+        elif ending == u'μεθα':
+            return u'μμεθα'
+        elif ending == u'σθε':
+            return u'νθε'
+        elif ending == u'νται':
+            return u'μμένοι εἰσί'
+        elif ending == u'μην':
+            return u'μμην'
+        elif ending == u'σο':
+            return u'μμένος ἦσθα'
+        elif ending == u'το':
+            return u'ντο'
+        elif ending == u'ντο':
+            return u'μμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'νθαι'
+
+
+class ConsonantPalatal(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'γμαι'
+        elif ending == u'σαι':
+            return u'ξαι'
+        elif ending == u'ται':
+            return u'κται'
+        elif ending == u'μεθα':
+            return u'γμεθα'
+        elif ending == u'σθε':
+            return u'χθε'
+        elif ending == u'νται':
+            return u'γμένοι εἰσί'
+        elif ending == u'μην':
+            return u'γμην'
+        elif ending == u'σο':
+            return u'ξο'
+        elif ending == u'το':
+            return u'κτο'
+        elif ending == u'ντο':
+            return u'γμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'χθαι'
+
+
+class ConsonantGK(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'γμαι'
+        elif ending == u'σαι':
+            return u'γξαι'
+        elif ending == u'ται':
+            return u'γκται'
+        elif ending == u'μεθα':
+            return u'γμεθα'
+        elif ending == u'σθε':
+            return u'γχθε'
+        elif ending == u'νται':
+            return u'γμένοι εἰσί'
+        elif ending == u'μην':
+            return u'γμην'
+        elif ending == u'σο':
+            return u'γξο'
+        elif ending == u'το':
+            return u'γκτο'
+        elif ending == u'ντο':
+            return u'γμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'γχθαι'
+
+
+class ConsonantSigmaNasal(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'σμαι'
+        elif ending == u'σαι':
+            return u'σμένος εἶ'
+        elif ending == u'ται':
+            return u'νται'
+        elif ending == u'μεθα':
+            return u'σμεθα'
+        elif ending == u'σθε':
+            return u'νθε'
+        elif ending == u'νται':
+            return u'σμένοι εἰσί'
+        elif ending == u'μην':
+            return u'σμην'
+        elif ending == u'σο':
+            return u'σμένος ἦσθα'
+        elif ending == u'το':
+            return u'ντο'
+        elif ending == u'ντο':
+            return u'σμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'νθαι'
+
+
+class ConsonantAddedSigma(ConsonantEndingSet):
+    @staticmethod
+    def convert(ending):
+        if ending == u'μαι':
+            return u'σμαι'
+        elif ending == u'σαι':
+            return u'σαι'
+        elif ending == u'ται':
+            return u'σται'
+        elif ending == u'μεθα':
+            return u'σμεθα'
+        elif ending == u'σθε':
+            return u'σθε'
+        elif ending == u'νται':
+            return u'σμένοι εἰσί'
+        elif ending == u'μην':
+            return u'σμην'
+        elif ending == u'σο':
+            return u'σο'
+        elif ending == u'το':
+            return u'στο'
+        elif ending == u'ντο':
+            return u'σμένοι ἦσαν'
+        elif ending == u'σθαι':
+            return u'σθαι'
+
 
 # vim: et sw=4 sts=4
