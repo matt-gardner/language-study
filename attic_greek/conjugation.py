@@ -5,12 +5,19 @@ import unicodedata
 
 from collections import defaultdict
 from endings import *
+from greek_util import acute_accent
 from greek_util import add_augment
 from greek_util import add_penult_accent
 from greek_util import add_recessive_accent
+from greek_util import circumflex
+from greek_util import contract_vowels
 from greek_util import get_final_consonant
+from greek_util import get_last_vowel
+from greek_util import is_accented
 from greek_util import remove_accents
 from greek_util import remove_augment
+from greek_util import remove_initial_vowel
+from greek_util import short_vowels
 from greek_util import split_syllables
 from greek_util import vowels
 
@@ -61,6 +68,8 @@ class GreekConjugation(Conjugation):
         final_form = self.combine_parts(augment, stem, ending, tense, mood,
                 voice)
         accented = self.add_accent(final_form, mood, tense, voice)
+        if self.needs_contraction(tense, principle_part):
+            accented = self.contract(accented, principle_part, ending)
         return accented
 
     def check_kwargs(self, kwargs):
@@ -308,6 +317,43 @@ class GreekConjugation(Conjugation):
             return unicodedata.normalize('NFKD', verb)
         return add_recessive_accent(verb)
 
+    def needs_contraction(self, tense, principle_part):
+        if tense not in ['Present', 'Imperfect', 'Future']:
+            return False
+        for ending in [u'έω', u'άω', u'όω', u'ῶ', u'όομαι', u'έομαι', u'άομαι',
+                u'οῦμαι']:
+            if principle_part.endswith(ending):
+                return True
+        return False
+
+    def contract(self, form, principle_part, ending):
+        stem_to_remove = remove_initial_vowel(principle_part)
+        if principle_part.endswith(u'ω'):
+            stem_to_remove = stem_to_remove[:-1]
+        elif principle_part.endswith(u'ομαι'):
+            stem_to_remove = stem_to_remove[:-4]
+        elif principle_part.endswith(u'ῶ'):
+            stem_to_remove = stem_to_remove.replace(u'ῶ', u'')
+        index = form.find(stem_to_remove) + len(stem_to_remove)
+        beginning = form[:index]
+        rest = form[index:]
+        ending_to_remove = remove_initial_vowel(ending)
+        vowels = rest.replace(ending_to_remove, u'')
+        rest = ending_to_remove
+        accented = is_accented(vowels)
+        if ending == u'ειν':
+            spurious = True
+        else:
+            spurious = False
+        vowels = contract_vowels(remove_accents(vowels), spurious)
+        if accented:
+            last_vowel = get_last_vowel(rest)
+            if not last_vowel or last_vowel in short_vowels:
+                vowels += circumflex
+            else:
+                vowels += acute_accent
+        return unicodedata.normalize('NFKD', beginning + vowels + rest)
+        
 
 class AthematicConjugation(GreekConjugation):
     def __init__(self, principle_parts):
