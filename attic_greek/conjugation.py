@@ -18,6 +18,7 @@ from greek_util import remove_accents
 from greek_util import remove_augment
 from greek_util import remove_initial_vowel
 from greek_util import short_vowels
+from greek_util import starts_with_vowel
 from greek_util import split_syllables
 from greek_util import vowels
 
@@ -247,6 +248,8 @@ class GreekConjugation(Conjugation):
         if tense not in ['Imperfect', 'Aorist', 'Pluperfect']:
             return False
         if mood != 'Indicative':
+            return False
+        if tense == 'Pluperfect' and starts_with_vowel(self.principle_parts[0]):
             return False
         return True
 

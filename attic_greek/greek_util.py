@@ -76,14 +76,15 @@ def should_be_long(vowel, optative, long_ending_vowel):
     return False
 
 
-def remove_accents(word):
+def remove_accents(word, breathing=False):
     # This removes accents and breathing marks while leaving the diaeresis and
     # subscript iota
     normalized = unicodedata.normalize('NFKD', unicode(word))
-    return u''.join([c for c in normalized if not is_accent(c)])
+    return u''.join([c for c in normalized if not is_accent(c, breathing)])
 
 
 def remove_augment(word):
+    word = remove_accents(word, breathing=True)
     if split_syllables(word)[0] == u'ε':
         return word[1:]
     #TODO: figure out how to handle cases with a tricky augment
@@ -97,10 +98,15 @@ def add_augment(word):
 
 def is_accented(word):
     for c in word:
-        if is_accent(c, breathing=False):
+        if is_accent(c):
             return True
     return False
 
+
+def starts_with_vowel(word):
+    normalized = unicodedata.normalize('NFKD', word)
+    word = u''.join([c for c in normalized if not unicodedata.combining(c)])
+    return word[0] in vowels
 
 def contract_vowels(vowels, spurious_diphthong=False):
     if vowels == u'αε':
@@ -165,7 +171,7 @@ def contract_vowels(vowels, spurious_diphthong=False):
 # a preceding _, but generally they are just helper methods for the public
 # methods above
 
-def is_accent(character, breathing=True):
+def is_accent(character, breathing=False):
     """This also includes breathing marks, but ignores subscript iotas and the
     dieresis"""
     if breathing:

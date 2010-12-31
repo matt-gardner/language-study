@@ -841,7 +841,6 @@ class ConsonantStemsTest(TestCase):
         conj = GreekConjugation(self.faino)
         for case, answer in zip(self.cases, answers):
             args.update(case)
-            print conj.conjugate(**args), answer
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
         args = {}
@@ -861,6 +860,41 @@ class ConsonantStemsTest(TestCase):
                 u'ἐπεφάσμεθα', u'ἐπέφανθε', u'πεφασμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(self.faino)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aggello(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἤγγελμαι', u'ἤγγελσαι', u'ἤγγελται',
+                u'ἠγγέλμεθα', u'ἤγγελθε', u'ἠγγελμένοι εἰσί']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.aggello)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            print conj.conjugate(**args), answer
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        answer = u'ἠγγέλθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.aggello)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἠγγέλμην', u'ἤγγελσο', u'ἤγγελτο',
+                u'ἠγγέλμεθα', u'ἤγγελθε', u'ἠγγελμένοι ἦσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.aggello)
         for case, answer in zip(self.cases, answers):
             args.update(case)
             print conj.conjugate(**args), answer
