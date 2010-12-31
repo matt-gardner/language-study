@@ -263,7 +263,7 @@ def get_final_consonant(word):
         return u''
     consonant = u''
     while stem[-1] not in vowels:
-        consonant += stem[-1]
+        consonant = stem[-1] + consonant
         stem = stem[:-1]
     return consonant
 

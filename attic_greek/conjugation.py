@@ -256,11 +256,16 @@ class GreekConjugation(Conjugation):
 
         # TODO: add prefixes
         # TODO: fix the augment handling; we'll probably need more information
-        if augment:
-            stem = add_augment(stem)
         if (tense in ['Perfect', 'Pluperfect'] and
                 voice in ['Middle', 'Passive']):
-            return self.combine_consonant_stem(stem, ending)
+            form = self.combine_consonant_stem(stem, ending)
+            if augment and ' ' not in form:
+                # DIRTY HACK, because I'm not handling compound forms correctly
+                # TODO: fix this by doing compound forms right
+                form = add_augment(form)
+            return form
+        if augment:
+            stem = add_augment(stem)
         return stem + ending
 
     def combine_consonant_stem(self, stem, ending):
@@ -313,7 +318,8 @@ class GreekConjugation(Conjugation):
             return unicodedata.normalize('NFKD', verb)
         elif (tense in ['Perfect', 'Pluperfect'] and
                 voice in ['Middle', 'Passive'] and ' ' in verb):
-            # Another silly special case... Oh well.
+            # Another silly special case... Oh well.  When I fix compound forms,
+            # this should also be fixed. TODO
             return unicodedata.normalize('NFKD', verb)
         return add_recessive_accent(verb)
 
