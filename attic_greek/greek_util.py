@@ -28,14 +28,12 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
     syllables = split_syllables(word)
     last_vowel = get_vowel(syllables[-1])
     if len(syllables) >= 3:
-        if (last_vowel in short_vowels and
-                not should_be_long(last_vowel, optative, long_ending_vowel)):
+        if is_short(last_vowel, optative, long_ending_vowel):
             syllables[-3] += acute_accent
         else:
             syllables[-2] += acute_accent
     elif len(syllables) == 2:
-        if (last_vowel in short_vowels and
-                not should_be_long(last_vowel, optative, long_ending_vowel)):
+        if is_short(last_vowel, optative, long_ending_vowel):
             syllables[0] += circumflex
         else:
             syllables[0] += acute_accent
@@ -63,6 +61,14 @@ def add_penult_accent(word, long_ending_vowel=False, long_penult=False):
     else:
         syllables[-2] += acute_accent
     return unicodedata.normalize('NFKD', u''.join(syllables))
+
+
+def is_short(vowel, optative=False, long_ending_vowel=False):
+    if vowel not in short_vowels:
+        return False
+    if should_be_long(vowel, optative, long_ending_vowel):
+        return False
+    return True
 
 
 def should_be_long(vowel, optative, long_ending_vowel):
@@ -111,58 +117,60 @@ def starts_with_vowel(word):
 def contract_vowels(vowels, spurious_diphthong=False):
     if vowels == u'αε':
         return u'α'
-    if vowels == u'αει':
+    elif vowels == u'αει':
         if spurious_diphthong:
             return u'α'
         else:
             return u'ᾳ'
-    if vowels == u'αη':
+    elif vowels == u'αη':
         return u'α'
-    if vowels == u'αῃ':
+    elif vowels == unicodedata.normalize('NFKD', u'αῃ'):
         return u'ᾳ'
-    if vowels == u'αο':
+    elif vowels == u'αο':
         return u'ω'
-    if vowels == u'αοι':
+    elif vowels == u'αοι':
         return u'ῳ'
-    if vowels == u'αου':
+    elif vowels == u'αου':
         return u'ω'
-    if vowels == u'αω':
+    elif vowels == u'αω':
         return u'ω'
-    if vowels == u'εε':
+    elif vowels == u'εε':
         return u'ει'
-    if vowels == u'εει':
+    elif vowels == u'εει':
         return u'ει'
-    if vowels == u'εη':
+    elif vowels == u'εη':
         return u'η'
-    if vowels == u'εῃ':
+    elif vowels == unicodedata.normalize('NFKD', u'εῃ'):
         return u'ῃ'
-    if vowels == u'εο':
+    elif vowels == u'εο':
         return u'ου'
-    if vowels == u'εοι':
+    elif vowels == u'εοι':
         return u'οι'
-    if vowels == u'εου':
+    elif vowels == u'εου':
         return u'ου'
-    if vowels == u'εω':
+    elif vowels == u'εω':
         return u'ω'
-    if vowels == u'οε':
+    elif vowels == u'οε':
         return u'ου'
-    if vowels == u'οει':
+    elif vowels == u'οει':
         if spurious_diphthong:
             return u'ου'
         else:
             return u'οι'
-    if vowels == u'οη':
+    elif vowels == u'οη':
         return u'ω'
-    if vowels == u'οῃ':
+    elif vowels == unicodedata.normalize('NFKD', u'οῃ'):
         return u'οι'
-    if vowels == u'οο':
+    elif vowels == u'οο':
         return u'ου'
-    if vowels == u'οοι':
+    elif vowels == u'οοι':
         return u'οι'
-    if vowels == u'οου':
+    elif vowels == u'οου':
         return u'ου'
-    if vowels == u'οω':
+    elif vowels == u'οω':
         return u'ω'
+    print 'Bad vowels:', vowels
+    raise ValueError("I don't know how to handle these vowels")
 
 
 # Methods that are intended to be private
@@ -211,6 +219,8 @@ def split_syllables(word):
             syllables[-1] = syllables[-1] + c
         else:
             syllables.append(c)
+    if len(syllables) == 1:
+        return syllables
     if last_non_combining_character(syllables[-1]) not in vowels:
         last = syllables.pop()
         syllables[-1] = syllables[-1] + last
@@ -248,7 +258,7 @@ def get_last_vowel(word):
     while word[-1] in vowels:
         if len(word) == 1:
             return vowel
-        vowel += word[-1]
+        vowel = word[-1] + vowel
         word = word[:-1]
     return vowel
 
@@ -264,7 +274,7 @@ def get_final_consonant(word):
     if word[-1] == u'ω':
         stem = word[:-1]
     else:
-        stem = word[:-3]
+        stem = word[:-4]
     if stem[-1] in vowels:
         return u''
     consonant = u''
@@ -275,7 +285,13 @@ def get_final_consonant(word):
 
 
 def remove_initial_vowel(word):
+    word = unicodedata.normalize('NFKD', word)
+    removed = u''
     while word[0] in vowels or unicodedata.combining(word[0]):
+        removed += word[0]
+        test = u''.join([c for c in removed if not unicodedata.combining(c)])
+        if test not in vowels and test not in diphthongs:
+            return word
         if len(word) == 1:
             return u''
         word = word[1:]

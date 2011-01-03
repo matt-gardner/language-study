@@ -762,6 +762,40 @@ class ConsonantStemsTest(TestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
+    def test_aischunomai(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ᾔσχυμμαι', u'ᾐσχυμμένος εἶ', u'ᾔσχυνται', u'ᾐσχύμμεθα',
+                u'ᾔσχυνθε', u'ᾐσχυμμένοι εἰσί']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.aischunomai)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        answer = u'ᾐσχύνθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.aischunomai)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ᾐσχύμμην', u'ᾐσχυμμένος ἦσθα', u'ᾔσχυντο', u'ᾐσχύμμεθα',
+                u'ᾔσχυνθε', u'ᾐσχυμμένοι ἦσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.aischunomai)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
     def test_tatto(self):
         args = {}
         args['tense'] = 'Perfect'
@@ -792,6 +826,40 @@ class ConsonantStemsTest(TestCase):
                 u'ἐτέταχθε', u'τεταγμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(self.tatto)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_elegxo(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἐλήλεγμαι', u'ἐλήλεγξαι', u'ἐλήλεγκται', u'ἐληλέγμεθα',
+                u'ἐλήλεγχθε', u'ἐληλεγμένοι εἰσί']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.elegxo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        answer = u'ἐληλέγχθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.elegxo)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἐληλέγμην', u'ἐλήλεγξο', u'ἐλήλεγκτο', u'ἐληλέγμεθα',
+                u'ἐλήλεγχθε', u'ἐληλεγμένοι ἦσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.elegxo)
         for case, answer in zip(self.cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
@@ -875,7 +943,6 @@ class ConsonantStemsTest(TestCase):
         conj = GreekConjugation(self.aggello)
         for case, answer in zip(self.cases, answers):
             args.update(case)
-            print conj.conjugate(**args), answer
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
         args = {}
@@ -897,7 +964,175 @@ class ConsonantStemsTest(TestCase):
         conj = GreekConjugation(self.aggello)
         for case, answer in zip(self.cases, answers):
             args.update(case)
-            print conj.conjugate(**args), answer
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+
+class ContractedPoieoTest(TestCase):
+    def setUp(self):
+        self.poieo = u'ποιέω, ποιήσω, ἐποίησα, πεποίηκα, πεποίημαι, ἐποιήθην'
+        self.cases = [{'person': 'First Person', 'number': 'Singular'}]
+        self.cases.append({'person': 'Second Person', 'number': 'Singular'})
+        self.cases.append({'person': 'Third Person', 'number': 'Singular'})
+        self.cases.append({'person': 'First Person', 'number': 'Plural'})
+        self.cases.append({'person': 'Second Person', 'number': 'Plural'})
+        self.cases.append({'person': 'Third Person', 'number': 'Plural'})
+
+    # PRESENT TENSE TESTS
+    def test_poieo_present_ind_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ποιῶ', u'ποιεῖς', u'ποιεῖ', u'ποιοῦμεν', u'ποιεῖτε',
+                u'ποιοῦσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_subj_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'ποιῶ', u'ποιῇς', u'ποιῇ', u'ποιῶμεν', u'ποιῆτε',
+                u'ποιῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_opt_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'ποιοῖμι', u'ποιοῖς', u'ποιοῖ', u'ποιοῖμεν', u'ποιοῖτε',
+                u'ποιοῖεν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_imp_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'ποίει', u'ποιείτω', u'ποιεῖτε', u'ποιούντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_inf_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        answer = u'ποιεῖν'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.poieo)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_ind_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ποιοῦμαι', u'ποιεῖ', u'ποιεῖται', u'ποιούμεθα',
+                u'ποιεῖσθε', u'ποιοῦνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_subj_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Middle'
+        answers = [u'ποιῶμαι', u'ποιῇ', u'ποιῆται', u'ποιώμεθα',
+                u'ποιῆσθε', u'ποιῶνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_opt_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Middle'
+        answers = [u'ποιοίμην', u'ποιοῖο', u'ποιοῖτο', u'ποιοίμεθα',
+                u'ποιοῖσθε', u'ποιοῖντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_imp_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Middle'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'ποιοῦ', u'ποιείσθω', u'ποιεῖσθε', u'ποιείσθων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_present_inf_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        answer = u'ποιεῖσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(self.poieo)
+        self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    # IMPERFECT TENSE TESTS
+    def test_poieo_imperfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἐποίουν', u'ἐποίεις', u'ἐποίει', u'ἐποιοῦμεν',
+                u'ἐποιεῖτε', u'ἐποίουν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_poieo_imperfect_ind_mid(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἐποιούμην', u'ἐποιοῦ', u'ἐποιεῖτο', u'ἐποιούμεθα',
+                u'ἐποιεῖσθε', u'ἐποιοῦντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.poieo)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
 

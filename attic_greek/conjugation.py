@@ -13,11 +13,12 @@ from greek_util import circumflex
 from greek_util import contract_vowels
 from greek_util import get_final_consonant
 from greek_util import get_last_vowel
+from greek_util import is_accent
 from greek_util import is_accented
+from greek_util import is_short
 from greek_util import remove_accents
 from greek_util import remove_augment
 from greek_util import remove_initial_vowel
-from greek_util import short_vowels
 from greek_util import starts_with_vowel
 from greek_util import split_syllables
 from greek_util import vowels
@@ -306,6 +307,8 @@ class GreekConjugation(Conjugation):
                 return stem[:-1] + ConsonantSigmaNasal.convert(ending)
             elif last_consonant == u'':
                 return stem[:-1] + ConsonantAddedSigma.convert(ending)
+        print stem, last_consonant
+        raise ValueError("I found a consonant stem I didn't recognize")
 
     def add_accent(self, verb, mood, tense, voice):
         if mood == 'Optative':
@@ -337,17 +340,21 @@ class GreekConjugation(Conjugation):
 
     def contract(self, form, principle_part, ending):
         stem_to_remove = remove_initial_vowel(principle_part)
+        stem_to_remove = remove_accents(stem_to_remove)
         if principle_part.endswith(u'ω'):
-            stem_to_remove = stem_to_remove[:-1]
+            stem_to_remove = stem_to_remove[:-2]
         elif principle_part.endswith(u'ομαι'):
-            stem_to_remove = stem_to_remove[:-4]
+            stem_to_remove = stem_to_remove[:-5]
         elif principle_part.endswith(u'ῶ'):
             stem_to_remove = stem_to_remove.replace(u'ῶ', u'')
         index = form.find(stem_to_remove) + len(stem_to_remove)
         beginning = form[:index]
         rest = form[index:]
+        if is_accent(rest[0]):
+            beginning += rest[0]
+            rest = rest[1:]
         ending_to_remove = remove_initial_vowel(ending)
-        vowels = rest.replace(ending_to_remove, u'')
+        vowels = rest[:rest.rfind(ending_to_remove)]
         rest = ending_to_remove
         accented = is_accented(vowels)
         if ending == u'ειν':
@@ -355,9 +362,10 @@ class GreekConjugation(Conjugation):
         else:
             spurious = False
         vowels = contract_vowels(remove_accents(vowels), spurious)
+        num_syllables = len(split_syllables(ending_to_remove))
         if accented:
             last_vowel = get_last_vowel(rest)
-            if not last_vowel or last_vowel in short_vowels:
+            if (not last_vowel or is_short(last_vowel)) and num_syllables <= 1:
                 vowels += circumflex
             else:
                 vowels += acute_accent
