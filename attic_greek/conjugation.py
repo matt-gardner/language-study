@@ -13,10 +13,12 @@ from greek_util import circumflex
 from greek_util import contract_vowels
 from greek_util import get_final_consonant
 from greek_util import get_last_vowel
+from greek_util import get_matching_index
 from greek_util import is_accent
 from greek_util import is_accented
 from greek_util import is_short
 from greek_util import remove_accents
+from greek_util import remove_all_combining
 from greek_util import remove_augment
 from greek_util import remove_initial_vowel
 from greek_util import starts_with_vowel
@@ -340,22 +342,33 @@ class GreekConjugation(Conjugation):
 
     def contract(self, form, principle_part, ending):
         stem_to_remove = remove_initial_vowel(principle_part)
-        stem_to_remove = remove_accents(stem_to_remove)
+        stem_to_remove = remove_all_combining(stem_to_remove)
         if principle_part.endswith(u'ω'):
             stem_to_remove = stem_to_remove[:-2]
         elif principle_part.endswith(u'ομαι'):
             stem_to_remove = stem_to_remove[:-5]
         elif principle_part.endswith(u'ῶ'):
             stem_to_remove = stem_to_remove.replace(u'ῶ', u'')
-        index = form.find(stem_to_remove) + len(stem_to_remove)
-        beginning = form[:index]
-        rest = form[index:]
+        elif principle_part.endswith(u'οῦμαι'):
+            stem_to_remove = stem_to_remove.replace(u'οῦμαι', u'')
+        no_diacritics = remove_all_combining(form)
+        start_index = no_diacritics.find(stem_to_remove)
+        end_index = no_diacritics.find(stem_to_remove[-1], start_index)
+        end_index = get_matching_index(no_diacritics, form, end_index)
+        beginning = form[:end_index]
+        rest = form[end_index:]
         if is_accent(rest[0]):
             beginning += rest[0]
             rest = rest[1:]
         ending_to_remove = remove_initial_vowel(ending)
         vowels = rest[:rest.rfind(ending_to_remove)]
         rest = ending_to_remove
+        #print 'form:', form
+        #print 'stem_to_remove:', stem_to_remove
+        #print 'beginning:', beginning
+        #print 'ending:', ending
+        #print 'ending_to_remove:', ending_to_remove
+        #print 'rest:', rest
         accented = is_accented(vowels)
         if ending == u'ειν':
             spurious = True
