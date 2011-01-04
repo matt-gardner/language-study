@@ -355,9 +355,9 @@ class GreekConjugation(Conjugation):
         elif principle_part.endswith(u'ομαι'):
             stem_to_remove = stem_to_remove[:-5]
         elif principle_part.endswith(u'ῶ'):
-            stem_to_remove = stem_to_remove.replace(u'ῶ', u'')
+            stem_to_remove = stem_to_remove[:-1]
         elif principle_part.endswith(u'οῦμαι'):
-            stem_to_remove = stem_to_remove.replace(u'οῦμαι', u'')
+            stem_to_remove = stem_to_remove[:-5]
         no_diacritics = remove_all_combining(form)
         start_index = no_diacritics.find(stem_to_remove)
         end_index = no_diacritics.find(stem_to_remove[-1], start_index)

@@ -1474,6 +1474,49 @@ class ContractedDhlooTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
 
+class ContractedFutureTest(TestCase):
+    """We just test a few forms here, because we've tested most of this already.
+    The main point here is just to be sure that contraction works in the future
+    tenses.
+    """
+    def setUp(self):
+        self.elauno = u'ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην'
+        self.aggello = u'ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην'
+        self.cases = [{'person': 'First Person', 'number': 'Singular'}]
+        self.cases.append({'person': 'Second Person', 'number': 'Singular'})
+        self.cases.append({'person': 'Third Person', 'number': 'Singular'})
+        self.cases.append({'person': 'First Person', 'number': 'Plural'})
+        self.cases.append({'person': 'Second Person', 'number': 'Plural'})
+        self.cases.append({'person': 'Third Person', 'number': 'Plural'})
+
+    def test_elauno(self):
+        args = {}
+        args['tense'] = 'Future'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἐλῶ', u'ἐλᾷς', u'ἐλᾷ', u'ἐλῶμεν', u'ἐλᾶτε', u'ἐλῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.elauno)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_aggello(self):
+        args = {}
+        args['tense'] = 'Future'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἀγγελῶ', u'ἀγγελεῖς', u'ἀγγελεῖ', u'ἀγγελοῦμεν',
+                u'ἀγγελεῖτε', u'ἀγγελοῦσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.aggello)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            print conj.conjugate(**args), answer
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+
+
 __test__ = {"doctest": """
 Another way to test that 1 + 1 is equal to 2.
 
