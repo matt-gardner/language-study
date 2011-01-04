@@ -89,6 +89,11 @@ def remove_accents(word, breathing=False):
     return u''.join([c for c in normalized if not is_accent(c, breathing)])
 
 
+def remove_all_combining(word):
+    normalized = unicodedata.normalize('NFKD', unicode(word))
+    return u''.join([c for c in normalized if not unicodedata.combining(c)])
+
+
 def remove_augment(word):
     word = remove_accents(word, breathing=True)
     if split_syllables(word)[0] == u'ε':
@@ -171,6 +176,22 @@ def contract_vowels(vowels, spurious_diphthong=False):
         return u'ω'
     print 'Bad vowels:', vowels
     raise ValueError("I don't know how to handle these vowels")
+
+
+def get_matching_index(unaccented, accented, index):
+    """Return the corresponding index from unaccented into accented.
+
+    In other words, we know the index we want in unaccented, but we need to get
+    the matching index in accented.  This method does that.
+    """
+    i = 0
+    j = 0
+    while i <= index:
+        while unaccented[i] != accented[j]:
+            j += 1
+        i += 1
+        j += 1
+    return j
 
 
 # Methods that are intended to be private
