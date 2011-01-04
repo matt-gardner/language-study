@@ -126,8 +126,15 @@ class GreekConjugation(Conjugation):
         if index == 0 or index == 1:
             if principle_part.endswith(u'ω'):
                 return remove_accents(principle_part)[:-1]
-            else:
+            elif principle_part.endswith(u'ομαι'):
                 return remove_accents(principle_part)[:-4]
+            elif principle_part.endswith(u'ῶ'):
+                # Here we assume an epsilon contraction, as that is the most
+                # common
+                return remove_accents(principle_part)[:-1] + u'ε'
+            elif principle_part.endswith(u'οῦμαι'):
+                # Again we assume epsilon
+                return remove_accents(principle_part)[:-5] + u'ε'
         elif index == 2:
             if principle_part.endswith(u'α'):
                 with_augment = remove_accents(principle_part)[:-1]
