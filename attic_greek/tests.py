@@ -1474,6 +1474,33 @@ class ContractedDhlooTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
 
+class ContractedFobeomaiTest(TestCase):
+    """This is just a quick test to be sure deponent contractions work.
+    """
+    def setUp(self):
+        self.fobeomai = u'φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην'
+        self.cases = [{'person': 'First Person', 'number': 'Singular'}]
+        self.cases.append({'person': 'Second Person', 'number': 'Singular'})
+        self.cases.append({'person': 'Third Person', 'number': 'Singular'})
+        self.cases.append({'person': 'First Person', 'number': 'Plural'})
+        self.cases.append({'person': 'Second Person', 'number': 'Plural'})
+        self.cases.append({'person': 'Third Person', 'number': 'Plural'})
+
+    # PRESENT TENSE TESTS
+    def test_fobeomai_present_ind_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle' # TODO: Should be deponent...
+        answers = [u'φοβοῦμαι', u'φοβεῖ', u'φοβεῖται', u'φοβούμεθα',
+                u'φοβεῖσθε', u'φοβοῦνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.fobeomai)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+
 class ContractedFutureTest(TestCase):
     """We just test a few forms here, because we've tested most of this already.
     The main point here is just to be sure that contraction works in the future
@@ -1482,6 +1509,7 @@ class ContractedFutureTest(TestCase):
     def setUp(self):
         self.elauno = u'ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην'
         self.aggello = u'ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην'
+        self.maxomai = u'μάχομαι, μαχοῦμαι, ἐμαχεσάμην, _, μεμάχημαι, _'
         self.cases = [{'person': 'First Person', 'number': 'Singular'}]
         self.cases.append({'person': 'Second Person', 'number': 'Singular'})
         self.cases.append({'person': 'Third Person', 'number': 'Singular'})
@@ -1512,7 +1540,19 @@ class ContractedFutureTest(TestCase):
         conj = GreekConjugation(self.aggello)
         for case, answer in zip(self.cases, answers):
             args.update(case)
-            print conj.conjugate(**args), answer
+            self.failUnlessEqual(conj.conjugate(**args), answer)
+
+    def test_maxomai(self):
+        args = {}
+        args['tense'] = 'Future'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle' # TODO: Should be deponent...
+        answers = [u'μαχοῦμαι', u'μαχεῖ', u'μαχεῖται', u'μαχούμεθα',
+                u'μαχεῖσθε', u'μαχοῦνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(self.maxomai)
+        for case, answer in zip(self.cases, answers):
+            args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), answer)
 
 
