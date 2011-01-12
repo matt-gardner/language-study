@@ -60,8 +60,10 @@ def get_word_by_difficulty(words):
     return word, ave_difficulty
 
 
-def next_word(request, difficulty):
-    update_word_difficulty_from_session(request, difficulty)
+def next_word(request, difficulty=None):
+    if difficulty:
+        update_word_difficulty_from_session(request, difficulty)
+        request.session['words-reviewed'] += 1
 
     wordlist_name = request.session['wordlist-name']
     wordlist = request.user.wordlist_set.get(name=wordlist_name)
@@ -72,7 +74,6 @@ def next_word(request, difficulty):
     word, ave_difficulty = get_word_by_difficulty(words)
 
     request.session['word-id'] = word.id
-    request.session['words-reviewed'] += 1
 
     ret_val = dict()
     word = AjaxWord(word)
