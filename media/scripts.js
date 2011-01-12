@@ -64,7 +64,7 @@ function prev_word() {
 function new_word(word, word_number, num_words, average_difficulty) {
 	if ($("#id_show_definition").val() == "Hide definition") {
 		$("#id_show_definition").val("Show definition");
-		$(".review_definition .definition").toggle(0);
+		$(".review_definition .text").toggle(0);
 	}
 	switch_text(word.word, word.definition);
 	reset_word_number(word_number, num_words, word.difficulty);
