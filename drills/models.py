@@ -143,12 +143,33 @@ class Word(models.Model):
 
     def update_difficulty(self, score):
         old = self.average_difficulty
-        alpha = Word.DIFFICULTY_ALPHA
+        alpha = self.get_alpha()
         new = (1 - alpha) * self.average_difficulty + alpha * score
         self.average_difficulty = new
         self.save()
         difference = new - old
         self.wordlist.save()
+
+    def get_alpha(self):
+        """Return an alpha that varies with time since last review.
+        
+        The idea of this is that alpha should vary depending on how long it has
+        been since this word was last reviewed.  The current implementation
+        says that if it has been less than an hour since you last saw this
+        word, don't move the difficulty as much.  If it has been more than a
+        week since you last reviewed this word, move the difficulty a little
+        more.
+        """
+        time_diff = datetime.now() - self.last_reviewed
+        if time_diff.seconds < 3600:
+            # Scale linearly from 0 to alpha over the course of an hour
+            return time_diff.seconds / 3600. * Word.DIFFICULTY_ALPHA
+        elif time_diff.seconds > 86400:
+            # If it's been a long time, trust the new value more than the old
+            # value.  If it's been 30 days or more, just keep the new value.
+            days = time_diff.seconds / 86400.0
+            return min(1, Word.DIFFICULTY_ALPHA + days * .02)
+        return Word.DIFFICULTY_ALPHA
 
     def reviewed(self):
         self.last_reviewed = datetime.now()
