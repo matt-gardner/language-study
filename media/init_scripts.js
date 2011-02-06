@@ -60,3 +60,12 @@ $("input[class=drill_form]").click(function() {
 $("#id_add_tag_button").click(function () {
 		add_tag();
 });
+$("#id_verblist").click(function() {
+	get_new_verb();
+});
+$("#id_new_form").click(function() {
+	get_new_random_form();
+});
+$("#id_guess_form").click(function() {
+	guess_form();
+});

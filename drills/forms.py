@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import random
 import simplejson
 
 from django.contrib.auth.decorators import login_required
@@ -82,7 +83,7 @@ def index(request):
     return render_to_response('drill_forms.html', context)
 
 
-def conj_verb_from_session(session):
+def conj_verb_from_session(session, raise_errors=False):
     verb = Verb.objects.get(pk=session['verb-id'])
     language = verb.wordlist.language
     conj_cls = __import__(language.module_name).mapping[verb.conjugation.name]
@@ -102,13 +103,79 @@ def conj_verb_from_session(session):
     try:
         return conj.conjugate(**args)
     except ValueError as e:
+        if raise_errors:
+            raise
         return unicode(e)
+
+
+def random_form(session):
+    verb = Verb.objects.get(pk=session['verb-id'])
+    language = verb.wordlist.language
+    session['person-id'] = random.choice(list(language.person_set.all())).id
+    session['number-id'] = random.choice(list(language.number_set.all())).id
+    session['tense-id'] = random.choice(list(language.tense_set.all())).id
+    session['mood-id'] = random.choice(list(language.mood_set.all())).id
+    session['voice-id'] = random.choice(list(language.voice_set.all())).id
+
+
+def get_new_random_form(request):
+    while True:
+        random_form(request.session)
+        try:
+            form = conj_verb_from_session(request.session, True)
+            break
+        except ValueError:
+            pass
+    ret_val = dict()
+    ret_val['inflected_form'] = form
+    return HttpResponse(simplejson.dumps(ret_val))
 
 
 def get_new_verb(request, id):
     request.session['verb-id'] = id
     ret_val = dict()
     ret_val['inflected_form'] = conj_verb_from_session(request.session)
+    return HttpResponse(simplejson.dumps(ret_val))
+
+
+def guess_form(request, person, number, tense, mood, voice):
+    person = devariablize(person)
+    if person:
+        person = Person.objects.get(name=person).id
+    else:
+        person = None
+    number = devariablize(number)
+    if number:
+        number = Number.objects.get(name=number).id
+    else:
+        number = None
+    tense = Tense.objects.get(name=devariablize(tense)).id
+    mood = Mood.objects.get(name=devariablize(mood)).id
+    voice = Voice.objects.get(name=devariablize(voice)).id
+    correct = True
+    response = '\n'
+    form = conj_verb_from_session(request.session)
+    if person != request.session['person-id']:
+        correct = False
+        response += 'Person'
+    if number != request.session['number-id']:
+        correct = False
+        response += ' Number'
+    if tense != request.session['tense-id']:
+        correct = False
+        response += ' Tense'
+    if mood != request.session['mood-id']:
+        correct = False
+        response += ' Mood'
+    if voice != request.session['voice-id']:
+        correct = False
+        response += ' Voice'
+    ret_val = dict()
+    if correct:
+        ret_val['result'] = 'Correct!'
+    else:
+        ret_val['result'] = 'Wrong in: ' + response
+        ret_val['result'] += '\n' + form
     return HttpResponse(simplejson.dumps(ret_val))
 
 

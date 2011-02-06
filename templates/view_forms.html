@@ -22,6 +22,7 @@
 							<input type="radio"
 							name="person"
 							value="{{ person|variablize }}"
+							class="drill_form"
 							id="id_{{ person|variablize }}"
 							{% ifequal person cur_person %}
 							checked
@@ -40,6 +41,7 @@
 							<input type="radio"
 							name="number"
 							value="{{ number|variablize }}"
+							class="drill_form"
 							id="id_{{ number|variablize }}"
 							{% ifequal number cur_number %}
 							checked
@@ -58,6 +60,7 @@
 							<input type="radio"
 							name="tense"
 							value="{{ tense|variablize }}"
+							class="drill_form"
 							id="id_{{ tense|variablize }}"
 							{% ifequal tense cur_tense %}
 							checked
@@ -76,6 +79,7 @@
 							<input type="radio"
 							name="mood"
 							value="{{ mood|variablize }}"
+							class="drill_form"
 							id="id_{{ mood|variablize }}"
 							{% ifequal mood cur_mood %}
 							checked
@@ -94,6 +98,7 @@
 							<input type="radio"
 							name="voice"
 							value="{{ voice|variablize }}"
+							class="drill_form"
 							id="id_{{ voice|variablize }}"
 							{% ifequal voice cur_voice %}
 							checked
@@ -105,8 +110,6 @@
 					</td>
 				</tr>
 			</table>
-			<input type="submit" id="id_guess_form" value="Guess" />
-			<input type="submit" id="id_new_form" value="New Form" />
 		</div>
 	</div>
 	<div class="right_review">

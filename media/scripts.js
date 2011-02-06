@@ -29,9 +29,29 @@ function get_new_form() {
 		switch_text(data.inflected_form, "");
 	});
 }
+function guess_form() {
+	person = $("input[name=person]:checked").val();
+	number = $("input[name=number]:checked").val();
+	tense = $("input[name=tense]:checked").val();
+	mood = $("input[name=mood]:checked").val();
+	if (mood == 'infinitive') {
+		person = 'none';
+		number = 'none';
+	}
+	voice = $("input[name=voice]:checked").val();
+	link = "/guess-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
+	$.getJSON(link, {}, function(data) {
+		switch_text(data.result, "");
+	});
+}
 function get_new_verb() {
 	var verb = $("#id_verblist").val();
 	$.getJSON("/get-new-verb/"+verb, {}, function(data) {
+		switch_text(data.inflected_form, "");
+	});
+}
+function get_new_random_form() {
+	$.getJSON("/get-new-random-form/", {}, function(data) {
 		switch_text(data.inflected_form, "");
 	});
 }
