@@ -15,30 +15,30 @@ function get_word_list() {
 
 /* Form drilling functions */
 function get_new_form() {
-	person = $("input[name=person]:checked").val();
-	number = $("input[name=number]:checked").val();
-	tense = $("input[name=tense]:checked").val();
-	mood = $("input[name=mood]:checked").val();
+	person = $("#id_person").val();
+	number = $("#id_number").val();
+	tense = $("#id_tense").val();
+	mood = $("#id_mood").val();
 	if (mood == 'infinitive') {
 		person = 'none';
 		number = 'none';
 	}
-	voice = $("input[name=voice]:checked").val();
+	voice = $("#id_voice").val();
 	link = "/inflect-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
 	$.getJSON(link, {}, function(data) {
 		switch_text(data.inflected_form, "");
 	});
 }
 function guess_form() {
-	person = $("input[name=person]:checked").val();
-	number = $("input[name=number]:checked").val();
-	tense = $("input[name=tense]:checked").val();
-	mood = $("input[name=mood]:checked").val();
+	person = $("#id_person").val();
+	number = $("#id_number").val();
+	tense = $("#id_tense").val();
+	mood = $("#id_mood").val();
 	if (mood == 'infinitive') {
 		person = 'none';
 		number = 'none';
 	}
-	voice = $("input[name=voice]:checked").val();
+	voice = $("#id_voice").val();
 	link = "/guess-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
 	$.getJSON(link, {}, function(data) {
 		switch_text(data.result, "");

@@ -15,93 +15,53 @@
 				<tr>
 					<td>
 						Person
-						<ul>
-						{% for person in persons %}
-						<li> <label for="id_{{ person|variablize }}"
-								class="person">
-							<input type="radio"
-							name="person"
-							value="{{ person|variablize }}"
-							id="id_{{ person|variablize }}"
-							{% ifequal person cur_person %}
-							checked
-							{% endifequal %} />
-							{{ person }}
-						</label>
-						{% endfor %}
-						</ul>
+						<select id="id_person">
+							{% for person in persons %}
+							<option value="{{ person|variablize }}">
+								{{ person }}
+							</option>
+							{% endfor %}
+						</select>
 					</td>
 					<td>
 						Number
-						<ul>
+						<select id="id_number">
 						{% for number in numbers %}
-						<li> <label for="id_{{ number|variablize }}"
-								class="number">
-							<input type="radio"
-							name="number"
-							value="{{ number|variablize }}"
-							id="id_{{ number|variablize }}"
-							{% ifequal number cur_number %}
-							checked
-							{% endifequal %} />
+						<option value="{{ number|variablize }}">
 							{{ number }}
-						</label>
+						</option>
 						{% endfor %}
-						</ul>
+						</select>
 					</td>
 					<td>
 						Tense
-						<ul>
+						<select id="id_tense">
 						{% for tense in tenses %}
-						<li> <label for="id_{{ tense|variablize }}"
-								class="tense">
-							<input type="radio"
-							name="tense"
-							value="{{ tense|variablize }}"
-							id="id_{{ tense|variablize }}"
-							{% ifequal tense cur_tense %}
-							checked
-							{% endifequal %} />
+						<option value="{{ tense|variablize }}">
 							{{ tense }}
-						</label>
+						</option>
 						{% endfor %}
-						</ul>
+						</select>
 					</td>
 					<td>
 						Mood
-						<ul>
+						<select id="id_mood">
 						{% for mood in moods %}
-						<li> <label for="id_{{ mood|variablize }}"
-								class="mood">
-							<input type="radio"
-							name="mood"
-							value="{{ mood|variablize }}"
-							id="id_{{ mood|variablize }}"
-							{% ifequal mood cur_mood %}
-							checked
-							{% endifequal %} />
+						<option value="{{ mood|variablize }}">
 							{{ mood }}
-						</label>
+						</option>
 						{% endfor %}
-						</ul>
+						</select>
 					</td>
 					<td>
 						Voice
-						<ul>
+						<select id="id_voice">
 						{% for voice in voices %}
-						<li> <label for="id_{{ voice|variablize }}"
-								class="voice">
-							<input type="radio"
-							name="voice"
-							value="{{ voice|variablize }}"
-							id="id_{{ voice|variablize }}"
-							{% ifequal voice cur_voice %}
-							checked
-							{% endifequal %} />
+						<option value="{{ voice|variablize }}">
 							{{ voice }}
-						</label>
+						</option>
 						{% endfor %}
-						</ul>
+						</select>
 					</td>
 				</tr>
 			</table>
