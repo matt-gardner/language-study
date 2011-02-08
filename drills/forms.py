@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import random
+import random as r
 import simplejson
 
 from django.contrib.auth.decorators import login_required
@@ -111,11 +111,15 @@ def conj_verb_from_session(session, raise_errors=False):
 def random_form(session):
     verb = Verb.objects.get(pk=session['verb-id'])
     language = verb.wordlist.language
-    session['person-id'] = random.choice(list(language.person_set.all())).id
-    session['number-id'] = random.choice(list(language.number_set.all())).id
-    session['tense-id'] = random.choice(list(language.tense_set.all())).id
-    session['mood-id'] = random.choice(list(language.mood_set.all())).id
-    session['voice-id'] = random.choice(list(language.voice_set.all())).id
+    session['mood-id'] = r.choice(list(language.mood_set.all())).id
+    if session['mood-id'] == language.mood_set.get(name='Infinitive').id:
+        session['person-id'] = None
+        session['number-id'] = None
+    else:
+        session['person-id'] = r.choice(list(language.person_set.all())).id
+        session['number-id'] = r.choice(list(language.number_set.all())).id
+    session['tense-id'] = r.choice(list(language.tense_set.all())).id
+    session['voice-id'] = r.choice(list(language.voice_set.all())).id
 
 
 def get_new_random_form(request):
@@ -175,7 +179,7 @@ def guess_form(request, person, number, tense, mood, voice):
         ret_val['result'] = 'Correct!'
     else:
         ret_val['result'] = 'Wrong in: ' + response
-        ret_val['result'] += '\n' + form
+        ret_val['result'] += '<br>' + form
     return HttpResponse(simplejson.dumps(ret_val))
 
 
