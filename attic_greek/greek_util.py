@@ -94,19 +94,6 @@ def remove_all_combining(word):
     return u''.join([c for c in normalized if not unicodedata.combining(c)])
 
 
-def remove_augment(word):
-    word = remove_accents(word, breathing=True)
-    if split_syllables(word)[0] == u'ε':
-        return word[1:]
-    #TODO: figure out how to handle cases with a tricky augment
-    raise NotImplementedError()
-
-
-def add_augment(word):
-    #TODO: make this better
-    return u'ἐ' + word
-
-
 def is_accented(word):
     for c in word:
         if is_accent(c):

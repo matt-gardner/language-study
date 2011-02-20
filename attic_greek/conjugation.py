@@ -6,7 +6,6 @@ import unicodedata
 from collections import defaultdict
 from endings import *
 from greek_util import acute_accent
-from greek_util import add_augment
 from greek_util import add_penult_accent
 from greek_util import add_recessive_accent
 from greek_util import circumflex
@@ -19,7 +18,6 @@ from greek_util import is_accented
 from greek_util import is_short
 from greek_util import remove_accents
 from greek_util import remove_all_combining
-from greek_util import remove_augment
 from greek_util import remove_initial_vowel
 from greek_util import starts_with_vowel
 from greek_util import split_syllables
@@ -141,14 +139,14 @@ class GreekConjugation(Conjugation):
             if principle_part.endswith(u'α'):
                 with_augment = remove_accents(principle_part)[:-1]
             #TODO: handle second aorist, root aorist, deponent forms
-            return remove_augment(with_augment)
+            return self.remove_augment(with_augment)
         elif index == 3:
             return remove_accents(principle_part)[:-1]
         elif index == 4:
             return remove_accents(principle_part)[:-3]
         elif index == 5:
             with_augment = remove_accents(principle_part)[:-2]
-            no_augment = remove_augment(with_augment)
+            no_augment = self.remove_augment(with_augment)
             if tense == 'Future':
                 return no_augment + u'ησ'
             else:
@@ -260,8 +258,38 @@ class GreekConjugation(Conjugation):
         if mood != 'Indicative':
             return False
         if tense == 'Pluperfect' and starts_with_vowel(self.principle_parts[0]):
+            # I'm testing against the first principle part here; that might not
+            # always work.
             return False
         return True
+
+    def remove_augment(self, form):
+        form = remove_accents(form, breathing=True)
+        syllables = split_syllables(form)
+        if syllables[0] == u'ε':
+            return form[1:]
+        else:
+            first_pp = self.principle_parts[0]
+            initial_vowel = split_syllables(first_pp)[0]
+            initial_vowel = remove_accents(initial_vowel, breathing=False)
+            return initial_vowel + u''.join(syllables[1:])
+        #TODO: figure out how to handle cases with a tricky augment
+        raise NotImplementedError()
+
+    def add_augment(self, form, tense, voice):
+        if not starts_with_vowel(form):
+            return u'ἐ' + form
+        #TODO: make this better.  This is a start, but it's not complete
+        syllables = split_syllables(form)
+        if tense == 'Aorist' and voice in ['Active', 'Middle']:
+            pp = self.principle_parts[2]
+        elif tense == 'Aorist' and voice == 'Passive':
+            pp = self.principle_parts[5]
+        else:
+            # This is wrong, but it might work sometimes
+            pp = self.principle_parts[2]
+        initial_vowel = remove_accents(split_syllables(pp)[0])
+        return initial_vowel + u''.join(syllables[1:])
 
     def combine_parts(self, augment, stem, ending, tense, mood, voice):
         # I don't think this is different by conjugation; you just have to
@@ -275,10 +303,10 @@ class GreekConjugation(Conjugation):
             if augment and ' ' not in form:
                 # DIRTY HACK, because I'm not handling compound forms correctly
                 # TODO: fix this by doing compound forms right
-                form = add_augment(form)
+                form = self.add_augment(form, tense, voice)
             return form
         if augment:
-            stem = add_augment(stem)
+            stem = self.add_augment(stem, tense, voice)
         return stem + ending
 
     def combine_consonant_stem(self, stem, ending):
