@@ -84,6 +84,8 @@ urlpatterns = patterns('',
     # Form drilling urls
     (r'^forms/$',
         'drills.forms.index'),
+    (r'^view-forms/$',
+        'drills.forms.view_forms'),
     (r'^inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
         'drills.forms.inflect_form'),
     (r'^guess-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',

@@ -83,6 +83,18 @@ def index(request):
     return render_to_response('drill_forms.html', context)
 
 
+@login_required
+def view_forms(request):
+    context, verbs = base_form_drill_context(request)
+    if verbs:
+        verb = verbs[0]
+        request.session['verb-id'] = verb.id
+        context['verb_id'] = verb.id
+        context['inflected_form'] = conj_verb_from_session(request.session)
+        context['num_verbs'] = verbs.count()
+    return render_to_response('view_forms.html', context)
+
+
 def conj_verb_from_session(session, raise_errors=False):
     verb = Verb.objects.get(pk=session['verb-id'])
     language = verb.wordlist.language
