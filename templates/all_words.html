@@ -10,7 +10,10 @@
 				value="date_entered"
 				class="option"
 				id="id_date_entered"
-				checked />
+				{% ifequal ordering "date_entered" %}
+				checked
+				{% endifequal %}
+			   	/>
 				Date Entered
 			</label>
 		</td>
@@ -22,7 +25,11 @@
 				name="review_order"
 				value="alphabetical"
 				class="option"
-				id="id_alphabetical" />
+				id="id_alphabetical"
+				{% ifequal ordering "alphabetical" %}
+				checked
+				{% endifequal %}
+				/>
 				Alphabetical
 			</label>
 		</td>
@@ -34,7 +41,11 @@
 				name="review_order"
 				value="random"
 				class="option"
-				id="id_randomize" />
+				id="id_randomize"
+				{% ifequal ordering "random" %}
+				checked
+				{% endifequal %}
+				/>
 				Randomize
 			</label>
 		</td>
@@ -46,7 +57,11 @@
 				name="review_order"
 				value="last_reviewed"
 				class="option"
-				id="id_last_reviewed" />
+				id="id_last_reviewed"
+				{% ifequal ordering "last_reviewed" %}
+				checked
+				{% endifequal %}
+				/>
 				Last Reviewed
 			</label>
 		</td>
@@ -58,7 +73,11 @@
 				name="review_order"
 				value="least_reviewed"
 				class="option"
-				id="id_least_reviewed" />
+				id="id_least_reviewed"
+				{% ifequal ordering "least_reviewed" %}
+				checked
+				{% endifequal %}
+				/>
 				Least Reviewed
 			</label>
 		</td>
@@ -70,7 +89,11 @@
 				name="review_order"
 				value="difficulty"
 				class="option"
-				id="id_difficulty" />
+				id="id_difficulty"
+				{% ifequal ordering "difficulty" %}
+				checked
+				{% endifequal %}
+				/>
 				Difficulty
 			</label>
 		</td>

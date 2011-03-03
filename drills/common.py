@@ -69,13 +69,20 @@ def add_word_to_list(request, next_url):
 
 
 def reorder_word_list(request, ordering):
-    wordlist_name = request.session['wordlist-name']
-    wordlist = request.user.wordlist_set.get(name=wordlist_name)
+    request.session['ordering'] = ordering
+    reorder_words_in_session(request)
+    return return_word_from_session(request)
+
+
+def reorder_words_in_session(request, word_number=0):
+    ordering = request.session.get('ordering', 'date_entered')
     if ordering == 'random':
         shuffle(request.session['words'])
         request.session['word-number'] = 0
-        return return_word_from_session(request)
+        return
     filters = request.session.get('filters', [])
+    wordlist_name = request.session['wordlist-name']
+    wordlist = request.user.wordlist_set.get(name=wordlist_name)
     words, _ = filter_words(wordlist.word_set, filters)
     if ordering == 'alphabetical':
         words = words.order_by('word')
@@ -88,8 +95,7 @@ def reorder_word_list(request, ordering):
     elif ordering == 'difficulty':
         words = words.order_by('-average_difficulty')
     request.session['words'] = [AjaxWord(c) for c in words]
-    request.session['word-number'] = 0
-    return return_word_from_session(request)
+    request.session['word-number'] = word_number
 
 
 # Tag stuff
@@ -161,7 +167,6 @@ def return_word_from_session(request):
     ret_val = dict()
     words = request.session['words']
     num_words = len(words)
-    print num_words
     current_word = request.session['word-number']
     current_word %= num_words
     request.session['word-number'] = current_word
