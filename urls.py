@@ -30,6 +30,8 @@ urlpatterns = patterns('',
     # Common urls
     (r'^add-tag-to-word/'+tag+'$',
         'drills.common.add_tag_to_word'),
+    (r'^remove-tag-from-word/'+tag+'$',
+        'drills.common.remove_tag_from_word'),
 
     # Filters
     (r'^new-filter/'+name+'$',

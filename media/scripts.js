@@ -116,9 +116,16 @@ function reset_list_difficulty(difficulty) {
 	$(".wordlist_difficulty").html('Average difficulty of words: ' +
 			difficulty.toFixed(2));
 }
+
+/* Tags */
 function add_tag() {
 	tag_name = $("#id_add_tag").val();
 	$.getJSON("/add-tag-to-word/"+tag_name, {}, function(data) {
+		$(".word_tags").html(data.tags);
+	});
+}
+function remove_tag(tag_name) {
+	$.getJSON("/remove-tag-from-word/"+tag_name, {}, function(data) {
 		$(".word_tags").html(data.tags);
 	});
 }

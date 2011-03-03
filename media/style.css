@@ -82,6 +82,13 @@ div.tags
 	float:left;
 	text-align:center;
 }
+div.word_tags
+{
+	text-align:center;
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+}
 div.review_word
 {
 	width:100%;

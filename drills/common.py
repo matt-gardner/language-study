@@ -123,15 +123,34 @@ def add_tag_to_word(request, tag):
     return HttpResponse(simplejson.dumps(ret_val))
 
 
+def remove_tag_from_word(request, tag):
+    list_name = request.session.get('wordlist-name', None)
+    wordlist = WordList.objects.get(name=list_name)
+    tag = wordlist.tag_set.get(name=tag)
+    word = wordlist.word_set.get(pk=request.session['word-id'])
+    word.tags.remove(tag)
+    ret_val = dict()
+    ret_val['tags'] = render_tags(word.tags.all())
+    return HttpResponse(simplejson.dumps(ret_val))
+
+
 def render_tags(tags):
     tags = list(tags)
     string = u''
     if not tags:
         return u'This word has no tags'
+    string += u'<table>'
     for tag in tags:
+        string += u'<tr>'
+        string += u'<td>'
         string += tag.name
-        if tag != tags[-1]:
-            string += u'<br>'
+        string += u'</td>'
+        string += u'<td></td><td></td><td></td><td></td>'
+        string += u'<td class="remove" onclick="remove_tag(\'%s\')">' % tag.name
+        string += 'X'
+        string += u'</td>'
+        string += u'</tr>'
+    string += u'</table>'
     return string
 
 
