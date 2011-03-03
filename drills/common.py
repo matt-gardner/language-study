@@ -119,8 +119,20 @@ def add_tag_to_word(request, tag):
     word = wordlist.word_set.get(pk=request.session['word-id'])
     word.tags.add(tag)
     ret_val = dict()
-    ret_val['tags'] = ', '.join(t.name for t in word.tags.all())
+    ret_val['tags'] = render_tags(word.tags.all())
     return HttpResponse(simplejson.dumps(ret_val))
+
+
+def render_tags(tags):
+    tags = list(tags)
+    string = u''
+    if not tags:
+        return u'This word has no tags'
+    for tag in tags:
+        string += tag.name
+        if tag != tags[-1]:
+            string += u'<br>'
+    return string
 
 
 # The general "return a word" AJAX function
@@ -243,9 +255,7 @@ class AjaxWord(object):
 
     def get_tags(self):
         word = Word.objects.get(pk=self.id)
-        self.tags = ', '.join(t.name for t in word.tags.all())
-        if not self.tags:
-            self.tags = 'This word has no tags'
+        self.tags = render_tags(word.tags.all())
 
 
 # vim: et sts=4 sw=4

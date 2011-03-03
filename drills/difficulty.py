@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response
 from language_study.drills import common
 from language_study.drills.common import AjaxWord
 from language_study.drills.common import base_review_context
+from language_study.drills.common import render_tags
 from language_study.drills.common import review_styles
 from language_study.drills.common import update_word_difficulty_from_session
 from language_study.drills.filters import filter_words
@@ -27,6 +28,7 @@ def index(request):
         context['num_words'] = words.count()
         request.session['words-reviewed'] = 0
         context['words_reviewed'] = 0
+    context['word_tags'] = render_tags(context['word'].tags.all())
 
     context['review_style'] = '/difficulty/'
 
