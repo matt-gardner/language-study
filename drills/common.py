@@ -9,7 +9,7 @@ from django.utils import simplejson
 from datetime import datetime
 from random import shuffle
 
-from language_study.drills.models import Word, WordList, Tag
+from language_study.drills.models import Word, WordList, Tag, Verb
 from language_study.drills.filters import filter_words
 
 # Word list stuff
@@ -276,6 +276,11 @@ class AjaxWord(object):
         self.review_count = word.review_count
         self.id = word.id
         self.tags = None
+        try:
+            v = word.verb
+            self.verb = True
+        except Verb.DoesNotExist:
+            self.verb = False
 
     def get_tags(self):
         word = Word.objects.get(pk=self.id)

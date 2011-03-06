@@ -69,3 +69,6 @@ $("#id_new_form").click(function() {
 $("#id_guess_form").click(function() {
 	guess_form();
 });
+$("#id_drill_verb").click(function() {
+	window.location = "/forms";
+});

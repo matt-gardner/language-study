@@ -73,7 +73,12 @@ def base_form_drill_context(request):
 def index(request):
     context, verbs = base_form_drill_context(request)
     if verbs:
-        verb = verbs[0]
+        try:
+            current_word = request.session.get('word-number', 0)
+            word_id = request.session['words'][current_word].id
+            verb = verbs.get(pk=word_id)
+        except (Verb.DoesNotExist, IndexError, ValueError):
+            verb = verbs[0]
         request.session['verb-id'] = verb.id
         context['verb_id'] = verb.id
         context['inflected_form'] = conj_verb_from_session(request.session)

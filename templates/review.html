@@ -82,6 +82,16 @@
 			id="id_hard"/>
 		{% endblock %}
 		</div>
+		<div class="drill_button">
+			<input type="submit"
+			value="Drill forms for this verb"
+			accesskey=f
+			id="id_drill_verb"
+			{% if not word.verb %}
+			style="display: none;"
+			{% endif %}
+			/>
+		</div>
 	</div>
 
 	<div class="right_review">

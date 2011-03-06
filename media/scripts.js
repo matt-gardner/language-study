@@ -87,6 +87,7 @@ function new_word(word, word_number, num_words, average_difficulty) {
 		$(".review_definition .text").toggle(0);
 	}
 	switch_text(word.word, word.definition);
+	reset_drill_button(word);
 	reset_word_number(word_number, num_words, word.difficulty);
 	reset_word_difficulty(word.difficulty, word.review_count);
 	reset_word_tags(word.tags);
@@ -95,6 +96,13 @@ function new_word(word, word_number, num_words, average_difficulty) {
 function switch_text(word, definition) {
 	$(".review_word .text").html(word);
 	$(".review_definition .text").html(definition);
+}
+function reset_drill_button(word) {
+	if (word.verb) {
+		$("#id_drill_verb").show();
+	} else {
+		$("#id_drill_verb").hide();
+	}
 }
 function reset_word_number(word_number, num_words) {
 	var html = $.fn.message_config.before_word_number;
