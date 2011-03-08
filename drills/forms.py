@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from copy import copy
 import random as r
 import simplejson
 
@@ -150,37 +151,21 @@ def get_new_verb(request, id):
 
 
 def guess_form(request, person, number, tense, mood, voice):
-    person = devariablize(person)
-    if person:
-        person = Person.objects.get(name=person).id
-    else:
-        person = None
-    number = devariablize(number)
-    if number:
-        number = Number.objects.get(name=number).id
-    else:
-        number = None
-    tense = Tense.objects.get(name=devariablize(tense)).id
-    mood = Mood.objects.get(name=devariablize(mood)).id
-    voice = Voice.objects.get(name=devariablize(voice)).id
-    correct = True
-    response = '\n'
+    guessed = dict()
+    guessed['person'] = Person.objects.get(name=devariablize(person)).name
+    guessed['number'] = Number.objects.get(name=devariablize(number)).name
+    guessed['tense'] = Tense.objects.get(name=devariablize(tense)).name
+    guessed['mood'] = Mood.objects.get(name=devariablize(mood)).name
+    guessed['voice'] = Voice.objects.get(name=devariablize(voice)).name
     form = conj_verb_from_session(request.session)
-    if person != request.session['person-id']:
+    verb = Verb.objects.get(pk=request.session['verb-id'])
+    language = verb.wordlist.language
+    acceptable = get_matching_forms(language, verb, form)
+    if guessed in acceptable:
+        correct = True
+    else:
         correct = False
-        response += 'Person'
-    if number != request.session['number-id']:
-        correct = False
-        response += ' Number'
-    if tense != request.session['tense-id']:
-        correct = False
-        response += ' Tense'
-    if mood != request.session['mood-id']:
-        correct = False
-        response += ' Mood'
-    if voice != request.session['voice-id']:
-        correct = False
-        response += ' Voice'
+        response = '\n'
     ret_val = dict()
     if correct:
         ret_val['result'] = 'Correct!'
@@ -204,6 +189,35 @@ def inflect_form(request, person, number, tense, mood, voice):
     ret_val = dict()
     ret_val['inflected_form'] = conj_verb_from_session(request.session)
     return HttpResponse(simplejson.dumps(ret_val))
+
+
+def get_matching_forms(language, verb, form):
+    conj_cls = __import__(language.module_name).mapping[verb.conjugation.name]
+    conj = conj_cls(verb.word)
+    persons = language.person_set.all()
+    numbers = language.number_set.all()
+    tenses = language.tense_set.all()
+    moods = language.mood_set.all()
+    voices = language.voice_set.all()
+    forms = []
+    args = dict()
+    for t in tenses:
+        args['tense'] = t.name
+        for v in voices:
+            args['voice'] = v.name
+            for m in moods:
+                args['mood'] = m.name
+                for p in persons:
+                    args['person'] = p.name
+                    for n in numbers:
+                        args['number'] = n.name
+                        try:
+                            cand_form = conj.conjugate(**args)
+                            if cand_form == form:
+                                forms.append(copy(args))
+                        except ValueError:
+                            continue
+    return forms
 
 
 # vim: et sw=4 sts=4
