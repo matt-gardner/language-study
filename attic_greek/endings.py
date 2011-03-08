@@ -12,8 +12,8 @@ class EndingSet(dict):
 class InfEndingSet(dict):
     def __init__(self):
         # The first arg is person, then number.  For an infinitive, both of
-        # these are absent, represented in the code with None
-        self[None] = {None: u''}
+        # these are absent, represented in the database and the code with 'None'
+        self['None'] = {'None': u''}
 
 
 # Present Tense
@@ -65,7 +65,7 @@ class PresentImpAct(EndingSet):
 class PresentInfAct(InfEndingSet):
     def __init__(self):
         super(PresentInfAct, self).__init__()
-        self[None][None] = u'ειν'
+        self['None']['None'] = u'ειν'
 
 
 class PresentIndMP(EndingSet):
@@ -114,7 +114,7 @@ class PresentImpMP(EndingSet):
 class PresentInfMP(InfEndingSet):
     def __init__(self):
         super(PresentInfMP, self).__init__()
-        self[None][None] = u'εσθαι'
+        self['None']['None'] = u'εσθαι'
 
 
 
@@ -187,7 +187,7 @@ class AoristImpAct(EndingSet):
 class AoristInfAct(InfEndingSet):
     def __init__(self):
         super(AoristInfAct, self).__init__()
-        self[None][None] = u'αι'
+        self['None']['None'] = u'αι'
 
 
 class AoristIndMid(EndingSet):
@@ -227,7 +227,7 @@ class AoristImpMid(EndingSet):
 class AoristInfMid(InfEndingSet):
     def __init__(self):
         super(AoristInfMid, self).__init__()
-        self[None][None] = u'ασθαι'
+        self['None']['None'] = u'ασθαι'
 
 
 class AoristIndPass(EndingSet):
@@ -277,7 +277,7 @@ class AoristImpPass(EndingSet):
 class AoristInfPass(InfEndingSet):
     def __init__(self):
         super(AoristInfPass, self).__init__()
-        self[None][None] = u'ηναι'
+        self['None']['None'] = u'ηναι'
 
 
 # Perfect Tense
@@ -299,7 +299,7 @@ class PerfectIndAct(EndingSet):
 class PerfectInfAct(InfEndingSet):
     def __init__(self):
         super(PerfectInfAct, self).__init__()
-        self[None][None] = u'εναι'
+        self['None']['None'] = u'εναι'
 
 
 class PerfectIndMP(EndingSet):
@@ -316,7 +316,7 @@ class PerfectIndMP(EndingSet):
 class PerfectInfMP(InfEndingSet):
     def __init__(self):
         super(PerfectInfMP, self).__init__()
-        self[None][None] = u'σθαι'
+        self['None']['None'] = u'σθαι'
 
 
 # Pluperfect Tense

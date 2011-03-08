@@ -84,12 +84,12 @@ class GreekConjugation(Conjugation):
         if 'voice' not in kwargs:
             raise ValueError('Voice must be specified')
         voice = kwargs['voice']
-        if 'person' not in kwargs and kwargs['mood'] != 'Infinitive':
+        if 'person' not in kwargs:
             raise ValueError('Person must be specified')
-        person = kwargs['person'] if 'person' in kwargs else None
-        if 'number' not in kwargs and kwargs['mood'] != 'Infinitive':
+        person = kwargs['person']
+        if 'number' not in kwargs:
             raise ValueError('Number must be specified')
-        number = kwargs['number'] if 'number' in kwargs else None
+        number = kwargs['number']
         return person, number, tense, mood, voice
 
     def get_principle_part(self, tense, voice):

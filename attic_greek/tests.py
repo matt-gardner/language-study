@@ -83,6 +83,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεύειν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -148,6 +150,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεύεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -213,6 +217,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεύεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -290,6 +296,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Future'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεύσειν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -326,6 +334,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Future'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεύσεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -362,6 +372,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Future'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδευθήσεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -428,6 +440,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεῦσαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -494,6 +508,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδεύσασθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -560,6 +576,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'παιδευθῆναι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -584,6 +602,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'πεπαιδευκέναι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -607,6 +627,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'πεπαιδεῦσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -630,6 +652,8 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Passive'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'πεπαιδεῦσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.paideuo)
@@ -711,6 +735,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'γεγράφθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.grafo)
@@ -745,6 +771,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'πεπέμφθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.pempo)
@@ -779,6 +807,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'ᾐσχύνθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.aischunomai)
@@ -813,6 +843,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'τετάχθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.tatto)
@@ -847,6 +879,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'ἐληλέγχθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.elegxo)
@@ -881,6 +915,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'κεκελεῦσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.keleuo)
@@ -915,6 +951,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'πεφάνθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.faino)
@@ -949,6 +987,8 @@ class ConsonantStemsTest(TestCase):
         args['tense'] = 'Perfect'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'ἠγγέλθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.aggello)
@@ -1038,6 +1078,8 @@ class ContractedPoieoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'ποιεῖν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.poieo)
@@ -1103,6 +1145,8 @@ class ContractedPoieoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'ποιεῖσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.poieo)
@@ -1207,6 +1251,8 @@ class ContractedNikaoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'νικᾶν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.nikao)
@@ -1272,6 +1318,8 @@ class ContractedNikaoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'νικᾶσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.nikao)
@@ -1376,6 +1424,8 @@ class ContractedDhlooTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'δηλοῦν'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.dhloo)
@@ -1441,6 +1491,8 @@ class ContractedDhlooTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Infinitive'
         args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
         answer = u'δηλοῦσθαι'
         answer = unicodedata.normalize('NFKD', answer)
         conj = GreekConjugation(self.dhloo)

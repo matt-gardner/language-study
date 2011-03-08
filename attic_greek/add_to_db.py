@@ -33,6 +33,7 @@ def add_language(incremental=False):
     # Numbers
     add_or_fail('Singular', Number, language, incremental, added)
     add_or_fail('Plural', Number, language, incremental, added)
+    add_or_fail('None', Number, language, incremental, added)
     # Genders
     add_or_fail('Masculine', Gender, language, incremental, added)
     add_or_fail('Feminine', Gender, language, incremental, added)
@@ -47,6 +48,7 @@ def add_language(incremental=False):
     add_or_fail('First Person', Person, language, incremental, added)
     add_or_fail('Second Person', Person, language, incremental, added)
     add_or_fail('Third Person', Person, language, incremental, added)
+    add_or_fail('None', Person, language, incremental, added)
     # Tenses
     add_or_fail('Present', Tense, language, incremental, added)
     add_or_fail('Imperfect', Tense, language, incremental, added)

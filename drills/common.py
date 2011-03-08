@@ -215,8 +215,6 @@ def update_word_difficulty_from_session(request, difficulty):
 
 
 def devariablize(string):
-    if string == 'none':
-        return None
     return ' '.join([s.capitalize() for s in string.split('_')])
 
 

@@ -106,14 +106,8 @@ def conj_verb_from_session(session, raise_errors=False):
     conj_cls = __import__(language.module_name).mapping[verb.conjugation.name]
     conj = conj_cls(verb.word)
     args = dict()
-    if session['person-id']:
-        args['person'] = Person.objects.get(pk=session['person-id']).name
-    else:
-        args['person'] = None
-    if session['number-id']:
-        args['number'] = Number.objects.get(pk=session['number-id']).name
-    else:
-        args['number'] = None
+    args['person'] = Person.objects.get(pk=session['person-id']).name
+    args['number'] = Number.objects.get(pk=session['number-id']).name
     args['tense'] = Tense.objects.get(pk=session['tense-id']).name
     args['mood'] = Mood.objects.get(pk=session['mood-id']).name
     args['voice'] = Voice.objects.get(pk=session['voice-id']).name
@@ -129,12 +123,8 @@ def random_form(session):
     verb = Verb.objects.get(pk=session['verb-id'])
     language = verb.wordlist.language
     session['mood-id'] = r.choice(list(language.mood_set.all())).id
-    if session['mood-id'] == language.mood_set.get(name='Infinitive').id:
-        session['person-id'] = None
-        session['number-id'] = None
-    else:
-        session['person-id'] = r.choice(list(language.person_set.all())).id
-        session['number-id'] = r.choice(list(language.number_set.all())).id
+    session['person-id'] = r.choice(list(language.person_set.all())).id
+    session['number-id'] = r.choice(list(language.number_set.all())).id
     session['tense-id'] = r.choice(list(language.tense_set.all())).id
     session['voice-id'] = r.choice(list(language.voice_set.all())).id
 
@@ -202,15 +192,9 @@ def guess_form(request, person, number, tense, mood, voice):
 
 def inflect_form(request, person, number, tense, mood, voice):
     person = devariablize(person)
-    if person:
-        request.session['person-id'] = Person.objects.get(name=person).id
-    else:
-        request.session['person-id'] = None
+    request.session['person-id'] = Person.objects.get(name=person).id
     number = devariablize(number)
-    if number:
-        request.session['number-id'] = Number.objects.get(name=number).id
-    else:
-        request.session['number-id'] = None
+    request.session['number-id'] = Number.objects.get(name=number).id
     tense = devariablize(tense)
     request.session['tense-id'] = Tense.objects.get(name=tense).id
     mood = devariablize(mood)
