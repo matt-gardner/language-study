@@ -28,7 +28,10 @@ class Conjugation(object):
         pass
 
     def conjugate(self, **kwargs):
-        """We use a dictionary here so that this can be used by a number of
+        """Given a dictionary describing the desired form, return a list of
+        acceptable forms.
+
+        We use a dictionary here so that this can be used by a number of
         languages, not just those that have the same conjugation rules as
         Greek."""
         raise NotImplementedError()
@@ -72,7 +75,7 @@ class GreekConjugation(Conjugation):
         accented = self.add_accent(final_form, mood, tense, voice)
         if self.needs_contraction(tense, principle_part):
             accented = self.contract(accented, principle_part, ending)
-        return accented
+        return [accented]
 
     def check_kwargs(self, kwargs):
         if 'tense' not in kwargs:

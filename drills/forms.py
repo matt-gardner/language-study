@@ -113,7 +113,9 @@ def conj_verb_from_session(session, raise_errors=False):
     args['mood'] = Mood.objects.get(pk=session['mood-id']).name
     args['voice'] = Voice.objects.get(pk=session['voice-id']).name
     try:
-        return conj.conjugate(**args)
+        form = r.choice(conj.conjugate(**args))
+        session['form'] = form
+        return form
     except ValueError as e:
         if raise_errors:
             raise
@@ -140,6 +142,7 @@ def get_new_random_form(request):
             pass
     ret_val = dict()
     ret_val['inflected_form'] = form
+    request.session['form'] = form
     return HttpResponse(simplejson.dumps(ret_val))
 
 
@@ -157,7 +160,7 @@ def guess_form(request, person, number, tense, mood, voice):
     guessed['tense'] = Tense.objects.get(name=devariablize(tense)).name
     guessed['mood'] = Mood.objects.get(name=devariablize(mood)).name
     guessed['voice'] = Voice.objects.get(name=devariablize(voice)).name
-    form = conj_verb_from_session(request.session)
+    form = request.session['form']
     verb = Verb.objects.get(pk=request.session['verb-id'])
     language = verb.wordlist.language
     acceptable = get_matching_forms(language, verb, form)
@@ -210,9 +213,10 @@ def get_matching_forms(language, verb, form):
                     for n in numbers:
                         args['number'] = n.name
                         try:
-                            cand_form = conj.conjugate(**args)
-                            if cand_form == form:
-                                forms.append(copy(args))
+                            cand_forms = conj.conjugate(**args)
+                            for cand_form in cand_forms:
+                                if cand_form == form:
+                                    forms.append(copy(args))
                         except ValueError:
                             continue
     return forms
