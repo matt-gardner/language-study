@@ -96,12 +96,13 @@ def view_forms(request):
         verb = verbs[0]
         request.session['verb-id'] = verb.id
         context['verb_id'] = verb.id
-        context['inflected_form'] = conj_verb_from_session(request.session)
+        context['inflected_form'] = conj_verb_from_session(request.session,
+                all_forms=True)
         context['num_verbs'] = verbs.count()
     return render_to_response('view_forms.html', context)
 
 
-def conj_verb_from_session(session, raise_errors=False):
+def conj_verb_from_session(session, raise_errors=False, all_forms=False):
     verb = Verb.objects.get(pk=session['verb-id'])
     language = verb.wordlist.language
     conj_cls = __import__(language.module_name).mapping[verb.conjugation.name]
@@ -113,7 +114,11 @@ def conj_verb_from_session(session, raise_errors=False):
     args['mood'] = Mood.objects.get(pk=session['mood-id']).name
     args['voice'] = Voice.objects.get(pk=session['voice-id']).name
     try:
-        form = r.choice(conj.conjugate(**args))
+        forms = conj.conjugate(**args)
+        if not all_forms:
+            form = r.choice(forms)
+        else:
+            form = ', '.join(forms)
         session['form'] = form
         return form
     except ValueError as e:
