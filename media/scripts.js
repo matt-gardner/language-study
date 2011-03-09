@@ -19,10 +19,6 @@ function get_new_form() {
 	number = $("#id_number").val();
 	tense = $("#id_tense").val();
 	mood = $("#id_mood").val();
-	if (mood == 'infinitive') {
-		person = 'none';
-		number = 'none';
-	}
 	voice = $("#id_voice").val();
 	link = "/inflect-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
 	$.getJSON(link, {}, function(data) {
@@ -34,10 +30,6 @@ function guess_form() {
 	number = $("#id_number").val();
 	tense = $("#id_tense").val();
 	mood = $("#id_mood").val();
-	if (mood == 'infinitive') {
-		person = 'none';
-		number = 'none';
-	}
 	voice = $("#id_voice").val();
 	link = "/guess-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
 	$.getJSON(link, {}, function(data) {
