@@ -161,16 +161,14 @@ def guess_form(request, person, number, tense, mood, voice):
     verb = Verb.objects.get(pk=request.session['verb-id'])
     language = verb.wordlist.language
     acceptable = get_matching_forms(language, verb, form)
-    if guessed in acceptable:
-        correct = True
-    else:
-        correct = False
-        response = '\n'
     ret_val = dict()
-    if correct:
+    if guessed in acceptable:
         ret_val['result'] = 'Correct!'
+        alternate = alternate_forms(guessed, acceptable)
+        if alternate:
+            ret_val['result'] += '<br>Also acceptable: ' + alternate
     else:
-        ret_val['result'] = 'Wrong in: ' + response
+        ret_val['result'] = 'Wrong in: ' + form_errors(guessed, acceptable)
         ret_val['result'] += '<br>' + form
     return HttpResponse(simplejson.dumps(ret_val))
 
@@ -218,6 +216,39 @@ def get_matching_forms(language, verb, form):
                         except ValueError:
                             continue
     return forms
+
+
+def form_errors(guessed, acceptable):
+    errors = ''
+    fields = ['person', 'number', 'tense', 'mood', 'voice']
+    for field in fields:
+        if guessed[field] not in [a[field] for a in acceptable]:
+            if errors:
+                errors += ', '
+            errors += devariablize(field)
+    return errors
+
+
+def alternate_forms(guessed, acceptable):
+    forms = ''
+    acceptable.remove(guessed)
+    for alternate in acceptable:
+        if forms:
+            forms += '; '
+        forms += form_difference(guessed, alternate)
+    return forms
+
+
+def form_difference(guess, alternate):
+    diff = ''
+    fields = ['person', 'number', 'tense', 'mood', 'voice']
+    for field in fields:
+        if guess[field] != alternate[field]:
+            if diff:
+                diff += ', '
+            diff += alternate[field]
+    return diff
+
 
 
 # vim: et sw=4 sts=4
