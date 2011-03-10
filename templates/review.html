@@ -26,7 +26,8 @@
 	{% endblock %}
 
 	<div class="word_difficulty">
-		This word's difficulty: {{ word.average_difficulty|floatformat:"2" }}
+		This word's difficulty: {{ word.difficulty|floatformat:"2" }};
+		Times reviewed: {{ word.review_count }}
 	</div>
 </div>
 
