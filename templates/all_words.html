@@ -4,6 +4,22 @@
 <table>
 	<tr>
 		<td>
+			<label for="id_by_definition" class="option">
+				<input type="checkbox"
+				name="by_definition"
+				value="by_definition"
+				class="option"
+				id="id_by_definition"
+				{% if by_definition %}
+				checked
+				{% endif %}
+			   	/>
+				By Definition
+			</label>
+		</td>
+	</tr>
+	<tr>
+		<td>
 			<label for="id_date_entered" class="option">
 				<input type="radio"
 				name="review_order"

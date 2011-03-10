@@ -42,12 +42,20 @@
 	<div class="center_review">
 		<div class="review_word">
 			<div class="text">
+				{% if not by_definition %}
 				{{ word.word }}
+				{% else %}
+				{{ word.definition }}
+				{% endif %}
 			</div>
 		</div>
 		<div class="review_definition">
 			<div class="text" style="display:none">
+				{% if not by_definition %}
 				{{ word.definition }}
+				{% else %}
+				{{ word.word }}
+				{% endif %}
 			</div>
 		</div>
 		<div class="review_buttons">
@@ -57,7 +65,11 @@
 			accesskey=p
 			id="id_prev_word"/>
 			<input type="submit"
+			{% if not by_definition %}
 			value="Show definition"
+			{% else %}
+			value="Show word"
+			{% endif %}
 			accesskey=s
 			id="id_show_definition"/>
 			<input type="submit"

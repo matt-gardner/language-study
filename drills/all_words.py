@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from language_study.drills import common
 from language_study.drills.common import AjaxWord
 from language_study.drills.common import base_review_context
+from language_study.drills.common import get_word_info_from_session
 from language_study.drills.common import render_tags
 from language_study.drills.common import reorder_words_in_session
 from language_study.drills.common import review_styles
@@ -20,14 +21,13 @@ def index(request):
             word_number = 0
         request.session['word-id'] = words[word_number].id
         request.session['word-number'] = word_number
-        context['word_number'] = word_number + 1
     context['review_style'] = '/all-words/'
     request.session['words'] = [AjaxWord(c) for c in words]
     reorder_words_in_session(request, word_number)
+    word_info = get_word_info_from_session(request)
+    context.update(word_info)
     context['words'] = request.session['words']
-    context['word'] = context['words'][word_number]
-    context['word'].get_tags()
-    context['word_tags'] = context['word'].tags
+    context['word_tags'] = context['word']['tags']
     context['ordering'] = request.session.get('ordering', 'date_entered')
 
     return render_to_response('all_words.html', context)

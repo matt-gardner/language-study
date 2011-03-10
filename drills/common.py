@@ -164,6 +164,10 @@ def render_tags(tags):
 ###########################################
 
 def return_word_from_session(request):
+    return HttpResponse(simplejson.dumps(get_word_info_from_session(request)))
+
+
+def get_word_info_from_session(request):
     ret_val = dict()
     words = request.session['words']
     num_words = len(words)
@@ -172,11 +176,12 @@ def return_word_from_session(request):
     request.session['word-number'] = current_word
     request.session['word-id'] = words[current_word].id
     words[current_word].get_tags()
+    ret_val['by_definition'] = request.session.get('by-definition', False)
     ret_val['word'] = vars(words[current_word])
     ret_val['word_number'] = current_word + 1
     ret_val['num_words'] = num_words
     ret_val['difficulty'] = sum([c.difficulty for c in words])/len(words)
-    return HttpResponse(simplejson.dumps(ret_val))
+    return ret_val
 
 
 # Other general methods
@@ -212,6 +217,14 @@ def update_word_difficulty_from_session(request, difficulty):
     word.update_difficulty(Word.DIFFICULTY_SCORES[difficulty])
     word.reviewed()
     return word
+
+
+def set_by_definition(request, value):
+    if value == 'true':
+        request.session['by-definition'] = True
+    else:
+        request.session['by-definition'] = False
+    return return_word_from_session(request)
 
 
 def devariablize(string):
@@ -276,9 +289,9 @@ class AjaxWord(object):
         self.tags = None
         try:
             v = word.verb
-            self.verb = True
+            self.is_verb = True
         except Verb.DoesNotExist:
-            self.verb = False
+            self.is_verb = False
 
     def get_tags(self):
         word = Word.objects.get(pk=self.id)

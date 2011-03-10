@@ -1,9 +1,12 @@
 $("#id_show_definition").click(function () {
 	$(".review_definition .text").toggle(0);
-	if ($("#id_show_definition").val() == "Show definition") {
-		$("#id_show_definition").val("Hide definition");
+	var current_text = $("#id_show_definition").val()
+	if (current_text.substring(0, 4) == "Show") {
+		var new_text = "Hide" + current_text.substring(4);
+		$("#id_show_definition").val(new_text);
 	} else {
-		$("#id_show_definition").val("Show definition");
+		var new_text = "Show" + current_text.substring(4);
+		$("#id_show_definition").val(new_text);
 	}
 });
 $("#id_next_word").click(function () {
@@ -71,4 +74,7 @@ $("#id_guess_form").click(function() {
 });
 $("#id_drill_verb").click(function() {
 	window.location = "/forms";
+});
+$("#id_by_definition").click(function() {
+	set_by_definition();
 });

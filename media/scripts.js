@@ -9,7 +9,7 @@ function delete_word_list() {
 function get_word_list() {
 	var list = $("#id_wordlist").val();
 	$.getJSON("get-word-list/"+list, {}, function(data) {
-		new_word(data.word, data.word_number, data.num_words, data.difficulty);
+		new_word(data);
 	});
 }
 
@@ -54,7 +54,18 @@ function switch_review_style() {
 }
 function reorder_words(ordering) {
 	$.getJSON("reorder-word-list/"+ordering, {}, function(data) {
-		new_word(data.word, data.word_number, data.num_words, data.difficulty);
+		new_word(data);
+	});
+}
+function set_by_definition() {
+	var link = "/set-by-definition/";
+	if ($("#id_by_definition").attr("checked")) {
+		link += "true";
+	} else {
+		link += "false";
+	}
+	$.getJSON(link, {}, function(data) {
+		new_word(data);
 	});
 }
 
@@ -65,32 +76,42 @@ function next_word(difficulty) {
 		link += difficulty
 	}
 	$.getJSON(link, {}, function(data) {
-		new_word(data.word, data.word_number, data.num_words, data.difficulty);
+		new_word(data);
 	});
 }
 function prev_word() {
 	$.getJSON("prev-word/", {}, function(data) {
-		new_word(data.word, data.word_number, data.num_words, data.difficulty);
+		new_word(data);
 	});
 }
-function new_word(word, word_number, num_words, average_difficulty) {
-	if ($("#id_show_definition").val() == "Hide definition") {
-		$("#id_show_definition").val("Show definition");
+function new_word(data) {
+	var show_text = "Show ";
+	if (data.by_definition) {
+		show_text += "word";
+	} else {
+		show_text += "definition";
+	}
+	if ($("#id_show_definition").val().substring(0, 4) == "Hide") {
 		$(".review_definition .text").toggle(0);
 	}
-	switch_text(word.word, word.definition);
-	reset_drill_button(word);
-	reset_word_number(word_number, num_words, word.difficulty);
-	reset_word_difficulty(word.difficulty, word.review_count);
-	reset_word_tags(word.tags);
-	reset_list_difficulty(average_difficulty);
+	$("#id_show_definition").val(show_text);
+	if (data.by_definition) {
+		switch_text(data.word.definition, data.word.word);
+	} else {
+		switch_text(data.word.word, data.word.definition);
+	}
+	reset_drill_button(data.word);
+	reset_word_number(data.word_number, data.num_words, data.word.difficulty);
+	reset_word_difficulty(data.word.difficulty, data.word.review_count);
+	reset_word_tags(data.word.tags);
+	reset_list_difficulty(data.average_difficulty);
 }
 function switch_text(word, definition) {
 	$(".review_word .text").html(word);
 	$(".review_definition .text").html(definition);
 }
 function reset_drill_button(word) {
-	if (word.verb) {
+	if (word.is_verb) {
 		$("#id_drill_verb").show();
 	} else {
 		$("#id_drill_verb").hide();
