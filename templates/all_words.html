@@ -18,101 +18,23 @@
 			</label>
 		</td>
 	</tr>
+	{% for order in orderings %}
 	<tr>
 		<td>
-			<label for="id_date_entered" class="option">
+			<label for="id_{{ order.db_name }}" class="option">
 				<input type="radio"
 				name="review_order"
-				value="date_entered"
+				value="{{ order.db_name }}"
 				class="option"
-				id="id_date_entered"
-				{% ifequal ordering "date_entered" %}
+				id="id_{{ order.db_name }}"
+				{% ifequal ordering order.db_name %}
 				checked
 				{% endifequal %}
 			   	/>
-				Date Entered
+				{{ order.name }}
 			</label>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<label for="id_alphabetical" class="option">
-				<input type="radio"
-				name="review_order"
-				value="alphabetical"
-				class="option"
-				id="id_alphabetical"
-				{% ifequal ordering "alphabetical" %}
-				checked
-				{% endifequal %}
-				/>
-				Alphabetical
-			</label>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="id_randomize" class="option">
-				<input type="radio"
-				name="review_order"
-				value="random"
-				class="option"
-				id="id_randomize"
-				{% ifequal ordering "random" %}
-				checked
-				{% endifequal %}
-				/>
-				Randomize
-			</label>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="id_last_reviewed" class="option">
-				<input type="radio"
-				name="review_order"
-				value="last_reviewed"
-				class="option"
-				id="id_last_reviewed"
-				{% ifequal ordering "last_reviewed" %}
-				checked
-				{% endifequal %}
-				/>
-				Last Reviewed
-			</label>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="id_least_reviewed" class="option">
-				<input type="radio"
-				name="review_order"
-				value="least_reviewed"
-				class="option"
-				id="id_least_reviewed"
-				{% ifequal ordering "least_reviewed" %}
-				checked
-				{% endifequal %}
-				/>
-				Least Reviewed
-			</label>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="id_difficulty" class="option">
-				<input type="radio"
-				name="review_order"
-				value="difficulty"
-				class="option"
-				id="id_difficulty"
-				{% ifequal ordering "difficulty" %}
-				checked
-				{% endifequal %}
-				/>
-				Difficulty
-			</label>
-		</td>
-	</tr>
+	{% endfor %}
 </table>
 {% endblock %}

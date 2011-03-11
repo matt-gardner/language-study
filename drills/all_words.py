@@ -28,9 +28,21 @@ def index(request):
     context.update(word_info)
     context['words'] = request.session['words']
     context['word_tags'] = context['word']['tags']
+    context['orderings'] = valid_orderings()
     context['ordering'] = request.session.get('ordering', 'date_entered')
 
     return render_to_response('all_words.html', context)
+
+
+def valid_orderings():
+    orderings = []
+    orderings.append({'db_name': 'date_entered', 'name': 'Date Entered'})
+    orderings.append({'db_name': 'alphabetical', 'name': 'Alphabetical'})
+    orderings.append({'db_name': 'randomize', 'name': 'Randomize'})
+    orderings.append({'db_name': 'last_reviewed', 'name': 'Last Reviewed'})
+    orderings.append({'db_name': 'least_reviewed', 'name': 'Least Reviewed'})
+    orderings.append({'db_name': 'difficulty', 'name': 'Difficulty'})
+    return orderings
 
 
 def create_word_list(request):
