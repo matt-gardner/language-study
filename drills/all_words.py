@@ -15,19 +15,19 @@ from language_study.drills.models import Tag
 @login_required
 def index(request):
     context, words = base_review_context(request)
+    context['review_style'] = '/all-words/'
     if words:
         word_number = request.session.get('word-number', 0)
         if word_number >= len(words):
             word_number = 0
         request.session['word-id'] = words[word_number].id
         request.session['word-number'] = word_number
-    context['review_style'] = '/all-words/'
-    request.session['words'] = [AjaxWord(c) for c in words]
-    reorder_words_in_session(request, word_number)
-    word_info = get_word_info_from_session(request)
-    context.update(word_info)
-    context['words'] = request.session['words']
-    context['word_tags'] = context['word']['tags']
+        request.session['words'] = [AjaxWord(c) for c in words]
+        reorder_words_in_session(request, word_number)
+        word_info = get_word_info_from_session(request)
+        context.update(word_info)
+        context['words'] = request.session['words']
+        context['word_tags'] = context['word']['tags']
     context['orderings'] = valid_orderings()
     context['ordering'] = request.session.get('ordering', 'date_entered')
 
