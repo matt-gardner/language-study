@@ -43,6 +43,7 @@ def possible_word_filters():
     possible_filters.append(('defcontains', 'Text contains'))
     possible_filters.append(('lastreviewed', 'Last Reviewed'))
     possible_filters.append(('timesreviewed', 'Times Reviewed'))
+    possible_filters.append(('dateentered', 'Date Entered'))
     return possible_filters
 
 
@@ -63,6 +64,8 @@ def get_word_filter_by_name(name):
         return LastReviewedFilter
     if name == 'timesreviewed':
         return TimesReviewedFilter
+    if name == 'dateentered':
+        return DateEnteredFilter
     raise ValueError('There is no word filter with the name %s' % name)
 
 
@@ -445,6 +448,14 @@ class LastReviewedFilter(DateFilter):
         super(LastReviewedFilter, self).__init__(id, wordlist)
         self.label = 'Last Reviewed'
         self.filter_arg = 'last_reviewed'
+        self.remake_form()
+
+
+class DateEnteredFilter(DateFilter):
+    def __init__(self, id, wordlist):
+        super(DateEnteredFilter, self).__init__(id, wordlist)
+        self.label = 'Date Entered'
+        self.filter_arg = 'date_entered'
         self.remake_form()
 
 
