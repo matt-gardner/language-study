@@ -167,20 +167,20 @@ function remove_filter(id)
 		location.reload();
 	});
 }
-function update_tag_filter(id)
+function update_one_choice_filter(id)
 {
-	var link = "/update-tag-filter/" + id + "/";
-	link += $("#id_tag_filter_"+id).val();
+	var link = "/update-one-choice-filter/" + id + "/";
+	link += $("#id_one_choice_filter_"+id).val();
 	$.get(link, {}, function(filter) {
 		$("#id_filter_form").html(filter);
 		location.reload();
 	});
 }
-function update_difficulty_filter(id)
+function update_value_comp_filter(id)
 {
-	var link = "/update-difficulty-filter/" + id + "/";
-	link += $("#id_difficulty_filter_comp_"+id).val() + "/";
-	link += $("#id_difficulty_filter_value_"+id).val();
+	var link = "/update-value-comp-filter/" + id + "/";
+	link += $("#id_value_comp_filter_comp_"+id).val() + "/";
+	link += $("#id_value_comp_filter_value_"+id).val();
 	$.get(link, {}, function(filter) {
 		$("#id_filter_form").html(filter);
 		location.reload();

@@ -5,22 +5,23 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
-id = '(?P<id>[^/]*)'
-name = '(?P<name>[^/]*)'
-tag = '(?P<tag>[^/]*)'
+choice = '(?P<choice>[^/]*)'
 comp = '(?P<comp>[^/]*)'
-value = '(?P<value>[^/]*)'
-string = '(?P<string>[^/]*)'
-year = '(?P<year>[^/]*)'
-month = '(?P<month>[^/]*)'
 day = '(?P<day>[^/]*)'
 difficulty = '(?P<difficulty>[^/]*)'
+id = '(?P<id>[^/]*)'
+month = '(?P<month>[^/]*)'
+mood = '(?P<mood>[^/]*)'
+name = '(?P<name>[^/]*)'
+number = '(?P<number>[^/]*)'
 ordering = '(?P<ordering>[^/]*)'
 person = '(?P<person>[^/]*)'
-number = '(?P<number>[^/]*)'
+string = '(?P<string>[^/]*)'
+tag = '(?P<tag>[^/]*)'
 tense = '(?P<tense>[^/]*)'
-mood = '(?P<mood>[^/]*)'
+value = '(?P<value>[^/]*)'
 voice = '(?P<voice>[^/]*)'
+year = '(?P<year>[^/]*)'
 
 urlpatterns = patterns('',
     # Main index page
@@ -40,10 +41,10 @@ urlpatterns = patterns('',
         'drills.filters.add_filter'),
     (r'^remove-filter/'+id+'$',
         'drills.filters.remove_filter'),
-    (r'^update-tag-filter/'+id+'/'+tag+'$',
-        'drills.filters.update_tag_filter'),
-    (r'^update-difficulty-filter/'+id+'/'+comp+'/'+value+'$',
-        'drills.filters.update_difficulty_filter'),
+    (r'^update-one-choice-filter/'+id+'/'+choice+'$',
+        'drills.filters.update_one_choice_filter'),
+    (r'^update-value-comp-filter/'+id+'/'+comp+'/'+value+'$',
+        'drills.filters.update_value_comp_filter'),
     (r'^update-string-filter/'+id+'/'+string+'$',
         'drills.filters.update_string_filter'),
     (r'^update-date-filter/'+id+'/'+comp+'/'+year+'/'+month+'/'+day+'$',

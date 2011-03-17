@@ -42,24 +42,27 @@ def possible_word_filters():
     possible_filters.append(('defstartswith', 'Text starts With'))
     possible_filters.append(('defcontains', 'Text contains'))
     possible_filters.append(('lastreviewed', 'Last Reviewed'))
+    possible_filters.append(('timesreviewed', 'Times Reviewed'))
     return possible_filters
 
 
 def get_word_filter_by_name(name):
     if name == 'tag':
-        return WordFilterByTag
+        return TagFilter
     if name == 'difficulty':
-        return WordFilterByDifficulty
+        return DifficultyFilter
     if name == 'startswith':
-        return WordFilterByStartsWith
+        return StartsWithFilter
     if name == 'contains':
-        return WordFilterByContains
+        return ContainsFilter
     if name == 'defstartswith':
-        return WordFilterByDefStartsWith
+        return DefStartsWithFilter
     if name == 'defcontains':
-        return WordFilterByDefContains
+        return DefContainsFilter
     if name == 'lastreviewed':
-        return WordFilterByLastReviewed
+        return LastReviewedFilter
+    if name == 'timesreviewed':
+        return TimesReviewedFilter
     raise ValueError('There is no word filter with the name %s' % name)
 
 
@@ -103,12 +106,9 @@ def remove_filter(request, id):
     return HttpResponse(filter_form.__unicode__())
 
 
-def update_tag_filter(request, id, tag):
+def update_one_choice_filter(request, id, choice):
     filter = request.session['filters'][int(id)]
-    if tag == 'None':
-        filter.current_tag = None
-    else:
-        filter.current_tag = tag
+    filter.current_choice = choice
     filter.remake_form()
     request.session.modified = True
     filter_form = FilterForm(possible_word_filters())
@@ -120,7 +120,7 @@ def update_tag_filter(request, id, tag):
     return HttpResponse(filter_form.__unicode__())
 
 
-def update_difficulty_filter(request, id, comp, value):
+def update_value_comp_filter(request, id, comp, value):
     filter = request.session['filters'][int(id)]
     filter.current_comparator = comp
     filter.current_value = value
@@ -169,131 +169,154 @@ def update_date_filter(request, id, comp, year, month, day):
 # Filter Classes
 ################
 
-#TODO(matt): make a WordFilterByValue, or something, that these subclass
-
-# Value Filters
+# One Choice Filters
 ################
 
-class WordFilterByTag(object):
+class OneChoiceFilter(object):
     def __init__(self, id, wordlist):
         self.id = id
         self.wordlist = wordlist
-        self.current_tag = None
-        self.remake_form()
+        self.current_choice = 'None'
+        self.choices = [('None', 'All')]
+        self.label = ''
 
     def apply(self, word_set):
-        if not self.current_tag:
-            return word_set
-        tag = self.wordlist.tag_set.get(name=self.current_tag)
-        return word_set.filter(tags=tag)
+        raise NotImplementedError()
 
     def remake_form(self):
-        if self.current_tag:
-            tag = self.current_tag
-        else:
-            tag = 'None'
-        self._form = TagFilterForm(self.id, tag, self.wordlist)
+        self._form = OneChoiceFilterForm(self.id, self.current_choice,
+                self.choices, self.wordlist)
 
     def form(self):
         # This BoundField business is a bit of a hack to just get the part of
         # the HTML that I want.  I could build the HTML for it myself, but this
         # was a little easier.
-        ret_val = '<td>Tag:'
-        tag = forms.forms.BoundField(self._form, self._form.fields['tag'],
-                'tag_filter_%d' % self.id)
+        ret_val = '<td>%s:' % self.label
+        choice = forms.forms.BoundField(self._form, self._form.fields['choice'],
+                'one_choice_filter_%d' % self.id)
         ret_val += '</td><td>'
-        ret_val += tag.as_widget()
+        ret_val += choice.as_widget()
         ret_val += '</td><td class="remove" '
         ret_val += 'onclick="remove_filter(%d)">X</td>' % self.id
         return ret_val
 
 
-class TagFilterForm(forms.Form):
-    def __init__(self, id, tag, wordlist, *args, **kwargs):
-        super(TagFilterForm, self).__init__(*args, **kwargs)
-        tag_choices = [('None', 'All')]
+class OneChoiceFilterForm(forms.Form):
+    def __init__(self, id, choice, choices, wordlist, *args, **kwargs):
+        super(OneChoiceFilterForm, self).__init__(*args, **kwargs)
+        self.fields['choice'] = forms.ChoiceField(choices, label='Tag',
+                initial=choice)
+        self.fields['choice'].widget.attrs['onchange'] = \
+                'update_one_choice_filter(%d)' % id
+
+
+class TagFilter(OneChoiceFilter):
+    def __init__(self, id, wordlist):
+        super(TagFilter, self).__init__(id, wordlist)
+        self.label = 'Tag'
         tags = wordlist.tag_set.all()
         for t in tags:
-            tag_choices.append((t.name, t.name))
-        self.fields['tag'] = forms.ChoiceField(tag_choices, label='Tag',
-                initial=tag)
-        self.fields['tag'].widget.attrs['onchange'] = \
-                'update_tag_filter(%d)' % id
+            self.choices.append((t.name, t.name))
+        self.remake_form()
+
+    def apply(self, word_set):
+        if self.current_choice == 'None':
+            return word_set
+        tag = self.wordlist.tag_set.get(name=self.current_choice)
+        return word_set.filter(tags=tag)
 
 
-class WordFilterByDifficulty(object):
+# Value Comparator Filters
+##########################
+
+class ValueComparatorFilter(object):
     def __init__(self, id, wordlist):
         self.id = id
         self.wordlist = wordlist
-        self.current_comparator = 'gt'
+        self.comparator_choices = [('gt', 'Greater than'), ('lt', 'Less than')]
+        self.current_comparator = self.comparator_choices[0][0]
+        self.value_choices = []
         self.current_value = None
-        self.remake_form()
+        self.label = ''
+        self.filter_arg = ''
 
     def apply(self, word_set):
         if not self.current_value:
             return word_set
-        if self.current_comparator == 'gt':
-            return word_set.filter(
-                    average_difficulty__gt=self.current_value)
-        if self.current_comparator == 'lt':
-            return word_set.filter(
-                    average_difficulty__lt=self.current_value)
-        raise ValueError('Current comparator is not supported: %s' %
-                self.current_comparator)
+        filter_arg = self.filter_arg + '__' + self.current_comparator
+        args = {filter_arg: self.current_value}
+        return word_set.filter(**args)
 
     def remake_form(self):
-        comparator = self.current_comparator
-        if self.current_value:
-            value = self.current_value
-        else:
-            value = 'None'
-        self._form = DifficultyFilterForm(self.id, comparator, value)
-        if not self.current_value:
-            self.current_value = self._form.value_choices[0][0]
+        self._form = ValueComparatorFilterForm(self.id, self.current_comparator,
+                self.current_value, self.comparator_choices, self.value_choices)
 
     def form(self):
         # This BoundField business is a bit of a hack to just get the part of
         # the HTML that I want.  I could build the HTML for it myself, but this
         # was a little easier.
-        ret_val = '<td>Difficulty:</td><td>'
+        ret_val = '<td>%s:</td><td>' % self.label
         comp = forms.forms.BoundField(self._form, self._form.fields['comp'],
-                'difficulty_filter_comp_%d' % self.id)
+                'value_comp_filter_comp_%d' % self.id)
         ret_val += comp.as_widget()
         val = forms.forms.BoundField(self._form, self._form.fields['value'],
-                'difficulty_filter_value_%d' % self.id)
+                'value_comp_filter_value_%d' % self.id)
         ret_val += val.as_widget()
         ret_val += '</td><td class="remove" '
         ret_val += 'onclick="remove_filter(%d)">X</td>' % self.id
         return ret_val
 
 
-class DifficultyFilterForm(forms.Form):
-    def __init__(self, id, comparator, value, *args, **kwargs):
-        super(DifficultyFilterForm, self).__init__(*args, **kwargs)
-        comparator_choices = [('gt', 'Greater than'), ('lt', 'Less than')]
+class ValueComparatorFilterForm(forms.Form):
+    def __init__(self, id, comparator, value, comparator_choices,
+            value_choices, *args, **kwargs):
+        super(ValueComparatorFilterForm, self).__init__(*args, **kwargs)
         self.fields['comp'] = forms.ChoiceField(comparator_choices,
                 label='', initial=comparator)
         self.fields['comp'].widget.attrs['onchange'] = \
-                'update_difficulty_filter(%d)' % id
-        self.value_choices = [(i*5, i*5) for i in range(9)]
-        self.fields['value'] = forms.ChoiceField(self.value_choices,
-                label='', initial=value)
+                'update_value_comp_filter(%d)' % id
+        self.fields['value'] = forms.ChoiceField(value_choices, label='',
+                initial=value)
         self.fields['value'].widget.attrs['onchange'] = \
-                'update_difficulty_filter(%d)' % id
+                'update_value_comp_filter(%d)' % id
+
+
+class DifficultyFilter(ValueComparatorFilter):
+    def __init__(self, id, wordlist):
+        super(DifficultyFilter, self).__init__(id, wordlist)
+        self.label = 'Difficulty'
+        self.filter_arg = 'average_difficulty'
+        self.value_choices = [(i*5, i*5) for i in range(9)]
+        self.current_value = self.value_choices[0][0]
+        self.remake_form()
+
+
+class TimesReviewedFilter(ValueComparatorFilter):
+    def __init__(self, id, wordlist):
+        super(TimesReviewedFilter, self).__init__(id, wordlist)
+        self.label = 'Times Reviewed'
+        self.filter_arg = 'review_count'
+        self.value_choices = [(i, i) for i in range(15)]
+        self.current_value = self.value_choices[0][0]
+        self.remake_form()
 
 
 # String Filters
 ################
 
-class WordFilterByString(object):
+class StringFilter(object):
     def __init__(self, id, wordlist):
         self.id = id
         self.wordlist = wordlist
         self.current_string = None
         self.label = ''
+        self.filter_arg = ''
 
     def apply(self, word_set):
-        raise NotImplementedError()
+        if not self.current_string:
+            return word_set
+        args = {self.filter_arg: self.current_string}
+        return word_set.filter(**args)
 
     def remake_form(self):
         self._form = StringFilterForm(self.id, self.current_string,
@@ -313,54 +336,6 @@ class WordFilterByString(object):
         return ret_val
 
 
-class WordFilterByStartsWith(WordFilterByString):
-    def __init__(self, id, wordlist):
-        super(WordFilterByStartsWith, self).__init__(id, wordlist)
-        self.label = 'Word starts with'
-        self.remake_form()
-
-    def apply(self, word_set):
-        if not self.current_string:
-            return word_set
-        return word_set.filter(word__startswith=self.current_string)
-
-
-class WordFilterByContains(WordFilterByString):
-    def __init__(self, id, wordlist):
-        super(WordFilterByContains, self).__init__(id, wordlist)
-        self.label = 'Word contains'
-        self.remake_form()
-
-    def apply(self, word_set):
-        if not self.current_string:
-            return word_set
-        return word_set.filter(word__contains=self.current_string)
-
-
-class WordFilterByDefStartsWith(WordFilterByString):
-    def __init__(self, id, wordlist):
-        super(WordFilterByDefStartsWith, self).__init__(id, wordlist)
-        self.label = 'Text starts with'
-        self.remake_form()
-
-    def apply(self, word_set):
-        if not self.current_string:
-            return word_set
-        return word_set.filter(definition__startswith=self.current_string)
-
-
-class WordFilterByDefContains(WordFilterByString):
-    def __init__(self, id, wordlist):
-        super(WordFilterByDefContains, self).__init__(id, wordlist)
-        self.label = 'Text contains'
-        self.remake_form()
-
-    def apply(self, word_set):
-        if not self.current_string:
-            return word_set
-        return word_set.filter(definition__contains=self.current_string)
-
-
 class StringFilterForm(forms.Form):
     def __init__(self, id, string, wordlist, *args, **kwargs):
         super(StringFilterForm, self).__init__(*args, **kwargs)
@@ -369,10 +344,42 @@ class StringFilterForm(forms.Form):
                 'update_string_filter(%d)' % id
 
 
+class StartsWithFilter(StringFilter):
+    def __init__(self, id, wordlist):
+        super(StartsWithFilter, self).__init__(id, wordlist)
+        self.label = 'Word starts with'
+        self.filter_arg = 'word__startswith'
+        self.remake_form()
+
+
+class ContainsFilter(StringFilter):
+    def __init__(self, id, wordlist):
+        super(ContainsFilter, self).__init__(id, wordlist)
+        self.label = 'Word contains'
+        self.filter_arg = 'word__contains'
+        self.remake_form()
+
+
+class DefStartsWithFilter(StringFilter):
+    def __init__(self, id, wordlist):
+        super(DefStartsWithFilter, self).__init__(id, wordlist)
+        self.label = 'Text starts with'
+        self.filter_arg = 'definition__startswith'
+        self.remake_form()
+
+
+class DefContainsFilter(StringFilter):
+    def __init__(self, id, wordlist):
+        super(DefContainsFilter, self).__init__(id, wordlist)
+        self.label = 'Text contains'
+        self.filter_arg = 'definition__contains'
+        self.remake_form()
+
+
 # Date Filters
 ################
 
-class WordFilterByDate(object):
+class DateFilter(object):
     def __init__(self, id, wordlist):
         self.id = id
         self.wordlist = wordlist
@@ -382,9 +389,18 @@ class WordFilterByDate(object):
         self.current_year = now.year
         self.comparator = 'lt'
         self.label = ''
+        self.filter_arg = ''
 
     def apply(self, word_set):
-        raise NotImplementedError()
+        d = date(self.current_year, self.current_month, self.current_day)
+        if self.comparator == 'eq':
+            d2 = date(self.current_year, self.current_month, self.current_day+1)
+            filter_arg = self.filter_arg + '__range'
+            args = {filter_arg: (d, d2)}
+        else:
+            filter_arg = self.filter_arg + '__' + self.comparator
+            args = {filter_arg: d}
+        return word_set.filter(**args)
 
     def remake_form(self):
         self._form = DateFilterForm(self.id, self.comparator, self.current_day,
@@ -407,24 +423,6 @@ class WordFilterByDate(object):
         return ret_val
 
 
-class WordFilterByLastReviewed(WordFilterByDate):
-    def __init__(self, id, wordlist):
-        super(WordFilterByLastReviewed, self).__init__(id, wordlist)
-        self.label = 'Last Reviewed'
-        self.remake_form()
-
-    def apply(self, word_set):
-        d = date(self.current_year, self.current_month, self.current_day)
-        if self.comparator == 'eq':
-            d2 = date(self.current_year, self.current_month, self.current_day+1)
-            return word_set.filter(last_reviewed__range=(d, d2))
-        if self.comparator == 'lt':
-            return word_set.filter(last_reviewed__lt=d)
-        if self.comparator == 'gt':
-            return word_set.filter(last_reviewed__gt=d)
-        raise ValueError('Comparator is not supported: %s' % self.comparator)
-
-
 class DateFilterForm(forms.Form):
     def __init__(self, id, comp, day, month, year, wordlist, *args, **kwargs):
         super(DateFilterForm, self).__init__(*args, **kwargs)
@@ -441,6 +439,13 @@ class DateFilterForm(forms.Form):
         self.fields['date'].widget.attrs['onchange'] = \
                 'update_date_filter(%d)' % id
 
+
+class LastReviewedFilter(DateFilter):
+    def __init__(self, id, wordlist):
+        super(LastReviewedFilter, self).__init__(id, wordlist)
+        self.label = 'Last Reviewed'
+        self.filter_arg = 'last_reviewed'
+        self.remake_form()
 
 
 # vim: et sw=4 sts=4
