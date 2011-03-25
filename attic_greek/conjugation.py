@@ -6,6 +6,7 @@ import unicodedata
 from collections import defaultdict
 from endings import *
 from greek_util import acute_accent
+from greek_util import add_final_circumflex
 from greek_util import add_penult_accent
 from greek_util import add_recessive_accent
 from greek_util import circumflex
@@ -22,6 +23,8 @@ from greek_util import remove_initial_vowel
 from greek_util import starts_with_vowel
 from greek_util import split_syllables
 from greek_util import vowels
+
+verbose = False
 
 class Conjugation(object):
     def __init__(self):
@@ -72,7 +75,8 @@ class GreekConjugation(Conjugation):
         # TODO: add prefixes here
         final_form = self.combine_parts(augment, stem, ending, tense, mood,
                 voice)
-        accented = self.add_accent(final_form, mood, tense, voice)
+        accented = self.add_accent(final_form, mood, tense, voice,
+                principle_part)
         if self.needs_contraction(tense, principle_part):
             accented = self.contract(accented, principle_part, ending)
         return [accented]
@@ -141,7 +145,9 @@ class GreekConjugation(Conjugation):
         elif index == 2:
             if principle_part.endswith(u'α'):
                 with_augment = remove_accents(principle_part)[:-1]
-            #TODO: handle second aorist, root aorist, deponent forms
+            elif principle_part.endswith(u'ον'):
+                with_augment = remove_accents(principle_part)[:-2]
+            #TODO: handle root aorist, deponent forms
             return self.remove_augment(with_augment)
         elif index == 3:
             return remove_accents(principle_part)[:-1]
@@ -242,7 +248,8 @@ class GreekConjugation(Conjugation):
         """We need the principle part to account for second aorist, root
         aorist, and other such things."""
         try:
-            # TODO: add special cases here to check for second aorist and so on
+            tense, mood, voice = self.special_case_endings(tense, mood, voice,
+                    principle_part)
             ending_set = self.endings[tense][voice][mood]
         except KeyError:
             raise ValueError('The specified combination of tense, mood and '
@@ -254,6 +261,15 @@ class GreekConjugation(Conjugation):
             raise ValueError('The specified person and number (%s %s) does not'
                     ' exist for the given tense, mood and voice (%s %s %s)' %
                     (person, number, tense, mood, voice))
+
+    def special_case_endings(self, tense, mood, voice, principle_part):
+        if tense == 'Aorist':
+            if principle_part.endswith(u'ον'):
+                if mood == 'Indicative':
+                    return 'Imperfect', mood, voice
+                else:
+                    return 'Present', mood, voice
+        return tense, mood, voice
 
     def get_augment(self, tense, mood, principle_part):
         if tense not in ['Imperfect', 'Aorist', 'Pluperfect']:
@@ -272,10 +288,14 @@ class GreekConjugation(Conjugation):
         if syllables[0] == u'ε':
             return form[1:]
         else:
+            if len(syllables) == 1:
+                rest = remove_initial_vowel(syllables[0])
+            else:
+                rest = u''.join(syllables[1:])
             first_pp = self.principle_parts[0]
             initial_vowel = split_syllables(first_pp)[0]
             initial_vowel = remove_accents(initial_vowel, breathing=False)
-            return initial_vowel + u''.join(syllables[1:])
+            return initial_vowel + rest
         #TODO: figure out how to handle cases with a tricky augment
         raise NotImplementedError()
 
@@ -284,6 +304,10 @@ class GreekConjugation(Conjugation):
             return u'ἐ' + form
         #TODO: make this better.  This is a start, but it's not complete
         syllables = split_syllables(form)
+        if len(syllables) == 1:
+            rest = remove_initial_vowel(syllables[0])
+        else:
+            rest = u''.join(syllables[1:])
         if tense == 'Aorist' and voice in ['Active', 'Middle']:
             pp = self.principle_parts[2]
         elif tense == 'Aorist' and voice == 'Passive':
@@ -292,7 +316,7 @@ class GreekConjugation(Conjugation):
             # This is wrong, but it might work sometimes
             pp = self.principle_parts[2]
         initial_vowel = remove_accents(split_syllables(pp)[0])
-        return initial_vowel + u''.join(syllables[1:])
+        return initial_vowel + rest
 
     def combine_parts(self, augment, stem, ending, tense, mood, voice):
         # I don't think this is different by conjugation; you just have to
@@ -350,12 +374,21 @@ class GreekConjugation(Conjugation):
         print stem, last_consonant
         raise ValueError("I found a consonant stem I didn't recognize")
 
-    def add_accent(self, verb, mood, tense, voice):
+    def add_accent(self, verb, mood, tense, voice, principle_part):
+        # We need the principle part to check for second aorist and such
+        # TODO: second aorist imperative second person singular is broken; it
+        # needs a circumflex on the ultima.  How do we handle that?
         if mood == 'Optative':
             return add_recessive_accent(verb, optative=True)
         elif mood == 'Infinitive':
-            if tense == 'Aorist' and voice in ['Active', 'Passive']:
-                return add_penult_accent(verb)
+            if tense == 'Aorist':
+                if principle_part.endswith(u'ον'):
+                    if voice == 'Active':
+                        return add_final_circumflex(verb)
+                    elif voice == 'Middle':
+                        return add_penult_accent(verb)
+                elif voice in ['Active', 'Passive']:
+                    return add_penult_accent(verb)
             if tense == 'Perfect':
                 return add_penult_accent(verb)
         elif tense == 'Aorist' and mood == 'Subjunctive' and voice == 'Passive':
@@ -401,12 +434,6 @@ class GreekConjugation(Conjugation):
         ending_to_remove = remove_initial_vowel(ending)
         vowels = rest[:rest.rfind(ending_to_remove)]
         rest = ending_to_remove
-        #print 'form:', form
-        #print 'stem_to_remove:', stem_to_remove
-        #print 'beginning:', beginning
-        #print 'ending:', ending
-        #print 'ending_to_remove:', ending_to_remove
-        #print 'rest:', rest
         accented = is_accented(vowels)
         if ending == u'ειν':
             spurious = True
@@ -421,7 +448,7 @@ class GreekConjugation(Conjugation):
             else:
                 vowels += acute_accent
         return unicodedata.normalize('NFKD', beginning + vowels + rest)
-        
+
 
 class AthematicConjugation(GreekConjugation):
     def __init__(self, principle_parts):

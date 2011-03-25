@@ -33,7 +33,8 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
         else:
             syllables[-2] += acute_accent
     elif len(syllables) == 2:
-        if is_short(last_vowel, optative, long_ending_vowel):
+        if (is_short(last_vowel, optative, long_ending_vowel) and
+                can_have_circumflex(get_vowel(syllables[0]))):
             syllables[0] += circumflex
         else:
             syllables[0] += acute_accent
@@ -63,6 +64,14 @@ def add_penult_accent(word, long_ending_vowel=False, long_penult=False):
     return unicodedata.normalize('NFKD', u''.join(syllables))
 
 
+def add_final_circumflex(word):
+    syllables = split_syllables(word)
+    last_vowel = get_vowel(syllables[-1])
+    index = word.find(last_vowel) + len(last_vowel)
+    word = word[:index] + circumflex + word[index:]
+    return unicodedata.normalize('NFKD', word)
+
+
 def is_short(vowel, optative=False, long_ending_vowel=False):
     if vowel not in short_vowels:
         return False
@@ -80,6 +89,11 @@ def should_be_long(vowel, optative, long_ending_vowel):
     if optative and vowel in long_optative:
         return True
     return False
+
+
+def can_have_circumflex(vowel):
+    # TODO: This is wrong in some cases
+    return vowel not in short_vowels
 
 
 def remove_accents(word, breathing=False):
@@ -105,6 +119,7 @@ def starts_with_vowel(word):
     normalized = unicodedata.normalize('NFKD', word)
     word = u''.join([c for c in normalized if not unicodedata.combining(c)])
     return word[0] in vowels
+
 
 def contract_vowels(vowels, spurious_diphthong=False):
     if vowels == u'αε':
@@ -273,7 +288,7 @@ def get_last_vowel(word):
 
 def get_final_consonant(word):
     """This assumes that we are looking at the first principle part.
-    
+
     The purpose of this method is as an aid to determining how to deal with
     consonant stems in the perfect tenses, so we just care about the first
     principle part.

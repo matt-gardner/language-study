@@ -7,6 +7,7 @@ verbs['aischunomai'] = u'αἰσχύνομαι, αἰσχυνοῦμαι, _, _, 
 verbs['dhloo'] = u'δηλόω, δηλώσω, ἐδήλωσα, δεδήλωκα, δεδήλωμαι, ἐδηλώθην'
 verbs['elauno'] = u'ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην'
 verbs['elegxo'] = u'ἐλέγχω, ἐλέγξω, ἤλεγξα, _, ἐλήλεγμαι, ἠλέγχθην'
+verbs['erxomai'] = u'ἔρχομαι, ἐλεύσομαι, ἦλθον, ἐλήλυθα, _, _'
 verbs['ethelo'] = u'ἐθέλω, ἐθελήσω, ἠθέλησα, ἠθέληκα, _, _'
 verbs['faino'] = u'φαίνω, φανῶ, ἔφηνα, πέφηνα, πέφασμαι, ἐφάνην'
 verbs['fobeomai'] = u'φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην'
@@ -31,6 +32,7 @@ cases.append({'person': 'Third Person', 'number': 'Plural'})
 from attic_greek.test_modules import consonant_stems
 from attic_greek.test_modules import contracted
 from attic_greek.test_modules import contracted_future
+from attic_greek.test_modules import erxomai
 from attic_greek.test_modules import regular
 from attic_greek.test_modules import vowel_augment
 
@@ -38,6 +40,7 @@ all_tests = []
 all_tests.extend(consonant_stems.all_tests)
 all_tests.extend(contracted.all_tests)
 all_tests.extend(contracted_future.all_tests)
+all_tests.extend(erxomai.all_tests)
 all_tests.extend(regular.all_tests)
 all_tests.extend(vowel_augment.all_tests)
 
