@@ -49,7 +49,9 @@ class GreekConjugation(Conjugation):
     structure of how to conjugate a Greek verb, so only parts will need to be
     overridden.
     """
-    def __init__(self, principle_parts):
+    def __init__(self, principle_parts, verb_id=-1):
+        self.original_word = principle_parts
+        self.verb_id = verb_id
         principle_parts = principle_parts.split(', ')
         if len(principle_parts) == 1:
             # We don't have the principle parts for the verb...  What do we do?
@@ -67,6 +69,8 @@ class GreekConjugation(Conjugation):
 
     def conjugate(self, **kwargs):
         person, number, tense, mood, voice = self.check_kwargs(kwargs)
+        if self.is_irregular(person, number, tense, mood, voice):
+            return self.irregular_form(person, number, tense, mood, voice)
         principle_part = self.get_principle_part(tense, voice)
         stem = self.stem_principle_part(principle_part, tense, voice)
         ending = self.get_ending(tense, mood, voice, person, number,
@@ -98,6 +102,33 @@ class GreekConjugation(Conjugation):
             raise ValueError('Number must be specified')
         number = kwargs['number']
         return person, number, tense, mood, voice
+
+    def is_irregular(self, person, number, tense, mood, voice):
+        l = Language.objects.get(name='Attic Greek')
+        p = Person.objects.get(name=person, language=l)
+        n = Number.objects.get(name=number, language=l)
+        t = Tense.objects.get(name=tense, language=l)
+        m = Mood.objects.get(name=mood, language=l)
+        v = Voice.objects.get(name=voice, language=l)
+        ve = Verb.objects.get(pk=self.verb_id)
+        try:
+            IrregularVerbForm.objects.get(verb=ve, person=p, number=n, tense=t,
+                    mood=m, voice=v)
+            return True
+        except IrregularVerbForm.DoesNotExist:
+            return False
+
+    def irregular_form(self, person, number, tense, mood, voice):
+        l = Language.objects.get(name='Attic Greek')
+        p = Person.objects.get(name=person, language=l)
+        n = Number.objects.get(name=number, language=l)
+        t = Tense.objects.get(name=tense, language=l)
+        m = Mood.objects.get(name=mood, language=l)
+        v = Voice.objects.get(name=voice, language=l)
+        ve = Verb.objects.get(pk=self.verb_id)
+        ivf = IrregularVerbForm.objects.get(verb=ve, person=p, number=n,
+                tense=t, mood=m, voice=v)
+        return ivf.form
 
     def get_principle_part(self, tense, voice):
         return self.principle_parts[self.get_principle_part_index(tense, voice)]

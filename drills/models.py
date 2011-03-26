@@ -86,6 +86,16 @@ class Person(models.Model):
         return self.name
 
 
+class IrregularVerbForm(models.Model):
+    verb = models.ForeignKey('Verb')
+    person = models.ForeignKey('Person')
+    number = models.ForeignKey('Number')
+    tense = models.ForeignKey('Tense')
+    mood = models.ForeignKey('Mood')
+    voice = models.ForeignKey('Voice')
+    form = models.CharField(max_length=128)
+
+
 class DeclinableType(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
