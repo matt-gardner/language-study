@@ -121,7 +121,7 @@ def starts_with_vowel(word):
     return word[0] in vowels
 
 
-def contract_vowels(vowels, spurious_diphthong=False):
+def contract_vowels(vowels, spurious_diphthong=False, athematic=False):
     if vowels == u'αε':
         return u'α'
     elif vowels == u'αει':
@@ -167,7 +167,10 @@ def contract_vowels(vowels, spurious_diphthong=False):
     elif vowels == u'οη':
         return u'ω'
     elif vowels == unicodedata.normalize('NFKD', u'οῃ'):
-        return u'οι'
+        if athematic:
+            return u'ῳ'
+        else:
+            return u'οι'
     elif vowels == u'οο':
         return u'ου'
     elif vowels == u'οοι':

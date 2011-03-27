@@ -23,6 +23,7 @@ from greek_util import remove_initial_vowel
 from greek_util import starts_with_vowel
 from greek_util import split_syllables
 from greek_util import vowels
+from drills.models import *
 
 verbose = False
 
@@ -69,10 +70,12 @@ class GreekConjugation(Conjugation):
 
     def conjugate(self, **kwargs):
         person, number, tense, mood, voice = self.check_kwargs(kwargs)
-        if self.is_irregular(person, number, tense, mood, voice):
-            return self.irregular_form(person, number, tense, mood, voice)
+        if self.verb_id != -1:
+            if self.is_irregular(person, number, tense, mood, voice):
+                return self.irregular_form(person, number, tense, mood, voice)
         principle_part = self.get_principle_part(tense, voice)
-        stem = self.stem_principle_part(principle_part, tense, voice)
+        stem = self.stem_principle_part(principle_part, tense, mood, voice,
+                number)
         ending = self.get_ending(tense, mood, voice, person, number,
                 principle_part)
         augment = self.get_augment(tense, mood, principle_part)
@@ -81,7 +84,7 @@ class GreekConjugation(Conjugation):
                 voice)
         accented = self.add_accent(final_form, mood, tense, voice,
                 principle_part)
-        if self.needs_contraction(tense, principle_part):
+        if self.needs_contraction(tense, mood, principle_part):
             accented = self.contract(accented, principle_part, ending)
         return [accented]
 
@@ -152,46 +155,75 @@ class GreekConjugation(Conjugation):
         raise ValueError("Something must have gone wrong, because I don't know "
                 "what principle part to use...")
 
-    def stem_principle_part(self, principle_part, tense, voice):
+    def stem_principle_part(self, principle_part, tense, mood, voice, number):
         """Note that this should remove accent marks."""
-        # This will need to be selectively overridden, but there is enough
-        # overlap to justify putting the bulk of the implementation here.
-        # TODO: In order to selectively override parts of this, actually, this
-        # needs to be split up into separate methods.
+        # We require tense and voice here so that we can determine which
+        # principle part to use.  We also need tense so that we can tack on the
+        # ησ in the future passive, as we just handle that here.
+        # We need number for Athematic conjugations.  We have it here to
+        # minimize the amount of code that needs to be overridden.  Athematic
+        # conjugations also need the voice for the first principle part
         if not principle_part:
             raise ValueError('This verb is defective in that principle part')
         index = self.get_principle_part_index(tense, voice)
-        if index == 0 or index == 1:
-            if principle_part.endswith(u'ω'):
-                return remove_accents(principle_part)[:-1]
-            elif principle_part.endswith(u'ομαι'):
-                return remove_accents(principle_part)[:-4]
-            elif principle_part.endswith(u'ῶ'):
-                # Here we assume an epsilon contraction, as that is the most
-                # common
-                return remove_accents(principle_part)[:-1] + u'ε'
-            elif principle_part.endswith(u'οῦμαι'):
-                # Again we assume epsilon
-                return remove_accents(principle_part)[:-5] + u'ε'
+        if index == 0:
+            return self.stem_first_pp(principle_part, tense, mood, voice,
+                    number)
+        elif index == 1:
+            return self.stem_second_pp(principle_part, tense, voice)
         elif index == 2:
-            if principle_part.endswith(u'α'):
-                with_augment = remove_accents(principle_part)[:-1]
-            elif principle_part.endswith(u'ον'):
-                with_augment = remove_accents(principle_part)[:-2]
-            #TODO: handle root aorist, deponent forms
-            return self.remove_augment(with_augment)
+            return self.stem_third_pp(principle_part, tense, voice)
         elif index == 3:
-            return remove_accents(principle_part)[:-1]
+            return self.stem_fourth_pp(principle_part, tense, voice)
         elif index == 4:
-            return remove_accents(principle_part)[:-3]
+            return self.stem_fifth_pp(principle_part, tense, voice)
         elif index == 5:
+            return self.stem_sixth_pp(principle_part, tense, voice)
+        raise ValueError('Somehow get_principle_part_index returned a value '
+                'outside of 0-5')
+
+    def stem_first_pp(self, principle_part, tense, mood, voice, number):
+        # We do this here because of Athematic conjugations.  The future stems
+        # the same in both kinds of verbs, while the first principle part
+        # changes.  If we put the thematic stemming in stem_second_pp, we can
+        # override stem_first_pp in AthematicConjugation without causing
+        # trouble to stemming future forms.
+        return self.stem_second_pp(principle_part, tense, voice)
+
+    def stem_second_pp(self, principle_part, tense, voice):
+        if principle_part.endswith(u'ω'):
+            return remove_accents(principle_part)[:-1]
+        elif principle_part.endswith(u'ομαι'):
+            return remove_accents(principle_part)[:-4]
+        elif principle_part.endswith(u'ῶ'):
+            # Here we assume an epsilon contraction, as that is the most
+            # common
+            return remove_accents(principle_part)[:-1] + u'ε'
+        elif principle_part.endswith(u'οῦμαι'):
+            # Again we assume epsilon
+            return remove_accents(principle_part)[:-5] + u'ε'
+
+    def stem_third_pp(self, principle_part, tense, voice):
+        if principle_part.endswith(u'α'):
+            with_augment = remove_accents(principle_part)[:-1]
+        elif principle_part.endswith(u'ον'):
             with_augment = remove_accents(principle_part)[:-2]
-            no_augment = self.remove_augment(with_augment)
-            if tense == 'Future':
-                return no_augment + u'ησ'
-            else:
-                return no_augment
-        raise NotImplementedError()
+        #TODO: handle root aorist, deponent forms
+        return self.remove_augment(with_augment)
+
+    def stem_fourth_pp(self, principle_part, tense, voice):
+        return remove_accents(principle_part)[:-1]
+
+    def stem_fifth_pp(self, principle_part, tense, voice):
+        return remove_accents(principle_part)[:-3]
+
+    def stem_sixth_pp(self, principle_part, tense, voice):
+        with_augment = remove_accents(principle_part)[:-2]
+        no_augment = self.remove_augment(with_augment)
+        if tense == 'Future':
+            return no_augment + u'ησ'
+        else:
+            return no_augment
 
     def make_ending_set_map(self):
         """Maps tense, mood and voice combinations to sets of endings.
@@ -420,8 +452,11 @@ class GreekConjugation(Conjugation):
                         return add_penult_accent(verb)
                 elif voice in ['Active', 'Passive']:
                     return add_penult_accent(verb)
-            if tense == 'Perfect':
+            elif tense == 'Perfect':
                 return add_penult_accent(verb)
+            elif tense == 'Present':
+                if principle_part.endswith(u'μι') and voice == 'Active':
+                    return add_penult_accent(verb)
         elif tense == 'Aorist' and mood == 'Subjunctive' and voice == 'Passive':
             # Silly special case, but it was the easiest way to do this; the
             # endings already include the accent
@@ -433,7 +468,8 @@ class GreekConjugation(Conjugation):
             return unicodedata.normalize('NFKD', verb)
         return add_recessive_accent(verb)
 
-    def needs_contraction(self, tense, principle_part):
+    def needs_contraction(self, tense, mood, principle_part):
+        # Mood here is necessary because of athematic verbs
         if tense not in ['Present', 'Imperfect', 'Future']:
             return False
         for ending in [u'έω', u'άω', u'όω', u'ῶ', u'όομαι', u'έομαι', u'άομαι',
@@ -453,9 +489,17 @@ class GreekConjugation(Conjugation):
             stem_to_remove = stem_to_remove[:-1]
         elif principle_part.endswith(u'οῦμαι'):
             stem_to_remove = stem_to_remove[:-5]
+        elif principle_part.endswith(u'μι'):
+            stem_to_remove = stem_to_remove[:-3]
         no_diacritics = remove_all_combining(form)
         start_index = no_diacritics.find(stem_to_remove)
-        end_index = no_diacritics.find(stem_to_remove[-1], start_index)
+        if len(stem_to_remove) > 2:
+            substr = stem_to_remove[-2:]
+            add = 1
+        else:
+            substr = stem_to_remove[-1]
+            add = 0
+        end_index = no_diacritics.find(substr, start_index) + add
         end_index = get_matching_index(no_diacritics, form, end_index)
         beginning = form[:end_index]
         rest = form[end_index:]
@@ -470,7 +514,10 @@ class GreekConjugation(Conjugation):
             spurious = True
         else:
             spurious = False
-        vowels = contract_vowels(remove_accents(vowels), spurious)
+        athematic = False
+        if isinstance(self, AthematicConjugation):
+            athematic = True
+        vowels = contract_vowels(remove_accents(vowels), spurious, athematic)
         num_syllables = len(split_syllables(ending_to_remove))
         if accented:
             last_vowel = get_last_vowel(rest)
@@ -483,8 +530,53 @@ class GreekConjugation(Conjugation):
 
 class AthematicConjugation(GreekConjugation):
     def __init__(self, principle_parts):
-        super(AthematicConjugation, self).__init__()
-        # TODO: override self.endings
+        super(AthematicConjugation, self).__init__(principle_parts)
+        self.endings['Present']['Active']['Indicative'] = AthPresentIndAct()
+        self.endings['Present']['Middle']['Indicative'] = AthPresentIndMP()
+        self.endings['Present']['Passive']['Indicative'] = AthPresentIndMP()
+        self.endings['Present']['Active']['Optative'] = AthPresentOptAct()
+        self.endings['Present']['Middle']['Optative'] = AthPresentOptMP()
+        self.endings['Present']['Passive']['Optative'] = AthPresentOptMP()
+        self.endings['Present']['Active']['Imperative'] = AthPresentImpAct()
+        self.endings['Present']['Middle']['Imperative'] = AthPresentImpMP()
+        self.endings['Present']['Passive']['Imperative'] = AthPresentImpMP()
+        self.endings['Present']['Active']['Infinitive'] = AthPresentInfAct()
+        self.endings['Present']['Middle']['Infinitive'] = AthPresentInfMP()
+        self.endings['Present']['Passive']['Infinitive'] = AthPresentInfMP()
+        self.endings['Imperfect']['Active']['Indicative'] = AthImperfectIndAct()
+        self.endings['Imperfect']['Middle']['Indicative'] = AthImperfectIndMP()
+        self.endings['Imperfect']['Passive']['Indicative'] = AthImperfectIndMP()
+
+    def stem_first_pp(self, principle_part, tense, mood, voice, number):
+        if not principle_part.endswith(u'μι'):
+            raise ValueError('Are you sure this is an athematic verb?')
+        base = remove_accents(principle_part[:-2])
+        without_vowel = base[:-1]
+        long_vowel = base[-1]
+        if long_vowel == u'ω':
+            short_vowel = u'ο'
+        elif long_vowel == u'η':
+            short_vowel = remove_accents(self.principle_parts[5])[-4]
+            if short_vowel not in [u'α', u'ε']:
+                raise ValueError("Oops, you caught me.  My hack for finding "
+                        "the short vowel of μι verbs didn't work.")
+        elif long_vowel == u'υ':
+            short_vowel = u'υ'
+        if voice in ['Middle', 'Passive'] or mood != 'Indicative':
+            return without_vowel + short_vowel
+        elif number == 'Singular':
+            return without_vowel + long_vowel
+        elif number == 'Plural':
+            return without_vowel + short_vowel
+        raise ValueError("Something bad happened while stemming the first "
+                "principle part")
+
+    def needs_contraction(self, tense, mood, principle_part):
+        if super(AthematicConjugation, self).needs_contraction(tense, mood,
+                principle_part):
+            return True
+        if tense == 'Present' and mood == 'Subjunctive':
+            return True
 
 
 if __name__ == '__main__':

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+##############
+# Base Classes
+##############
 
 class EndingSet(dict):
     def __init__(self):
@@ -15,6 +18,10 @@ class InfEndingSet(dict):
         # these are absent, represented in the database and the code with 'None'
         self['None'] = {'None': u''}
 
+
+##################
+# Thematic Endings
+##################
 
 # Present Tense
 ###############
@@ -343,6 +350,8 @@ class PluperfectIndMP(EndingSet):
         self['Second Person']['Plural'] = u'σθε'
         self['Third Person']['Plural'] = u'ντο'
 
+
+########################
 # Consonant Stem Endings
 ########################
 
@@ -555,6 +564,115 @@ class ConsonantAddedSigma(ConsonantEndingSet):
             return u'σμένοι ἦσαν'
         elif ending == u'σθαι':
             return u'σθαι'
+
+
+###################
+# Athematic Endings
+###################
+
+# Present Tense
+###############
+
+class AthPresentIndAct(EndingSet):
+    def __init__(self):
+        super(AthPresentIndAct, self).__init__()
+        self['First Person']['Singular'] = u'μι'
+        self['Second Person']['Singular'] = u'ς'
+        self['Third Person']['Singular'] = u'σι'
+        self['First Person']['Plural'] = u'μεν'
+        self['Second Person']['Plural'] = u'τε'
+        self['Third Person']['Plural'] = u'ασι'
+
+
+class AthPresentOptAct(EndingSet):
+    def __init__(self):
+        super(AthPresentOptAct, self).__init__()
+        self['First Person']['Singular'] = u'ιην'
+        self['Second Person']['Singular'] = u'ιης'
+        self['Third Person']['Singular'] = u'ιη'
+        self['First Person']['Plural'] = u'ιημεν'
+        self['Second Person']['Plural'] = u'ιητε'
+        self['Third Person']['Plural'] = u'ιησαν'
+
+
+class AthPresentImpAct(EndingSet):
+    def __init__(self):
+        super(AthPresentImpAct, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'ε'
+        self['Third Person']['Singular'] = u'τω'
+        self['Second Person']['Plural'] = u'τε'
+        self['Third Person']['Plural'] = u'ντων'
+
+
+class AthPresentInfAct(InfEndingSet):
+    def __init__(self):
+        super(AthPresentInfAct, self).__init__()
+        self['None']['None'] = u'ναι'
+
+
+class AthPresentIndMP(EndingSet):
+    def __init__(self):
+        super(AthPresentIndMP, self).__init__()
+        self['First Person']['Singular'] = u'μαι'
+        self['Second Person']['Singular'] = u'σαι'
+        self['Third Person']['Singular'] = u'ται'
+        self['First Person']['Plural'] = u'μεθα'
+        self['Second Person']['Plural'] = u'σθε'
+        self['Third Person']['Plural'] = u'νται'
+
+
+class AthPresentOptMP(EndingSet):
+    def __init__(self):
+        super(AthPresentOptMP, self).__init__()
+        self['First Person']['Singular'] = u'ιμην'
+        self['Second Person']['Singular'] = u'ιο'
+        self['Third Person']['Singular'] = u'ιτο'
+        self['First Person']['Plural'] = u'ιμεθα'
+        self['Second Person']['Plural'] = u'ισθε'
+        self['Third Person']['Plural'] = u'ιντο'
+
+
+class AthPresentImpMP(EndingSet):
+    def __init__(self):
+        super(AthPresentImpMP, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'σο'
+        self['Third Person']['Singular'] = u'σθω'
+        self['Second Person']['Plural'] = u'σθε'
+        self['Third Person']['Plural'] = u'σθων'
+
+
+class AthPresentInfMP(InfEndingSet):
+    def __init__(self):
+        super(AthPresentInfMP, self).__init__()
+        self['None']['None'] = u'σθαι'
+
+
+
+# Imperfect Tense
+#################
+
+class AthImperfectIndAct(EndingSet):
+    def __init__(self):
+        super(AthImperfectIndAct, self).__init__()
+        self['First Person']['Singular'] = u'ν'
+        self['Second Person']['Singular'] = u'ς'
+        self['Third Person']['Singular'] = u''
+        self['First Person']['Plural'] = u'μεν'
+        self['Second Person']['Plural'] = u'τε'
+        self['Third Person']['Plural'] = u'σαν'
+
+
+class AthImperfectIndMP(EndingSet):
+    def __init__(self):
+        super(AthImperfectIndMP, self).__init__()
+        self['First Person']['Singular'] = u'μην'
+        self['Second Person']['Singular'] = u'σο'
+        self['Third Person']['Singular'] = u'το'
+        self['First Person']['Plural'] = u'μεθα'
+        self['Second Person']['Plural'] = u'σθε'
+        self['Third Person']['Plural'] = u'ντο'
 
 
 # vim: et sw=4 sts=4

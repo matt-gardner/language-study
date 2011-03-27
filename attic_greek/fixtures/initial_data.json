@@ -1,0 +1,298 @@
+[
+  {
+    "pk": 1, 
+    "model": "drills.language", 
+    "fields": {
+      "module_name": "attic_greek", 
+      "name": "Attic Greek"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.declension", 
+    "fields": {
+      "name": "First Declension", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.declension", 
+    "fields": {
+      "name": "Second Declension", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.declension", 
+    "fields": {
+      "name": "Third Declension", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.case", 
+    "fields": {
+      "name": "Nominative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.case", 
+    "fields": {
+      "name": "Genitive", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.case", 
+    "fields": {
+      "name": "Dative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "drills.case", 
+    "fields": {
+      "name": "Accusative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "drills.case", 
+    "fields": {
+      "name": "Vocative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.number", 
+    "fields": {
+      "name": "Singular", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.number", 
+    "fields": {
+      "name": "Plural", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.number", 
+    "fields": {
+      "name": "None", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.gender", 
+    "fields": {
+      "name": "Masculine", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.gender", 
+    "fields": {
+      "name": "Feminine", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.gender", 
+    "fields": {
+      "name": "Neuter", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.conjugation", 
+    "fields": {
+      "name": "Thematic", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.tense", 
+    "fields": {
+      "name": "Present", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.tense", 
+    "fields": {
+      "name": "Imperfect", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.tense", 
+    "fields": {
+      "name": "Future", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "drills.tense", 
+    "fields": {
+      "name": "Aorist", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "drills.tense", 
+    "fields": {
+      "name": "Perfect", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "drills.tense", 
+    "fields": {
+      "name": "Pluperfect", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.voice", 
+    "fields": {
+      "name": "Active", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.voice", 
+    "fields": {
+      "name": "Middle", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.voice", 
+    "fields": {
+      "name": "Passive", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.mood", 
+    "fields": {
+      "name": "Indicative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.mood", 
+    "fields": {
+      "name": "Subjunctive", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.mood", 
+    "fields": {
+      "name": "Optative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "drills.mood", 
+    "fields": {
+      "name": "Imperative", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "drills.mood", 
+    "fields": {
+      "name": "Infinitive", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.person", 
+    "fields": {
+      "name": "First Person", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.person", 
+    "fields": {
+      "name": "Second Person", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.person", 
+    "fields": {
+      "name": "Third Person", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "drills.person", 
+    "fields": {
+      "name": "None", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.declinabletype", 
+    "fields": {
+      "name": "Noun", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.declinabletype", 
+    "fields": {
+      "name": "Pronoun", 
+      "language": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.declinabletype", 
+    "fields": {
+      "name": "Adjective", 
+      "language": 1
+    }
+  }
+]
