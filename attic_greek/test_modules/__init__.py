@@ -1,29 +1,29 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+from language_study.drills.models import Verb
+
 verbs = dict()
-verbs['aggello'] = u'ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην'
-verbs['aischunomai'] = u'αἰσχύνομαι, αἰσχυνοῦμαι, _, _, ᾔσχυμμαι, ᾐσχύνθην'
-verbs['dhloo'] = u'δηλόω, δηλώσω, ἐδήλωσα, δεδήλωκα, δεδήλωμαι, ἐδηλώθην'
-verbs['didomi'] = u'δίδωμι, δώσω, ἔδωκα, δέδωκα, δέδομαι, ἐδόθην'
-verbs['elauno'] = u'ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην'
-verbs['elegxo'] = u'ἐλέγχω, ἐλέγξω, ἤλεγξα, _, ἐλήλεγμαι, ἠλέγχθην'
-verbs['erxomai'] = u'ἔρχομαι, ἐλεύσομαι, ἦλθον, ἐλήλυθα, _, _'
-verbs['ethelo'] = u'ἐθέλω, ἐθελήσω, ἠθέλησα, ἠθέληκα, _, _'
-verbs['faino'] = u'φαίνω, φανῶ, ἔφηνα, πέφηνα, πέφασμαι, ἐφάνην'
-verbs['fobeomai'] = u'φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην'
-verbs['grafo'] = u'γράφω, γράψω, ἔγραψα, γέγραφα, γέγραμμαι, ἐγράφην'
-verbs['histemi'] = u'ἵστημι, στήσω, ἔστησα, ἕστηκα, ἕσταμαι, ἐστάθην'
-verbs['keleuo'] = u'κελεύω, κελεύσω, ἐκέλευσα, κεκέλευκα, κεκέλευσμαι, '
-verbs['keleuo'] += u'ἐκελεύσθην'
-verbs['maxomai'] = u'μάχομαι, μαχοῦμαι, ἐμαχεσάμην, _, μεμάχημαι, _'
-verbs['nikao'] = u'νικάω, νικήσω, ἐνίκησα, νενίκηκα, νενίκημαι, ἐνικήθην'
-verbs['paideuo'] = u'παιδεύω, παιδεύσω, ἐπαίδευσα, πεπαίδευκα, πεπαίδευμαι,'
-verbs['paideuo'] += u' ἐπαιδεύθην'
-verbs['pempo'] = u'πέμπω, πέμψω, ἔπεμψα, πέπομφα, πέπεμμαι, ἐπέμφθην'
-verbs['poieo'] = u'ποιέω, ποιήσω, ἐποίησα, πεποίηκα, πεποίημαι, ἐποιήθην'
-verbs['tatto'] = u'τάττω, τάξω, ἔταξα, τέταχα, τέταγμαι, ἐτάχθην'
-verbs['tithemi'] = u'τίθημι, θήσω, ἔθηκα, τέθηκα, τέθειμαι, ἐτέθην'
+verbs['aggello'] = Verb.objects.get(word__contains=u'ἀγγέλλω')
+verbs['aischunomai'] = Verb.objects.get(word__contains=u'αἰσχύνομαι')
+verbs['dhloo'] = Verb.objects.get(word__contains=u'δηλόω')
+verbs['didomi'] = Verb.objects.get(word__contains=u'δίδωμι')
+verbs['elauno'] = Verb.objects.get(word__contains=u'ἐλαύνω')
+verbs['elegxo'] = Verb.objects.get(word__contains=u'ἐλέγχω')
+verbs['erxomai'] = Verb.objects.get(word__contains=u'ἔρχομαι')
+verbs['ethelo'] = Verb.objects.get(word__contains=u'ἐθέλω')
+verbs['faino'] = Verb.objects.get(word__contains=u'φαίνω')
+verbs['fobeomai'] = Verb.objects.get(word__contains=u'φοβέομαι')
+verbs['grafo'] = Verb.objects.get(word__contains=u'γράφω')
+verbs['histemi'] = Verb.objects.get(word__contains=u'ἵστημι')
+verbs['keleuo'] = Verb.objects.get(word__contains=u'κελεύω')
+verbs['maxomai'] = Verb.objects.get(word__contains=u'μάχομαι')
+verbs['nikao'] = Verb.objects.get(word__contains=u'νικάω')
+verbs['paideuo'] = Verb.objects.get(word__contains=u'παιδεύω')
+verbs['pempo'] = Verb.objects.get(word__contains=u'πέμπω')
+verbs['poieo'] = Verb.objects.get(word__contains=u'ποιέω')
+verbs['tatto'] = Verb.objects.get(word__contains=u'τάττω')
+verbs['tithemi'] = Verb.objects.get(word__contains=u'τίθημι')
 
 cases = [{'person': 'First Person', 'number': 'Singular'}]
 cases.append({'person': 'Second Person', 'number': 'Singular'})

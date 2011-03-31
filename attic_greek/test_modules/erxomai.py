@@ -18,7 +18,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἔρχομαι', u'ἔρχει', u'ἔρχεται', u'ἐρχόμεθα',
                 u'ἔρχεσθε', u'ἔρχονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -31,7 +31,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἔρχωμαι', u'ἔρχῃ', u'ἔρχηται', u'ἐρχώμεθα',
                 u'ἔρχησθε', u'ἔρχωνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -44,7 +44,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἐρχοίμην', u'ἔρχοιο', u'ἔρχοιτο', u'ἐρχοίμεθα',
                 u'ἔρχοισθε', u'ἔρχοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -60,7 +60,7 @@ class ErxomaiTest(TestCase):
         test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἔρχου', u'ἐρχέσθω', u'ἔρχεσθε', u'ἐρχέσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -74,7 +74,7 @@ class ErxomaiTest(TestCase):
         args['number'] = 'None'
         answer = u'ἔρχεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     # IMPERFECT TENSE TESTS
@@ -86,7 +86,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἠρχόμην', u'ἤρχου', u'ἤρχετο', u'ἠρχόμεθα',
                 u'ἤρχεσθε', u'ἤρχοντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -100,7 +100,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἐλεύσομαι', u'ἐλεύσει', u'ἐλεύσεται',
                 u'ἐλευσόμεθα', u'ἐλεύσεσθε', u'ἐλεύσονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -113,7 +113,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἐλευσοίμην', u'ἐλεύσοιο', u'ἐλεύσοιτο',
                 u'ἐλευσοίμεθα', u'ἐλεύσοισθε', u'ἐλεύσοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -127,7 +127,7 @@ class ErxomaiTest(TestCase):
         args['number'] = 'None'
         answer = u'ἐλεύσεσθαι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     # AORIST TENSE TESTS
@@ -139,8 +139,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἦλθον', u'ἦλθες', u'ἦλθε', u'ἤλθομεν',
                 u'ἤλθετε', u'ἦλθον']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
-        conjugation.verbose = True
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -153,7 +152,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἔλθω', u'ἔλθῃς', u'ἔλθῃ', u'ἔλθωμεν',
                 u'ἔλθητε', u'ἔλθωσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -166,7 +165,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἔλθοιμι', u'ἔλθοις', u'ἔλθοι', u'ἔλθοιμεν',
                 u'ἔλθοιτε', u'ἔλθοιεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -182,7 +181,7 @@ class ErxomaiTest(TestCase):
         test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἔλθε', u'ἐλθέτω', u'ἔλθετε', u'ἐλθόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -196,7 +195,7 @@ class ErxomaiTest(TestCase):
         args['number'] = 'None'
         answer = u'ἐλθεῖν'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     # PERFECT TENSE TESTS
@@ -208,7 +207,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἐλήλυθα', u'ἐλήλυθας', u'ἐλήλυθε',
                 u'ἐληλύθαμεν', u'ἐληλύθατε', u'ἐληλύθασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -222,7 +221,7 @@ class ErxomaiTest(TestCase):
         args['number'] = 'None'
         answer = u'ἐληλυθέναι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     # PLUPERFECT TENSE TESTS
@@ -234,7 +233,7 @@ class ErxomaiTest(TestCase):
         answers = [u'ἐληλύθη', u'ἐληλύθης', u'ἐληλύθει',
                 u'ἐληλύθεμεν', u'ἐληλύθετε', u'ἐληλύθεσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['erxomai'])
+        conj = GreekConjugation(verbs['erxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])

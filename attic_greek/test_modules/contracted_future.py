@@ -19,7 +19,7 @@ class ContractedFutureTest(TestCase):
         args['voice'] = 'Active'
         answers = [u'ἐλῶ', u'ἐλᾷς', u'ἐλᾷ', u'ἐλῶμεν', u'ἐλᾶτε', u'ἐλῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['elauno'])
+        conj = GreekConjugation(verbs['elauno'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -32,7 +32,7 @@ class ContractedFutureTest(TestCase):
         answers = [u'ἀγγελῶ', u'ἀγγελεῖς', u'ἀγγελεῖ', u'ἀγγελοῦμεν',
                 u'ἀγγελεῖτε', u'ἀγγελοῦσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['aggello'])
+        conj = GreekConjugation(verbs['aggello'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -45,7 +45,7 @@ class ContractedFutureTest(TestCase):
         answers = [u'μαχοῦμαι', u'μαχεῖ', u'μαχεῖται', u'μαχούμεθα',
                 u'μαχεῖσθε', u'μαχοῦνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['maxomai'])
+        conj = GreekConjugation(verbs['maxomai'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])

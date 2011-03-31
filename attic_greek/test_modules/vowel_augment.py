@@ -16,7 +16,7 @@ class VowelAugmentTest(TestCase):
         answers = [u'ἤθελον', u'ἤθελες', u'ἤθελε', u'ἠθέλομεν',
                 u'ἠθέλετε', u'ἤθελον']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['ethelo'])
+        conj = GreekConjugation(verbs['ethelo'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -28,7 +28,7 @@ class VowelAugmentTest(TestCase):
         answers = [u'ἠθέλησα', u'ἠθέλησας', u'ἠθέλησε', u'ἠθελήσαμεν',
                 u'ἠθελήσατε', u'ἠθέλησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['ethelo'])
+        conj = GreekConjugation(verbs['ethelo'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -40,7 +40,7 @@ class VowelAugmentTest(TestCase):
         answers = [u'ἠθελήκη', u'ἠθελήκης', u'ἠθελήκει', u'ἠθελήκεμεν',
                 u'ἠθελήκετε', u'ἠθελήκεσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['ethelo'])
+        conj = GreekConjugation(verbs['ethelo'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
