@@ -222,7 +222,7 @@ def get_matching_forms(language, verb, form):
                             for cand_form in cand_forms:
                                 if cand_form == form:
                                     forms.append(copy(args))
-                        except ValueError:
+                        except (ValueError, TypeError):
                             continue
     return forms
 
