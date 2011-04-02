@@ -9,6 +9,7 @@ from greek_util import acute_accent
 from greek_util import add_final_circumflex
 from greek_util import add_penult_accent
 from greek_util import add_recessive_accent
+from greek_util import add_athematic_optative_accent
 from greek_util import circumflex
 from greek_util import contract_vowels
 from greek_util import get_final_consonant
@@ -23,7 +24,7 @@ from greek_util import remove_initial_vowel
 from greek_util import starts_with_vowel
 from greek_util import split_syllables
 from greek_util import vowels
-from drills.models import *
+from language_study.drills.models import *
 
 verbose = False
 
@@ -72,7 +73,7 @@ class GreekConjugation(Conjugation):
         person, number, tense, mood, voice = self.check_kwargs(kwargs)
         if self.verb_id != -1:
             if self.is_irregular(person, number, tense, mood, voice):
-                return self.irregular_form(person, number, tense, mood, voice)
+                return [self.irregular_form(person, number, tense, mood, voice)]
         principle_part = self.get_principle_part(tense, voice)
         stem = self.stem_principle_part(principle_part, tense, mood, voice,
                 number)
@@ -131,7 +132,7 @@ class GreekConjugation(Conjugation):
         ve = Verb.objects.get(pk=self.verb_id)
         ivf = IrregularVerbForm.objects.get(verb=ve, person=p, number=n,
                 tense=t, mood=m, voice=v)
-        return ivf.form
+        return unicodedata.normalize('NFKD', ivf.form)
 
     def get_principle_part(self, tense, voice):
         return self.principle_parts[self.get_principle_part_index(tense, voice)]
@@ -529,8 +530,8 @@ class GreekConjugation(Conjugation):
 
 
 class AthematicConjugation(GreekConjugation):
-    def __init__(self, principle_parts):
-        super(AthematicConjugation, self).__init__(principle_parts)
+    def __init__(self, principle_parts, verb_id=-1):
+        super(AthematicConjugation, self).__init__(principle_parts, verb_id)
         self.endings['Present']['Active']['Indicative'] = AthPresentIndAct()
         self.endings['Present']['Middle']['Indicative'] = AthPresentIndMP()
         self.endings['Present']['Passive']['Indicative'] = AthPresentIndMP()
@@ -577,6 +578,13 @@ class AthematicConjugation(GreekConjugation):
             return True
         if tense == 'Present' and mood == 'Subjunctive':
             return True
+
+    def add_accent(self, verb, mood, tense, voice, principle_part):
+        if (mood == 'Optative' and voice in ['Middle', 'Passive'] and
+                tense == 'Present'):
+            return add_athematic_optative_accent(verb)
+        return super(AthematicConjugation, self).add_accent(verb, mood, tense,
+                voice, principle_part)
 
 
 if __name__ == '__main__':

@@ -50,6 +50,21 @@ def add_persistent_accent(original, inflected):
     raise NotImplementedError()
 
 
+def add_athematic_optative_accent(form):
+    syllables = split_syllables(form)
+    index = -1
+    while get_vowel(syllables[index]) != u'οι':
+        index -= 1
+    if abs(index) == 3:
+        accent = acute_accent
+    elif get_vowel(syllables[-1]) == u'η':
+        accent = acute_accent
+    else:
+        accent = circumflex
+    syllables.insert(index+1, accent)
+    return unicodedata.normalize('NFKD', u''.join(syllables))
+
+
 def add_penult_accent(word, long_ending_vowel=False, long_penult=False):
     syllables = split_syllables(word)
     last_vowel = get_vowel(syllables[-1])

@@ -50,7 +50,6 @@ class DidomiTest(TestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
-    # FIXME
     def test_present_imp_act(self):
         args = {}
         args['tense'] = 'Present'
@@ -60,9 +59,9 @@ class DidomiTest(TestCase):
         test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
         test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
         test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
-        answers = [u'παίδευε', u'παιδευέτω', u'παιδεύετε', u'παιδευόντων']
+        answers = [u'δίδου', u'διδότω', u'δίδοτε', u'διδόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word, verbs['didomi'].id)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -105,16 +104,15 @@ class DidomiTest(TestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
-    # FIXME
     def test_present_opt_mid(self):
         args = {}
         args['tense'] = 'Present'
         args['mood'] = 'Optative'
         args['voice'] = 'Middle'
-        answers = [u'παιδευοίμην', u'παιδεύοιο', u'παιδεύοιτο', u'παιδευοίμεθα',
-                u'παιδεύοισθε', u'παιδεύοιντο']
+        answers = [u'διδοίμην', u'διδοῖο', u'διδοῖτο', u'διδοίμεθα',
+                u'διδοῖσθε', u'διδοῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -148,16 +146,15 @@ class DidomiTest(TestCase):
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     # IMPERFECT TENSE TESTS
-    # FIXME
     def test_imperfect_ind_act(self):
         args = {}
         args['tense'] = 'Imperfect'
         args['mood'] = 'Indicative'
         args['voice'] = 'Active'
-        answers = [u'ἐπαίδευον', u'ἐπαίδευες', u'ἐπαίδευε', u'ἐπαιδεύομεν',
-                u'ἐπαιδεύετε', u'ἐπαίδευον']
+        answers = [u'ἐδίδουν', u'ἐδίδους', u'ἐδίδου', u'ἐδίδομεν',
+                u'ἐδίδοτε', u'ἐδίδοσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word, verbs['didomi'].id)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])

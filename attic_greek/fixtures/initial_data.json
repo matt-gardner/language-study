@@ -631,5 +631,57 @@
       "date_entered": "2011-03-29 23:51:18", 
       "last_reviewed": "2011-03-29 23:51:18"
     }
+  },
+  {
+    "pk": 1, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03b4\u03af\u03b4\u03bf\u03c5\u03bd", 
+      "number": 1, 
+      "person": 1, 
+      "verb": 4, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03b4\u03af\u03b4\u03bf\u03c5\u03c2", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 4, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03b4\u03af\u03b4\u03bf\u03c5", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 4, 
+      "tense": 2, 
+      "voice": 1
+    }
+  },
+  {
+    "pk": 4, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u03b4\u03af\u03b4\u03bf\u03c5", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 4, 
+      "tense": 1, 
+      "voice": 1
+    }
   }
 ]
