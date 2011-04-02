@@ -683,5 +683,187 @@
       "tense": 1, 
       "voice": 1
     }
+  },
+  {
+    "pk": 5, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03c4\u03af\u03b8\u03b5\u03b9\u03c2", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 20, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03c4\u03af\u03b8\u03b5\u03b9", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 20, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u03c4\u03af\u03b8\u03b5\u03b9", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 20, 
+      "tense": 1, 
+      "voice": 1
+    }
+  },
+  {
+    "pk": 8, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f31\u03c3\u03c4\u1fb6\u03c3\u03b9", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u1f35\u03c3\u03c4\u03b7", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  },
+  {
+    "pk": 10, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc7\u03c2", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc7", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc6\u03c4\u03b5", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  },
+  {
+    "pk": 13, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc7", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 2
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc7", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 3
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc6\u03c4\u03b1\u03b9", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 2
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc6\u03c4\u03b1\u03b9", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 3
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc6\u03c3\u03b8\u03b5", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 2
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 2, 
+      "form": "\u1f31\u03c3\u03c4\u1fc6\u03c3\u03b8\u03b5", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 3
+    }
   }
 ]

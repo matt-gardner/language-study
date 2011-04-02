@@ -53,7 +53,7 @@ def add_persistent_accent(original, inflected):
 def add_athematic_optative_accent(form):
     syllables = split_syllables(form)
     index = -1
-    while get_vowel(syllables[index]) != u'οι':
+    while get_vowel(syllables[index]) not in [u'οι', u'ει', u'αι']:
         index -= 1
     if abs(index) == 3:
         accent = acute_accent

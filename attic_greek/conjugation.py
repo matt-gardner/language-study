@@ -366,6 +366,11 @@ class GreekConjugation(Conjugation):
     def add_augment(self, form, tense, voice):
         if not starts_with_vowel(form):
             return u'ἐ' + form
+        if form.startswith(unicodedata.normalize('NFKD', u'ἱ')):
+            # Special case that maybe could be generalized later.  The idea is
+            # some forms don't have a visible augment, because the vowel stays
+            # the same.  ἵστημι is one of those, and that's the case here
+            return form
         #TODO: make this better.  This is a start, but it's not complete
         syllables = split_syllables(form)
         if len(syllables) == 1:
