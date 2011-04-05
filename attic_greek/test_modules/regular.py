@@ -405,7 +405,7 @@ class RegularConjugationTest(TestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
-    def test_present_imp_act(self):
+    def test_aorist_imp_act(self):
         args = {}
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'

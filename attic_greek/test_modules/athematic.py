@@ -191,10 +191,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Subjunctive'
         args['voice'] = 'Active'
-        answers = [u'παιδεύσω', u'παιδεύσῃς', u'παιδεύσῃ', u'παιδεύσωμεν',
-                u'παιδεύσητε', u'παιδεύσωσι']
+        answers = [u'δῶ', u'δῷς', u'δῷ', u'δῶμεν',
+                u'δῶτε', u'δῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -204,15 +204,15 @@ class DidomiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Optative'
         args['voice'] = 'Active'
-        answers = [u'παιδεύσαιμι', u'παιδεύσαις', u'παιδεύσαι', u'παιδεύσαιμεν',
-                u'παιδεύσαιτε', u'παιδεύσαιεν']
+        answers = [u'δοίην', u'δοίης', u'δοίη', u'δοίημεν',
+                u'δοίητε', u'δοίησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
-    def test_present_imp_act(self):
+    def test_aorist_imp_act(self):
         args = {}
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
@@ -221,9 +221,9 @@ class DidomiTest(TestCase):
         test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
         test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
         test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
-        answers = [u'παίδευσον', u'παιδευσάτω', u'παιδεύσατε', u'παιδευσάντων']
+        answers = [u'δός', u'δότω', u'δότε', u'δόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -235,9 +235,9 @@ class DidomiTest(TestCase):
         args['voice'] = 'Active'
         args['person'] = 'None'
         args['number'] = 'None'
-        answer = u'παιδεῦσαι'
+        answer = u'δοῦναι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     def test_aorist_ind_mid(self):
@@ -258,10 +258,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Subjunctive'
         args['voice'] = 'Middle'
-        answers = [u'παιδεύσωμαι', u'παιδεύσῃ', u'παιδεύσηται', u'παιδευσώμεθα',
-                u'παιδεύσησθε', u'παιδεύσωνται']
+        answers = [u'δῶμαι', u'δῷ', u'δῶται', u'δώμεθα',
+                u'δῶσθε', u'δῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -271,10 +271,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Optative'
         args['voice'] = 'Middle'
-        answers = [u'παιδευσαίμην', u'παιδεύσαιο', u'παιδεύσαιτο',
-                u'παιδευσαίμεθα', u'παιδεύσαισθε', u'παιδεύσαιντο']
+        answers = [u'δοίμην', u'δοῖο', u'δοῖτο',
+                u'δοίμεθα', u'δοῖσθε', u'δοῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -288,10 +288,9 @@ class DidomiTest(TestCase):
         test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
         test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
         test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
-        answers = [u'παίδευσαι', u'παιδευσάσθω', u'παιδεύσασθε',
-                u'παιδευσάσθων']
+        answers = [u'δοῦ', u'δόσθω', u'δόσθε', u'δόσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word, verbs['didomi'].id)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -303,9 +302,9 @@ class DidomiTest(TestCase):
         args['voice'] = 'Middle'
         args['person'] = 'None'
         args['number'] = 'None'
-        answer = u'παιδεύσασθαι'
+        answer = u'δόσθαι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = GreekConjugation(verbs['paideuo'].word)
+        conj = AthematicConjugation(verbs['didomi'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 

@@ -39,8 +39,14 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
         else:
             syllables[0] += acute_accent
     else:
-        # Verbs that have only one syllable should probably be special-cased.
-        pass
+        # This probably will break some day, but it will do for now
+        vowel = get_vowel(syllables[0])
+        pos = syllables[0].find(vowel) + len(vowel)
+        if can_have_circumflex(vowel):
+            accent = circumflex
+        else:
+            accent = acute_accent
+        syllables[0] = syllables[0][:pos] + accent + syllables[0][pos:]
     word = u''.join(syllables)
     word = unicodedata.normalize('NFKD', word)
     return word

@@ -85,7 +85,7 @@ class GreekConjugation(Conjugation):
                 voice)
         accented = self.add_accent(final_form, mood, tense, voice,
                 principle_part)
-        if self.needs_contraction(tense, mood, principle_part):
+        if self.needs_contraction(tense, mood, voice, principle_part):
             accented = self.contract(accented, principle_part, ending)
         return [accented]
 
@@ -351,6 +351,7 @@ class GreekConjugation(Conjugation):
         form = remove_accents(form, breathing=True)
         syllables = split_syllables(form)
         if syllables[0] == u'ε':
+            # TODO: I'm sure this will break on some verbs
             return form[1:]
         else:
             if len(syllables) == 1:
@@ -475,8 +476,8 @@ class GreekConjugation(Conjugation):
             return unicodedata.normalize('NFKD', verb)
         return add_recessive_accent(verb)
 
-    def needs_contraction(self, tense, mood, principle_part):
-        # Mood here is necessary because of athematic verbs
+    def needs_contraction(self, tense, mood, voice, principle_part):
+        # Mood and voice here are necessary because of athematic verbs
         if tense not in ['Present', 'Imperfect', 'Future']:
             return False
         for ending in [u'έω', u'άω', u'όω', u'ῶ', u'όομαι', u'έομαι', u'άομαι',
@@ -555,6 +556,12 @@ class AthematicConjugation(GreekConjugation):
         self.endings['Imperfect']['Passive']['Indicative'] = AthImperfectIndMP()
         self.endings['Aorist']['Active']['Indicative'] = AthAoristIndAct()
         self.endings['Aorist']['Middle']['Indicative'] = AthAoristIndMid()
+        self.endings['Aorist']['Active']['Optative'] = AthPresentOptAct()
+        self.endings['Aorist']['Middle']['Optative'] = AthPresentOptMP()
+        self.endings['Aorist']['Active']['Imperative'] = AthAoristImpAct()
+        self.endings['Aorist']['Middle']['Imperative'] = AthAoristImpMid()
+        self.endings['Aorist']['Active']['Infinitive'] = AthAoristInfAct()
+        self.endings['Aorist']['Middle']['Infinitive'] = AthAoristInfMid()
         base = remove_accents(self.principle_parts[0][:-2])
         self.long_vowel = base[-1]
         if self.long_vowel == u'ω':
@@ -595,24 +602,28 @@ class AthematicConjugation(GreekConjugation):
             return super(AthematicConjugation, self).stem_third_pp(
                     principle_part, tense, mood, voice, number)
 
-    def needs_contraction(self, tense, mood, principle_part):
+    def needs_contraction(self, tense, mood, voice, principle_part):
         if super(AthematicConjugation, self).needs_contraction(tense, mood,
-                principle_part):
+                voice, principle_part):
             return True
         if tense == 'Present' and mood == 'Subjunctive':
             return True
         if tense == 'Aorist' and mood == 'Subjunctive':
             return True
+        if tense == 'Aorist' and mood == 'Infinitive' and voice == 'Active':
+            return True
         return False
 
     def add_accent(self, verb, mood, tense, voice, principle_part):
         if (mood == 'Optative' and voice in ['Middle', 'Passive'] and
-                tense == 'Present'):
+                tense in ['Present', 'Aorist']):
             return add_athematic_optative_accent(verb)
         return super(AthematicConjugation, self).add_accent(verb, mood, tense,
                 voice, principle_part)
 
+
 stem_changers = [u'δίδωμι', u'τίθημι']
+
 
 if __name__ == '__main__':
     import unicodedata
