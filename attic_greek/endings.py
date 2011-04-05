@@ -675,4 +675,86 @@ class AthImperfectIndMP(EndingSet):
         self['Third Person']['Plural'] = u'ντο'
 
 
+# Aorist Tense
+##############
+
+class AthAoristIndAct(EndingSet):
+    def __init__(self):
+        super(AthAoristIndAct, self).__init__()
+        self['First Person']['Singular'] = u'α'
+        self['Second Person']['Singular'] = u'ας'
+        self['Third Person']['Singular'] = u'ε'
+        self['First Person']['Plural'] = u'μεν'
+        self['Second Person']['Plural'] = u'τε'
+        self['Third Person']['Plural'] = u'σαν'
+
+
+# Aorist Subjunctive Active uses present endings
+
+class AthAoristOptAct(EndingSet):
+    def __init__(self):
+        super(AthAoristOptAct, self).__init__()
+        self['First Person']['Singular'] = u'αιμι'
+        self['Second Person']['Singular'] = u'αις'
+        self['Third Person']['Singular'] = u'αι'
+        self['First Person']['Plural'] = u'αιμεν'
+        self['Second Person']['Plural'] = u'αιτε'
+        self['Third Person']['Plural'] = u'αιεν'
+
+
+class AthAoristImpAct(EndingSet):
+    def __init__(self):
+        super(AthAoristImpAct, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'ον'
+        self['Third Person']['Singular'] = u'ατω'
+        self['Second Person']['Plural'] = u'ατε'
+        self['Third Person']['Plural'] = u'αντων'
+
+
+class AthAoristInfAct(InfEndingSet):
+    def __init__(self):
+        super(AthAoristInfAct, self).__init__()
+        self['None']['None'] = u'αι'
+
+
+class AthAoristIndMid(EndingSet):
+    def __init__(self):
+        super(AthAoristIndMid, self).__init__()
+        self['First Person']['Singular'] = u'μην'
+        self['Second Person']['Singular'] = u'ο'
+        self['Third Person']['Singular'] = u'το'
+        self['First Person']['Plural'] = u'μεθα'
+        self['Second Person']['Plural'] = u'σθε'
+        self['Third Person']['Plural'] = u'ντο'
+
+
+# Aorist Subjunctive Middle uses present endings
+
+class AthAoristOptMid(EndingSet):
+    def __init__(self):
+        super(AthAoristOptMid, self).__init__()
+        self['First Person']['Singular'] = u'αιμην'
+        self['Second Person']['Singular'] = u'αιο'
+        self['Third Person']['Singular'] = u'αιτο'
+        self['First Person']['Plural'] = u'αιμεθα'
+        self['Second Person']['Plural'] = u'αισθε'
+        self['Third Person']['Plural'] = u'αιντο'
+
+
+class AthAoristImpMid(EndingSet):
+    def __init__(self):
+        super(AthAoristImpMid, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'αι'
+        self['Third Person']['Singular'] = u'ασθω'
+        self['Second Person']['Plural'] = u'ασθε'
+        self['Third Person']['Plural'] = u'ασθων'
+
+
+class AthAoristInfMid(InfEndingSet):
+    def __init__(self):
+        super(AthAoristInfMid, self).__init__()
+        self['None']['None'] = u'ασθαι'
+
 # vim: et sw=4 sts=4

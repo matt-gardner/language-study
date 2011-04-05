@@ -96,6 +96,14 @@ class IrregularVerbForm(models.Model):
     form = models.CharField(max_length=128)
 
 
+class IrregularVerbStem(models.Model):
+    verb = models.ForeignKey('Verb')
+    tense = models.ForeignKey('Tense')
+    mood = models.ForeignKey('Mood')
+    voice = models.ForeignKey('Voice')
+    stem = models.CharField(max_length=128)
+
+
 class DeclinableType(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')

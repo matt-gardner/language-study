@@ -128,6 +128,14 @@
     }
   }, 
   {
+    "pk": 2, 
+    "model": "drills.conjugation", 
+    "fields": {
+      "name": "Athematic", 
+      "language": 1
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.tense", 
     "fields": {
@@ -332,7 +340,7 @@
     "pk": 4, 
     "model": "drills.verb", 
     "fields": {
-      "conjugation": 1, 
+      "conjugation": 2, 
       "tags": []
     }
   }, 
@@ -343,7 +351,7 @@
 {"pk": 9, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
 {"pk": 10, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
 {"pk": 11, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
-{"pk": 12, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
+{"pk": 12, "model": "drills.verb", "fields": {"conjugation": 2, "tags": []}},
 {"pk": 13, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
 {"pk": 14, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
 {"pk": 15, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
@@ -351,7 +359,7 @@
 {"pk": 17, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
 {"pk": 18, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
 {"pk": 19, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
-{"pk": 20, "model": "drills.verb", "fields": {"conjugation": 1, "tags": []}},
+{"pk": 20, "model": "drills.verb", "fields": {"conjugation": 2, "tags": []}},
   {
     "pk": 1, 
     "model": "drills.word", 
@@ -864,6 +872,19 @@
       "verb": 12, 
       "tense": 1, 
       "voice": 3
+    }
+  },
+  {
+    "pk": 19, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f14\u03b4\u03bf\u03c5", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 4, 
+      "tense": 4, 
+      "voice": 2
     }
   }
 ]
