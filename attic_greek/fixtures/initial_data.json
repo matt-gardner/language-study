@@ -402,6 +402,32 @@
     "model": "drills.irregularverbform", 
     "fields": {
       "mood": 1, 
+      "form": "\u1f31\u03c3\u03c4\u1fb6\u03c3\u03b9", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u1f35\u03c3\u03c4\u03b7", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
       "form": "\u1f10\u03c4\u03af\u03b8\u03b5\u03b9\u03c2", 
       "number": 1, 
       "person": 2, 
@@ -411,7 +437,7 @@
     }
   }, 
   {
-    "pk": 8, 
+    "pk": 10, 
     "model": "drills.irregularverbform", 
     "fields": {
       "mood": 1, 
@@ -424,7 +450,7 @@
     }
   }, 
   {
-    "pk": 9, 
+    "pk": 11, 
     "model": "drills.irregularverbform", 
     "fields": {
       "mood": 4, 
@@ -437,7 +463,7 @@
     }
   }, 
   {
-    "pk": 10, 
+    "pk": 12, 
     "model": "drills.irregularverbform", 
     "fields": {
       "mood": 1, 
@@ -450,7 +476,7 @@
     }
   }, 
   {
-    "pk": 11, 
+    "pk": 13, 
     "model": "drills.irregularverbform", 
     "fields": {
       "mood": 4, 
@@ -463,28 +489,145 @@
     }
   }, 
   {
-    "pk": 12, 
+    "pk": 14, 
     "model": "drills.irregularverbform", 
     "fields": {
-      "mood": 1, 
-      "form": "\u1f31\u03c3\u03c4\u1fb6\u03c3\u03b9", 
+      "mood": 4, 
+      "form": "\u03c3\u03c4\u03ac\u03bd\u03c4\u03c9\u03bd", 
       "number": 2, 
       "person": 3, 
       "verb": 12, 
-      "tense": 1, 
+      "tense": 4, 
       "voice": 1
     }
   }, 
   {
-    "pk": 13, 
+    "pk": 15, 
     "model": "drills.irregularverbform", 
     "fields": {
-      "mood": 4, 
-      "form": "\u1f35\u03c3\u03c4\u03b7", 
+      "mood": 1, 
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03bc\u03b5\u03bd", 
+      "number": 2, 
+      "person": 1, 
+      "verb": 12, 
+      "tense": 5, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03c4\u03b5", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 5, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f11\u03c3\u03c4\u1fb6\u03c3\u03b9", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 5, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f31\u03c3\u03c4\u03ae\u03ba\u03b7", 
+      "number": 1, 
+      "person": 1, 
+      "verb": 12, 
+      "tense": 6, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f31\u03c3\u03c4\u03ae\u03ba\u03b7\u03c2", 
       "number": 1, 
       "person": 2, 
       "verb": 12, 
-      "tense": 1, 
+      "tense": 6, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f31\u03c3\u03c4\u03ae\u03ba\u03b5\u03b9", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 6, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03bc\u03b5\u03bd", 
+      "number": 2, 
+      "person": 1, 
+      "verb": 12, 
+      "tense": 6, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03c4\u03b5", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 12, 
+      "tense": 6, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03c3\u03b1\u03bd", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 12, 
+      "tense": 6, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 5, 
+      "form": "\u1f11\u03c3\u03c4\u03ac\u03bd\u03b1\u03b9", 
+      "number": 3, 
+      "person": 4, 
+      "verb": 12, 
+      "tense": 5, 
       "voice": 1
     }
   }, 
@@ -519,6 +662,28 @@
       "tense": 1, 
       "mood": 2, 
       "stem": "\u1f31\u03c3\u03c4\u03b5"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "drills.irregularverbstem", 
+    "fields": {
+      "voice": 1, 
+      "verb": 12, 
+      "tense": 4, 
+      "mood": 2, 
+      "stem": "\u03c3\u03c4\u03b5"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "drills.irregularverbstem", 
+    "fields": {
+      "voice": 1, 
+      "verb": 12, 
+      "tense": 4, 
+      "mood": 3, 
+      "stem": "\u03c3\u03c4\u03b1"
     }
   }, 
   {
@@ -564,8 +729,8 @@
       "word": "\u1f00\u03b3\u03b3\u03ad\u03bb\u03bb\u03c9, \u1f00\u03b3\u03b3\u03b5\u03bb\u1ff6, \u1f24\u03b3\u03b3\u03b5\u03b9\u03bb\u03b1, \u1f24\u03b3\u03b3\u03b5\u03bb\u03ba\u03b1, \u1f24\u03b3\u03b3\u03b5\u03bb\u03bc\u03b1\u03b9, \u1f20\u03b3\u03b3\u03ad\u03bb\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -578,8 +743,8 @@
       "word": "\u03b1\u1f30\u03c3\u03c7\u03cd\u03bd\u03bf\u03bc\u03b1\u03b9, \u03b1\u1f30\u03c3\u03c7\u03c5\u03bd\u03bf\u1fe6\u03bc\u03b1\u03b9, _, _, \u1f94\u03c3\u03c7\u03c5\u03bc\u03bc\u03b1\u03b9, \u1f90\u03c3\u03c7\u03cd\u03bd\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -592,8 +757,8 @@
       "word": "\u03b4\u03b7\u03bb\u03cc\u03c9, \u03b4\u03b7\u03bb\u03ce\u03c3\u03c9, \u1f10\u03b4\u03ae\u03bb\u03c9\u03c3\u03b1, \u03b4\u03b5\u03b4\u03ae\u03bb\u03c9\u03ba\u03b1, \u03b4\u03b5\u03b4\u03ae\u03bb\u03c9\u03bc\u03b1\u03b9, \u1f10\u03b4\u03b7\u03bb\u03ce\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -606,8 +771,8 @@
       "word": "\u03b4\u03af\u03b4\u03c9\u03bc\u03b9, \u03b4\u03ce\u03c3\u03c9, \u1f14\u03b4\u03c9\u03ba\u03b1, \u03b4\u03ad\u03b4\u03c9\u03ba\u03b1, \u03b4\u03ad\u03b4\u03bf\u03bc\u03b1\u03b9, \u1f10\u03b4\u03cc\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -620,8 +785,8 @@
       "word": "\u1f10\u03bb\u03b1\u03cd\u03bd\u03c9, \u1f10\u03bb\u03ac\u03c9, \u1f24\u03bb\u03b1\u03c3\u03b1, \u1f10\u03bb\u03ae\u03bb\u03b1\u03ba\u03b1, \u1f10\u03bb\u03ae\u03bb\u03b1\u03bc\u03b1\u03b9, \u1f20\u03bb\u03ac\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -634,8 +799,8 @@
       "word": "\u1f10\u03bb\u03ad\u03b3\u03c7\u03c9, \u1f10\u03bb\u03ad\u03b3\u03be\u03c9, \u1f24\u03bb\u03b5\u03b3\u03be\u03b1, _, \u1f10\u03bb\u03ae\u03bb\u03b5\u03b3\u03bc\u03b1\u03b9, \u1f20\u03bb\u03ad\u03b3\u03c7\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -648,8 +813,8 @@
       "word": "\u1f14\u03c1\u03c7\u03bf\u03bc\u03b1\u03b9, \u1f10\u03bb\u03b5\u03cd\u03c3\u03bf\u03bc\u03b1\u03b9, \u1f26\u03bb\u03b8\u03bf\u03bd, \u1f10\u03bb\u03ae\u03bb\u03c5\u03b8\u03b1, _, _", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -662,8 +827,8 @@
       "word": "\u1f10\u03b8\u03ad\u03bb\u03c9, \u1f10\u03b8\u03b5\u03bb\u03ae\u03c3\u03c9, \u1f20\u03b8\u03ad\u03bb\u03b7\u03c3\u03b1, \u1f20\u03b8\u03ad\u03bb\u03b7\u03ba\u03b1, _, _", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:47", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:02", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -676,8 +841,8 @@
       "word": "\u03c6\u03b1\u03af\u03bd\u03c9, \u03c6\u03b1\u03bd\u1ff6, \u1f14\u03c6\u03b7\u03bd\u03b1, \u03c0\u03ad\u03c6\u03b7\u03bd\u03b1, \u03c0\u03ad\u03c6\u03b1\u03c3\u03bc\u03b1\u03b9, \u1f10\u03c6\u03ac\u03bd\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -690,8 +855,8 @@
       "word": "\u03c6\u03bf\u03b2\u03ad\u03bf\u03bc\u03b1\u03b9, \u03c6\u03bf\u03b2\u03ae\u03c3\u03bf\u03bc\u03b1\u03b9, _, _, \u03c0\u03b5\u03c6\u03cc\u03b2\u03b7\u03bc\u03b1\u03b9, \u1f10\u03c6\u03bf\u03b2\u03ae\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -704,8 +869,8 @@
       "word": "\u03b3\u03c1\u03ac\u03c6\u03c9, \u03b3\u03c1\u03ac\u03c8\u03c9, \u1f14\u03b3\u03c1\u03b1\u03c8\u03b1, \u03b3\u03ad\u03b3\u03c1\u03b1\u03c6\u03b1, \u03b3\u03ad\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03b9, \u1f10\u03b3\u03c1\u03ac\u03c6\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -715,11 +880,11 @@
       "wordlist": 1, 
       "definition": "to stand", 
       "review_count": 0, 
-      "word": "\u1f35\u03c3\u03c4\u03b7\u03bc\u03b9, \u03c3\u03c4\u03ae\u03c3\u03c9, \u1f14\u03c3\u03c4\u03b7\u03c3\u03b1, \u1f15\u03c3\u03c4\u03b7\u03ba\u03b1, \u1f15\u03c3\u03c4\u03b1\u03bc\u03b1\u03b9, \u1f10\u03c3\u03c4\u03ac\u03b8\u03b7\u03bd", 
+      "word": "\u1f35\u03c3\u03c4\u03b7\u03bc\u03b9, \u03c3\u03c4\u03ae\u03c3\u03c9, \u1f14\u03c3\u03c4\u03b7\u03bd, \u1f15\u03c3\u03c4\u03b7\u03ba\u03b1, \u1f15\u03c3\u03c4\u03b1\u03bc\u03b1\u03b9, \u1f10\u03c3\u03c4\u03ac\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -732,8 +897,8 @@
       "word": "\u03ba\u03b5\u03bb\u03b5\u03cd\u03c9, \u03ba\u03b5\u03bb\u03b5\u03cd\u03c3\u03c9, \u1f10\u03ba\u03ad\u03bb\u03b5\u03c5\u03c3\u03b1, \u03ba\u03b5\u03ba\u03ad\u03bb\u03b5\u03c5\u03ba\u03b1, \u03ba\u03b5\u03ba\u03ad\u03bb\u03b5\u03c5\u03c3\u03bc\u03b1\u03b9, \u1f10\u03ba\u03b5\u03bb\u03b5\u03cd\u03c3\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -746,8 +911,8 @@
       "word": "\u03bc\u03ac\u03c7\u03bf\u03bc\u03b1\u03b9, \u03bc\u03b1\u03c7\u03bf\u1fe6\u03bc\u03b1\u03b9, \u1f10\u03bc\u03b1\u03c7\u03b5\u03c3\u03ac\u03bc\u03b7\u03bd, _, \u03bc\u03b5\u03bc\u03ac\u03c7\u03b7\u03bc\u03b1\u03b9, _", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -760,8 +925,8 @@
       "word": "\u03bd\u03b9\u03ba\u03ac\u03c9, \u03bd\u03b9\u03ba\u03ae\u03c3\u03c9, \u1f10\u03bd\u03af\u03ba\u03b7\u03c3\u03b1, \u03bd\u03b5\u03bd\u03af\u03ba\u03b7\u03ba\u03b1, \u03bd\u03b5\u03bd\u03af\u03ba\u03b7\u03bc\u03b1\u03b9, \u1f10\u03bd\u03b9\u03ba\u03ae\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -774,8 +939,8 @@
       "word": "\u03c0\u03b1\u03b9\u03b4\u03b5\u03cd\u03c9, \u03c0\u03b1\u03b9\u03b4\u03b5\u03cd\u03c3\u03c9, \u1f10\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03c3\u03b1, \u03c0\u03b5\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03ba\u03b1, \u03c0\u03b5\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03bc\u03b1\u03b9, \u1f10\u03c0\u03b1\u03b9\u03b4\u03b5\u03cd\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -788,8 +953,8 @@
       "word": "\u03c0\u03ad\u03bc\u03c0\u03c9, \u03c0\u03ad\u03bc\u03c8\u03c9, \u1f14\u03c0\u03b5\u03bc\u03c8\u03b1, \u03c0\u03ad\u03c0\u03bf\u03bc\u03c6\u03b1, \u03c0\u03ad\u03c0\u03b5\u03bc\u03bc\u03b1\u03b9, \u1f10\u03c0\u03ad\u03bc\u03c6\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -802,8 +967,8 @@
       "word": "\u03c0\u03bf\u03b9\u03ad\u03c9, \u03c0\u03bf\u03b9\u03ae\u03c3\u03c9, \u1f10\u03c0\u03bf\u03af\u03b7\u03c3\u03b1, \u03c0\u03b5\u03c0\u03bf\u03af\u03b7\u03ba\u03b1, \u03c0\u03b5\u03c0\u03bf\u03af\u03b7\u03bc\u03b1\u03b9, \u1f10\u03c0\u03bf\u03b9\u03ae\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -816,8 +981,8 @@
       "word": "\u03c4\u03ac\u03c4\u03c4\u03c9, \u03c4\u03ac\u03be\u03c9, \u1f14\u03c4\u03b1\u03be\u03b1, \u03c4\u03ad\u03c4\u03b1\u03c7\u03b1, \u03c4\u03ad\u03c4\u03b1\u03b3\u03bc\u03b1\u03b9, \u1f10\u03c4\u03ac\u03c7\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:03", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {
@@ -830,8 +995,8 @@
       "word": "\u03c4\u03af\u03b8\u03b7\u03bc\u03b9, \u03b8\u03ae\u03c3\u03c9, \u1f14\u03b8\u03b7\u03ba\u03b1, \u03c4\u03ad\u03b8\u03b7\u03ba\u03b1, \u03c4\u03ad\u03b8\u03b5\u03b9\u03bc\u03b1\u03b9, \u1f10\u03c4\u03ad\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
-      "date_entered": "2011-04-09 08:36:48", 
-      "last_reviewed": "2011-04-09 08:36:47"
+      "date_entered": "2011-04-09 13:35:04", 
+      "last_reviewed": "2011-04-09 13:35:02"
     }
   }, 
   {

@@ -122,7 +122,7 @@
     },
     {
       "definition": "to stand",
-      "word": "ἵστημι, στήσω, ἔστησα, ἕστηκα, ἕσταμαι, ἐστάθην",
+      "word": "ἵστημι, στήσω, ἔστην, ἕστηκα, ἕσταμαι, ἐστάθην",
       "conjugation": "Athematic",
       "irregular forms": [
         {
@@ -140,6 +140,94 @@
           "Mood": "Imperative",
           "Voice": "Active",
           "Form": "ἵστη"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Aorist",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "στάντων"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Plural",
+          "Tense": "Perfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἕσταμεν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Plural",
+          "Tense": "Perfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἕστατε"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Perfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἑστᾶσι"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Pluperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἱστήκη"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Pluperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἱστήκης"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Pluperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἱστήκει"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Plural",
+          "Tense": "Pluperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἕσταμεν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Plural",
+          "Tense": "Pluperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἕστατε"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Pluperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἕστασαν"
+        },
+        {
+          "Person": "None",
+          "Number": "None",
+          "Tense": "Perfect",
+          "Mood": "Infinitive",
+          "Voice": "Active",
+          "Form": "ἑστάναι"
         }
       ],
       "irregular stems": [
@@ -160,6 +248,18 @@
           "Mood": "Subjunctive",
           "Voice": "Passive",
           "Stem": "ἱστε"
+        },
+        {
+          "Tense": "Aorist",
+          "Mood": "Subjunctive",
+          "Voice": "Active",
+          "Stem": "στε"
+        },
+        {
+          "Tense": "Aorist",
+          "Mood": "Optative",
+          "Voice": "Active",
+          "Stem": "στα"
         }
       ]
     },

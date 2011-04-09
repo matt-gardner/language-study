@@ -524,6 +524,8 @@ class GreekConjugation(Conjugation):
             stem_to_remove = stem_to_remove[:-5]
         elif principle_part.endswith(u'μι'):
             stem_to_remove = stem_to_remove[:-3]
+        elif principle_part.endswith(u'ν'):
+            stem_to_remove = stem_to_remove[:-2]
         no_diacritics = remove_all_combining(form)
         start_index = no_diacritics.find(stem_to_remove)
         if len(stem_to_remove) > 2:
@@ -622,6 +624,11 @@ class AthematicConjugation(GreekConjugation):
                 stem = long_with_augment
             else:
                 stem = short_with_augment
+            return self.remove_augment(stem)
+        if principle_part.endswith(u'ν'):
+            self.endings['Aorist']['Active']['Indicative'] = RootAoristIndAct()
+            self.endings['Aorist']['Active']['Imperative'] = RootAoristImpAct()
+            stem = remove_accents(principle_part)[:-1]
             return self.remove_augment(stem)
         else:
             return super(AthematicConjugation, self).stem_third_pp(

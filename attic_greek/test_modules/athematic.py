@@ -608,6 +608,9 @@ class TithemiTest(TestCase):
 
 
 class HistemiTest(TestCase):
+    def tearDown(self):
+        conjugation.verbose = False
+
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -766,6 +769,114 @@ class HistemiTest(TestCase):
                 u'ἵστασθε', u'ἵσταντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # AORIST TENSE TESTS
+    def test_aorist_ind_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἔστην', u'ἔστης', u'ἔστη', u'ἔστημεν',
+                u'ἔστητε', u'ἔστησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['histemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_subj_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'στῶ', u'στῇς', u'στῇ', u'στῶμεν',
+                u'στῆτε', u'στῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_opt_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'σταίην', u'σταίης', u'σταίη', u'σταίημεν',
+                u'σταίητε', u'σταίησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_imp_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'στῆθι', u'στήτω', u'στῆτε', u'στάντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_inf_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'στῆναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['histemi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # PERFECT TENSE TESTS
+    def test_perfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἕστηκα', u'ἕστηκας', u'ἕστηκε',
+                u'ἕσταμεν', u'ἕστατε', u'ἑστᾶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_perfect_inf_act(self):
+        args = {}
+        args['tense'] = 'Perfect'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'ἑστάναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # PLUPERFECT TENSE TESTS
+    def test_pluperfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Pluperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'εἱστήκη', u'εἱστήκης', u'εἱστήκει',
+                u'ἕσταμεν', u'ἕστατε', u'ἕστασαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])

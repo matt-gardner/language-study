@@ -200,6 +200,8 @@ def contract_vowels(vowels, spurious_diphthong=False, athematic=False):
         return u'ου'
     elif vowels == u'οω':
         return u'ω'
+    elif vowels == u'ηε':
+        return u'η'
     print 'Bad vowels:', vowels
     raise ValueError("I don't know how to handle these vowels")
 

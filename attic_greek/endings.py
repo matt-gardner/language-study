@@ -689,11 +689,32 @@ class AthAoristIndAct(EndingSet):
         self['Third Person']['Plural'] = u'σαν'
 
 
+class RootAoristIndAct(EndingSet):
+    def __init__(self):
+        super(RootAoristIndAct, self).__init__()
+        self['First Person']['Singular'] = u'ν'
+        self['Second Person']['Singular'] = u'ς'
+        self['Third Person']['Singular'] = u''
+        self['First Person']['Plural'] = u'μεν'
+        self['Second Person']['Plural'] = u'τε'
+        self['Third Person']['Plural'] = u'σαν'
+
+
 class AthAoristImpAct(EndingSet):
     def __init__(self):
         super(AthAoristImpAct, self).__init__()
         del self['First Person']
         self['Second Person']['Singular'] = u'ς'
+        self['Third Person']['Singular'] = u'τω'
+        self['Second Person']['Plural'] = u'τε'
+        self['Third Person']['Plural'] = u'ντων'
+
+
+class RootAoristImpAct(EndingSet):
+    def __init__(self):
+        super(RootAoristImpAct, self).__init__()
+        del self['First Person']
+        self['Second Person']['Singular'] = u'θι'
         self['Third Person']['Singular'] = u'τω'
         self['Second Person']['Plural'] = u'τε'
         self['Third Person']['Plural'] = u'ντων'
