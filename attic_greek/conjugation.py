@@ -71,12 +71,16 @@ class GreekConjugation(Conjugation):
 
     def conjugate(self, **kwargs):
         person, number, tense, mood, voice = self.check_kwargs(kwargs)
+        stem = None
         if self.verb_id != -1:
             if self.is_irregular(person, number, tense, mood, voice):
                 return [self.irregular_form(person, number, tense, mood, voice)]
+            if self.is_irregular_stem(tense, mood, voice):
+                stem = self.irregular_stem(tense, mood, voice)
         principle_part = self.get_principle_part(tense, voice)
-        stem = self.stem_principle_part(principle_part, tense, mood, voice,
-                number)
+        if not stem:
+            stem = self.stem_principle_part(principle_part, tense, mood, voice,
+                    number)
         ending = self.get_ending(tense, mood, voice, person, number,
                 principle_part)
         augment = self.get_augment(tense, mood, principle_part)
@@ -133,6 +137,27 @@ class GreekConjugation(Conjugation):
         ivf = IrregularVerbForm.objects.get(verb=ve, person=p, number=n,
                 tense=t, mood=m, voice=v)
         return unicodedata.normalize('NFKD', ivf.form)
+
+    def is_irregular_stem(self, tense, mood, voice):
+        l = Language.objects.get(name='Attic Greek')
+        t = Tense.objects.get(name=tense, language=l)
+        m = Mood.objects.get(name=mood, language=l)
+        v = Voice.objects.get(name=voice, language=l)
+        ve = Verb.objects.get(pk=self.verb_id)
+        try:
+            IrregularVerbStem.objects.get(verb=ve, tense=t, mood=m, voice=v)
+            return True
+        except IrregularVerbStem.DoesNotExist:
+            return False
+
+    def irregular_stem(self, tense, mood, voice):
+        l = Language.objects.get(name='Attic Greek')
+        t = Tense.objects.get(name=tense, language=l)
+        m = Mood.objects.get(name=mood, language=l)
+        v = Voice.objects.get(name=voice, language=l)
+        ve = Verb.objects.get(pk=self.verb_id)
+        ivs = IrregularVerbStem.objects.get(verb=ve, tense=t, mood=m, voice=v)
+        return unicodedata.normalize('NFKD', ivs.stem)
 
     def get_principle_part(self, tense, voice):
         return self.principle_parts[self.get_principle_part_index(tense, voice)]
