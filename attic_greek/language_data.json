@@ -1,0 +1,249 @@
+{
+  "Declensions": ["First Declension", "Second Declension",
+	  "Third Declension"],
+  "Cases": ["Nominative", "Genitive", "Dative", "Accusative", "Vocative"],
+  "Genders": ["Masculine", "Feminine", "Neuter"],
+  "Persons": ["First Person", "Second Person", "Third Person", "None"],
+  "Numbers": ["Singular", "Plural", "None"],
+  "Tenses": ["Present", "Imperfect", "Future", "Aorist", "Perfect",
+	  "Pluperfect"],
+  "Moods": ["Indicative", "Subjunctive", "Optative", "Imperative",
+	  "Infinitive"],
+  "Voices": ["Active", "Middle", "Passive"],
+
+  "Declinable Types": ["Noun", "Pronoun", "Adjective"],
+  "Conjugations": ["Thematic", "Athematic"],
+
+  "Verbs": [
+    {
+	  "definition": "to announce",
+	  "word": "ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην",
+	  "conjugation": "Thematic"
+    },
+    {
+      "definition": "to be ashamed",
+      "word": "αἰσχύνομαι, αἰσχυνοῦμαι, _, _, ᾔσχυμμαι, ᾐσχύνθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to make clear",
+      "word": "δηλόω, δηλώσω, ἐδήλωσα, δεδήλωκα, δεδήλωμαι, ἐδηλώθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to give",
+      "word": "δίδωμι, δώσω, ἔδωκα, δέδωκα, δέδομαι, ἐδόθην",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐδίδουν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐδίδους"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐδίδου"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "δίδου"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Indicative",
+          "Voice": "Middle",
+          "Form": "ἔδου"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Imperative",
+          "Voice": "Middle",
+          "Form": "δοῦ"
+        }
+      ]
+    },
+    {
+      "definition": "to drive, march",
+      "word": "ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "I'm not sure",
+      "word": "ἐλέγχω, ἐλέγξω, ἤλεγξα, _, ἐλήλεγμαι, ἠλέγχθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to come",
+      "word": "ἔρχομαι, ἐλεύσομαι, ἦλθον, ἐλήλυθα, _, _",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to wish, want",
+      "word": "ἐθέλω, ἐθελήσω, ἠθέλησα, ἠθέληκα, _, _",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to show",
+      "word": "φαίνω, φανῶ, ἔφηνα, πέφηνα, πέφασμαι, ἐφάνην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to fear, be afraid",
+      "word": "φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to write, draw",
+      "word": "γράφω, γράψω, ἔγραψα, γέγραφα, γέγραμμαι, ἐγράφην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to stand",
+      "word": "ἵστημι, στήσω, ἔστησα, ἕστηκα, ἕσταμαι, ἐστάθην",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἱστᾶσι"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "ἵστη"
+        }
+      ],
+      "irregular stems": [
+        {
+          "Tense": "Present",
+          "Mood": "Subjunctive",
+          "Voice": "Active",
+          "Stem": "ἱστε"
+        },
+        {
+          "Tense": "Present",
+          "Mood": "Subjunctive",
+          "Voice": "Middle",
+          "Stem": "ἱστε"
+        },
+        {
+          "Tense": "Present",
+          "Mood": "Subjunctive",
+          "Voice": "Passive",
+          "Stem": "ἱστε"
+        }
+      ]
+    },
+    {
+      "definition": "to command, order",
+      "word": "κελεύω, κελεύσω, ἐκέλευσα, κεκέλευκα, κεκέλευσμαι, ἐκελεύσθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to fight",
+      "word": "μάχομαι, μαχοῦμαι, ἐμαχεσάμην, _, μεμάχημαι, _",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to win, conquer, be victorious",
+      "word": "νικάω, νικήσω, ἐνίκησα, νενίκηκα, νενίκημαι, ἐνικήθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to teach",
+      "word": "παιδεύω, παιδεύσω, ἐπαίδευσα, πεπαίδευκα, πεπαίδευμαι, ἐπαιδεύθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to send",
+      "word": "πέμπω, πέμψω, ἔπεμψα, πέπομφα, πέπεμμαι, ἐπέμφθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to do",
+      "word": "ποιέω, ποιήσω, ἐποίησα, πεποίηκα, πεποίημαι, ἐποιήθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to arrange, station, align, order",
+      "word": "τάττω, τάξω, ἔταξα, τέταχα, τέταγμαι, ἐτάχθην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to put",
+      "word": "τίθημι, θήσω, ἔθηκα, τέθηκα, τέθειμαι, ἐτέθην",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐτίθεις"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐτίθει"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "τίθει"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Indicative",
+          "Voice": "Middle",
+          "Form": "ἔθου"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Imperative",
+          "Voice": "Middle",
+          "Form": "θοῦ"
+        }
+      ]
+    }
+  ]
+}
