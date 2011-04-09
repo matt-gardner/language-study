@@ -6,6 +6,9 @@ import os, sys
 sys.path.append(os.getcwd()+'/..')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 
+import codecs
+import simplejson
+
 from collections import defaultdict
 from copy import deepcopy
 from datetime import datetime
@@ -30,99 +33,50 @@ def add_language():
         language.save()
     object_cache['Language'][language_name] = language
 
-    # Declensions
-    args = {'name': 'First Declension', 'language': language}
-    add_or_fail(Declension, args)
-    args['name'] = 'Second Declension'
-    add_or_fail(Declension, args)
-    args['name'] = 'Third Declension'
-    add_or_fail(Declension, args)
+    f = codecs.open('attic_greek/language_data.json', 'r', 'utf-8')
+    json = simplejson.load(f)
 
-    # Cases
-    args['name'] = 'Nominative'
-    add_or_fail(Number, args)
-    args['name'] = 'Genitive'
-    add_or_fail(Number, args)
-    args['name'] = 'Dative'
-    add_or_fail(Number, args)
-    args['name'] = 'Accusative'
-    add_or_fail(Number, args)
-    args['name'] = 'Vocative'
-    add_or_fail(Number, args)
+    args = {'language': language}
 
-    # Numbers
-    args['name'] = 'Singular'
-    add_or_fail(Number, args)
-    args['name'] = 'Plural'
-    add_or_fail(Number, args)
-    args['name'] = 'None'
-    add_or_fail(Number, args)
+    for name in json['Declensions']:
+        args['name'] = name
+        add_or_fail(Declension, args)
 
-    # Genders
-    args['name'] = 'Masculine'
-    add_or_fail(Gender, args)
-    args['name'] = 'Feminine'
-    add_or_fail(Gender, args)
-    args['name'] = 'Neuter'
-    add_or_fail(Gender, args)
+    for name in json['Genders']:
+        args['name'] = name
+        add_or_fail(Gender, args)
 
-    # DeclinableTypes
-    args['name'] = 'Noun'
-    add_or_fail(DeclinableType, args)
-    args['name'] = 'Pronoun'
-    add_or_fail(DeclinableType, args)
-    args['name'] = 'Adjective'
-    add_or_fail(DeclinableType, args)
+    for name in json['Cases']:
+        args['name'] = name
+        add_or_fail(Case, args)
 
-    # Conjugations
-    args['name'] = 'Thematic'
-    add_or_fail(Conjugation, args)
-    args['name'] = 'Athematic'
-    add_or_fail(Conjugation, args)
+    for name in json['Persons']:
+        args['name'] = name
+        add_or_fail(Person, args)
 
-    # Persons
-    args['name'] = 'First Person'
-    add_or_fail(Person, args)
-    args['name'] = 'Second Person'
-    add_or_fail(Person, args)
-    args['name'] = 'Third Person'
-    add_or_fail(Person, args)
-    args['name'] = 'None'
-    add_or_fail(Person, args)
+    for name in json['Numbers']:
+        args['name'] = name
+        add_or_fail(Number, args)
 
-    # Tenses
-    args['name'] = 'Present'
-    add_or_fail(Tense, args)
-    args['name'] = 'Imperfect'
-    add_or_fail(Tense, args)
-    args['name'] = 'Future'
-    add_or_fail(Tense, args)
-    args['name'] = 'Aorist'
-    add_or_fail(Tense, args)
-    args['name'] = 'Perfect'
-    add_or_fail(Tense, args)
-    args['name'] = 'Pluperfect'
-    add_or_fail(Tense, args)
+    for name in json['Tenses']:
+        args['name'] = name
+        add_or_fail(Tense, args)
 
-    # Voices
-    args['name'] = 'Active'
-    add_or_fail(Voice, args)
-    args['name'] = 'Middle'
-    add_or_fail(Voice, args)
-    args['name'] = 'Passive'
-    add_or_fail(Voice, args)
+    for name in json['Moods']:
+        args['name'] = name
+        add_or_fail(Mood, args)
 
-    # Moods
-    args['name'] = 'Indicative'
-    add_or_fail(Mood, args)
-    args['name'] = 'Subjunctive'
-    add_or_fail(Mood, args)
-    args['name'] = 'Optative'
-    add_or_fail(Mood, args)
-    args['name'] = 'Imperative'
-    add_or_fail(Mood, args)
-    args['name'] = 'Infinitive'
-    add_or_fail(Mood, args)
+    for name in json['Voices']:
+        args['name'] = name
+        add_or_fail(Voice, args)
+
+    for name in json['Declinable Types']:
+        args['name'] = name
+        add_or_fail(DeclinableType, args)
+
+    for name in json['Conjugations']:
+        args['name'] = name
+        add_or_fail(Conjugation, args)
 
     # Default WordList
     args['name'] = 'Attic Greek Default Words'
@@ -130,85 +84,30 @@ def add_language():
     args['user'] = User.objects.get(pk=1)
     add_or_fail(WordList, args)
 
-    # Words
-    # Thematic verbs
     args = {'wordlist': object_cache['WordList'][args['name']]}
-    args['conjugation'] = object_cache['Conjugation']['Thematic']
-    args['word'] = u'ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην'
-    args['definition'] = u'to announce'
     create_args = {'last_reviewed': datetime.now()}
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'αἰσχύνομαι, αἰσχυνοῦμαι, _, _, ᾔσχυμμαι, ᾐσχύνθην'
-    args['definition'] = u'to be ashamed'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'δηλόω, δηλώσω, ἐδήλωσα, δεδήλωκα, δεδήλωμαι, ἐδηλώθην'
-    args['definition'] = u'to make clear'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην'
-    args['definition'] = u'to drive, march'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'ἐλέγχω, ἐλέγξω, ἤλεγξα, _, ἐλήλεγμαι, ἠλέγχθην'
-    args['definition'] = u"I'm not sure..."
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'ἔρχομαι, ἐλεύσομαι, ἦλθον, ἐλήλυθα, _, _'
-    args['definition'] = u'to come'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'ἐθέλω, ἐθελήσω, ἠθέλησα, ἠθέληκα, _, _'
-    args['definition'] = u'to wish, want'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'φαίνω, φανῶ, ἔφηνα, πέφηνα, πέφασμαι, ἐφάνην'
-    args['definition'] = u'to show'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην'
-    args['definition'] = u'to fear, be afraid'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'γράφω, γράψω, ἔγραψα, γέγραφα, γέγραμμαι, ἐγράφην'
-    args['definition'] = u'to write, draw'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'κελεύω, κελεύσω, ἐκέλευσα, κεκέλευκα, κεκέλευσμαι, '\
-            u'ἐκελεύσθην'
-    args['definition'] = u'to command, order'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'μάχομαι, μαχοῦμαι, ἐμαχεσάμην, _, μεμάχημαι, _'
-    args['definition'] = u'to fight'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'νικάω, νικήσω, ἐνίκησα, νενίκηκα, νενίκημαι, ἐνικήθην'
-    args['definition'] = u'to win, conquer, be victorious'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'παιδεύω, παιδεύσω, ἐπαίδευσα, πεπαίδευκα, πεπαίδευμαι, '\
-            u'ἐπαιδεύθην'
-    args['definition'] = u'to teach'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'πέμπω, πέμψω, ἔπεμψα, πέπομφα, πέπεμμαι, ἐπέμφθην'
-    args['definition'] = u'to send'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'ποιέω, ποιήσω, ἐποίησα, πεποίηκα, πεποίημαι, ἐποιήθην'
-    args['definition'] = u'to do'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'τάττω, τάξω, ἔταξα, τέταχα, τέταγμαι, ἐτάχθην'
-    args['definition'] = u'to arrange, station, align, order'
-    add_or_fail(Verb, args, create_args)
-
-    # Athematic verbs
-    irreg_args = {}
-    args['conjugation'] = object_cache['Conjugation']['Athematic']
-    args['word'] = u'δίδωμι, δώσω, ἔδωκα, δέδωκα, δέδομαι, ἐδόθην'
-    args['definition'] = u'to give'
-    add_or_fail(Verb, args, create_args)
-    irregular_verb_form(args['word'], 'First Person', 'Singular', 'Imperfect',
-            'Indicative', 'Active', u'ἐδίδουν')
-    irregular_verb_form(args['word'], 'Second Person', 'Singular', 'Imperfect',
-            'Indicative', 'Active', u'ἐδίδους')
-    irregular_verb_form(args['word'], 'Third Person', 'Singular', 'Imperfect',
-            'Indicative', 'Active', u'ἐδίδου')
-    irregular_verb_form(args['word'], 'Second Person', 'Singular', 'Present',
-            'Imperative', 'Active', u'δίδου')
-    args['word'] = u'ἵστημι, στήσω, ἔστησα, ἕστηκα, ἕσταμαι, ἐστάθην'
-    args['definition'] = u'to stand'
-    add_or_fail(Verb, args, create_args)
-    args['word'] = u'τίθημι, θήσω, ἔθηκα, τέθηκα, τέθειμαι, ἐτέθην'
-    args['definition'] = u'to put'
-    add_or_fail(Verb, args, create_args)
+    for verb in json['Verbs']:
+        args['conjugation'] = object_cache['Conjugation'][verb['conjugation']]
+        args['word'] = verb['word']
+        args['definition'] = verb['definition']
+        add_or_fail(Verb, args, create_args)
+        if "irregular forms" in verb:
+            for form in verb["irregular forms"]:
+                person = form['Person']
+                number = form['Number']
+                tense = form['Tense']
+                mood = form['Mood']
+                voice = form['Voice']
+                f = form['Form']
+                irregular_verb_form(verb['word'], person, number, tense, mood,
+                        voice, f)
+        if "irregular stems" in verb:
+            for stem in verb["irregular stems"]:
+                tense = stem['Tense']
+                mood = stem['Mood']
+                voice = stem['Voice']
+                s = stem['Stem']
+                irregular_verb_stem(verb['word'], tense, mood, voice, s)
 
     for a in added:
         print 'Added:', a
@@ -228,6 +127,16 @@ def irregular_verb_form(verb, person, number, tense, mood, voice, form):
     add_or_fail(IrregularVerbForm, args)
 
 
+def irregular_verb_stem(verb, tense, mood, voice, stem):
+    args = {}
+    args['verb'] = object_cache['Verb'][verb]
+    args['tense'] = object_cache['Tense'][tense]
+    args['mood'] = object_cache['Mood'][mood]
+    args['voice'] = object_cache['Voice'][voice]
+    args['stem'] = stem
+    add_or_fail(IrregularVerbStem, args)
+
+
 def add_or_fail(model, query_args, create_args={}):
     global object_cache
     if 'name' in query_args:
@@ -236,6 +145,8 @@ def add_or_fail(model, query_args, create_args={}):
         output = query_args['word']
     elif 'form' in query_args:
         output = query_args['form']
+    elif 'stem' in query_args:
+        output = query_args['stem']
     else:
         output = 'Something'
     try:
@@ -251,6 +162,14 @@ def add_or_fail(model, query_args, create_args={}):
     object_cache[model.__name__][output] = obj
 
 
+def dump_fixture_file(filename):
+    from subprocess import Popen
+    proc = Popen('python manage.py dumpdata drills --indent=2 >%s' % filename,
+            shell=True)
+    proc.wait()
+    print 'Created fixture file %s' % filename
+
+
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option('-i', '--incremental',
@@ -261,9 +180,16 @@ if __name__ == '__main__':
             'given, we throw an exception if we find something that is already '
             'in the database.',
             )
+    parser.add_option('-f', '--fixture',
+            dest='fixture',
+            action='store_true',
+            help='Dump a fixture file (mostly for use with running tests)',
+            )
     options, args = parser.parse_args()
     if options.incremental:
         incremental = True
     add_language()
+    if options.fixture:
+        dump_fixture_file('attic_greek/fixtures/initial_data.json')
 
 # vim: et sw=4 sts=4
