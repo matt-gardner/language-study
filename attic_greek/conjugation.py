@@ -338,7 +338,7 @@ class GreekConjugation(Conjugation):
         """We need the principle part to account for second aorist, root
         aorist, and other such things."""
         try:
-            tense, mood, voice = self.special_case_endings(tense, mood, voice,
+            tense, mood, voice = self.second_aorist_endings(tense, mood, voice,
                     principle_part)
             ending_set = self.endings[tense][voice][mood]
         except KeyError:
@@ -352,7 +352,7 @@ class GreekConjugation(Conjugation):
                     ' exist for the given tense, mood and voice (%s %s %s)' %
                     (person, number, tense, mood, voice))
 
-    def special_case_endings(self, tense, mood, voice, principle_part):
+    def second_aorist_endings(self, tense, mood, voice, principle_part):
         if tense == 'Aorist':
             if principle_part.endswith(u'ον'):
                 if mood == 'Indicative':
@@ -566,6 +566,22 @@ class GreekConjugation(Conjugation):
 class AthematicConjugation(GreekConjugation):
     def __init__(self, principle_parts, verb_id=-1):
         super(AthematicConjugation, self).__init__(principle_parts, verb_id)
+        base = remove_accents(self.principle_parts[0][:-2])
+        self.long_vowel = base[-1]
+        if self.long_vowel == u'ω':
+            self.short_vowel = u'ο'
+        elif self.long_vowel == u'η':
+            self.short_vowel = remove_accents(self.principle_parts[5])[-4]
+            if self.short_vowel not in [u'α', u'ε']:
+                raise ValueError("Oops, you caught me.  My hack for finding "
+                        "the short vowel of μι verbs didn't work.")
+        elif self.long_vowel == u'υ':
+            self.short_vowel = u'υ'
+        self.using_long_vowel = False
+        self.set_athematic_endings()
+        self.special_case_endings()
+
+    def set_athematic_endings(self):
         self.endings['Present']['Active']['Indicative'] = AthPresentIndAct()
         self.endings['Present']['Middle']['Indicative'] = AthPresentIndMP()
         self.endings['Present']['Passive']['Indicative'] = AthPresentIndMP()
@@ -589,17 +605,16 @@ class AthematicConjugation(GreekConjugation):
         self.endings['Aorist']['Middle']['Imperative'] = AthAoristImpMid()
         self.endings['Aorist']['Active']['Infinitive'] = AthAoristInfAct()
         self.endings['Aorist']['Middle']['Infinitive'] = AthAoristInfMid()
-        base = remove_accents(self.principle_parts[0][:-2])
-        self.long_vowel = base[-1]
-        if self.long_vowel == u'ω':
-            self.short_vowel = u'ο'
-        elif self.long_vowel == u'η':
-            self.short_vowel = remove_accents(self.principle_parts[5])[-4]
-            if self.short_vowel not in [u'α', u'ε']:
-                raise ValueError("Oops, you caught me.  My hack for finding "
-                        "the short vowel of μι verbs didn't work.")
-        elif self.long_vowel == u'υ':
-            self.short_vowel = u'υ'
+
+    def special_case_endings(self):
+        if self.principle_parts[0] in thematic_optative:
+            self.endings['Present']['Active']['Optative'] = PresentOptAct()
+            self.endings['Present']['Middle']['Optative'] = PresentOptMP()
+            self.endings['Present']['Passive']['Optative'] = PresentOptMP()
+
+    def conjugate(self, **kwargs):
+        self.using_long_vowel = False
+        return super(AthematicConjugation, self).conjugate(**kwargs)
 
     def stem_first_pp(self, principle_part, tense, mood, voice, number):
         if not principle_part.endswith(u'μι'):
@@ -609,6 +624,7 @@ class AthematicConjugation(GreekConjugation):
         if voice in ['Middle', 'Passive'] or mood != 'Indicative':
             return without_vowel + self.short_vowel
         elif number == 'Singular':
+            self.using_long_vowel = True
             return without_vowel + self.long_vowel
         elif number == 'Plural':
             return without_vowel + self.short_vowel
@@ -638,6 +654,8 @@ class AthematicConjugation(GreekConjugation):
         if super(AthematicConjugation, self).needs_contraction(tense, mood,
                 voice, principle_part):
             return True
+        if self.principle_parts[0] in no_subj_contract:
+            return False
         if tense == 'Present' and mood == 'Subjunctive':
             return True
         if tense == 'Aorist' and mood == 'Subjunctive':
@@ -649,12 +667,19 @@ class AthematicConjugation(GreekConjugation):
     def add_accent(self, verb, mood, tense, voice, principle_part):
         if (mood == 'Optative' and voice in ['Middle', 'Passive'] and
                 tense in ['Present', 'Aorist']):
-            return add_athematic_optative_accent(verb)
+            if self.principle_parts[0] not in thematic_optative:
+                return add_athematic_optative_accent(verb)
+        if (self.long_vowel == u'υ' and mood == 'Indicative' and
+                tense in ['Present', 'Imperfect']):
+            if self.using_long_vowel and get_last_vowel(verb) == u'υ':
+                return add_recessive_accent(verb, long_ending_vowel=True)
         return super(AthematicConjugation, self).add_accent(verb, mood, tense,
                 voice, principle_part)
 
 
 stem_changers = [u'δίδωμι', u'τίθημι']
+no_subj_contract = [u'δείκνυμι']
+thematic_optative = [u'δείκνυμι']
 
 
 if __name__ == '__main__':
