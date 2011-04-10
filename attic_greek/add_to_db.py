@@ -159,6 +159,8 @@ def add_or_fail(model, query_args, create_args={}):
         obj.save()
         global added
         added.append(model.__name__ + ': ' + output)
+        for key in create_args:
+            del query_args[key]
     object_cache[model.__name__][output] = obj
 
 
