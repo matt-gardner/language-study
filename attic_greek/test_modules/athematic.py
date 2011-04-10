@@ -882,6 +882,174 @@ class HistemiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-all_tests = [DidomiTest, TithemiTest, HistemiTest]
+class DeiknumiTest(TestCase):
+    def tearDown(self):
+        conjugation.verbose = False
+
+    # PRESENT TENSE TESTS
+    def test_present_ind_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'δείκνυμι', u'δείκνυς', u'δείκνυσι', u'δείκνυμεν',
+                u'δείκνυτε', u'δεικνύασι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_subj_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'δεικνύω', u'δεικνύῃς', u'δεικνύῃ', u'δεικνύωμεν',
+                u'δεικνύητε', u'δεικνύωσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_opt_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'δεικνύοιμι', u'δεικνύοις', u'δεικνύοι', u'δεικνύοιμεν',
+                u'δεικνύοιτε', u'δεικνύοιεν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_imp_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'δείκνυ', u'δεικνύτω', u'δείκνυτε', u'δεικνύντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word,
+                verbs['deiknumi'].id)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_inf_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'δεικνύναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_ind_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'δείκνυμαι', u'δείκνυσαι', u'δείκνυται', u'δεικνύμεθα',
+                u'δείκνυσθε', u'δείκνυνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_subj_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Middle'
+        answers = [u'δεικνύωμαι', u'δεικνύῃ', u'δεικνύηται', u'δεικνυώμεθα',
+                u'δεικνύησθε', u'δεικνύωνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_opt_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Middle'
+        answers = [u'δεικνυοίμην', u'δεικνύοιο', u'δεικνύοιτο', u'δεικνυοίμεθα',
+                u'δεικνύοισθε', u'δεικνύοιντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_imp_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Middle'
+        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
+        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
+        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
+        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
+        answers = [u'δείκνυσο', u'δεικνύσθω', u'δείκνυσθε', u'δεικνύσθων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(test_dicts, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_inf_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'δείκνυσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # IMPERFECT TENSE TESTS
+    def test_imperfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἐδείκνυν', u'ἐδείκνυς', u'ἐδείκνυ', u'ἐδείκνυμεν',
+                u'ἐδείκνυτε', u'ἐδείκνυσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_imperfect_ind_mid(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἐδεικνύμην', u'ἐδείκνυσο', u'ἐδείκνυτο', u'ἐδεικνύμεθα',
+                u'ἐδείκνυσθε', u'ἐδείκνυντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['deiknumi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+
+all_tests = [DidomiTest, TithemiTest, HistemiTest, DeiknumiTest]
 
 # vim: et sw=4 sts=4

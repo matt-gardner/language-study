@@ -86,6 +86,21 @@
       ]
     },
     {
+      "definition": "to show",
+      "word": "δείκνυμι, δείξω, ἔδειξα, δέδειχα, δέδειγμαι, ἐδείχθην",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "δείκνυ"
+        }
+      ]
+    },
+    {
       "definition": "to drive, march",
       "word": "ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην",
       "conjugation": "Thematic"
