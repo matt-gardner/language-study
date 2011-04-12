@@ -15,9 +15,11 @@ from greek_util import contract_vowels
 from greek_util import get_final_consonant
 from greek_util import get_last_vowel
 from greek_util import get_matching_index
+from greek_util import get_vowel
 from greek_util import is_accent
 from greek_util import is_accented
 from greek_util import is_short
+from greek_util import lengthen_vowel
 from greek_util import remove_accents
 from greek_util import remove_all_combining
 from greek_util import remove_initial_vowel
@@ -78,9 +80,10 @@ class GreekConjugation(Conjugation):
             if self.is_irregular_stem(tense, mood, voice):
                 stem = self.irregular_stem(tense, mood, voice)
         principle_part = self.get_principle_part(tense, voice)
-        if not stem:
+        if stem == None:
             stem = self.stem_principle_part(principle_part, tense, mood, voice,
                     number)
+        self.current_stem = stem
         ending = self.get_ending(tense, mood, voice, person, number,
                 principle_part)
         augment = self.get_augment(tense, mood, principle_part)
@@ -411,8 +414,12 @@ class GreekConjugation(Conjugation):
         else:
             # This is wrong, but it might work sometimes
             pp = self.principle_parts[2]
-        initial_vowel = remove_accents(split_syllables(pp)[0])
-        return initial_vowel + rest
+        if pp:
+            initial_vowel = remove_accents(split_syllables(pp)[0])
+        else:
+            vowel = get_vowel(split_syllables(self.current_stem)[0])
+            initial_vowel = lengthen_vowel(vowel)
+        return unicodedata.normalize('NFKD', initial_vowel + rest)
 
     def combine_parts(self, augment, stem, ending, tense, mood, voice):
         # I don't think this is different by conjugation; you just have to
@@ -430,6 +437,9 @@ class GreekConjugation(Conjugation):
             return form
         if augment:
             stem = self.add_augment(stem, tense, voice)
+        if stem == u'\u0313':
+            # Silly special case, but it works...
+            return ending[0] + stem + ending[1:]
         return stem + ending
 
     def combine_consonant_stem(self, stem, ending):
@@ -577,6 +587,9 @@ class AthematicConjugation(GreekConjugation):
                         "the short vowel of μι verbs didn't work.")
         elif self.long_vowel == u'υ':
             self.short_vowel = u'υ'
+        else:
+            # For εἰμί, really
+            self.short_vowel = u''
         self.using_long_vowel = False
         self.set_athematic_endings()
         self.special_case_endings()
@@ -617,7 +630,7 @@ class AthematicConjugation(GreekConjugation):
         return super(AthematicConjugation, self).conjugate(**kwargs)
 
     def stem_first_pp(self, principle_part, tense, mood, voice, number):
-        if not principle_part.endswith(u'μι'):
+        if not remove_accents(principle_part).endswith(u'μι'):
             raise ValueError('Are you sure this is an athematic verb?')
         base = remove_accents(principle_part[:-2])
         without_vowel = base[:-1]
@@ -678,7 +691,7 @@ class AthematicConjugation(GreekConjugation):
 
 
 stem_changers = [u'δίδωμι', u'τίθημι']
-no_subj_contract = [u'δείκνυμι']
+no_subj_contract = [u'δείκνυμι', u'εἰμί']
 thematic_optative = [u'δείκνυμι']
 
 

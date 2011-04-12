@@ -101,6 +101,99 @@
       ]
     },
     {
+      "definition": "to be",
+      "word": "εἰμί, ἔσομαι, _, _, _, _",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἰμί"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἶ"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐστί"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐσμέν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἐστέ"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἰσί"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Future",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἔσται"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἦσθα"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἦν"
+        }
+      ],
+      "irregular stems": [
+        {
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Stem": "ε"
+        },
+        {
+          "Tense": "Present",
+          "Mood": "Subjunctive",
+          "Voice": "Active",
+          "Stem": "\u0313"
+        }
+      ]
+    },
+    {
       "definition": "to drive, march",
       "word": "ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην",
       "conjugation": "Thematic"

@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import unicodedata
+from conjugation import verbose
 
 vowels = [u'α', u'ε', u'η', u'ι', u'ο', u'υ', u'ω']
 diphthongs = [u'αι', u'αυ', u'ει', u'ευ', u'ηυ', u'οι', u'ου', u'ωυ']
@@ -42,6 +43,8 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
         # This probably will break some day, but it will do for now
         vowel = get_vowel(syllables[0])
         pos = syllables[0].find(vowel) + len(vowel)
+        if unicodedata.combining(syllables[0][pos]):
+            pos += 1
         if can_have_circumflex(vowel):
             accent = circumflex
         else:
@@ -222,6 +225,15 @@ def get_matching_index(unaccented, accented, index):
     return j
 
 
+def lengthen_vowel(vowel):
+    if vowel == u'ει':
+        return u'ᾐ'
+    elif vowel == u'ε':
+        return u'ἠ'
+    elif vowel == u'α':
+        return u'ἠ'
+
+
 # Methods that are intended to be private
 #########################################
 # These methods might be useful in other places, so I'm not munging them with
@@ -279,7 +291,11 @@ def split_syllables(word):
 def last_non_combining_character(word):
     if not word:
         return u''
-    return u''.join([c for c in word if not unicodedata.combining(c)])[-1]
+    final = u''.join([c for c in word if not unicodedata.combining(c)])
+    if final:
+        return final[-1]
+    else:
+        return u''
 
 
 def get_vowel(syllable):

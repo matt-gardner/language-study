@@ -658,6 +658,123 @@
     }
   }, 
   {
+    "pk": 27, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f30\u03bc\u03af", 
+      "number": 1, 
+      "person": 1, 
+      "verb": 22, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f36", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 22, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03c3\u03c4\u03af", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 22, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03c3\u03bc\u03ad\u03bd", 
+      "number": 2, 
+      "person": 1, 
+      "verb": 22, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f10\u03c3\u03c4\u03ad", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 22, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f30\u03c3\u03af", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 22, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f14\u03c3\u03c4\u03b1\u03b9", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 22, 
+      "tense": 3, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f26\u03c3\u03b8\u03b1", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 22, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f26\u03bd", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 22, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.irregularverbstem", 
     "fields": {
@@ -710,6 +827,28 @@
       "tense": 4, 
       "mood": 3, 
       "stem": "\u03c3\u03c4\u03b1"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "drills.irregularverbstem", 
+    "fields": {
+      "voice": 1, 
+      "verb": 22, 
+      "tense": 2, 
+      "mood": 1, 
+      "stem": "\u03b5"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "drills.irregularverbstem", 
+    "fields": {
+      "voice": 1, 
+      "verb": 22, 
+      "tense": 1, 
+      "mood": 2, 
+      "stem": "\u0313"
     }
   }, 
   {
@@ -1040,6 +1179,20 @@
     }
   }, 
   {
+    "pk": 22, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "to be", 
+      "review_count": 0, 
+      "word": "\u03b5\u1f30\u03bc\u03af, \u1f14\u03c3\u03bf\u03bc\u03b1\u03b9, _, _, _, _", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-04-11 23:10:02", 
+      "last_reviewed": "2011-04-11 23:10:02"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -1201,6 +1354,14 @@
   }, 
   {
     "pk": 21, 
+    "model": "drills.verb", 
+    "fields": {
+      "conjugation": 2, 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": 22, 
     "model": "drills.verb", 
     "fields": {
       "conjugation": 2, 
