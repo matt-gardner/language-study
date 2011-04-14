@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import unicodedata
-from conjugation import verbose
 
 vowels = [u'α', u'ε', u'η', u'ι', u'ο', u'υ', u'ω']
 diphthongs = [u'αι', u'αυ', u'ει', u'ευ', u'ηυ', u'οι', u'ου', u'ωυ']
