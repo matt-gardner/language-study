@@ -1087,10 +1087,9 @@ class EimiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Optative'
         args['voice'] = 'Active'
-        answers = [u'διδοίην', u'διδοίης', u'διδοίη', u'διδοίημεν',
-                u'διδοίητε', u'διδοίησαν']
+        answers = [u'εἴην', u'εἴης', u'εἴη', u'εἴημεν', u'εἴητε', u'εἴησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['didomi'].word)
+        conj = AthematicConjugation(verbs['eimi'].word, verbs['eimi'].id)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -1104,9 +1103,9 @@ class EimiTest(TestCase):
         test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
         test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
         test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
-        answers = [u'δίδου', u'διδότω', u'δίδοτε', u'διδόντων']
+        answers = [u'ἴσθι', u'ἔστω', u'ἔστε', u'ἔστων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['didomi'].word, verbs['didomi'].id)
+        conj = AthematicConjugation(verbs['eimi'].word, verbs['eimi'].id)
         for case, answer in zip(test_dicts, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -1118,9 +1117,9 @@ class EimiTest(TestCase):
         args['voice'] = 'Active'
         args['person'] = 'None'
         args['number'] = 'None'
-        answer = u'διδόναι'
+        answer = u'εἶναι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = AthematicConjugation(verbs['didomi'].word)
+        conj = AthematicConjugation(verbs['eimi'].word, verbs['eimi'].id)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     # IMPERFECT TENSE TESTS

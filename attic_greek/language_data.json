@@ -176,6 +176,30 @@
           "Mood": "Indicative",
           "Voice": "Active",
           "Form": "ἦν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "ἴσθι"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "ἔστων"
+        },
+        {
+          "Person": "None",
+          "Number": "None",
+          "Tense": "Present",
+          "Mood": "Infinitive",
+          "Voice": "Active",
+          "Form": "εἶναι"
         }
       ],
       "irregular stems": [
@@ -190,6 +214,18 @@
           "Mood": "Subjunctive",
           "Voice": "Active",
           "Stem": "\u0313"
+        },
+        {
+          "Tense": "Present",
+          "Mood": "Optative",
+          "Voice": "Active",
+          "Stem": "ε\u0313"
+        },
+        {
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Stem": "ἐσ"
         }
       ]
     },

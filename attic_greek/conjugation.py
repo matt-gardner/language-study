@@ -437,9 +437,9 @@ class GreekConjugation(Conjugation):
             return form
         if augment:
             stem = self.add_augment(stem, tense, voice)
-        if stem == u'\u0313':
+        if stem == u'\u0313' or stem == u'ε\u0313':
             # Silly special case, but it works...
-            return ending[0] + stem + ending[1:]
+            return stem[:-1] + ending[0] + stem[-1] + ending[1:]
         return stem + ending
 
     def combine_consonant_stem(self, stem, ending):
