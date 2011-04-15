@@ -892,6 +892,19 @@
     }
   }, 
   {
+    "pk": 45, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u03b3\u03bd\u03cc\u03bd\u03c4\u03c9\u03bd", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 24, 
+      "tense": 4, 
+      "voice": 1
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.irregularverbstem", 
     "fields": {
@@ -1357,6 +1370,20 @@
     }
   }, 
   {
+    "pk": 24, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "to write, draw", 
+      "review_count": 0, 
+      "word": "\u03b3\u03b9\u03b3\u03bd\u03ce\u03c3\u03ba\u03c9, \u03b3\u03bd\u03ce\u03c3\u03bf\u03bc\u03b1\u03b9, \u1f14\u03b3\u03bd\u03c9\u03bd, \u1f14\u03b3\u03bd\u03c9\u03ba\u03b1, \u1f14\u03b3\u03bd\u03c9\u03c3\u03bc\u03b1\u03b9, \u1f10\u03b3\u03bd\u03ce\u03c3\u03b8\u03b7\u03bd", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-04-15 17:20:15", 
+      "last_reviewed": "2011-04-15 17:20:15"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -1537,6 +1564,14 @@
     "model": "drills.verb", 
     "fields": {
       "conjugation": 2, 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "drills.verb", 
+    "fields": {
+      "conjugation": 1, 
       "tags": []
     }
   }

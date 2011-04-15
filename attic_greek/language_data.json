@@ -26,6 +26,41 @@
       "conjugation": "Thematic"
     },
     {
+      "definition": "to write, draw",
+      "word": "γιγνώσκω, γνώσομαι, ἔγνων, ἔγνωκα, ἔγνωσμαι, ἐγνώσθην",
+      "conjugation": "Thematic",
+      "irregular forms": [
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Aorist",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "γνόντων"
+        }
+      ]
+    },
+    {
+      "definition": "to write, draw",
+      "word": "γράφω, γράψω, ἔγραψα, γέγραφα, γέγραμμαι, ἐγράφην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to show",
+      "word": "δείκνυμι, δείξω, ἔδειξα, δέδειχα, δέδειγμαι, ἐδείχθην",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "δείκνυ"
+        }
+      ]
+    },
+    {
       "definition": "to make clear",
       "word": "δηλόω, δηλώσω, ἐδήλωσα, δεδήλωκα, δεδήλωμαι, ἐδηλώθην",
       "conjugation": "Thematic"
@@ -82,21 +117,6 @@
           "Mood": "Imperative",
           "Voice": "Middle",
           "Form": "δοῦ"
-        }
-      ]
-    },
-    {
-      "definition": "to show",
-      "word": "δείκνυμι, δείξω, ἔδειξα, δέδειχα, δέδειγμαι, ἐδείχθην",
-      "conjugation": "Athematic",
-      "irregular forms": [
-        {
-          "Person": "Second Person",
-          "Number": "Singular",
-          "Tense": "Present",
-          "Mood": "Imperative",
-          "Voice": "Active",
-          "Form": "δείκνυ"
         }
       ]
     },
@@ -230,6 +250,11 @@
       ]
     },
     {
+      "definition": "to wish, want",
+      "word": "ἐθέλω, ἐθελήσω, ἠθέλησα, ἠθέληκα, _, _",
+      "conjugation": "Thematic"
+    },
+    {
       "definition": "to drive, march",
       "word": "ἐλαύνω, ἐλάω, ἤλασα, ἐλήλακα, ἐλήλαμαι, ἠλάθην",
       "conjugation": "Thematic"
@@ -242,89 +267,6 @@
     {
       "definition": "to come",
       "word": "ἔρχομαι, ἐλεύσομαι, ἦλθον, ἐλήλυθα, _, _",
-      "conjugation": "Thematic"
-    },
-    {
-      "definition": "to wish, want",
-      "word": "ἐθέλω, ἐθελήσω, ἠθέλησα, ἠθέληκα, _, _",
-      "conjugation": "Thematic"
-    },
-    {
-      "definition": "to show",
-      "word": "φαίνω, φανῶ, ἔφηνα, πέφηνα, πέφασμαι, ἐφάνην",
-      "conjugation": "Thematic"
-    },
-    {
-      "definition": "to say",
-      "word": "φημί, φήσω, ἔφησα, _, _, _",
-      "conjugation": "Athematic",
-      "irregular forms": [
-        {
-          "Person": "First Person",
-          "Number": "Singular",
-          "Tense": "Present",
-          "Mood": "Indicative",
-          "Voice": "Active",
-          "Form": "φημί"
-        },
-        {
-          "Person": "Second Person",
-          "Number": "Singular",
-          "Tense": "Present",
-          "Mood": "Indicative",
-          "Voice": "Active",
-          "Form": "φῄς"
-        },
-        {
-          "Person": "Third Person",
-          "Number": "Singular",
-          "Tense": "Present",
-          "Mood": "Indicative",
-          "Voice": "Active",
-          "Form": "φησί"
-        },
-        {
-          "Person": "First Person",
-          "Number": "Plural",
-          "Tense": "Present",
-          "Mood": "Indicative",
-          "Voice": "Active",
-          "Form": "φαμέν"
-        },
-        {
-          "Person": "Second Person",
-          "Number": "Plural",
-          "Tense": "Present",
-          "Mood": "Indicative",
-          "Voice": "Active",
-          "Form": "φατέ"
-        },
-        {
-          "Person": "Third Person",
-          "Number": "Plural",
-          "Tense": "Present",
-          "Mood": "Indicative",
-          "Voice": "Active",
-          "Form": "φασί"
-        }
-      ],
-      "irregular stems": [
-        {
-          "Tense": "Present",
-          "Mood": "Subjunctive",
-          "Voice": "Active",
-          "Stem": "φε"
-        }
-      ]
-    },
-    {
-      "definition": "to fear, be afraid",
-      "word": "φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην",
-      "conjugation": "Thematic"
-    },
-    {
-      "definition": "to write, draw",
-      "word": "γράφω, γράψω, ἔγραψα, γέγραφα, γέγραμμαι, ἐγράφην",
       "conjugation": "Thematic"
     },
     {
@@ -551,6 +493,79 @@
           "Form": "θοῦ"
         }
       ]
+    },
+    {
+      "definition": "to show",
+      "word": "φαίνω, φανῶ, ἔφηνα, πέφηνα, πέφασμαι, ἐφάνην",
+      "conjugation": "Thematic"
+    },
+    {
+      "definition": "to say",
+      "word": "φημί, φήσω, ἔφησα, _, _, _",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φημί"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φῄς"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φησί"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φαμέν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φατέ"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φασί"
+        }
+      ],
+      "irregular stems": [
+        {
+          "Tense": "Present",
+          "Mood": "Subjunctive",
+          "Voice": "Active",
+          "Stem": "φε"
+        }
+      ]
+    },
+    {
+      "definition": "to fear, be afraid",
+      "word": "φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην",
+      "conjugation": "Thematic"
     }
   ]
 }
