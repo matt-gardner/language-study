@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+from django.test import TestCase
+
+import attic_greek
+
+from attic_greek import conjugation
 from language_study.drills.models import Verb
 
 verbs = dict()
@@ -17,6 +22,7 @@ verbs['ethelo'] = Verb.objects.get(word__contains=u'ἐθέλω')
 verbs['faino'] = Verb.objects.get(word__contains=u'φαίνω')
 verbs['fobeomai'] = Verb.objects.get(word__contains=u'φοβέομαι')
 verbs['grafo'] = Verb.objects.get(word__contains=u'γράφω')
+verbs['gignosko'] = Verb.objects.get(word__contains=u'γιγνώσκω')
 verbs['histemi'] = Verb.objects.get(word__contains=u'ἵστημι')
 verbs['keleuo'] = Verb.objects.get(word__contains=u'κελεύω')
 verbs['maxomai'] = Verb.objects.get(word__contains=u'μάχομαι')
@@ -34,6 +40,26 @@ cases.append({'person': 'Third Person', 'number': 'Singular'})
 cases.append({'person': 'First Person', 'number': 'Plural'})
 cases.append({'person': 'Second Person', 'number': 'Plural'})
 cases.append({'person': 'Third Person', 'number': 'Plural'})
+
+imp_cases = [{'person': 'Second Person', 'number': 'Singular'}]
+imp_cases.append({'person': 'Third Person', 'number': 'Singular'})
+imp_cases.append({'person': 'Second Person', 'number': 'Plural'})
+imp_cases.append({'person': 'Third Person', 'number': 'Plural'})
+
+class GreekTestCase(TestCase):
+    def setUp(self):
+        self.cases = cases
+        self.imp_cases = imp_cases
+
+    def tearDown(self):
+        conjugation.verbose = False
+
+    def get_conj(self, verb):
+        verb = verbs[verb]
+        conj_cls = attic_greek.mapping[verb.conjugation.name]
+        conj = conj_cls(verb.word, verb.id)
+        return conj
+
 
 from attic_greek.test_modules import athematic
 from attic_greek.test_modules import consonant_stems

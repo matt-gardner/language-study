@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from django.test import TestCase
-
-from attic_greek import conjugation
 from attic_greek.conjugation import AthematicConjugation
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases
+from attic_greek.test_modules import verbs, cases, GreekTestCase
 import unicodedata
 
-class DidomiTest(TestCase):
+class DidomiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -19,8 +16,8 @@ class DidomiTest(TestCase):
         answers = [u'δίδωμι', u'δίδως', u'δίδωσι', u'δίδομεν',
                 u'δίδοτε', u'διδόασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['didomi'].word)
-        for case, answer in zip(cases, answers):
+        conj = self.get_conj('didomi')
+        for case, answer in zip(self.cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -55,14 +52,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δίδου', u'διδότω', u'δίδοτε', u'διδόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word, verbs['didomi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -122,14 +115,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δίδοσο', u'διδόσθω', u'δίδοσθε', u'διδόσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -217,14 +206,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δός', u'δότω', u'δότε', u'δόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -284,14 +269,10 @@ class DidomiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δοῦ', u'δόσθω', u'δόσθε', u'δόσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word, verbs['didomi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -308,7 +289,7 @@ class DidomiTest(TestCase):
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class TithemiTest(TestCase):
+class TithemiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -354,14 +335,10 @@ class TithemiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'τίθει', u'τιθέτω', u'τίθετε', u'τιθέντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word, verbs['tithemi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -421,14 +398,10 @@ class TithemiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'τίθεσο', u'τιθέσθω', u'τίθεσθε', u'τιθέσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -516,14 +489,10 @@ class TithemiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'θές', u'θέτω', u'θέτε', u'θέντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -583,14 +552,10 @@ class TithemiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'θοῦ', u'θέσθω', u'θέσθε', u'θέσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word, verbs['tithemi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -607,10 +572,7 @@ class TithemiTest(TestCase):
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class HistemiTest(TestCase):
-    def tearDown(self):
-        conjugation.verbose = False
-
+class HistemiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -656,14 +618,10 @@ class HistemiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἵστη', u'ἱστάτω', u'ἵστατε', u'ἱστάντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -723,14 +681,10 @@ class HistemiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἵστασο', u'ἱστάσθω', u'ἵστασθε', u'ἱστάσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -818,14 +772,10 @@ class HistemiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'στῆθι', u'στήτω', u'στῆτε', u'στάντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word, verbs['histemi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -882,10 +832,7 @@ class HistemiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class DeiknumiTest(TestCase):
-    def tearDown(self):
-        conjugation.verbose = False
-
+class DeiknumiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -931,15 +878,11 @@ class DeiknumiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δείκνυ', u'δεικνύτω', u'δείκνυτε', u'δεικνύντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word,
                 verbs['deiknumi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -999,14 +942,10 @@ class DeiknumiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δείκνυσο', u'δεικνύσθω', u'δείκνυσθε', u'δεικνύσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1050,10 +989,7 @@ class DeiknumiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class EimiTest(TestCase):
-    def tearDown(self):
-        conjugation.verbose = False
-
+class EimiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -1069,7 +1005,6 @@ class EimiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     def test_present_subj_act(self):
-        conjugation.verbose = True
         args = {}
         args['tense'] = 'Present'
         args['mood'] = 'Subjunctive'
@@ -1099,14 +1034,10 @@ class EimiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἴσθι', u'ἔστω', u'ἔστε', u'ἔστων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi'].word, verbs['eimi'].id)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1136,10 +1067,7 @@ class EimiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class PhemiTest(TestCase):
-    def tearDown(self):
-        conjugation.verbose = False
-
+class PhemiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -1155,7 +1083,6 @@ class PhemiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
     def test_present_subj_act(self):
-        conjugation.verbose = True
         args = {}
         args['tense'] = 'Present'
         args['mood'] = 'Subjunctive'
@@ -1186,14 +1113,10 @@ class PhemiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'φάθι', u'φάτω', u'φάτε', u'φάντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['phemi'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(self.imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1223,7 +1146,73 @@ class PhemiTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
+class EgnonTest(GreekTestCase):
+    # AORIST TENSE TESTS
+    def test_aorist_ind_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἔγνων', u'ἔγνως', u'ἔγνω', u'ἔγνωμεν',
+                u'ἔγνωτε', u'ἔγνωσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(verbs['gignosko'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_subj_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'γνῶ', u'γνῷς', u'γνῷ', u'γνῶμεν',
+                u'γνῶτε', u'γνῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(verbs['gignosko'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_opt_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'γνοίην', u'γνοίης', u'γνοίη', u'γνοίημεν',
+                u'γνοίητε', u'γνοίησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(verbs['gignosko'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_imp_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        answers = [u'γνῶθι', u'γνώτω', u'γνῶτε', u'γνόντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = GreekConjugation(verbs['gignosko'].word, verbs['gignosko'].id)
+        for case, answer in zip(self.imp_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_inf_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'γνῶναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = GreekConjugation(verbs['gignosko'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+
 all_tests = [DidomiTest, TithemiTest, HistemiTest, DeiknumiTest, EimiTest,
-        PhemiTest]
+        PhemiTest, EgnonTest]
 
 # vim: et sw=4 sts=4
