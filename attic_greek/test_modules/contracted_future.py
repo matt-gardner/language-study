@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from django.test import TestCase
-
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases
+from attic_greek.test_modules import verbs, cases, GreekTestCase
 import unicodedata
 
-class ContractedFutureTest(TestCase):
+class ContractedFutureTest(GreekTestCase):
     """We just test a few forms here, because we've tested most of this already.
     The main point here is just to be sure that contraction works in the future
     tenses.

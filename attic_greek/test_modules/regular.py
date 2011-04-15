@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from django.test import TestCase
-
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases
+from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
 import unicodedata
 
-class RegularConjugationTest(TestCase):
+class RegularConjugationTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_act(self):
         args = {}
@@ -53,14 +51,10 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'παίδευε', u'παιδευέτω', u'παιδεύετε', u'παιδευόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -120,14 +114,10 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'παιδεύου', u'παιδευέσθω', u'παιδεύεσθε', u'παιδευέσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -187,14 +177,10 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Passive'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'παιδεύου', u'παιδευέσθω', u'παιδεύεσθε', u'παιδευέσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -410,14 +396,10 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'παίδευσον', u'παιδευσάτω', u'παιδεύσατε', u'παιδευσάντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -477,15 +459,11 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'παίδευσαι', u'παιδευσάσθω', u'παιδεύσασθε',
                 u'παιδευσάσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -545,15 +523,11 @@ class RegularConjugationTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Passive'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'παιδεύθητι', u'παιδευθήτω', u'παιδεύθητε',
                 u'παιδευθέντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 

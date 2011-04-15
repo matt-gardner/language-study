@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from django.test import TestCase
-
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases
+from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
 import unicodedata
 
-class ContractedPoieoTest(TestCase):
+class ContractedPoieoTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_poieo_present_ind_act(self):
         args = {}
@@ -53,14 +51,10 @@ class ContractedPoieoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ποίει', u'ποιείτω', u'ποιεῖτε', u'ποιούντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -120,14 +114,10 @@ class ContractedPoieoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ποιοῦ', u'ποιείσθω', u'ποιεῖσθε', u'ποιείσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -171,7 +161,7 @@ class ContractedPoieoTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class ContractedNikaoTest(TestCase):
+class ContractedNikaoTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_nikao_present_ind_act(self):
         args = {}
@@ -217,14 +207,10 @@ class ContractedNikaoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'νίκα', u'νικάτω', u'νικᾶτε', u'νικώντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -284,14 +270,10 @@ class ContractedNikaoTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'νικῶ', u'νικάσθω', u'νικᾶσθε', u'νικάσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -335,7 +317,7 @@ class ContractedNikaoTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class ContractedDhlooTest(TestCase):
+class ContractedDhlooTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_dhloo_present_ind_act(self):
         args = {}
@@ -381,14 +363,10 @@ class ContractedDhlooTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δήλου', u'δηλούτω', u'δηλοῦτε', u'δηλούντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -448,14 +426,10 @@ class ContractedDhlooTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'δηλοῦ', u'δηλούσθω', u'δηλοῦσθε', u'δηλούσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -499,7 +473,7 @@ class ContractedDhlooTest(TestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
-class ContractedFobeomaiTest(TestCase):
+class ContractedFobeomaiTest(GreekTestCase):
     """This is just a quick test to be sure deponent contractions work.
     """
     # PRESENT TENSE TESTS

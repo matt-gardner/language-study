@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from django.test import TestCase
-
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases
+from attic_greek.test_modules import verbs, cases, GreekTestCase
 import unicodedata
 
-class VowelAugmentTest(TestCase):
+class VowelAugmentTest(GreekTestCase):
     def test_ethelo(self):
         args = {}
         args['tense'] = 'Imperfect'

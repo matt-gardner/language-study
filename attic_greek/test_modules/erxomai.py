@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from django.test import TestCase
-
 from attic_greek import conjugation
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases
+from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
 import unicodedata
 
-class ErxomaiTest(TestCase):
+class ErxomaiTest(GreekTestCase):
     # PRESENT TENSE TESTS
     def test_present_ind_mid(self):
         args = {}
@@ -54,14 +52,10 @@ class ErxomaiTest(TestCase):
         args['tense'] = 'Present'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἔρχου', u'ἐρχέσθω', u'ἔρχεσθε', u'ἐρχέσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['erxomai'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -175,14 +169,10 @@ class ErxomaiTest(TestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Active'
-        test_dicts = [{'person': 'Second Person', 'number': 'Singular'}]
-        test_dicts.append({'person': 'Third Person', 'number': 'Singular'})
-        test_dicts.append({'person': 'Second Person', 'number': 'Plural'})
-        test_dicts.append({'person': 'Third Person', 'number': 'Plural'})
         answers = [u'ἔλθε', u'ἐλθέτω', u'ἔλθετε', u'ἐλθόντων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['erxomai'].word)
-        for case, answer in zip(test_dicts, answers):
+        for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
