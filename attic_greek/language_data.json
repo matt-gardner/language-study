@@ -255,6 +255,69 @@
       "conjugation": "Thematic"
     },
     {
+      "definition": "to say",
+      "word": "φημί, φήσω, ἔφησα, _, _, _",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φημί"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φῄς"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φησί"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φαμέν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φατέ"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "φασί"
+        }
+      ],
+      "irregular stems": [
+        {
+          "Tense": "Present",
+          "Mood": "Subjunctive",
+          "Voice": "Active",
+          "Stem": "φε"
+        }
+      ]
+    },
+    {
       "definition": "to fear, be afraid",
       "word": "φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην",
       "conjugation": "Thematic"

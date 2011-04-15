@@ -814,6 +814,84 @@
     }
   }, 
   {
+    "pk": 39, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03c6\u03b7\u03bc\u03af", 
+      "number": 1, 
+      "person": 1, 
+      "verb": 23, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 40, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03c6\u1fc4\u03c2", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 23, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03c6\u03b7\u03c3\u03af", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 23, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 42, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03c6\u03b1\u03bc\u03ad\u03bd", 
+      "number": 2, 
+      "person": 1, 
+      "verb": 23, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 43, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03c6\u03b1\u03c4\u03ad", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 23, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 44, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03c6\u03b1\u03c3\u03af", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 23, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.irregularverbstem", 
     "fields": {
@@ -910,6 +988,17 @@
       "tense": 1, 
       "mood": 4, 
       "stem": "\u1f10\u03c3"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "drills.irregularverbstem", 
+    "fields": {
+      "voice": 1, 
+      "verb": 23, 
+      "tense": 1, 
+      "mood": 2, 
+      "stem": "\u03c6\u03b5"
     }
   }, 
   {
@@ -1254,6 +1343,20 @@
     }
   }, 
   {
+    "pk": 23, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "to say", 
+      "review_count": 0, 
+      "word": "\u03c6\u03b7\u03bc\u03af, \u03c6\u03ae\u03c3\u03c9, \u1f14\u03c6\u03b7\u03c3\u03b1, _, _, _", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-04-15 16:42:55", 
+      "last_reviewed": "2011-04-15 16:42:55"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -1423,6 +1526,14 @@
   }, 
   {
     "pk": 22, 
+    "model": "drills.verb", 
+    "fields": {
+      "conjugation": 2, 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": 23, 
     "model": "drills.verb", 
     "fields": {
       "conjugation": 2, 

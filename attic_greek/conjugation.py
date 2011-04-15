@@ -578,7 +578,12 @@ class AthematicConjugation(GreekConjugation):
         super(AthematicConjugation, self).__init__(principle_parts, verb_id)
         base = remove_accents(self.principle_parts[0][:-2])
         self.long_vowel = base[-1]
-        if self.long_vowel == u'ω':
+        self.using_long_vowel = False
+        self.set_athematic_endings()
+        self.special_case_endings()
+        if self.principle_parts[0] in hard_short_vowels:
+            self.short_vowel = hard_short_vowels[self.principle_parts[0]]
+        elif self.long_vowel == u'ω':
             self.short_vowel = u'ο'
         elif self.long_vowel == u'η':
             self.short_vowel = remove_accents(self.principle_parts[5])[-4]
@@ -590,9 +595,6 @@ class AthematicConjugation(GreekConjugation):
         else:
             # For εἰμί, really
             self.short_vowel = u''
-        self.using_long_vowel = False
-        self.set_athematic_endings()
-        self.special_case_endings()
 
     def set_athematic_endings(self):
         self.endings['Present']['Active']['Indicative'] = AthPresentIndAct()
@@ -693,6 +695,7 @@ class AthematicConjugation(GreekConjugation):
 stem_changers = [u'δίδωμι', u'τίθημι']
 no_subj_contract = [u'δείκνυμι', u'εἰμί']
 thematic_optative = [u'δείκνυμι']
+hard_short_vowels = {u'φημί': u'α'}
 
 
 if __name__ == '__main__':

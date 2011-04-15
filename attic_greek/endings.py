@@ -599,7 +599,7 @@ class AthPresentImpAct(EndingSet):
     def __init__(self):
         super(AthPresentImpAct, self).__init__()
         del self['First Person']
-        self['Second Person']['Singular'] = u'ε'
+        self['Second Person']['Singular'] = u'θι'
         self['Third Person']['Singular'] = u'τω'
         self['Second Person']['Plural'] = u'τε'
         self['Third Person']['Plural'] = u'ντων'
