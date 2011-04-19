@@ -315,7 +315,7 @@ def get_last_vowel(word):
     """
     if not word:
         return u''
-    word = remove_accents(word)
+    word = remove_all_combining(word)
     while word[-1] not in vowels:
         if len(word) == 1:
             return u''
@@ -323,7 +323,7 @@ def get_last_vowel(word):
     vowel = u''
     while word[-1] in vowels:
         if len(word) == 1:
-            return vowel
+            return word[-1] + vowel
         vowel = word[-1] + vowel
         word = word[:-1]
     return vowel

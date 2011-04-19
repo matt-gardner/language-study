@@ -601,7 +601,7 @@ class AthematicConjugation(GreekConjugation):
     def __init__(self, principle_parts, verb_id=-1):
         super(AthematicConjugation, self).__init__(principle_parts, verb_id)
         base = remove_accents(self.principle_parts[0][:-2])
-        self.long_vowel = base[-1]
+        self.long_vowel = get_last_vowel(base)
         self.using_long_vowel = False
         self.set_athematic_endings()
         self.special_case_endings()
@@ -647,16 +647,25 @@ class AthematicConjugation(GreekConjugation):
         if not remove_accents(principle_part).endswith(u'μι'):
             raise ValueError('Are you sure this is an athematic verb?')
         base = remove_accents(principle_part[:-2])
-        without_vowel = base[:-1]
+        last_vowel = get_last_vowel(base)
+        index = base.rfind(last_vowel)
+        base, rest = base[:index], base[index:]
+        rest = rest.replace(last_vowel, '')
+        without_vowel = base + rest
         if voice in ['Middle', 'Passive'] or mood != 'Indicative':
-            return without_vowel + self.short_vowel
+            vowel = self.short_vowel
         elif number == 'Singular':
             self.using_long_vowel = True
-            return without_vowel + self.long_vowel
+            vowel = self.long_vowel
         elif number == 'Plural':
-            return without_vowel + self.short_vowel
-        raise ValueError("Something bad happened while stemming the first "
-                "principle part")
+            vowel = self.short_vowel
+        else:
+            raise ValueError("Something bad happened while stemming the first "
+                    "principle part")
+        if without_vowel == u'\u0313':
+            return vowel + without_vowel
+        else:
+            return without_vowel + vowel
 
     def stem_third_pp(self, principle_part, tense, mood, voice, number):
         if self.principle_parts[0] in stem_changers:
@@ -721,9 +730,9 @@ def get_short_vowel(long_vowel, principle_parts):
         return u''
 
 stem_changers = [u'δίδωμι', u'τίθημι']
-no_subj_contract = [u'δείκνυμι', u'εἰμί']
-thematic_optative = [u'δείκνυμι']
-hard_short_vowels = {u'φημί': u'α'}
+no_subj_contract = [u'δείκνυμι', u'εἰμί', u'εἶμι']
+thematic_optative = [u'δείκνυμι', u'εἶμι']
+hard_short_vowels = {u'φημί': u'α', u'εἶμι': u'ι'}
 
 
 if __name__ == '__main__':
