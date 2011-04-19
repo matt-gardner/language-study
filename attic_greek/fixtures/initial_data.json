@@ -905,6 +905,123 @@
     }
   }, 
   {
+    "pk": 46, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u03b5\u1f36", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 25, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 47, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f94\u03b5\u03b9\u03bd", 
+      "number": 1, 
+      "person": 1, 
+      "verb": 25, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 48, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f94\u03b5\u03b9\u03c2", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 25, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f94\u03b5\u03b9", 
+      "number": 1, 
+      "person": 3, 
+      "verb": 25, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 50, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f96\u03bc\u03b5\u03bd", 
+      "number": 2, 
+      "person": 1, 
+      "verb": 25, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 51, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f96\u03c4\u03b5", 
+      "number": 2, 
+      "person": 2, 
+      "verb": 25, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 52, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 1, 
+      "form": "\u1f96\u03c3\u03b1\u03bd", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 25, 
+      "tense": 2, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 53, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u1f30\u03cc\u03bd\u03c4\u03c9\u03bd", 
+      "number": 2, 
+      "person": 3, 
+      "verb": 25, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
+    "pk": 54, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 5, 
+      "form": "\u1f30\u03ad\u03bd\u03b1\u03b9", 
+      "number": 3, 
+      "person": 4, 
+      "verb": 25, 
+      "tense": 1, 
+      "voice": 1
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.irregularverbstem", 
     "fields": {
@@ -1384,6 +1501,20 @@
     }
   }, 
   {
+    "pk": 25, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "to go", 
+      "review_count": 0, 
+      "word": "\u03b5\u1f36\u03bc\u03b9, _, _, _, _, _", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-04-18 22:46:49", 
+      "last_reviewed": "2011-04-18 22:46:49"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -1572,6 +1703,14 @@
     "model": "drills.verb", 
     "fields": {
       "conjugation": 1, 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "drills.verb", 
+    "fields": {
+      "conjugation": 2, 
       "tags": []
     }
   }

@@ -121,6 +121,85 @@
       ]
     },
     {
+      "definition": "to go",
+      "word": "εἶμι, _, _, _, _, _",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "εἶ"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ᾔειν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ᾔεις"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ᾔει"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Plural",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ᾖμεν"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Plural",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ᾖτε"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ᾖσαν"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "ἰόντων"
+        },
+        {
+          "Person": "None",
+          "Number": "None",
+          "Tense": "Present",
+          "Mood": "Infinitive",
+          "Voice": "Active",
+          "Form": "ἰέναι"
+        }
+      ]
+    },
+    {
       "definition": "to be",
       "word": "εἰμί, ἔσομαι, _, _, _, _",
       "conjugation": "Athematic",

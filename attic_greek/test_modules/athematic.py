@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+from attic_greek import conjugation
 from attic_greek.conjugation import AthematicConjugation
 from attic_greek.conjugation import GreekConjugation
 from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
@@ -1212,7 +1213,84 @@ class EgnonTest(GreekTestCase):
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
+class Eimi2Test(GreekTestCase):
+    # PRESENT TENSE TESTS
+    def test_present_ind_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'εἶμι', u'εἶ', u'εἶσι', u'ἴμεν',
+                u'ἴτε', u'ἴασι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['eimi2'].word, verbs['eimi2'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_subj_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'ἴω', u'ἴῃς', u'ἴῃ', u'ἴωμεν', u'ἴητε', u'ἴωσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['eimi2'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_opt_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'ἴοιμι', u'ἴοις', u'ἴοι', u'ἴοιμεν', u'ἴοιτε', u'ἴοιεν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['eimi2'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_imp_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        answers = [u'ἴθι', u'ἴτω', u'ἴτε', u'ἰόντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['eimi2'].word, verbs['eimi2'].id)
+        for case, answer in zip(imp_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_inf_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'ἰέναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['eimi2'].word, verbs['eimi2'].id)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # IMPERFECT TENSE TESTS
+    def test_imperfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ᾔειν', u'ᾔεις', u'ᾔει', u'ᾖμεν', u'ᾖτε', u'ᾖσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['eimi2'].word, verbs['eimi2'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+
 all_tests = [DidomiTest, TithemiTest, HistemiTest, DeiknumiTest, EimiTest,
-        PhemiTest, EgnonTest]
+        PhemiTest, EgnonTest, Eimi2Test]
 
 # vim: et sw=4 sts=4
