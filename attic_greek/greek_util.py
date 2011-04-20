@@ -13,6 +13,7 @@ grave_accent = u'\u0300'
 circumflex = u'\u0342'
 accents = set([u'\u0301', u'\u0342', u'\u0300'])
 acc_plus_breath = set([u'\u0301', u'\u0313', u'\u0314', u'\u0342', u'\u0300'])
+breathings = set([u'\u0313', u'\u0314'])
 
 
 # Methods intended to be public
@@ -139,6 +140,8 @@ def is_accented(word):
 
 
 def starts_with_vowel(word):
+    if len(word) == 0:
+        return False
     normalized = unicodedata.normalize('NFKD', word)
     word = u''.join([c for c in normalized if not unicodedata.combining(c)])
     return word[0] in vowels
@@ -228,11 +231,33 @@ def get_matching_index(unaccented, accented, index):
 
 def lengthen_vowel(vowel):
     if vowel == u'ει':
-        return u'ᾐ'
+        return u'ῃ'
     elif vowel == u'ε':
-        return u'ἠ'
+        return u'η'
+    elif vowel == u'η':
+        return u'η'
     elif vowel == u'α':
-        return u'ἠ'
+        return u'η'
+    elif vowel == u'ι':
+        return u'ι'
+
+
+def shorten_vowel(vowel, principle_parts):
+    if vowel == u'ε':
+        # This is a bit of a hack, because we shouldn't ever have to shorten ε
+        # Oh well
+        return u'ε'
+    if vowel == u'ει':
+        return u'ε'
+    elif vowel == u'η':
+        # TODO: look at pp's to figure out what to do with this
+        return u'ε'
+    elif vowel == u'α':
+        return u'α'
+    elif vowel == u'ι':
+        return u'ι'
+    elif vowel == u'ω':
+        return u'ο'
 
 
 # Methods that are intended to be private
@@ -352,12 +377,14 @@ def get_final_consonant(word):
 
 
 def remove_initial_vowel(word):
+    if not word:
+        return u''
     word = unicodedata.normalize('NFKD', word)
     removed = u''
     while word[0] in vowels or unicodedata.combining(word[0]):
         removed += word[0]
         test = u''.join([c for c in removed if not unicodedata.combining(c)])
-        if test not in vowels and test not in diphthongs:
+        if test and test not in vowels and test not in diphthongs:
             return word
         if len(word) == 1:
             return u''

@@ -10,6 +10,7 @@ from greek_util import add_final_circumflex
 from greek_util import add_penult_accent
 from greek_util import add_recessive_accent
 from greek_util import add_athematic_optative_accent
+from greek_util import breathings
 from greek_util import circumflex
 from greek_util import contract_vowels
 from greek_util import get_final_consonant
@@ -23,8 +24,9 @@ from greek_util import lengthen_vowel
 from greek_util import remove_accents
 from greek_util import remove_all_combining
 from greek_util import remove_initial_vowel
-from greek_util import starts_with_vowel
+from greek_util import shorten_vowel
 from greek_util import split_syllables
+from greek_util import starts_with_vowel
 from greek_util import vowels
 from language_study.drills.models import *
 
@@ -160,6 +162,23 @@ class GreekConjugation(Conjugation):
         v = Voice.objects.get(name=voice, language=l)
         ve = Verb.objects.get(pk=self.verb_id)
         ivs = IrregularVerbStem.objects.get(verb=ve, tense=t, mood=m, voice=v)
+        return unicodedata.normalize('NFKD', ivs.stem)
+
+    def is_irregular_augment(self, tense):
+        l = Language.objects.get(name='Attic Greek')
+        t = Tense.objects.get(name=tense, language=l)
+        ve = Verb.objects.get(pk=self.verb_id)
+        try:
+            IrregularVerbAugmentedStem.objects.get(verb=ve, tense=t)
+            return True
+        except IrregularVerbAugmentedStem.DoesNotExist:
+            return False
+
+    def irregular_augment(self, tense):
+        l = Language.objects.get(name='Attic Greek')
+        t = Tense.objects.get(name=tense, language=l)
+        ve = Verb.objects.get(pk=self.verb_id)
+        ivs = IrregularVerbAugmentedStem.objects.get(verb=ve, tense=t)
         return unicodedata.normalize('NFKD', ivs.stem)
 
     def get_principle_part(self, tense, voice):
@@ -389,50 +408,38 @@ class GreekConjugation(Conjugation):
         return True
 
     def remove_augment(self, form):
-        form = remove_accents(form, breathing=True)
+        form = remove_accents(form)
         syllables = split_syllables(form)
-        if syllables[0] == u'ε':
+        if syllables[0] == unicodedata.normalize('NFKD', u'ἐ'):
             # TODO: I'm sure this will break on some verbs
-            return form[1:]
+            return form[2:]
         else:
-            if len(syllables) == 1:
-                rest = remove_initial_vowel(syllables[0])
-            else:
-                rest = u''.join(syllables[1:])
-            first_pp = self.principle_parts[0]
-            initial_vowel = split_syllables(first_pp)[0]
-            initial_vowel = remove_accents(initial_vowel, breathing=False)
-            return initial_vowel + rest
+            vowel = get_vowel(syllables[0])
+            without_augment = shorten_vowel(vowel, self.principle_parts)
+            rest = remove_initial_vowel(syllables[0]) + u''.join(syllables[1:])
+            for breathing in breathings:
+                if breathing in syllables[0]:
+                    without_augment += breathing
+            return without_augment + rest
         #TODO: figure out how to handle cases with a tricky augment
         raise NotImplementedError()
 
     def add_augment(self, form, tense, voice):
-        if not starts_with_vowel(form):
+        augmented_vowel = None
+        if self.verb_id != -1 and self.is_irregular_augment(tense):
+            augmented_vowel = self.irregular_augment(tense)
+        if not augmented_vowel and not starts_with_vowel(form):
             return u'ἐ' + form
-        if form.startswith(unicodedata.normalize('NFKD', u'ἱ')):
-            # Special case that maybe could be generalized later.  The idea is
-            # some forms don't have a visible augment, because the vowel stays
-            # the same.  ἵστημι is one of those, and that's the case here
-            return form
         #TODO: make this better.  This is a start, but it's not complete
         syllables = split_syllables(form)
-        if len(syllables) == 1:
-            rest = remove_initial_vowel(syllables[0])
-        else:
-            rest = u''.join(syllables[1:])
-        if tense == 'Aorist' and voice in ['Active', 'Middle']:
-            pp = self.principle_parts[2]
-        elif tense == 'Aorist' and voice == 'Passive':
-            pp = self.principle_parts[5]
-        else:
-            # This is wrong, but it might work sometimes
-            pp = self.principle_parts[2]
-        if pp:
-            initial_vowel = remove_accents(split_syllables(pp)[0])
-        else:
-            vowel = get_vowel(split_syllables(self.current_stem)[0])
-            initial_vowel = lengthen_vowel(vowel)
-        return unicodedata.normalize('NFKD', initial_vowel + rest)
+        rest = remove_initial_vowel(syllables[0]) + u''.join(syllables[1:])
+        if not augmented_vowel:
+            vowel = get_vowel(syllables[0])
+            augmented_vowel = lengthen_vowel(vowel)
+        for breathing in breathings:
+            if breathing in syllables[0]:
+                augmented_vowel += breathing
+        return unicodedata.normalize('NFKD', augmented_vowel + rest)
 
     def combine_parts(self, augment, stem, ending, tense, mood, voice):
         # I don't think this is different by conjugation; you just have to
@@ -450,7 +457,7 @@ class GreekConjugation(Conjugation):
             return form
         if augment:
             stem = self.add_augment(stem, tense, voice)
-        if stem == u'\u0313' or stem == u'ε\u0313':
+        if stem in breathings or stem == u'ε\u0313':
             # Silly special case, but it works...
             return stem[:-1] + ending[0] + stem[-1] + ending[1:]
         return stem + ending
@@ -669,7 +676,7 @@ class AthematicConjugation(GreekConjugation):
         else:
             raise ValueError("Something bad happened while stemming the first "
                     "principle part")
-        if without_vowel == u'\u0313':
+        if without_vowel in breathings:
             return vowel + without_vowel
         else:
             return without_vowel + vowel
@@ -677,7 +684,12 @@ class AthematicConjugation(GreekConjugation):
     def stem_third_pp(self, principle_part, tense, mood, voice, number):
         if self.principle_parts[0] in stem_changers:
             long_with_augment = remove_accents(principle_part)[:-1]
-            short_with_augment = long_with_augment[:-2] + self.short_vowel
+            base, rest = long_with_augment[:-2], long_with_augment[-2:]
+            if rest[0] in breathings:
+                base_vowel = base[-1]
+                base = base[:-1] + rest[0]
+                rest = base_vowel + rest[1:]
+            short_with_augment = base + self.short_vowel
             if (tense == 'Aorist' and mood == 'Indicative' and
                     voice == 'Active' and number == 'Singular'):
                 stem = long_with_augment
@@ -737,7 +749,7 @@ def get_short_vowel(long_vowel, principle_parts):
         # For εἰμί, really
         return u''
 
-stem_changers = [u'δίδωμι', u'τίθημι']
+stem_changers = [u'δίδωμι', u'τίθημι', u'ἵημι']
 no_subj_contract = [u'δείκνυμι', u'εἰμί', u'εἶμι']
 thematic_optative = [u'δείκνυμι', u'εἶμι']
 hard_short_vowels = {u'φημί': u'α', u'εἶμι': u'ι', u'ἵημι': u'ε'}

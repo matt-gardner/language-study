@@ -306,7 +306,7 @@
           "Tense": "Imperfect",
           "Mood": "Indicative",
           "Voice": "Active",
-          "Stem": "ε"
+          "Stem": "ἐ"
         },
         {
           "Tense": "Present",
@@ -384,6 +384,36 @@
           "Mood": "Indicative",
           "Voice": "Active",
           "Form": "ἵει"
+        },
+        {
+          "Person": "First Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἧκα"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἧκας"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἧκε"
+        }
+      ],
+      "irregular augmented stems": [
+        {
+          "Tense": "Aorist",
+          "Stem": "ει"
         }
       ]
     },

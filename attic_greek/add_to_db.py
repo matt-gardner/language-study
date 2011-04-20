@@ -108,9 +108,12 @@ def add_language():
                 voice = stem['Voice']
                 s = stem['Stem']
                 irregular_verb_stem(verb['word'], tense, mood, voice, s)
+        if "irregular augmented stems" in verb:
+            for stem in verb["irregular augmented stems"]:
+                tense = stem['Tense']
+                s = stem['Stem']
+                irregular_verb_aug_stem(verb['word'], tense, mood, voice, s)
 
-    for a in added:
-        print 'Added:', a
     if not added:
         print 'Nothing added to the database'
 
@@ -137,6 +140,14 @@ def irregular_verb_stem(verb, tense, mood, voice, stem):
     add_or_fail(IrregularVerbStem, args)
 
 
+def irregular_verb_aug_stem(verb, tense, mood, voice, stem):
+    args = {}
+    args['verb'] = object_cache['Verb'][verb]
+    args['tense'] = object_cache['Tense'][tense]
+    args['stem'] = stem
+    add_or_fail(IrregularVerbAugmentedStem, args)
+
+
 def add_or_fail(model, query_args, create_args={}):
     global object_cache
     if 'name' in query_args:
@@ -159,6 +170,7 @@ def add_or_fail(model, query_args, create_args={}):
         obj.save()
         global added
         added.append(model.__name__ + ': ' + output)
+        print 'Added:', added[-1]
         for key in create_args:
             del query_args[key]
     object_cache[model.__name__][output] = obj

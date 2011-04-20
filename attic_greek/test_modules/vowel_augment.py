@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+from attic_greek import conjugation
 from attic_greek.conjugation import GreekConjugation
 from attic_greek.test_modules import verbs, cases, GreekTestCase
 import unicodedata
 
 class VowelAugmentTest(GreekTestCase):
-    def test_ethelo(self):
+    def test_ethelo_imperfect(self):
         args = {}
         args['tense'] = 'Imperfect'
         args['mood'] = 'Indicative'
@@ -19,6 +20,7 @@ class VowelAugmentTest(GreekTestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
+    def test_ethelo_aorist(self):
         args = {}
         args['tense'] = 'Aorist'
         args['mood'] = 'Indicative'
@@ -31,6 +33,7 @@ class VowelAugmentTest(GreekTestCase):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
+    def test_ethelo_pluperfect(self):
         args = {}
         args['tense'] = 'Pluperfect'
         args['mood'] = 'Indicative'
