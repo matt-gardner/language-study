@@ -321,10 +321,11 @@ def get_last_vowel(word):
             return u''
         word = word[:-1]
     vowel = u''
-    while word[-1] in vowels:
-        if len(word) == 1:
-            return word[-1] + vowel
-        vowel = word[-1] + vowel
+    while len(word) > 0 and word[-1] in vowels:
+        temp_vowel = word[-1] + vowel
+        if temp_vowel not in vowels and temp_vowel not in diphthongs:
+            return vowel
+        vowel = temp_vowel
         word = word[:-1]
     return vowel
 

@@ -541,6 +541,10 @@ class GreekConjugation(Conjugation):
         return False
 
     def contract(self, form, principle_part, ending):
+        # TODO: add comments to this code that describe what each part does.
+        # I wrote this a long time ago, and it works, but I just tried looking
+        # at it to fix a corner case and I had a really hard time.  It needs
+        # some comments.
         stem_to_remove = remove_initial_vowel(principle_part)
         stem_to_remove = remove_all_combining(stem_to_remove)
         if principle_part.endswith(u'ω'):
@@ -560,14 +564,17 @@ class GreekConjugation(Conjugation):
         if len(stem_to_remove) > 2:
             substr = stem_to_remove[-2:]
             add = 1
-        else:
+        elif len(stem_to_remove) > 0:
             substr = stem_to_remove[-1]
+            add = 0
+        else:
+            substr = ''
             add = 0
         end_index = no_diacritics.find(substr, start_index) + add
         end_index = get_matching_index(no_diacritics, form, end_index)
         beginning = form[:end_index]
         rest = form[end_index:]
-        if is_accent(rest[0]):
+        if is_accent(rest[0], breathing=True):
             beginning += rest[0]
             rest = rest[1:]
         ending_to_remove = remove_initial_vowel(ending)
@@ -712,6 +719,7 @@ class AthematicConjugation(GreekConjugation):
         return super(AthematicConjugation, self).add_accent(verb, mood, tense,
                 voice, principle_part)
 
+
 def get_short_vowel(long_vowel, principle_parts):
     if principle_parts[0] in hard_short_vowels:
         return hard_short_vowels[principle_parts[0]]
@@ -732,7 +740,7 @@ def get_short_vowel(long_vowel, principle_parts):
 stem_changers = [u'δίδωμι', u'τίθημι']
 no_subj_contract = [u'δείκνυμι', u'εἰμί', u'εἶμι']
 thematic_optative = [u'δείκνυμι', u'εἶμι']
-hard_short_vowels = {u'φημί': u'α', u'εἶμι': u'ι'}
+hard_short_vowels = {u'φημί': u'α', u'εἶμι': u'ι', u'ἵημι': u'ε'}
 
 
 if __name__ == '__main__':

@@ -1290,7 +1290,290 @@ class Eimi2Test(GreekTestCase):
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 
+class HiemiTest(GreekTestCase):
+    # PRESENT TENSE TESTS
+    def test_present_ind_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἵημι', u'ἵης', u'ἵησι', u'ἵεμεν',
+                u'ἵετε', u'ἱᾶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word, verbs['hiemi'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_subj_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'ἱῶ', u'ἱῇς', u'ἱῇ', u'ἱῶμεν',
+                u'ἱῆτε', u'ἱῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_opt_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'ἱείην', u'ἱείης', u'ἱείη', u'ἱείημεν',
+                u'ἱείητε', u'ἱείησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_imp_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        answers = [u'ἵει', u'ἱέτω', u'ἵετε', u'ἱέντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word, verbs['hiemi'].id)
+        for case, answer in zip(imp_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_inf_act(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'ἱέναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_ind_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἵεμαι', u'ἵεσαι', u'ἵεται', u'ἱέμεθα',
+                u'ἵεσθε', u'ἵενται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_subj_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Middle'
+        answers = [u'ἱῶμαι', u'ἱῇ', u'ἱῆται', u'ἱώμεθα',
+                u'ἱῆσθε', u'ἱῶνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_opt_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Middle'
+        answers = [u'ἱείμην', u'ἱεῖο', u'ἱεῖτο', u'ἱείμεθα',
+                u'ἱεῖσθε', u'ἱεῖντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_imp_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Middle'
+        answers = [u'ἵεσο', u'ἱέσθω', u'ἵεσθε', u'ἱέσθων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(imp_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_present_inf_mid(self):
+        args = {}
+        args['tense'] = 'Present'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'ἵεσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # IMPERFECT TENSE TESTS
+    def test_imperfect_ind_act(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἵην', u'ἵεις', u'ἵει', u'ἵεμεν',
+                u'ἵετε', u'ἵεσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word, verbs['hiemi'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_imperfect_ind_mid(self):
+        args = {}
+        args['tense'] = 'Imperfect'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἱέμην', u'ἵεσο', u'ἵετο', u'ἱέμεθα',
+                u'ἵεσθε', u'ἵεντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['hiemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    # AORIST TENSE TESTS
+    def test_aorist_ind_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Active'
+        answers = [u'ἔθηκα', u'ἔθηκας', u'ἔθηκε', u'ἔθεμεν',
+                u'ἔθετε', u'ἔθεσαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_subj_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Active'
+        answers = [u'θῶ', u'θῇς', u'θῇ', u'θῶμεν',
+                u'θῆτε', u'θῶσι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_opt_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Active'
+        answers = [u'θείην', u'θείης', u'θείη', u'θείημεν',
+                u'θείητε', u'θείησαν']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_imp_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Active'
+        answers = [u'θές', u'θέτω', u'θέτε', u'θέντων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        for case, answer in zip(imp_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_inf_act(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Active'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'θεῖναι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_ind_mid(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Indicative'
+        args['voice'] = 'Middle'
+        answers = [u'ἐθέμην', u'ἔθου', u'ἔθετο',
+                u'ἐθέμεθα', u'ἔθεσθε', u'ἔθεντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word, verbs['tithemi'].id)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_subj_mid(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Subjunctive'
+        args['voice'] = 'Middle'
+        answers = [u'θῶμαι', u'θῇ', u'θῆται', u'θώμεθα',
+                u'θῆσθε', u'θῶνται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_opt_mid(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Optative'
+        args['voice'] = 'Middle'
+        answers = [u'θείμην', u'θεῖο', u'θεῖτο',
+                u'θείμεθα', u'θεῖσθε', u'θεῖντο']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        for case, answer in zip(cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_imp_mid(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Imperative'
+        args['voice'] = 'Middle'
+        answers = [u'θοῦ', u'θέσθω', u'θέσθε', u'θέσθων']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        conj = AthematicConjugation(verbs['tithemi'].word, verbs['tithemi'].id)
+        for case, answer in zip(imp_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+    def test_aorist_inf_mid(self):
+        args = {}
+        args['tense'] = 'Aorist'
+        args['mood'] = 'Infinitive'
+        args['voice'] = 'Middle'
+        args['person'] = 'None'
+        args['number'] = 'None'
+        answer = u'θέσθαι'
+        answer = unicodedata.normalize('NFKD', answer)
+        conj = AthematicConjugation(verbs['tithemi'].word)
+        self.failUnlessEqual(conj.conjugate(**args), [answer])
+
+
 all_tests = [DidomiTest, TithemiTest, HistemiTest, DeiknumiTest, EimiTest,
-        PhemiTest, EgnonTest, Eimi2Test]
+        PhemiTest, EgnonTest, Eimi2Test, HiemiTest]
 
 # vim: et sw=4 sts=4

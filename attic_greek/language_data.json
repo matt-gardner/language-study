@@ -349,6 +349,45 @@
       "conjugation": "Thematic"
     },
     {
+      "definition": "to release, hurl, send",
+      "word": "ἵημι, ἥσω, ἧκα, εἷκα, εἷμαι, εἵθην",
+      "conjugation": "Athematic",
+      "irregular forms": [
+        {
+          "Person": "Third Person",
+          "Number": "Plural",
+          "Tense": "Present",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἱᾶσι"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Present",
+          "Mood": "Imperative",
+          "Voice": "Active",
+          "Form": "ἵει"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἵεις"
+        },
+        {
+          "Person": "Third Person",
+          "Number": "Singular",
+          "Tense": "Imperfect",
+          "Mood": "Indicative",
+          "Voice": "Active",
+          "Form": "ἵει"
+        }
+      ]
+    },
+    {
       "definition": "to stand",
       "word": "ἵστημι, στήσω, ἔστην, ἕστηκα, ἕσταμαι, ἐστάθην",
       "conjugation": "Athematic",
