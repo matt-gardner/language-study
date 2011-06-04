@@ -1060,6 +1060,19 @@
     }
   }, 
   {
+    "pk": 61, 
+    "model": "drills.irregularverbform", 
+    "fields": {
+      "mood": 4, 
+      "form": "\u03bf\u1f57", 
+      "number": 1, 
+      "person": 2, 
+      "verb": 14, 
+      "tense": 4, 
+      "voice": 2
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.irregularverbstem", 
     "fields": {

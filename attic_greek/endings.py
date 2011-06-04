@@ -730,7 +730,7 @@ class AthAoristIndMid(EndingSet):
     def __init__(self):
         super(AthAoristIndMid, self).__init__()
         self['First Person']['Singular'] = u'μην'
-        self['Second Person']['Singular'] = u'ο'
+        self['Second Person']['Singular'] = u'σο'
         self['Third Person']['Singular'] = u'το'
         self['First Person']['Plural'] = u'μεθα'
         self['Second Person']['Plural'] = u'σθε'

@@ -1514,10 +1514,10 @@ class HiemiTest(GreekTestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Indicative'
         args['voice'] = 'Middle'
-        answers = [u'ἐθέμην', u'ἔθου', u'ἔθετο',
-                u'ἐθέμεθα', u'ἔθεσθε', u'ἔθεντο']
+        answers = [u'εἵμην', u'εἷσο', u'εἷτο',
+                u'εἵμεθα', u'εἷσθε', u'εἷντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['tithemi'].word, verbs['tithemi'].id)
+        conj = AthematicConjugation(verbs['hiemi'].word, verbs['hiemi'].id)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -1527,10 +1527,10 @@ class HiemiTest(GreekTestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Subjunctive'
         args['voice'] = 'Middle'
-        answers = [u'θῶμαι', u'θῇ', u'θῆται', u'θώμεθα',
-                u'θῆσθε', u'θῶνται']
+        answers = [u'ὧμαι', u'ᾗ', u'ἧται', u'ὥμεθα',
+                u'ἧσθε', u'ὧνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['tithemi'].word)
+        conj = AthematicConjugation(verbs['hiemi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -1540,10 +1540,10 @@ class HiemiTest(GreekTestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Optative'
         args['voice'] = 'Middle'
-        answers = [u'θείμην', u'θεῖο', u'θεῖτο',
-                u'θείμεθα', u'θεῖσθε', u'θεῖντο']
+        answers = [u'εἵμην', u'εἷο', u'εἷτο',
+                u'εἵμεθα', u'εἷσθε', u'εἷντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['tithemi'].word)
+        conj = AthematicConjugation(verbs['hiemi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -1553,9 +1553,9 @@ class HiemiTest(GreekTestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Imperative'
         args['voice'] = 'Middle'
-        answers = [u'θοῦ', u'θέσθω', u'θέσθε', u'θέσθων']
+        answers = [u'οὗ', u'ἕσθω', u'ἕσθε', u'ἕσθων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['tithemi'].word, verbs['tithemi'].id)
+        conj = AthematicConjugation(verbs['hiemi'].word, verbs['hiemi'].id)
         for case, answer in zip(imp_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
@@ -1567,9 +1567,9 @@ class HiemiTest(GreekTestCase):
         args['voice'] = 'Middle'
         args['person'] = 'None'
         args['number'] = 'None'
-        answer = u'θέσθαι'
+        answer = u'ἕσθαι'
         answer = unicodedata.normalize('NFKD', answer)
-        conj = AthematicConjugation(verbs['tithemi'].word)
+        conj = AthematicConjugation(verbs['hiemi'].word)
         self.failUnlessEqual(conj.conjugate(**args), [answer])
 
 

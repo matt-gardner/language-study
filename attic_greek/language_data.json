@@ -408,6 +408,14 @@
           "Mood": "Indicative",
           "Voice": "Active",
           "Form": "ἧκε"
+        },
+        {
+          "Person": "Second Person",
+          "Number": "Singular",
+          "Tense": "Aorist",
+          "Mood": "Imperative",
+          "Voice": "Middle",
+          "Form": "οὗ"
         }
       ],
       "irregular augmented stems": [
