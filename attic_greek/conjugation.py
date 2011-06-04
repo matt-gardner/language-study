@@ -547,7 +547,6 @@ class GreekConjugation(Conjugation):
         return False
 
     def contract(self, form, stem, ending):
-        # TODO: can this be done with the stem instead of the principle part?
         # We want to remove the the front matter from the rest of stem so that
         # it's easier to find the end of it.  We just want to find the
         # pertinent vowels so that we can contract them.
@@ -562,14 +561,7 @@ class GreekConjugation(Conjugation):
                 if self.root_aorist:
                     stem_to_remove = stem_to_remove[:-1]
             except AttributeError:
-                if verbose:
-                    print 'not root aorist'
                 pass
-        if verbose:
-            print 'form:', form
-            print 'stem:', stem
-            print 'ending:', ending
-            print 'stem_to_remove:', stem
         # The stem doesn't have any diacritics, so we need to remove them from
         # the form.  They mess us up.
         no_diacritics = remove_all_combining(form)
