@@ -50,10 +50,9 @@ class GreekConjugation(Conjugation):
     """Conjugates regular Greek verbs like παιδεύω into all possible forms
 
     Most of the alternate and irregular forms are still based off of the
-    regular conjugation, so things like Athematic and Deponent conjugations are
-    best implemented as subclasses of this.  This class provides the basic
-    structure of how to conjugate a Greek verb, so only parts will need to be
-    overridden.
+    regular conjugation, so things like Athematic conjugations are best
+    implemented as subclasses of this.  This class provides the basic structure
+    of how to conjugate a Greek verb, so only parts will need to be overridden.
     """
     def __init__(self, principle_parts, verb_id=-1):
         self.original_word = principle_parts
@@ -95,7 +94,7 @@ class GreekConjugation(Conjugation):
         accented = self.add_accent(final_form, mood, tense, voice,
                 principle_part)
         if self.needs_contraction(tense, mood, voice, principle_part):
-            accented = self.contract(accented, principle_part, ending)
+            accented = self.contract(accented, stem, ending)
         return [accented]
 
     def check_kwargs(self, kwargs):
@@ -547,27 +546,41 @@ class GreekConjugation(Conjugation):
                         return True
         return False
 
-    def contract(self, form, principle_part, ending):
-        # TODO: add comments to this code that describe what each part does.
-        # I wrote this a long time ago, and it works, but I just tried looking
-        # at it to fix a corner case and I had a really hard time.  It needs
-        # some comments.
-        stem_to_remove = remove_initial_vowel(principle_part)
+    def contract(self, form, stem, ending):
+        # TODO: can this be done with the stem instead of the principle part?
+        # We want to remove the the front matter from the rest of stem so that
+        # it's easier to find the end of it.  We just want to find the
+        # pertinent vowels so that we can contract them.
+        stem_to_remove = remove_initial_vowel(stem)
         stem_to_remove = remove_all_combining(stem_to_remove)
-        if principle_part.endswith(u'ω'):
-            stem_to_remove = stem_to_remove[:-2]
-        elif principle_part.endswith(u'ομαι'):
-            stem_to_remove = stem_to_remove[:-5]
-        elif principle_part.endswith(u'ῶ'):
+        if split_syllables(stem_to_remove)[-1][-1] in [u'α', u'ε', u'ο']:
             stem_to_remove = stem_to_remove[:-1]
-        elif principle_part.endswith(u'οῦμαι'):
-            stem_to_remove = stem_to_remove[:-5]
-        elif principle_part.endswith(u'μι'):
-            stem_to_remove = stem_to_remove[:-3]
-        elif principle_part.endswith(u'ν'):
-            stem_to_remove = stem_to_remove[:-2]
+        else:
+            try:
+                # Root aorists have a funny stem, but we still want to contract
+                # the last vowel, so we take it out of stem_to_remove
+                if self.root_aorist:
+                    stem_to_remove = stem_to_remove[:-1]
+            except AttributeError:
+                if verbose:
+                    print 'not root aorist'
+                pass
+        if verbose:
+            print 'form:', form
+            print 'stem:', stem
+            print 'ending:', ending
+            print 'stem_to_remove:', stem
+        # The stem doesn't have any diacritics, so we need to remove them from
+        # the form.  They mess us up.
         no_diacritics = remove_all_combining(form)
+        # Find the stem that we want to remove in the form
         start_index = no_diacritics.find(stem_to_remove)
+        # Once we've found the start of the stem in the form, we need to look
+        # for the end, starting at the starting place.  substr is the end of
+        # the stem, either the last two characters, or the last character, or
+        # empty, depending on how long the stem is.  If it's two characters, we
+        # need to add one to end_index, because find gives us the beginning of
+        # the location, not the end.
         if len(stem_to_remove) > 2:
             substr = stem_to_remove[-2:]
             add = 1
@@ -577,32 +590,64 @@ class GreekConjugation(Conjugation):
         else:
             substr = ''
             add = 0
+        # After this, end_index holds the location of the end of the stem 
+        # (the place we want to start getting vowels from) in no_diacritics
         end_index = no_diacritics.find(substr, start_index) + add
+        # We removed diacritics from form, but we found end_index in
+        # no_diacritics.  So we need to get the matching index in form.
         end_index = get_matching_index(no_diacritics, form, end_index)
+        # Separate out the beginning that we're not going to modify, and hold
+        # onto it for recombining when we're done
         beginning = form[:end_index]
+        # rest should have the vowels we need to contract
         rest = form[end_index:]
+        # but if there's a breathing or accent at the beginning of rest
+        # (because end_index was 0, for instance), move it to beginning,
+        # because it will mess us up
         if is_accent(rest[0], breathing=True):
             beginning += rest[0]
             rest = rest[1:]
+        # The last vowel of the stem contracts with the first vowel of the
+        # ending.  So remove the rest of the ending so we can isolate the
+        # vowels we care about.
         ending_to_remove = remove_initial_vowel(ending)
+        # Now we have the vowels we need to contract in vowels
         vowels = rest[:rest.rfind(ending_to_remove)]
+        # The ending part that we removed will be tacked onto the end, so save
+        # it here
         rest = ending_to_remove
+        # We don't want to worry about vowels in the contraction lookup, so we
+        # remove them.  But we need to know if it was accented so we can
+        # reproduce the correct accent on the form.  So we save this here.
         accented = is_accented(vowels)
+        # Handle spurious diphthongs (this is very likely incomplete)
         if ending == u'ειν':
             spurious = True
         else:
             spurious = False
+        # This is pretty much for δίδωμι, though some other verbs do it too.
+        # In those verbs, οῃ goes to ῳ instead of the usual οι.
         athematic = False
         if isinstance(self, AthematicConjugation):
             athematic = True
+        # One of the other cases that does it is root verbs, like ἐγνων
+        # We have this try except block instead of having every verb carry
+        # around self.root_aorist.  We only set it when necessary.  Maybe
+        # that's a silly way of doing it, and I should just set
+        # self.root_aorist = False in __init__, but exceptions are cheap in
+        # python.
         try:
             if self.root_aorist:
                 athematic = True
         except AttributeError:
             pass
+        # Finally, actually contract the vowels.
         vowels = contract_vowels(remove_accents(vowels), spurious, athematic)
-        num_syllables = len(split_syllables(ending_to_remove))
+        # Replace the accent, if necessary.  There is some logic to figure out
+        # if we need a circumflex or an acute accent, but it looks
+        # straightforward to me if you know the rules.
         if accented:
+            num_syllables = len(split_syllables(ending_to_remove))
             last_vowel = get_last_vowel(rest)
             if (not last_vowel or is_short(last_vowel)) and num_syllables <= 1:
                 vowels += circumflex
@@ -697,6 +742,7 @@ class AthematicConjugation(GreekConjugation):
                 stem = short_with_augment
             return self.remove_augment(stem)
         if principle_part.endswith(u'ν'):
+            self.root_aorist = True
             self.endings['Aorist']['Active']['Indicative'] = RootAoristIndAct()
             self.endings['Aorist']['Active']['Imperative'] = RootAoristImpAct()
             stem = remove_accents(principle_part)[:-1]
