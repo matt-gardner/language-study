@@ -13,6 +13,7 @@ from greek_util import add_athematic_optative_accent
 from greek_util import breathings
 from greek_util import circumflex
 from greek_util import contract_vowels
+from greek_util import diphthongs
 from greek_util import get_breathing
 from greek_util import get_final_consonant
 from greek_util import get_last_vowel
@@ -457,7 +458,8 @@ class GreekConjugation(Conjugation):
             return form
         if augment:
             stem = self.add_augment(stem, tense, voice)
-        if stem in breathings or stem == u'ε\u0313':
+        if stem in breathings or ((stem == u'ε\u0313' or stem == u'ε\u0314')
+                and ending[0] in vowels):
             # Silly special case, but it works...
             return stem[:-1] + ending[0] + stem[-1] + ending[1:]
         return stem + ending
@@ -653,7 +655,12 @@ class GreekConjugation(Conjugation):
             else:
                 vowels += acute_accent
         if breathing:
-            vowels = vowels[0] + breathing + vowels[1:]
+            first_vowel = vowels[0]
+            rest_of_vowel = vowels[1:]
+            if len(vowels) > 1 and first_vowel + vowels[1] in diphthongs:
+                first_vowel = vowels[:2]
+                rest_of_vowel = vowels[2:]
+            vowels = first_vowel + breathing + rest_of_vowel
         return unicodedata.normalize('NFKD', beginning + vowels + rest)
 
 
