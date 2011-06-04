@@ -11,9 +11,11 @@ long_optative = [u'οι', u'αι']
 acute_accent = u'\u0301'
 grave_accent = u'\u0300'
 circumflex = u'\u0342'
-accents = set([u'\u0301', u'\u0342', u'\u0300'])
-acc_plus_breath = set([u'\u0301', u'\u0313', u'\u0314', u'\u0342', u'\u0300'])
-breathings = set([u'\u0313', u'\u0314'])
+smooth_breathing = u'\u0313'
+rough_breathing = u'\u0314'
+accents = set([acute_accent, grave_accent, circumflex])
+breathings = set([smooth_breathing, rough_breathing])
+acc_plus_breath = accents.union(breathings)
 
 
 # Methods intended to be public
@@ -137,6 +139,14 @@ def is_accented(word):
         if is_accent(c):
             return True
     return False
+
+
+def get_breathing(word):
+    if smooth_breathing in word:
+        return smooth_breathing
+    if rough_breathing in word:
+        return rough_breathing
+    return None
 
 
 def starts_with_vowel(word):

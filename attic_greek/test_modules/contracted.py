@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+from attic_greek import conjugation
 from attic_greek.conjugation import GreekConjugation
 from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
 import unicodedata

@@ -13,6 +13,7 @@ from greek_util import add_athematic_optative_accent
 from greek_util import breathings
 from greek_util import circumflex
 from greek_util import contract_vowels
+from greek_util import get_breathing
 from greek_util import get_final_consonant
 from greek_util import get_last_vowel
 from greek_util import get_matching_index
@@ -547,12 +548,12 @@ class GreekConjugation(Conjugation):
         return False
 
     def contract(self, form, stem, ending):
-        # We want to remove the the front matter from the rest of stem so that
-        # it's easier to find the end of it.  We just want to find the
-        # pertinent vowels so that we can contract them.
-        stem_to_remove = remove_initial_vowel(stem)
-        stem_to_remove = remove_all_combining(stem_to_remove)
-        if split_syllables(stem_to_remove)[-1][-1] in [u'α', u'ε', u'ο']:
+        # Diacritics make finding the vowels messy, so we remove them
+        stem_to_remove = remove_all_combining(stem)
+        # The stem still has a vowel in it in verbs like ποιέω, and we don't
+        # want to remove that, we want to contract it
+        if (stem_to_remove and
+                split_syllables(stem_to_remove)[-1][-1] in [u'α', u'ε', u'ο']):
             stem_to_remove = stem_to_remove[:-1]
         else:
             try:
@@ -588,6 +589,8 @@ class GreekConjugation(Conjugation):
         # We removed diacritics from form, but we found end_index in
         # no_diacritics.  So we need to get the matching index in form.
         end_index = get_matching_index(no_diacritics, form, end_index)
+        if not stem_to_remove:
+            end_index = 0
         # Separate out the beginning that we're not going to modify, and hold
         # onto it for recombining when we're done
         beginning = form[:end_index]
@@ -596,7 +599,7 @@ class GreekConjugation(Conjugation):
         # but if there's a breathing or accent at the beginning of rest
         # (because end_index was 0, for instance), move it to beginning,
         # because it will mess us up
-        if is_accent(rest[0], breathing=True):
+        while is_accent(rest[0], breathing=True):
             beginning += rest[0]
             rest = rest[1:]
         # The last vowel of the stem contracts with the first vowel of the
@@ -612,6 +615,9 @@ class GreekConjugation(Conjugation):
         # remove them.  But we need to know if it was accented so we can
         # reproduce the correct accent on the form.  So we save this here.
         accented = is_accented(vowels)
+        # If somehow there is still a breathing that we missed, keep it like we
+        # do vowels
+        breathing = get_breathing(vowels)
         # Handle spurious diphthongs (this is very likely incomplete)
         if ending == u'ειν':
             spurious = True
@@ -634,7 +640,8 @@ class GreekConjugation(Conjugation):
         except AttributeError:
             pass
         # Finally, actually contract the vowels.
-        vowels = contract_vowels(remove_accents(vowels), spurious, athematic)
+        vowels = contract_vowels(remove_accents(vowels, breathing=True),
+                spurious, athematic)
         # Replace the accent, if necessary.  There is some logic to figure out
         # if we need a circumflex or an acute accent, but it looks
         # straightforward to me if you know the rules.
@@ -645,6 +652,8 @@ class GreekConjugation(Conjugation):
                 vowels += circumflex
             else:
                 vowels += acute_accent
+        if breathing:
+            vowels = vowels[0] + breathing + vowels[1:]
         return unicodedata.normalize('NFKD', beginning + vowels + rest)
 
 

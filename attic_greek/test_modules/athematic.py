@@ -1464,10 +1464,10 @@ class HiemiTest(GreekTestCase):
         args['tense'] = 'Aorist'
         args['mood'] = 'Subjunctive'
         args['voice'] = 'Active'
-        answers = [u'θῶ', u'θῇς', u'θῇ', u'θῶμεν',
-                u'θῆτε', u'θῶσι']
+        answers = [u'ὧ', u'ᾗς', u'ᾗ', u'ὧμεν',
+                u'ἧτε', u'ὧσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
-        conj = AthematicConjugation(verbs['tithemi'].word)
+        conj = AthematicConjugation(verbs['hiemi'].word)
         for case, answer in zip(cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
