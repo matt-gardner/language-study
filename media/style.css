@@ -2,10 +2,51 @@
 div.page
 {
 	position:absolute;
-	left:12.5%;
-	width:85%;
-	height:100%;
+	left: 12.5%;
+	width: 75%;
+	height: 100%;
 	font-family: "Gentium", "DejaVu LGC Serif", "New Athena Unicode", "Galatia SIL", "Arial Unicode MS", "Lucida Grande";
+}
+
+/* Navigation */
+#navigation {
+	clear: both;
+}
+#navigation .left {
+	/* background: url('../images/navigation.png') no-repeat left top;
+	background: url('../images/navigation_l.png') no-repeat left top;*/
+}
+#navigation .right {
+	float: right;
+	/*background: url('../images/navigation.png') no-repeat right top;*/
+}
+#navigation ul {
+	list-style-type: none;
+	margin: 2px;
+	padding: 2px;
+}
+#navigation ul li {
+	float: left;
+	margin: 2px;
+	padding: 2px;
+	display: block;
+}
+#navigation ul {
+	/*background: url('../images/navigation.png') repeat-x 0 -41px;*/
+}
+#navigation ul li a {
+	/*background: url('../images/navigation_s.png') no-repeat right top;*/
+}
+#navigation ul li.selected a {
+}
+#navigation ul li.last a{
+	background-image: none;
+}
+#navigation ul li a:hover {
+}
+
+div.content {
+	clear:both;
 }
 div.greeting
 {
@@ -37,9 +78,10 @@ div.review
 div.add_word
 {
 	clear:both;
-	margin-top:0;
-	background:#cdf;
-	text-align:center;
+}
+div.add_word ul
+{
+	list-style-type: none;
 }
 
 /* Inside the review panel */

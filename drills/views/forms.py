@@ -9,8 +9,8 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from language_study.drills.common import devariablize
-from language_study.drills.filters import filter_words
+from language_study.drills.views.common import devariablize
+from language_study.drills.views.filters import filter_words
 from language_study.drills.models import Mood
 from language_study.drills.models import Number
 from language_study.drills.models import Person
@@ -18,7 +18,7 @@ from language_study.drills.models import Tense
 from language_study.drills.models import Verb
 from language_study.drills.models import Voice
 
-def base_form_drill_context(request):
+def base_form_drill_context(request, listname):
     context = RequestContext(request)
 
     errors = request.session.get('errors', None)
@@ -31,15 +31,7 @@ def base_form_drill_context(request):
 
     context['greeting'] = 'Hello %s!' % request.user.first_name
 
-    lists = request.user.wordlist_set.all()
-    context['wordlists'] = lists
-
-    list_name = request.session.get('wordlist-name', '')
-    if list_name:
-        wordlist = lists.get(name=list_name)
-    else:
-        wordlist = lists[0]
-        request.session['wordlist-name'] = wordlist.name
+    wordlist = request.user.wordlist_set.get(name=listname)
 
     context['wordlist'] = wordlist
     language = wordlist.language
@@ -71,8 +63,8 @@ def base_form_drill_context(request):
 
 
 @login_required
-def index(request):
-    context, verbs = base_form_drill_context(request)
+def main(request, listname):
+    context, verbs = base_form_drill_context(request, listname)
     if verbs:
         try:
             current_word = request.session.get('word-number', 0)
@@ -86,12 +78,12 @@ def index(request):
         context['num_verbs'] = verbs.count()
         request.session['verbs-reviewed'] = 0
         context['verbs_reviewed'] = 0
-    return render_to_response('drill_forms.html', context)
+    return render_to_response('forms/drill_forms.html', context)
 
 
 @login_required
-def view_forms(request):
-    context, verbs = base_form_drill_context(request)
+def view_forms(request, listname):
+    context, verbs = base_form_drill_context(request, listname)
     if verbs:
         verb = verbs[0]
         request.session['verb-id'] = verb.id
@@ -99,7 +91,7 @@ def view_forms(request):
         context['inflected_form'] = conj_verb_from_session(request.session,
                 all_forms=True)
         context['num_verbs'] = verbs.count()
-    return render_to_response('view_forms.html', context)
+    return render_to_response('forms/view_forms.html', context)
 
 
 def conj_verb_from_session(session, raise_errors=False, all_forms=False):

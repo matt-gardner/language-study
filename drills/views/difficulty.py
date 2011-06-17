@@ -5,13 +5,13 @@ from django.db.models import Avg
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
-from language_study.drills import common
-from language_study.drills.common import AjaxWord
-from language_study.drills.common import base_review_context
-from language_study.drills.common import render_tags
-from language_study.drills.common import review_styles
-from language_study.drills.common import update_word_difficulty_from_session
-from language_study.drills.filters import filter_words
+from language_study.drills.views import common
+from common import AjaxWord
+from common import base_review_context
+from common import render_tags
+from common import review_styles
+from common import update_word_difficulty_from_session
+from language_study.drills.views.filters import filter_words
 from language_study.drills.models import Word
 from language_study.drills.models import Tag
 
@@ -19,7 +19,7 @@ import random
 import simplejson
 
 @login_required
-def index(request):
+def main(request):
     context, words = base_review_context(request)
     if words:
         word, ave_difficulty = get_word_by_difficulty(words)
@@ -32,7 +32,7 @@ def index(request):
 
     context['review_style'] = '/difficulty/'
 
-    return render_to_response('difficulty.html', context)
+    return render_to_response('vocab/difficulty.html', context)
 
 
 def create_word_list(request):

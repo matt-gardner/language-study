@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class=list_name>
+	{{ wordlist.name }}
+</div>
+
+<div class="add_word">
+Add a word to this list:
+<form method="post" action="add-word-to-list"> {% csrf_token %}
+	<ul>
+		<li>
+			Word: <input type="text" name="word" maxlength="128" />
+		</li>
+		<li>
+			Text: <input type="text" name="definition" maxlength="128" />
+		</li>
+		<li>
+			<input type="submit" value="Add Word" id="id_add_word"/>
+		</li>
+	</ul>
+</form>
+
+</div>
+
+<div class=words_in_list>
+	Words currently in the list:
+	<ul>
+		{% for word in wordlist.word_set.all %}
+		<li>{{ word.word }}: {{ word.definition }}</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}

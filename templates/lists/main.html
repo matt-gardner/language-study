@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="greeting">
+{{ greeting }}
+</div>
+
+<div class="wordlists">
+	Your word lists:
+	{% if wordlists %}
+	<ul>
+		{% for list in wordlists %}
+		<li>
+			<a href="/{{ list.name }}">{{ list.name }}</a>
+			<input type="submit" value="Delete list" id="id_delete_list" />
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	You don't have any word lists!
+	{% endif %}
+	<div class="create_list">
+		<form method="post" action="create-word-list"> {% csrf_token %}
+		New word list:
+		<input type="text" name="name" maxlength="128" />
+		<input type="submit" value="Create list" id="id_create_list"/>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

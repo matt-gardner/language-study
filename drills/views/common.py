@@ -10,7 +10,7 @@ from datetime import datetime
 from random import shuffle
 
 from language_study.drills.models import Word, WordList, Tag, Verb
-from language_study.drills.filters import filter_words
+from language_study.drills.views.filters import filter_words
 
 # Word list stuff
 #################
@@ -30,15 +30,6 @@ def delete_word_list(request, name, next_url):
     del request.session['wordlist-name']
     request.session['word-number'] = 0
     return HttpResponseRedirect(next_url)
-
-
-def get_word_list(request, name):
-    request.session['wordlist-name'] = name
-    request.session['word-number'] = 0
-    wordlist = request.user.wordlist_set.get(name=name)
-    words = wordlist.word_set.all()
-    request.session['words'] = [AjaxWord(c) for c in words]
-    return return_word_from_session(request)
 
 
 def add_word_to_list(request, next_url):
@@ -68,21 +59,20 @@ def add_word_to_list(request, next_url):
     return HttpResponseRedirect(next_url)
 
 
-def reorder_word_list(request, ordering):
+def reorder_word_list(request, listname, ordering):
     request.session['ordering'] = ordering
-    reorder_words_in_session(request)
+    reorder_words_in_session(request, listname)
     return return_word_from_session(request)
 
 
-def reorder_words_in_session(request, word_number=0):
+def reorder_words_in_session(request, listname, word_number=0):
     ordering = request.session.get('ordering', 'date_entered')
     if ordering == 'random':
         shuffle(request.session['words'])
         request.session['word-number'] = 0
         return
     filters = request.session.get('filters', [])
-    wordlist_name = request.session['wordlist-name']
-    wordlist = request.user.wordlist_set.get(name=wordlist_name)
+    wordlist = request.user.wordlist_set.get(name=listname)
     words, _ = filter_words(wordlist.word_set, filters)
     if ordering == 'alphabetical':
         words = words.order_by('word')
@@ -195,9 +185,10 @@ def review_styles():
     return styles
 
 
-def next_word(request, difficulty=None):
+def next_word(request, listname, difficulty=None):
     if difficulty:
-        word = update_word_difficulty_from_session(request, difficulty)
+        word = update_word_difficulty_from_session(request, listname,
+                difficulty)
         ajaxword = request.session['words'][request.session['word-number']]
         ajaxword.difficulty = word.average_difficulty
         ajaxword.review_count = word.review_count
@@ -205,14 +196,13 @@ def next_word(request, difficulty=None):
     return return_word_from_session(request)
 
 
-def prev_word(request):
+def prev_word(request, listname):
     request.session['word-number'] -= 1
     return return_word_from_session(request)
 
 
-def update_word_difficulty_from_session(request, difficulty):
-    wordlist_name = request.session['wordlist-name']
-    wordlist = request.user.wordlist_set.get(name=wordlist_name)
+def update_word_difficulty_from_session(request, listname, difficulty):
+    wordlist = request.user.wordlist_set.get(name=listname)
     word = wordlist.word_set.get(pk=request.session['word-id'])
     word.update_difficulty(Word.DIFFICULTY_SCORES[difficulty])
     word.reviewed()
@@ -231,7 +221,7 @@ def devariablize(string):
     return ' '.join([s.capitalize() for s in string.split('_')])
 
 
-def base_review_context(request):
+def base_review_context(request, listname):
     context = RequestContext(request)
 
     errors = request.session.get('errors', None)
@@ -244,17 +234,9 @@ def base_review_context(request):
 
     context['greeting'] = 'Hello %s!' % request.user.first_name
 
-    lists = request.user.wordlist_set.all()
-    context['wordlists'] = lists
+    wordlist = request.user.wordlist_set.get(name=listname)
 
     context['review_styles'] = review_styles()
-
-    list_name = request.session.get('wordlist-name', '')
-    if list_name:
-        wordlist = lists.get(name=list_name)
-    else:
-        wordlist = lists[0]
-        request.session['wordlist-name'] = wordlist.name
 
     context['wordlist'] = wordlist
 

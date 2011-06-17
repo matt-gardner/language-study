@@ -6,12 +6,6 @@ function delete_word_list() {
 		window.location = "delete-word-list/"+list;
 	}
 }
-function get_word_list() {
-	var list = $("#id_wordlist").val();
-	$.getJSON("get-word-list/"+list, {}, function(data) {
-		new_word(data);
-	});
-}
 
 /* Form drilling functions */
 function get_new_form() {
@@ -104,7 +98,7 @@ function new_word(data) {
 	reset_word_number(data.word_number, data.num_words, data.word.difficulty);
 	reset_word_difficulty(data.word.difficulty, data.word.review_count);
 	reset_word_tags(data.word.tags);
-	reset_list_difficulty(data.average_difficulty);
+	//reset_list_difficulty(data.average_difficulty);
 }
 function switch_text(word, definition) {
 	$(".review_word .text").html(word);

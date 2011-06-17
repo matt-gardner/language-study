@@ -11,6 +11,18 @@
 
 {% block content %}
 
+<div class="review_style">
+	Review style:
+	<select id="id_review_style" onChange="switch_review_style()">
+		{% for style in review_styles %}
+		<option value="{{ style.link }}"
+		{% ifequal style.link review_style %} selected {% endifequal %}>
+		{{ style.name }}
+		</option>
+		{% endfor %}
+	</select>
+</div>
+
 <div class="above_review">
 	{% block word_list_info %}
 
@@ -150,16 +162,6 @@
 			</form>
 		</div>
 	</div>
-
-</div>
-
-<div class="add_word">
-
-<form method="post" action="add-word-to-list"> {% csrf_token %}
-	Word: <input type="text" name="word" maxlength="128" />
-	Text: <input type="text" name="definition" maxlength="128" />
-	<input type="submit" value="Add Word" id="id_add_word"/>
-</form>
 
 </div>
 
