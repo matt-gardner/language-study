@@ -210,3 +210,8 @@ td.remove {
 td.remove:hover, td.link:hover, .clickable_text:hover {
 	cursor:pointer;
 }
+
+.words_in_list a {
+	text-decoration: none;
+	color:#000;
+}

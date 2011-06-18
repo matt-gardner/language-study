@@ -7,8 +7,8 @@ import simplejson
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 
+from language_study.drills.views.common import base_context
 from language_study.drills.views.common import devariablize
 from language_study.drills.views.filters import filter_words
 from language_study.drills.models import Mood
@@ -19,7 +19,7 @@ from language_study.drills.models import Verb
 from language_study.drills.models import Voice
 
 def base_form_drill_context(request, listname):
-    context = RequestContext(request)
+    context = base_context(request)
 
     errors = request.session.get('errors', None)
     if errors:

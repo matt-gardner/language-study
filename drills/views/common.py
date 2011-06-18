@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from django import forms
+from django.contrib.auth import logout as logout_user
+from django.contrib.auth.models import AnonymousUser
 from django.db.models import Avg
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -11,6 +13,21 @@ from random import shuffle
 
 from language_study.drills.models import Word, WordList, Tag, Verb
 from language_study.drills.views.filters import filter_words
+
+
+def logout(request):
+    logout_user(request)
+    return HttpResponseRedirect('/')
+
+
+def base_context(request):
+    context = RequestContext(request)
+    if isinstance(request.user, AnonymousUser):
+        context['logged_in'] = False
+    else:
+        context['logged_in'] = True
+    return context
+
 
 # Word list stuff
 #################
@@ -32,7 +49,7 @@ def delete_word_list(request, name, next_url):
     return HttpResponseRedirect(next_url)
 
 
-def add_word_to_list(request, next_url):
+def add_word_to_list(request, listname):
     word = request.POST['word']
     request.session['errors'] = []
     if not word:
@@ -42,21 +59,17 @@ def add_word_to_list(request, next_url):
     if not definition:
         request.session['errors'].append("You didn't enter any definition!")
 
-    list_name = request.session.get('wordlist-name', None)
-    if not list_name:
-        request.session['errors'].append("You didn't select a word list!")
-
     if request.session['errors']:
-        return HttpResponseRedirect(next_url)
+        return HttpResponseRedirect('/%s' % listname)
 
     del request.session['errors']
     now = datetime.now()
-    wordlist = WordList.objects.get(name=list_name)
+    wordlist = request.user.wordlist_set.get(name=listname)
     word = Word(wordlist=wordlist, word=word, definition=definition,
             last_reviewed=now, date_entered=now)
     word.save()
     wordlist.save()
-    return HttpResponseRedirect(next_url)
+    return HttpResponseRedirect('/%s' % listname)
 
 
 def reorder_word_list(request, listname, ordering):
@@ -222,7 +235,7 @@ def devariablize(string):
 
 
 def base_review_context(request, listname):
-    context = RequestContext(request)
+    context = base_context(request)
 
     errors = request.session.get('errors', None)
     if errors:

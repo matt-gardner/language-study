@@ -30,7 +30,11 @@
 	</ul>
 	<div class="right">
 		<ul>
-			<li>Log out</li>
+			{% if logged_in %}
+			<li><a href="/logout">Log out</a></li>
+			{% else %}
+			<li><a href="/accounts/login?next=/">Log in</a></li>
+			{% endif %}
 		</ul>
 	</div>
 </div>

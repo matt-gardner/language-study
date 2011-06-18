@@ -10,6 +10,7 @@ comp = '(?P<comp>[^/]*)'
 day = '(?P<day>[^/]*)'
 difficulty = '(?P<difficulty>[^/]*)'
 id = '(?P<id>[^/]*)'
+listname = '(?P<listname>[^/]*)'
 month = '(?P<month>[^/]*)'
 mood = '(?P<mood>[^/]*)'
 name = '(?P<name>[^/]*)'
@@ -21,17 +22,23 @@ tag = '(?P<tag>[^/]*)'
 tense = '(?P<tense>[^/]*)'
 value = '(?P<value>[^/]*)'
 voice = '(?P<voice>[^/]*)'
+word_id = r'(?P<word_id>[\d]*)'
 year = '(?P<year>[^/]*)'
-listname = '(?P<listname>[^/]*)'
 
 urlpatterns = patterns('',
     # The main page is the main list view
     (r'^$',
         'drills.views.lists.main'),
+    (r'^logout$',
+        'drills.views.common.logout'),
 
     # List views
     (r'^'+listname+'$',
         'drills.views.lists.single_list'),
+    (r'^'+listname+'/add-word$',
+        'drills.views.common.add_word_to_list'),
+    (r'^'+listname+'/'+word_id+'$',
+        'drills.views.lists.single_word'),
 
     # Common urls
     (r'^add-tag-to-word/'+tag+'$',
@@ -58,14 +65,8 @@ urlpatterns = patterns('',
     # All words urls
     (r'^'+listname+'/all-words/$',
         'drills.views.all_words.main'),
-    (r'^'+listname+'/all-words/create-word-list$',
-        'drills.views.all_words.create_word_list'),
     (r'^'+listname+'/all-words/add-tag$',
         'drills.views.all_words.add_tag'),
-    (r'^'+listname+'/all-words/delete-word-list/'+name+'$',
-        'drills.views.all_words.delete_word_list'),
-    (r'^'+listname+'/all-words/add-word-to-list$',
-        'drills.views.all_words.add_word_to_list'),
     (r'^'+listname+'/all-words/next-word/'+difficulty+'$',
         'drills.views.common.next_word'),
     (r'^'+listname+'/all-words/prev-word/$',
@@ -76,14 +77,8 @@ urlpatterns = patterns('',
     # Difficulty urls
     (r'^'+listname+'/difficulty/$',
         'drills.views.difficulty.main'),
-    (r'^'+listname+'/difficulty/create-word-list$',
-        'drills.views.difficulty.create_word_list'),
     (r'^'+listname+'/difficulty/add-tag$',
         'drills.views.difficulty.add_tag'),
-    (r'^'+listname+'/difficulty/delete-word-list/'+name+'$',
-        'drills.views.difficulty.delete_word_list'),
-    (r'^'+listname+'/difficulty/add-word-to-list$',
-        'drills.views.difficulty.add_word_to_list'),
     (r'^'+listname+'/difficulty/next-word/'+difficulty+'$',
         'drills.views.difficulty.next_word'),
 
