@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="id_single_word_form">
+<h1>{{ header }}</h1>
+<form method="post" action=""> {% csrf_token %}
+<table>
+{{ form }}
+<script>
+	var $checkbox = $("#id_single_word_form #id_verb");
+	if (!$checkbox.is(':checked')) {
+		$checkbox.parent().parent().parent()
+		.find(".verb-option").parent().parent().hide();
+	}
+</script>
+<tr>
+	<td></td>
+	<td>
+		<input type="submit" name="submit" value="{{ submit_label }}" />
+		{% if not adding_word %}
+		<input id="id_delete_word" type="submit" name="delete"
+				value="Delete Word" />
+		{% endif %}
+	</td>
+</tr>
+</table>
+</form>
+</div>
+{% endblock %}

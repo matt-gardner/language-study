@@ -9,6 +9,9 @@ div.page
 }
 
 /* Navigation */
+#navigation-base {
+	clear: both;
+}
 #navigation {
 	clear: both;
 }
@@ -16,12 +19,9 @@ div.page
 	/* background: url('../images/navigation.png') no-repeat left top;
 	background: url('../images/navigation_l.png') no-repeat left top;*/
 }
-#navigation .right {
-	float: right;
-	/*background: url('../images/navigation.png') no-repeat right top;*/
-}
 #navigation ul {
 	list-style-type: none;
+	overflow: auto;
 	margin: 2px;
 	padding: 2px;
 }
@@ -31,8 +31,9 @@ div.page
 	padding: 2px;
 	display: block;
 }
-#navigation ul {
-	/*background: url('../images/navigation.png') repeat-x 0 -41px;*/
+#navigation ul li.right {
+	float: right;
+	/*background: url('../images/navigation.png') no-repeat right top;*/
 }
 #navigation ul li a {
 	/*background: url('../images/navigation_s.png') no-repeat right top;*/
@@ -214,4 +215,16 @@ td.remove:hover, td.link:hover, .clickable_text:hover {
 .words_in_list a {
 	text-decoration: none;
 	color:#000;
+}
+
+input[readonly="True"] {
+	border: 0;
+}
+
+div.single-word-form input[type=text] {
+}
+
+span.warning {
+	color: #F00;
+	margin-left: 5px;
 }

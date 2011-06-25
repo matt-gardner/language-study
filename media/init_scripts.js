@@ -1,3 +1,4 @@
+$(document).ready(function() {
 $("#id_show_definition").click(function () {
 	$(".review_definition .text").toggle(0);
 	var current_text = $("#id_show_definition").val()
@@ -77,4 +78,17 @@ $("#id_drill_verb").click(function() {
 });
 $("#id_by_definition").click(function() {
 	set_by_definition();
+});
+/* List view scripts */
+$("#id_delete_word").click(function() {
+	var answer = confirm("Delete this word?");
+	if (answer) {
+		window.location = "?delete"
+	}
+	return false;
+});
+$("#id_single_word_form #id_verb").click(function() {
+	toggle_verb_options($(this));
+});
+
 });

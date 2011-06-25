@@ -5,25 +5,25 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
-choice = '(?P<choice>[^/]*)'
-comp = '(?P<comp>[^/]*)'
-day = '(?P<day>[^/]*)'
-difficulty = '(?P<difficulty>[^/]*)'
-id = '(?P<id>[^/]*)'
-listname = '(?P<listname>[^/]*)'
-month = '(?P<month>[^/]*)'
-mood = '(?P<mood>[^/]*)'
-name = '(?P<name>[^/]*)'
-number = '(?P<number>[^/]*)'
-ordering = '(?P<ordering>[^/]*)'
-person = '(?P<person>[^/]*)'
-string = '(?P<string>[^/]*)'
-tag = '(?P<tag>[^/]*)'
-tense = '(?P<tense>[^/]*)'
-value = '(?P<value>[^/]*)'
-voice = '(?P<voice>[^/]*)'
-word_id = r'(?P<word_id>[\d]*)'
-year = '(?P<year>[^/]*)'
+choice = '(?P<choice>[^/]+)'
+comp = '(?P<comp>[^/]+)'
+day = '(?P<day>[^/]+)'
+difficulty = '(?P<difficulty>[^/]+)'
+id = '(?P<id>[^/]+)'
+listname = '(?P<listname>[^/]+)'
+month = '(?P<month>[^/]+)'
+mood = '(?P<mood>[^/]+)'
+name = '(?P<name>[^/]+)'
+number = '(?P<number>[^/]+)'
+ordering = '(?P<ordering>[^/]+)'
+person = '(?P<person>[^/]+)'
+string = '(?P<string>[^/]+)'
+tag = '(?P<tag>[^/]+)'
+tense = '(?P<tense>[^/]+)'
+value = '(?P<value>[^/]+)'
+voice = '(?P<voice>[^/]+)'
+word_id = r'(?P<word_id>[\d]+)'
+year = '(?P<year>[^/]+)'
 
 urlpatterns = patterns('',
     # The main page is the main list view
@@ -31,14 +31,6 @@ urlpatterns = patterns('',
         'drills.views.lists.main'),
     (r'^logout$',
         'drills.views.common.logout'),
-
-    # List views
-    (r'^'+listname+'$',
-        'drills.views.lists.single_list'),
-    (r'^'+listname+'/add-word$',
-        'drills.views.common.add_word_to_list'),
-    (r'^'+listname+'/'+word_id+'$',
-        'drills.views.lists.single_word'),
 
     # Common urls
     (r'^add-tag-to-word/'+tag+'$',
@@ -95,6 +87,16 @@ urlpatterns = patterns('',
         'drills.views.forms.get_new_verb'),
     (r'^get-new-random-form/$',
         'drills.views.forms.get_new_random_form'),
+
+    # List views
+    # These are at the bottom because they tend to be matched by other things
+    # that really shouldn't match.
+    (r'^'+listname+'$',
+        'drills.views.lists.single_list'),
+    (r'^'+listname+'/add-word$',
+        'drills.views.lists.add_word_to_list'),
+    (r'^'+listname+'/'+word_id+'$',
+        'drills.views.lists.single_word'),
 
     # Site media
     (r'^site-media/(?P<path>.*)$',

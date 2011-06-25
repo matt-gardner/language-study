@@ -7,28 +7,14 @@
 </div>
 
 <div class="add_word">
-Add a word to this list:
-<form method="post" action="/{{ wordlist.name }}/add-word"> {% csrf_token %}
-	<ul>
-		<li>
-			Word: <input type="text" name="word" maxlength="128" />
-		</li>
-		<li>
-			Text: <input type="text" name="definition" maxlength="128" />
-		</li>
-		<li>
-			<input type="submit" value="Add Word" id="id_add_word"/>
-		</li>
-	</ul>
-</form>
-
+	<a href="/{{ wordlist.name }}/add-word">Add a word to this list</a>
 </div>
 
 <div class=words_in_list>
 	Words currently in the list (click a word to edit it):
 	<ul>
 		{% for word in wordlist.word_set.all %}
-		<li><a href="/{{ wordlist.name}}/{{ word.id }}">
+		<li><a href="/{{ wordlist.name }}/{{ word.id }}">
 			{{ word.word }}: {{ word.definition }}</a>
 		</li>
 		{% endfor %}

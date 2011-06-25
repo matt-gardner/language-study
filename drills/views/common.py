@@ -49,29 +49,6 @@ def delete_word_list(request, name, next_url):
     return HttpResponseRedirect(next_url)
 
 
-def add_word_to_list(request, listname):
-    word = request.POST['word']
-    request.session['errors'] = []
-    if not word:
-        request.session['errors'].append("You didn't enter a word!")
-
-    definition = request.POST['definition']
-    if not definition:
-        request.session['errors'].append("You didn't enter any definition!")
-
-    if request.session['errors']:
-        return HttpResponseRedirect('/%s' % listname)
-
-    del request.session['errors']
-    now = datetime.now()
-    wordlist = request.user.wordlist_set.get(name=listname)
-    word = Word(wordlist=wordlist, word=word, definition=definition,
-            last_reviewed=now, date_entered=now)
-    word.save()
-    wordlist.save()
-    return HttpResponseRedirect('/%s' % listname)
-
-
 def reorder_word_list(request, listname, ordering):
     request.session['ordering'] = ordering
     reorder_words_in_session(request, listname)

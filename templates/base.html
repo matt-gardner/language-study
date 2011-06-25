@@ -17,6 +17,7 @@
 
 <div class="page">
 
+<div id="navigation-base">
 <div id="navigation">
 	<ul>
 		<li><a href="/">Logo</a></li>
@@ -27,17 +28,20 @@
 		<li><a href="/{{ wordlist.name }}/all-words">Review Vocab</a></li>
 		<li><a href="/{{ wordlist.name }}/forms">Drill Forms</a></li>
 		{% endif %}
+		{% if logged_in %}
+		<li class="right"><a href="/logout">Log out</a></li>
+		{% else %}
+		<li class="right"><a href="/accounts/login?next=/">Log in</a></li>
+		{% endif %}
 	</ul>
-	<div class="right">
-		<ul>
-			{% if logged_in %}
-			<li><a href="/logout">Log out</a></li>
-			{% else %}
-			<li><a href="/accounts/login?next=/">Log in</a></li>
-			{% endif %}
-		</ul>
-	</div>
 </div>
+</div>
+
+{% block message %}
+<div class="message">
+	{{ message }}
+</div>
+{% endblock %}
 
 {% block errors %}
 <div class="errors">

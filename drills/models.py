@@ -204,7 +204,8 @@ class Word(models.Model):
         return u'%s: %s' % (self.wordlist.name, self.word)
 
 
-class Verb(Word):
+class Verb(models.Model):
+    word = models.OneToOneField('Word')
     conjugation = models.ForeignKey('Conjugation')
 
 

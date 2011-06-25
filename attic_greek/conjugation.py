@@ -97,6 +97,12 @@ class GreekConjugation(Conjugation):
                 principle_part)
         if self.needs_contraction(tense, mood, voice, principle_part):
             accented = self.contract(accented, stem, ending)
+        if verbose:
+            print 'stem:', stem
+            print 'ending:', ending
+            print 'augment:', augment
+            print 'final_form:', final_form
+            print 'accented:', accented
         return [accented]
 
     def check_kwargs(self, kwargs):

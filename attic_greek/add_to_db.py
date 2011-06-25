@@ -84,13 +84,15 @@ def add_language():
     args['user'] = User.objects.get(pk=1)
     add_or_fail(WordList, args)
 
-    args = {'wordlist': object_cache['WordList'][args['name']]}
+    word_args = {'wordlist': object_cache['WordList'][args['name']]}
     create_args = {'last_reviewed': datetime.now()}
     for verb in json['Verbs']:
-        args['conjugation'] = object_cache['Conjugation'][verb['conjugation']]
-        args['word'] = verb['word']
-        args['definition'] = verb['definition']
-        add_or_fail(Verb, args, create_args)
+        word_args['word'] = verb['word']
+        word_args['definition'] = verb['definition']
+        word = add_or_fail(Word, word_args, create_args)
+        v_args = {'word': word}
+        v_args['conjugation'] = object_cache['Conjugation'][verb['conjugation']]
+        add_or_fail(Verb, v_args)
         if "irregular forms" in verb:
             for form in verb["irregular forms"]:
                 person = form['Person']
@@ -152,6 +154,8 @@ def add_or_fail(model, query_args, create_args={}):
     global object_cache
     if 'name' in query_args:
         output = query_args['name']
+    elif 'conjugation' in query_args:
+        output = query_args['word'].word
     elif 'word' in query_args:
         output = query_args['word']
     elif 'form' in query_args:
@@ -174,6 +178,7 @@ def add_or_fail(model, query_args, create_args={}):
         for key in create_args:
             del query_args[key]
     object_cache[model.__name__][output] = obj
+    return obj
 
 
 def dump_fixture_file(filename):

@@ -6,6 +6,19 @@ function delete_word_list() {
 		window.location = "delete-word-list/"+list;
 	}
 }
+function toggle_verb_options($checkbox) {
+	$verboptions = $checkbox.parent().parent().parent().find(".verb-option");
+	if ($checkbox.is(':checked')) {
+		$verboptions.parent().parent().fadeIn('fast');
+		$checkbox.parent().find('.warning').remove();
+	} else {
+		if ($verboptions.is(":visible")) {
+			$verboptions.parent().parent().fadeOut('fast');
+			$checkbox.after('<span class="warning">' +
+					'This will delete data!</span>');
+		}
+	}
+}
 
 /* Form drilling functions */
 function get_new_form() {

@@ -54,7 +54,7 @@ def base_form_drill_context(request, listname):
     context['tags'] = wordlist.tag_set.all()
     # we can't do wordlist.verb_set.all() because of the way django inheritance
     # works
-    verbs = Verb.objects.filter(wordlist=wordlist)
+    verbs = Verb.objects.filter(word__wordlist=wordlist)
     filters = request.session.get('filters', [])
     verbs, filter_form = filter_words(verbs, filters)
     context['filter'] = filter_form
@@ -96,9 +96,9 @@ def view_forms(request, listname):
 
 def conj_verb_from_session(session, raise_errors=False, all_forms=False):
     verb = Verb.objects.get(pk=session['verb-id'])
-    language = verb.wordlist.language
+    language = verb.word.wordlist.language
     conj_cls = __import__(language.module_name).mapping[verb.conjugation.name]
-    conj = conj_cls(verb.word)
+    conj = conj_cls(verb.word.word, verb.id)
     args = dict()
     args['person'] = Person.objects.get(pk=session['person-id']).name
     args['number'] = Number.objects.get(pk=session['number-id']).name
@@ -121,7 +121,7 @@ def conj_verb_from_session(session, raise_errors=False, all_forms=False):
 
 def random_form(session):
     verb = Verb.objects.get(pk=session['verb-id'])
-    language = verb.wordlist.language
+    language = verb.word.wordlist.language
     session['mood-id'] = r.choice(list(language.mood_set.all())).id
     session['person-id'] = r.choice(list(language.person_set.all())).id
     session['number-id'] = r.choice(list(language.number_set.all())).id
@@ -159,7 +159,7 @@ def guess_form(request, person, number, tense, mood, voice):
     guessed['voice'] = Voice.objects.get(name=devariablize(voice)).name
     form = request.session['form']
     verb = Verb.objects.get(pk=request.session['verb-id'])
-    language = verb.wordlist.language
+    language = verb.word.wordlist.language
     acceptable = get_matching_forms(language, verb, form)
     ret_val = dict()
     if guessed in acceptable:
@@ -191,7 +191,7 @@ def inflect_form(request, person, number, tense, mood, voice):
 
 def get_matching_forms(language, verb, form):
     conj_cls = __import__(language.module_name).mapping[verb.conjugation.name]
-    conj = conj_cls(verb.word)
+    conj = conj_cls(verb.word.word)
     persons = language.person_set.all()
     numbers = language.number_set.all()
     tenses = language.tense_set.all()
