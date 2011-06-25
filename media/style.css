@@ -224,7 +224,23 @@ input[readonly="True"] {
 div.single-word-form input[type=text] {
 }
 
+#id_single_word_form th {
+	text-align: center;
+}
+
 span.warning {
 	color: #F00;
 	margin-left: 5px;
+}
+
+.add_irregular_form:hover {
+	cursor: pointer;
+}
+
+.delete_irregular_form:hover {
+	cursor: pointer;
+}
+
+.undo_delete_irregular_form:hover {
+	cursor: pointer;
 }

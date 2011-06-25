@@ -22,6 +22,14 @@ class Declension(models.Model):
         return self.name
 
 
+class DeclinableType(models.Model):
+    name = models.CharField(max_length=128)
+    language = models.ForeignKey('Language')
+
+    def __unicode__(self):
+        return self.name
+
+
 class Case(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
@@ -79,38 +87,6 @@ class Mood(models.Model):
 
 
 class Person(models.Model):
-    name = models.CharField(max_length=128)
-    language = models.ForeignKey('Language')
-
-    def __unicode__(self):
-        return self.name
-
-
-class IrregularVerbForm(models.Model):
-    verb = models.ForeignKey('Verb')
-    person = models.ForeignKey('Person')
-    number = models.ForeignKey('Number')
-    tense = models.ForeignKey('Tense')
-    mood = models.ForeignKey('Mood')
-    voice = models.ForeignKey('Voice')
-    form = models.CharField(max_length=128)
-
-
-class IrregularVerbStem(models.Model):
-    verb = models.ForeignKey('Verb')
-    tense = models.ForeignKey('Tense')
-    mood = models.ForeignKey('Mood')
-    voice = models.ForeignKey('Voice')
-    stem = models.CharField(max_length=128)
-
-
-class IrregularVerbAugmentedStem(models.Model):
-    verb = models.ForeignKey('Verb')
-    tense = models.ForeignKey('Tense')
-    stem = models.CharField(max_length=128)
-
-
-class DeclinableType(models.Model):
     name = models.CharField(max_length=128)
     language = models.ForeignKey('Language')
 
@@ -204,15 +180,49 @@ class Word(models.Model):
         return u'%s: %s' % (self.wordlist.name, self.word)
 
 
+# Verb stuff (including irregulars)
+###################################
+
 class Verb(models.Model):
     word = models.OneToOneField('Word')
     conjugation = models.ForeignKey('Conjugation')
 
 
-class DeclinableWord(Word):
+class IrregularVerbForm(models.Model):
+    verb = models.ForeignKey('Verb')
+    person = models.ForeignKey('Person')
+    number = models.ForeignKey('Number')
+    tense = models.ForeignKey('Tense')
+    mood = models.ForeignKey('Mood')
+    voice = models.ForeignKey('Voice')
+    form = models.CharField(max_length=128)
+
+
+class IrregularVerbStem(models.Model):
+    verb = models.ForeignKey('Verb')
+    tense = models.ForeignKey('Tense')
+    mood = models.ForeignKey('Mood')
+    voice = models.ForeignKey('Voice')
+    stem = models.CharField(max_length=128)
+
+
+class IrregularVerbAugmentedStem(models.Model):
+    verb = models.ForeignKey('Verb')
+    tense = models.ForeignKey('Tense')
+    stem = models.CharField(max_length=128)
+
+
+# Declension stuff (including irregulars)
+#########################################
+
+class DeclinableWord(models.Model):
+    word = models.OneToOneField('Word')
     declension = models.ForeignKey('Declension')
     type = models.ForeignKey('DeclinableType')
 
+
+# Drilling statistics
+#####################
 
 class ConjugationDrillResult(models.Model):
     wordlist = models.ForeignKey('WordList')

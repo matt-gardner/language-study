@@ -95,8 +95,12 @@ urlpatterns = patterns('',
         'drills.views.lists.single_list'),
     (r'^'+listname+'/add-word$',
         'drills.views.lists.add_word_to_list'),
+    (r'^'+listname+'/add-word/add-irregular-form/'+number+'$',
+        'drills.views.lists.add_irregular_form'),
     (r'^'+listname+'/'+word_id+'$',
         'drills.views.lists.single_word'),
+    (r'^'+listname+'/'+word_id+'/add-irregular-form/'+number+'$',
+        'drills.views.lists.add_irregular_form'),
 
     # Site media
     (r'^site-media/(?P<path>.*)$',

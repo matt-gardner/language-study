@@ -5,10 +5,12 @@
 <h1>{{ header }}</h1>
 <form method="post" action=""> {% csrf_token %}
 <table>
-{{ form }}
+{{ form|safe }}
 <script>
 	var $checkbox = $("#id_single_word_form #id_verb");
-	if (!$checkbox.is(':checked')) {
+	$.fn.word_vars = function () {};
+	$.fn.word_vars.has_verb = $checkbox.is(':checked');
+	if (!$.fn.word_vars.has_verb) {
 		$checkbox.parent().parent().parent()
 		.find(".verb-option").parent().parent().hide();
 	}

@@ -14,10 +14,51 @@ function toggle_verb_options($checkbox) {
 	} else {
 		if ($verboptions.is(":visible")) {
 			$verboptions.parent().parent().fadeOut('fast');
-			$checkbox.after('<span class="warning">' +
-					'This will delete data!</span>');
+			if ($.fn.word_vars.has_verb) {
+				$checkbox.after('<span class="warning">' +
+						'This will delete data!</span>');
+			}
 		}
 	}
+}
+function add_irregular_form($span) {
+	var name = $span.parent().parent().prev().find('input').attr("name");
+	if (!name) {
+		var number = 0;
+	} else {
+		var length = name.length;
+		name = name.substring(0, length-5);
+		name = name.substring(name.lastIndexOf('_')+1);
+		var number = parseInt(name);
+	}
+	var link = document.URL.split('?')[0];
+	if (!link.match('/\/$/')) {
+		link += '/';
+	}
+	link += "add-irregular-form/" + number
+	$.get(link, {}, function(html) {
+		$span.parent().parent().before(html);
+	});
+}
+function delete_irregular_form($span) {
+	var prev_val = $span.next().val();
+	if (prev_val == "add") {
+		$span.parent().parent().remove();
+		return;
+	}
+	$span.next().val("delete");
+	$('<span class="undo_delete_irregular_form">Undo</span>')
+		.attr("prev_val", prev_val)
+		.insertBefore($span.next());
+	$span.next().before('<span class="warning">Will be deleted. </span>');
+	$span.remove();
+}
+function undo_delete_irregular_form($span) {
+	$span.next().val($span.attr("prev_val"));
+	$span.prev().remove();
+	$('<span class="delete_irregular_form">X</span>')
+		.insertBefore($span.next());
+	$span.remove();
 }
 
 /* Form drilling functions */
