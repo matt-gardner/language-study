@@ -91,7 +91,10 @@ $("#id_single_word_form #id_verb").click(function() {
 	toggle_verb_options($(this));
 });
 $(".add_irregular_form").click(function() {
-	add_irregular_form($(this));
+	add_irregular_form($(this), "add-irregular-form/");
+});
+$(".add_irregular_stem").click(function() {
+	add_irregular_form($(this), "add-irregular-stem/");
 });
 $(".delete_irregular_form").live('click', function() {
 	delete_irregular_form($(this));

@@ -98,8 +98,20 @@ def add_irregular_form(request, listname, number, word_id=None):
     wordlist = get_object_or_404(WordList, user=request.user, name=listname)
     if word and word.wordlist != wordlist:
         raise Http404
-    mock_form = MockIrregularVerbForm()
+    mock_form = MockIrregularForm()
     html = create_irregular_form_row(wordlist.language, mock_form, int(number))
+    return HttpResponse(html)
+
+
+def add_irregular_stem(request, listname, number, word_id=None):
+    word = None
+    if word_id:
+        word = get_object_or_404(Word, pk=word_id)
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    if word and word.wordlist != wordlist:
+        raise Http404
+    mock_form = MockIrregularForm()
+    html = create_irregular_stem_row(wordlist.language, mock_form, int(number))
     return HttpResponse(html)
 
 
@@ -115,6 +127,7 @@ def update_word_from_post(word, POST):
     word.definition = POST['definition']
     word.save()
 
+    language = word.wordlist.language
     # Handle verb stuff - sadly, we have a bunch of cases...
     if POST.get('verb', None):
         try:
@@ -125,6 +138,39 @@ def update_word_from_post(word, POST):
             conj = Conjugation.objects.get(pk=POST['conjugation'])
             verb = Verb(word=word, conjugation=conj)
             verb.save()
+        irregular_forms = []
+        print POST
+        for key in POST:
+            if key.startswith("irregular_form_") and key.endswith("_action"):
+                irregular_forms.append(key)
+        for irregular_form in irregular_forms:
+            form_number = int(irregular_form.split('_')[-2])
+            print POST[irregular_form]
+            if POST[irregular_form] == 'delete':
+                id = POST['irregular_form_%d_id' % form_number]
+                print 'deleting IVF with id', id
+                i_form = get_object_or_404(IrregularVerbForm, pk=id, verb=verb)
+                i_form.delete()
+                continue
+            person = POST['irregular_form_%d_person' % form_number]
+            number = POST['irregular_form_%d_number' % form_number]
+            tense = POST['irregular_form_%d_tense' % form_number]
+            mood = POST['irregular_form_%d_mood' % form_number]
+            voice = POST['irregular_form_%d_voice' % form_number]
+            form = POST['irregular_form_%d_form' % form_number]
+            if POST[irregular_form] == 'add':
+                i_form = IrregularVerbForm()
+            elif POST[irregular_form] == 'save':
+                id = POST['irregular_form_%d_id' % form_number]
+                i_form = get_object_or_404(IrregularVerbForm, pk=id, verb=verb)
+            i_form.verb = verb
+            i_form.person = language.person_set.get(pk=person)
+            i_form.number = language.number_set.get(pk=number)
+            i_form.tense = language.tense_set.get(pk=tense)
+            i_form.mood = language.mood_set.get(pk=mood)
+            i_form.voice = language.voice_set.get(pk=voice)
+            i_form.form = form
+            i_form.save()
     else:
         try:
             # Need to delete the verb object
@@ -146,6 +192,7 @@ def create_form_for_word(wordlist, word=None):
     word_form = WordForm(wordlist, word).as_table()
     verb_form = ''
     verb_form += irregular_forms_form(word)
+    verb_form += irregular_stems_form(word)
     return word_form + verb_form
 
 
@@ -192,10 +239,59 @@ def create_irregular_form_row(language, form, i):
     html += 'value="' + form.form + '" /></td>\n'
     html += '<td><span class="delete_irregular_form">X</span>'
     html += '<input type="hidden" name="irregular_form_%d_action" ' % i
-    if isinstance(form, MockIrregularVerbForm):
+    if isinstance(form, MockIrregularForm):
         html += 'value="add" /></td>\n'
     else:
-        html += 'value="save" /></td>\n'
+        html += 'value="save" />\n'
+        html += '<input type="hidden" name="irregular_form_%d_id" ' % i
+        html += 'value="%d" />\n' % form.id
+        html += '</td>\n'
+    html += '</tr>\n\n'
+    return html
+
+
+def irregular_stems_form(word):
+    is_form = '\n\n<tr><th><label>Irregular Stems:</label></th>\n'
+    is_form += '<td>\n<table class=verb-option>\n'
+    irregular_stems = []
+    if word:
+        language = word.wordlist.language
+        try:
+            irregular_stems =  word.verb.irregularverbstem_set.all()
+        except Verb.DoesNotExist:
+            pass
+    for i, stem in enumerate(irregular_stems):
+        is_form += create_irregular_stem_row(language, stem, i)
+    is_form += '<tr><td><span class=add_irregular_stem>Add</span></td></tr>\n'
+    is_form += '</table></td></tr>'
+    return is_form
+
+
+def create_irregular_stem_row(language, stem, i):
+    html = '<tr>\n'
+    html += '<td>'
+    html += make_select(language.tense_set.all(),
+            'irregular_stem_%d_tense' % i, stem.tense)
+    html += '</td>\n'
+    html += '<td>'
+    html += make_select(language.mood_set.all(),
+            'irregular_stem_%d_mood' % i, stem.mood)
+    html += '</td>\n'
+    html += '<td>'
+    html += make_select(language.voice_set.all(),
+            'irregular_stem_%d_voice' % i, stem.voice)
+    html += '</td>\n'
+    html += '<td><input type=text name="irregular_stem_%d_stem"' % i
+    html += 'value="' + stem.stem + '" /></td>\n'
+    html += '<td><span class="delete_irregular_form">X</span>'
+    html += '<input type="hidden" name="irregular_stem_%d_action" ' % i
+    if isinstance(stem, MockIrregularForm):
+        html += 'value="add" /></td>\n'
+    else:
+        html += 'value="save" />\n'
+        html += '<input type="hidden" name="irregular_stem_%d_id" ' % i
+        html += 'value="%d" />\n' % stem.id
+        html += '</td>\n'
     html += '</tr>\n\n'
     return html
 
@@ -211,7 +307,7 @@ def make_select(options, name, selected=None):
     return select
 
 
-class MockIrregularVerbForm(object):
+class MockIrregularForm(object):
     def __init__(self):
         self.person = None
         self.number = None
@@ -219,6 +315,7 @@ class MockIrregularVerbForm(object):
         self.mood = None
         self.voice = None
         self.form = ''
+        self.stem = ''
 
 
 class WordForm(forms.Form):

@@ -237,6 +237,10 @@ span.warning {
 	cursor: pointer;
 }
 
+.add_irregular_stem:hover {
+	cursor: pointer;
+}
+
 .delete_irregular_form:hover {
 	cursor: pointer;
 }

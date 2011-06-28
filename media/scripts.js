@@ -16,12 +16,14 @@ function toggle_verb_options($checkbox) {
 			$verboptions.parent().parent().fadeOut('fast');
 			if ($.fn.word_vars.has_verb) {
 				$checkbox.after('<span class="warning">' +
-						'This will delete data!</span>');
+						'This will irrevocably delete all data associated ' +
+						'with this verb, including irregular forms and ' +
+						'drilling statistics</span>');
 			}
 		}
 	}
 }
-function add_irregular_form($span) {
+function add_irregular_form($span, ajax_link) {
 	var name = $span.parent().parent().prev().find('input').attr("name");
 	if (!name) {
 		var number = 0;
@@ -29,13 +31,13 @@ function add_irregular_form($span) {
 		var length = name.length;
 		name = name.substring(0, length-5);
 		name = name.substring(name.lastIndexOf('_')+1);
-		var number = parseInt(name);
+		var number = parseInt(name) + 1;
 	}
 	var link = document.URL.split('?')[0];
 	if (!link.match('/\/$/')) {
 		link += '/';
 	}
-	link += "add-irregular-form/" + number
+	link += ajax_link + '' + number
 	$.get(link, {}, function(html) {
 		$span.parent().parent().before(html);
 	});
@@ -46,6 +48,9 @@ function delete_irregular_form($span) {
 		$span.parent().parent().remove();
 		return;
 	}
+	$span.parent().parent().find('input, select')
+		.filter(':not(input[type="hidden"])')
+		.attr('disabled', 'disabled');
 	$span.next().val("delete");
 	$('<span class="undo_delete_irregular_form">Undo</span>')
 		.attr("prev_val", prev_val)
@@ -54,6 +59,7 @@ function delete_irregular_form($span) {
 	$span.remove();
 }
 function undo_delete_irregular_form($span) {
+	$span.parent().parent().find('input, select').removeAttr('disabled')
 	$span.next().val($span.attr("prev_val"));
 	$span.prev().remove();
 	$('<span class="delete_irregular_form">X</span>')
