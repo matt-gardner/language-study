@@ -59,6 +59,8 @@ class GreekConjugation(Conjugation):
     def __init__(self, principle_parts, verb_id=-1):
         self.original_word = principle_parts
         self.verb_id = verb_id
+        if verb_id != -1:
+            self.cache_irregulars()
         principle_parts = principle_parts.split(', ')
         if len(principle_parts) == 1:
             # We don't have the principle parts for the verb...  What do we do?
@@ -123,70 +125,59 @@ class GreekConjugation(Conjugation):
         number = kwargs['number']
         return person, number, tense, mood, voice
 
+    def cache_irregulars(self):
+        if verbose:
+            print 'Caching irregulars'
+        verb = Verb.objects.get(pk=self.verb_id)
+        irregular_forms = verb.irregularverbform_set.all()
+        self.irregular_forms = dict()
+        for ivf in irregular_forms:
+            p = ivf.person.name
+            n = ivf.number.name
+            t = ivf.tense.name
+            m = ivf.mood.name
+            v = ivf.voice.name
+            form = unicodedata.normalize('NFKD', ivf.form)
+            self.irregular_forms[(p, n, t, m, v)] = form
+            if verbose:
+                print u'(%s, %s, %s, %s, %s) -> %s' % (p, n, t, m, v, form)
+        irregular_stems = verb.irregularverbstem_set.all()
+        self.irregular_stems = dict()
+        for ivs in irregular_stems:
+            t = ivs.tense.name
+            m = ivs.mood.name
+            v = ivs.voice.name
+            stem = unicodedata.normalize('NFKD', ivs.stem)
+            self.irregular_stems[(t, m, v)] = stem
+            if verbose:
+                print u'(%s, %s, %s) -> %s' % (t, m, v, stem)
+        irregular_augments = verb.irregularverbaugmentedstem_set.all()
+        self.irregular_augments = dict()
+        for ia in irregular_augments:
+            t = ia.tense.name
+            stem = unicodedata.normalize('NFKD', ia.stem)
+            self.irregular_augments[(t)] = stem
+            if verbose:
+                print u'(%s) -> %s' % (t, stem)
+
+
     def is_irregular(self, person, number, tense, mood, voice):
-        l = Language.objects.get(name='Attic Greek')
-        p = Person.objects.get(name=person, language=l)
-        n = Number.objects.get(name=number, language=l)
-        t = Tense.objects.get(name=tense, language=l)
-        m = Mood.objects.get(name=mood, language=l)
-        v = Voice.objects.get(name=voice, language=l)
-        ve = Verb.objects.get(pk=self.verb_id)
-        try:
-            IrregularVerbForm.objects.get(verb=ve, person=p, number=n, tense=t,
-                    mood=m, voice=v)
-            return True
-        except IrregularVerbForm.DoesNotExist:
-            return False
+        return (person, number, tense, mood, voice) in self.irregular_forms
 
     def irregular_form(self, person, number, tense, mood, voice):
-        l = Language.objects.get(name='Attic Greek')
-        p = Person.objects.get(name=person, language=l)
-        n = Number.objects.get(name=number, language=l)
-        t = Tense.objects.get(name=tense, language=l)
-        m = Mood.objects.get(name=mood, language=l)
-        v = Voice.objects.get(name=voice, language=l)
-        ve = Verb.objects.get(pk=self.verb_id)
-        ivf = IrregularVerbForm.objects.get(verb=ve, person=p, number=n,
-                tense=t, mood=m, voice=v)
-        return unicodedata.normalize('NFKD', ivf.form)
+        return self.irregular_forms[(person, number, tense, mood, voice)]
 
     def is_irregular_stem(self, tense, mood, voice):
-        l = Language.objects.get(name='Attic Greek')
-        t = Tense.objects.get(name=tense, language=l)
-        m = Mood.objects.get(name=mood, language=l)
-        v = Voice.objects.get(name=voice, language=l)
-        ve = Verb.objects.get(pk=self.verb_id)
-        try:
-            IrregularVerbStem.objects.get(verb=ve, tense=t, mood=m, voice=v)
-            return True
-        except IrregularVerbStem.DoesNotExist:
-            return False
+        return (tense, mood, voice) in self.irregular_stems
 
     def irregular_stem(self, tense, mood, voice):
-        l = Language.objects.get(name='Attic Greek')
-        t = Tense.objects.get(name=tense, language=l)
-        m = Mood.objects.get(name=mood, language=l)
-        v = Voice.objects.get(name=voice, language=l)
-        ve = Verb.objects.get(pk=self.verb_id)
-        ivs = IrregularVerbStem.objects.get(verb=ve, tense=t, mood=m, voice=v)
-        return unicodedata.normalize('NFKD', ivs.stem)
+        return self.irregular_stems[(tense, mood, voice)]
 
     def is_irregular_augment(self, tense):
-        l = Language.objects.get(name='Attic Greek')
-        t = Tense.objects.get(name=tense, language=l)
-        ve = Verb.objects.get(pk=self.verb_id)
-        try:
-            IrregularVerbAugmentedStem.objects.get(verb=ve, tense=t)
-            return True
-        except IrregularVerbAugmentedStem.DoesNotExist:
-            return False
+        return (tense) in self.irregular_augments
 
     def irregular_augment(self, tense):
-        l = Language.objects.get(name='Attic Greek')
-        t = Tense.objects.get(name=tense, language=l)
-        ve = Verb.objects.get(pk=self.verb_id)
-        ivs = IrregularVerbAugmentedStem.objects.get(verb=ve, tense=t)
-        return unicodedata.normalize('NFKD', ivs.stem)
+        return self.irregular_augments[(tense)]
 
     def get_principle_part(self, tense, voice):
         return self.principle_parts[self.get_principle_part_index(tense, voice)]
