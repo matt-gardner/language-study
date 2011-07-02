@@ -1,7 +1,29 @@
 {% extends "base.html" %}
 
+{% load custom_filters %}
+
 {% block content %}
+<div id="id_table_view">
 
+<select id="id_person">
+	{% for person in persons %}
+	<option value="{{ person|variablize }}">
+		{{ person }}
+	</option>
+	{% endfor %}
+</select>
+
+<select id="id_number">
+	{% for number in numbers %}
+	<option value="{{ number|variablize }}">
+		{{ number }}
+	</option>
+	{% endfor %}
+</select>
+
+<div id="id_form_table">
 {{ table|safe }}
+</div>
 
+</div>
 {% endblock %}

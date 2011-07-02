@@ -99,6 +99,20 @@ function get_new_random_form() {
 	});
 }
 
+/* View form functions */
+function update_table() {
+	person = $("#id_person").val();
+	number = $("#id_number").val();
+	var link = document.URL.split('?')[0];
+	if (!link.match('/\/$/')) {
+		link += '/';
+	}
+	link += "update-table/"+person+"/"+number;
+	$.get(link, {}, function(data) {
+		$("#id_form_table").html(data);
+	});
+}
+
 /* Review option functions */
 function switch_review_style() {
 	window.location = $("#id_review_style").val();

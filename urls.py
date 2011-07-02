@@ -78,10 +78,6 @@ urlpatterns = patterns('',
     # Form drilling urls
     (r'^'+listname+'/forms/$',
         'drills.views.forms.main'),
-    (r'^'+listname+'/view-forms/$',
-        'drills.views.forms.view_forms'),
-    (r'^'+listname+'/view-table/'+verb_id+'$',
-        'drills.views.forms.view_table'),
     (r'^inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
         'drills.views.forms.inflect_form'),
     (r'^guess-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
@@ -90,6 +86,15 @@ urlpatterns = patterns('',
         'drills.views.forms.get_new_verb'),
     (r'^get-new-random-form/$',
         'drills.views.forms.get_new_random_form'),
+
+    # Form viewing urls
+    (r'^'+listname+'/view-forms/$',
+        'drills.views.forms.view_forms'),
+    (r'^'+listname+'/view-table/'+verb_id+'$',
+        'drills.views.forms.view_table'),
+    (r'^'+listname+'/view-table/'+verb_id+
+            '/update-table/'+person+'/'+number+'$',
+        'drills.views.forms.update_table'),
 
     # List views
     # These are at the bottom because they tend to be matched by other things

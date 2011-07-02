@@ -7,12 +7,9 @@ def create_table(verb, person, number):
     conj = conj_cls(verb.word.word, verb.id)
     args = {}
 
-    # Hard-coded for Attic Greek at the moment
-    moods = ['Indicative', 'Imperative', 'Subjunctive', 'Optative',
-            'Infinitive']#, 'Participle']
-    voices = ['Active', 'Middle', 'Passive']
-    tenses = ['Present', 'Imperfect', 'Future', 'Aorist', 'Perfect',
-            'Pluperfect']
+    moods = [m.name for m in language.mood_set.all()]
+    voices = [v.name for v in language.voice_set.all()]
+    tenses = [t.name for t in language.tense_set.all()]
 
     table = '<table>'
     table += '<thead>'

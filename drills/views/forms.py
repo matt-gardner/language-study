@@ -104,8 +104,21 @@ def view_table(request, listname, verb_id):
     wordlist = get_object_or_404(WordList, user=request.user, name=listname)
     context['wordlist'] = wordlist
     verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)
-    context['table'] = create_table(verb, 'Second Person', 'Singular')
+    language = wordlist.language
+    persons = [p.name for p in language.person_set.all() if p.name != 'None']
+    numbers = [n.name for n in language.number_set.all() if n.name != 'None']
+    context['persons'] = persons
+    context['numbers'] = numbers
+    context['table'] = create_table(verb, persons[0], numbers[0])
     return render_to_response('forms/table_view.html', context)
+
+@login_required
+def update_table(request, listname, verb_id, person, number):
+    person = devariablize(person)
+    number = devariablize(number)
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)
+    return HttpResponse(create_table(verb, person, number))
 
 
 def conj_verb_from_session(session, raise_errors=False, all_forms=False):

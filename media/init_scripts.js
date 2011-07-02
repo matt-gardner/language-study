@@ -79,6 +79,14 @@ $("#id_drill_verb").click(function() {
 $("#id_by_definition").click(function() {
 	set_by_definition();
 });
+
+/* Table form view scripts */
+$("#id_table_view #id_person").change(function() {
+	update_table();
+});
+$("#id_table_view #id_number").change(function() {
+	update_table();
+});
 /* List view scripts */
 $("#id_delete_word").click(function() {
 	var answer = confirm("Delete this word?");
