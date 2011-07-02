@@ -96,6 +96,9 @@ $(".add_irregular_form").click(function() {
 $(".add_irregular_stem").click(function() {
 	add_irregular_form($(this), "add-irregular-stem/");
 });
+$(".add_irregular_augment").click(function() {
+	add_irregular_form($(this), "add-irregular-augment/");
+});
 $(".delete_irregular_form").live('click', function() {
 	delete_irregular_form($(this));
 });

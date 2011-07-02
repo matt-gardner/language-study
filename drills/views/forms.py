@@ -7,16 +7,20 @@ import simplejson
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 
-from language_study.drills.views.common import base_context
-from language_study.drills.views.common import devariablize
-from language_study.drills.views.filters import filter_words
 from language_study.drills.models import Mood
 from language_study.drills.models import Number
 from language_study.drills.models import Person
 from language_study.drills.models import Tense
 from language_study.drills.models import Verb
 from language_study.drills.models import Voice
+from language_study.drills.models import WordList
+from language_study.drills.views.common import base_context
+from language_study.drills.views.common import devariablize
+from language_study.drills.views.filters import filter_words
+from language_study.drills.views import form_table_util
+from form_table_util import create_table
 
 def base_form_drill_context(request, listname):
     context = base_context(request)
@@ -92,6 +96,16 @@ def view_forms(request, listname):
                 all_forms=True)
         context['num_verbs'] = verbs.count()
     return render_to_response('forms/view_forms.html', context)
+
+
+@login_required
+def view_table(request, listname, verb_id):
+    context = base_context(request)
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    context['wordlist'] = wordlist
+    verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)
+    context['table'] = create_table(verb, 'Second Person', 'Singular')
+    return render_to_response('forms/table_view.html', context)
 
 
 def conj_verb_from_session(session, raise_errors=False, all_forms=False):

@@ -221,6 +221,11 @@ input[readonly="True"] {
 	border: 0;
 }
 
+tbody {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
 div.single-word-form input[type=text] {
 }
 
@@ -238,6 +243,10 @@ span.warning {
 }
 
 .add_irregular_stem:hover {
+	cursor: pointer;
+}
+
+.add_irregular_augment:hover {
 	cursor: pointer;
 }
 

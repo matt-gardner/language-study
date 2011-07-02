@@ -21,6 +21,7 @@ string = '(?P<string>[^/]+)'
 tag = '(?P<tag>[^/]+)'
 tense = '(?P<tense>[^/]+)'
 value = '(?P<value>[^/]+)'
+verb_id = '(?P<verb_id>[^/]+)'
 voice = '(?P<voice>[^/]+)'
 word_id = r'(?P<word_id>[\d]+)'
 year = '(?P<year>[^/]+)'
@@ -79,6 +80,8 @@ urlpatterns = patterns('',
         'drills.views.forms.main'),
     (r'^'+listname+'/view-forms/$',
         'drills.views.forms.view_forms'),
+    (r'^'+listname+'/view-table/'+verb_id+'$',
+        'drills.views.forms.view_table'),
     (r'^inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
         'drills.views.forms.inflect_form'),
     (r'^guess-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
@@ -99,12 +102,16 @@ urlpatterns = patterns('',
         'drills.views.lists.add_irregular_form'),
     (r'^'+listname+'/add-word/add-irregular-stem/'+number+'$',
         'drills.views.lists.add_irregular_stem'),
+    (r'^'+listname+'/add-word/add-irregular-augment/'+number+'$',
+        'drills.views.lists.add_irregular_augment'),
     (r'^'+listname+'/'+word_id+'$',
         'drills.views.lists.single_word'),
     (r'^'+listname+'/'+word_id+'/add-irregular-form/'+number+'$',
         'drills.views.lists.add_irregular_form'),
     (r'^'+listname+'/'+word_id+'/add-irregular-stem/'+number+'$',
         'drills.views.lists.add_irregular_stem'),
+    (r'^'+listname+'/'+word_id+'/add-irregular-augment/'+number+'$',
+        'drills.views.lists.add_irregular_augment'),
 
     # Site media
     (r'^site-media/(?P<path>.*)$',
