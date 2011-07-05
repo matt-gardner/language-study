@@ -87,6 +87,10 @@ $("#id_table_view #id_person").change(function() {
 $("#id_table_view #id_number").change(function() {
 	update_table();
 });
+$("#id_table_view #id_verb").change(function() {
+	var new_id = $(this).val();
+	window.location = new_id
+});
 /* List view scripts */
 $("#id_delete_word").click(function() {
 	var answer = confirm("Delete this word?");
@@ -106,6 +110,9 @@ $(".add_irregular_stem").click(function() {
 });
 $(".add_irregular_augment").click(function() {
 	add_irregular_form($(this), "add-irregular-augment/");
+});
+$(".add_tense_with_no_passive").click(function() {
+	add_irregular_form($(this), "add-no-passive-tense/");
 });
 $(".delete_irregular_form").live('click', function() {
 	delete_irregular_form($(this));

@@ -203,6 +203,10 @@
       "definition": "to be",
       "word": "εἰμί, ἔσομαι, _, _, _, _",
       "conjugation": "Athematic",
+      "tenses with no passive": [
+        "Present",
+        "Imperfect"
+      ],
       "irregular forms": [
         {
           "Person": "First Person",
@@ -257,7 +261,7 @@
           "Number": "Singular",
           "Tense": "Future",
           "Mood": "Indicative",
-          "Voice": "Active",
+          "Voice": "Middle",
           "Form": "ἔσται"
         },
         {
@@ -429,6 +433,9 @@
       "definition": "to stand",
       "word": "ἵστημι, στήσω, ἔστην, ἕστηκα, ἕσταμαι, ἐστάθην",
       "conjugation": "Athematic",
+      "tenses with no passive": [
+        "Aorist"
+      ],
       "irregular forms": [
         {
           "Person": "Third Person",
@@ -659,6 +666,12 @@
       "definition": "to say",
       "word": "φημί, φήσω, ἔφησα, _, _, _",
       "conjugation": "Athematic",
+      "tenses with no passive": [
+        "Present",
+        "Imperfect",
+        "Future",
+        "Aorist"
+      ],
       "irregular forms": [
         {
           "Person": "First Person",

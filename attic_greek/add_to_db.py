@@ -93,6 +93,9 @@ def add_language():
         v_args = {'word': word}
         v_args['conjugation'] = object_cache['Conjugation'][verb['conjugation']]
         add_or_fail(Verb, v_args)
+        if "tenses with no passive" in verb:
+            for tense in verb["tenses with no passive"]:
+                tense_with_no_passive(verb['word'], tense)
         if "irregular forms" in verb:
             for form in verb["irregular forms"]:
                 person = form['Person']
@@ -118,6 +121,13 @@ def add_language():
 
     if not added:
         print 'Nothing added to the database'
+
+
+def tense_with_no_passive(verb, tense):
+    args = {}
+    args['verb'] = object_cache['Verb'][verb]
+    args['tense'] = object_cache['Tense'][tense]
+    add_or_fail(VerbTenseWithNoPassive, args)
 
 
 def irregular_verb_form(verb, person, number, tense, mood, voice, form):

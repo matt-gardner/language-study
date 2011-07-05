@@ -7,7 +7,11 @@
 
 <select id="id_person">
 	{% for person in persons %}
-	<option value="{{ person|variablize }}">
+	<option value="{{ person|variablize }}"
+	{% ifequal person current_person %}
+		selected
+	{% endifequal %}
+	>
 		{{ person }}
 	</option>
 	{% endfor %}
@@ -15,7 +19,11 @@
 
 <select id="id_number">
 	{% for number in numbers %}
-	<option value="{{ number|variablize }}">
+	<option value="{{ number|variablize }}"
+	{% ifequal number current_number %}
+		selected
+	{% endifequal %}
+	>
 		{{ number }}
 	</option>
 	{% endfor %}
@@ -24,6 +32,19 @@
 <div id="id_form_table">
 {{ table|safe }}
 </div>
+
+See this table for another verb:
+
+<select id="id_verb">
+	{% for verb in verbs %}
+	<option value="{{ verb.id }}"
+	{% ifequal verb.id current_verb.id %}
+		selected
+	{% endifequal %}>
+		{{ verb.word.word }}
+	</option>
+	{% endfor %}
+</select>
 
 </div>
 {% endblock %}

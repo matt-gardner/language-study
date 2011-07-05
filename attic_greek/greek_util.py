@@ -248,8 +248,11 @@ def lengthen_vowel(vowel):
         return u'η'
     elif vowel == u'α':
         return u'η'
+    elif vowel == u'αι':
+        return u'ῃ'
     elif vowel == u'ι':
         return u'ι'
+    raise RuntimeError(u"I don't know how to lengthen these vowels: %s" % vowel)
 
 
 def shorten_vowel(vowel, principle_parts):

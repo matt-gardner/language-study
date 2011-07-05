@@ -250,6 +250,10 @@ span.warning {
 	cursor: pointer;
 }
 
+.add_tense_with_no_passive:hover {
+	cursor: pointer;
+}
+
 .delete_irregular_form:hover {
 	cursor: pointer;
 }

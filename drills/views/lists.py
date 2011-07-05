@@ -1,6 +1,4 @@
 
-from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
 from django import forms
 from django.http import HttpResponse
@@ -15,6 +13,7 @@ from language_study.drills.models import IrregularVerbAugmentedStem
 from language_study.drills.models import IrregularVerbForm
 from language_study.drills.models import IrregularVerbStem
 from language_study.drills.models import Verb
+from language_study.drills.models import VerbTenseWithNoPassive
 from language_study.drills.models import Word
 from language_study.drills.models import WordList
 from language_study.drills.views.common import base_context
@@ -23,6 +22,7 @@ from word_editing_util import create_irregular_augment_row
 from word_editing_util import create_irregular_form_row
 from word_editing_util import create_irregular_stem_row
 from word_editing_util import create_form_for_word
+from word_editing_util import create_tense_with_no_passive_row
 from word_editing_util import MockIrregularForm
 
 
@@ -134,9 +134,24 @@ def add_irregular_augment(request, listname, number, word_id=None):
     return HttpResponse(html)
 
 
+def add_tense_with_no_passive(request, listname, number, word_id=None):
+    word = None
+    if word_id:
+        word = get_object_or_404(Word, pk=word_id)
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    if word and word.wordlist != wordlist:
+        raise Http404
+    mock_form = MockIrregularForm()
+    number = int(number)
+    html = create_tense_with_no_passive_row(wordlist.language, mock_form,
+            number)
+    return HttpResponse(html)
+
+
 # Important helper methods
 ##########################
 
+# TODO: make this a managed transaction, to speed things up; it's slow
 def update_word_from_post(word, POST):
     # This is the only field we need to actually set for new words that we
     # don't for editing words, because the other required fields have good
@@ -152,14 +167,20 @@ def update_word_from_post(word, POST):
         try:
             # Need to update the verb object with other options
             verb = word.verb
+            conj = Conjugation.objects.get(pk=POST['conjugation'])
+            verb.conjugation = conj
+            verb.no_passive = POST.get('no_passive', False)
+            verb.save()
         except Verb.DoesNotExist:
             # Need to create a verb object for this word
             conj = Conjugation.objects.get(pk=POST['conjugation'])
-            verb = Verb(word=word, conjugation=conj)
+            no_passive = POST.get('no_passive', False)
+            verb = Verb(word=word, conjugation=conj, no_passive=no_passive)
             verb.save()
         irregular_forms = []
         irregular_stems = []
         irregular_augments = []
+        tenses_with_no_passive = []
         for key in POST:
             if key.startswith("irregular_form_") and key.endswith("_action"):
                 irregular_forms.append(key)
@@ -167,9 +188,13 @@ def update_word_from_post(word, POST):
                 irregular_stems.append(key)
             if key.startswith("irregular_augment_") and key.endswith("_action"):
                 irregular_augments.append(key)
+            if key.startswith("no_passive_tense_") and key.endswith("_action"):
+                tenses_with_no_passive.append(key)
         save_irregular_forms(language, verb, irregular_forms, POST)
         save_irregular_stems(language, verb, irregular_stems, POST)
         save_irregular_augments(language, verb, irregular_augments, POST)
+        save_tenses_with_no_passive(language, verb, tenses_with_no_passive,
+                POST)
     else:
         try:
             # Need to delete the verb object
@@ -255,6 +280,26 @@ def save_irregular_augments(language, verb, irregular_augments, POST):
         i_augment.tense = language.tense_set.get(pk=tense)
         i_augment.stem = stem
         i_augment.save()
+
+
+def save_tenses_with_no_passive(language, verb, tenses_with_no_passive, POST):
+    for no_passive_tense in tenses_with_no_passive:
+        tense_number = int(no_passive_tense.split('_')[-2])
+        if POST[no_passive_tense] == 'delete':
+            id = POST['no_passive_tense_%d_id' % tense_number]
+            t = get_object_or_404(VerbTenseWithNoPassive, pk=id,
+                    verb=verb)
+            t.delete()
+            continue
+        tense = POST['no_passive_tense_%d_tense' % tense_number]
+        if POST[no_passive_tense] == 'add':
+            t = VerbTenseWithNoPassive()
+        elif POST[no_passive_tense] == 'save':
+            id = POST['no_passive_tense_%d_id' % tense_number]
+            t = get_object_or_404(VerbTenseWithNoPassive, pk=id, verb=verb)
+        t.verb = verb
+        t.tense = language.tense_set.get(pk=tense)
+        t.save()
 
 
 # vim: et sw=4 sts=4

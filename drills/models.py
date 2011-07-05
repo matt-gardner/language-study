@@ -206,10 +206,16 @@ class IrregularVerbStem(models.Model):
     stem = models.CharField(max_length=128)
 
 
+# Maybe this should be in attic_greek/models.py?
 class IrregularVerbAugmentedStem(models.Model):
     verb = models.ForeignKey('Verb')
     tense = models.ForeignKey('Tense')
     stem = models.CharField(max_length=128)
+
+
+class VerbTenseWithNoPassive(models.Model):
+    verb = models.ForeignKey('Verb')
+    tense = models.ForeignKey('Tense')
 
 
 # Declension stuff (including irregulars)

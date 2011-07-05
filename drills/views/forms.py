@@ -104,18 +104,27 @@ def view_table(request, listname, verb_id):
     wordlist = get_object_or_404(WordList, user=request.user, name=listname)
     context['wordlist'] = wordlist
     verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)
+    context['verbs'] = [word.verb for word in
+            wordlist.word_set.filter(verb__isnull=False)]
+    context['current_verb'] = verb
     language = wordlist.language
     persons = [p.name for p in language.person_set.all() if p.name != 'None']
     numbers = [n.name for n in language.number_set.all() if n.name != 'None']
     context['persons'] = persons
     context['numbers'] = numbers
-    context['table'] = create_table(verb, persons[0], numbers[0])
+    person = request.session.get('current_person', persons[0])
+    context['current_person'] = person
+    number = request.session.get('current_number', numbers[0])
+    context['current_number'] = number
+    context['table'] = create_table(verb, person, number)
     return render_to_response('forms/table_view.html', context)
 
 @login_required
 def update_table(request, listname, verb_id, person, number):
     person = devariablize(person)
+    request.session['current_person'] = person
     number = devariablize(number)
+    request.session['current_number'] = number
     wordlist = get_object_or_404(WordList, user=request.user, name=listname)
     verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)
     return HttpResponse(create_table(verb, person, number))

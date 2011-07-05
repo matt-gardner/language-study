@@ -59,8 +59,7 @@ class GreekConjugation(Conjugation):
     def __init__(self, principle_parts, verb_id=-1):
         self.original_word = principle_parts
         self.verb_id = verb_id
-        if verb_id != -1:
-            self.cache_irregulars()
+        self.cache_database_stuff()
         principle_parts = principle_parts.split(', ')
         if len(principle_parts) == 1:
             # We don't have the principle parts for the verb...  What do we do?
@@ -99,12 +98,6 @@ class GreekConjugation(Conjugation):
                 principle_part)
         if self.needs_contraction(tense, mood, voice, principle_part):
             accented = self.contract(accented, stem, ending)
-        if verbose:
-            print 'stem:', stem
-            print 'ending:', ending
-            print 'augment:', augment
-            print 'final_form:', final_form
-            print 'accented:', accented
         return [accented]
 
     def check_kwargs(self, kwargs):
@@ -125,12 +118,15 @@ class GreekConjugation(Conjugation):
         number = kwargs['number']
         return person, number, tense, mood, voice
 
-    def cache_irregulars(self):
-        if verbose:
-            print 'Caching irregulars'
+    def cache_database_stuff(self):
+        self.irregular_forms = dict()
+        self.irregular_stems = dict()
+        self.irregular_augments = dict()
+        self.tenses_with_no_passive = set()
+        if self.verb_id == -1:
+            return
         verb = Verb.objects.get(pk=self.verb_id)
         irregular_forms = verb.irregularverbform_set.all()
-        self.irregular_forms = dict()
         for ivf in irregular_forms:
             p = ivf.person.name
             n = ivf.number.name
@@ -139,27 +135,21 @@ class GreekConjugation(Conjugation):
             v = ivf.voice.name
             form = unicodedata.normalize('NFKD', ivf.form)
             self.irregular_forms[(p, n, t, m, v)] = form
-            if verbose:
-                print u'(%s, %s, %s, %s, %s) -> %s' % (p, n, t, m, v, form)
         irregular_stems = verb.irregularverbstem_set.all()
-        self.irregular_stems = dict()
         for ivs in irregular_stems:
             t = ivs.tense.name
             m = ivs.mood.name
             v = ivs.voice.name
             stem = unicodedata.normalize('NFKD', ivs.stem)
             self.irregular_stems[(t, m, v)] = stem
-            if verbose:
-                print u'(%s, %s, %s) -> %s' % (t, m, v, stem)
         irregular_augments = verb.irregularverbaugmentedstem_set.all()
-        self.irregular_augments = dict()
         for ia in irregular_augments:
             t = ia.tense.name
             stem = unicodedata.normalize('NFKD', ia.stem)
             self.irregular_augments[(t)] = stem
-            if verbose:
-                print u'(%s) -> %s' % (t, stem)
-
+        tenses_with_no_passive = verb.verbtensewithnopassive_set.all()
+        for t in tenses_with_no_passive:
+            self.tenses_with_no_passive.add(t.tense.name)
 
     def is_irregular(self, person, number, tense, mood, voice):
         return (person, number, tense, mood, voice) in self.irregular_forms
@@ -183,12 +173,11 @@ class GreekConjugation(Conjugation):
         return self.principle_parts[self.get_principle_part_index(tense, voice)]
 
     def get_principle_part_index(self, tense, voice):
-        # TODO: passive deponents are really handled correctly
         if tense in ['Present', 'Imperfect']:
             return 0
-        elif tense == 'Future' and voice in ['Active', 'Middle', 'Deponent']:
+        elif tense == 'Future' and voice in ['Active', 'Middle']:
             return 1
-        elif tense == 'Aorist' and voice in ['Active', 'Middle', 'Deponent']:
+        elif tense == 'Aorist' and voice in ['Active', 'Middle']:
             return 2
         elif tense in ['Perfect', 'Pluperfect'] and voice == 'Active':
             return 3
@@ -238,9 +227,14 @@ class GreekConjugation(Conjugation):
         return self.stem_second_pp(principle_part, tense, voice)
 
     def stem_second_pp(self, principle_part, tense, voice):
+        if (tense in self.tenses_with_no_passive and
+                voice in ['Middle', 'Passive']):
+            raise ValueError('This verb has no middle/passive in this tense')
         if principle_part.endswith(u'ω'):
             return remove_accents(principle_part)[:-1]
         elif principle_part.endswith(u'ομαι'):
+            if voice == 'Active':
+                raise ValueError("This verb (as specified) has no active forms")
             return remove_accents(principle_part)[:-4]
         elif principle_part.endswith(u'ῶ'):
             # Here we assume an epsilon contraction, as that is the most
@@ -248,11 +242,20 @@ class GreekConjugation(Conjugation):
             return remove_accents(principle_part)[:-1] + u'ε'
         elif principle_part.endswith(u'οῦμαι'):
             # Again we assume epsilon
+            if voice == 'Active':
+                raise ValueError("This verb (as specified) has no active forms")
             return remove_accents(principle_part)[:-5] + u'ε'
 
     def stem_third_pp(self, principle_part, tense, mood, voice, number):
+        if (tense in self.tenses_with_no_passive and
+                voice in ['Middle', 'Passive']):
+            raise ValueError('This verb has no middle/passive in this tense')
         if principle_part.endswith(u'α'):
             with_augment = remove_accents(principle_part)[:-1]
+        if principle_part.endswith(u'μην'):
+            if voice == 'Active':
+                raise ValueError("This verb (as specified) has no active forms")
+            with_augment = remove_accents(principle_part)[:-4]
         elif principle_part.endswith(u'ον'):
             with_augment = remove_accents(principle_part)[:-2]
         elif principle_part.endswith(u'ν'):
@@ -269,7 +272,6 @@ class GreekConjugation(Conjugation):
                 with_augment = long_with_augment[:-1] + self.short_vowel
             else:
                 with_augment = long_with_augment
-        #TODO: handle deponent forms
         return self.remove_augment(with_augment)
 
     def stem_fourth_pp(self, principle_part, tense, voice):
@@ -462,7 +464,7 @@ class GreekConjugation(Conjugation):
         return stem + ending
 
     def combine_consonant_stem(self, stem, ending):
-        if stem[-1] in vowels:
+        if remove_all_combining(stem)[-1] in vowels:
             # No consonant stem to worry about, so just do the normal thing
             return stem + ending
         if stem[-1] == u'λ':
@@ -494,9 +496,10 @@ class GreekConjugation(Conjugation):
             # Perfect stem ends in σ, so we have two cases
             if last_consonant == u'ν':
                 return stem[:-1] + ConsonantSigmaNasal.convert(ending)
-            elif last_consonant == u'':
+            else:
+                # This might not be right, but we'll go with it until we find a
+                # better way
                 return stem[:-1] + ConsonantAddedSigma.convert(ending)
-        print stem, last_consonant
         raise ValueError("I found a consonant stem I didn't recognize")
 
     def add_accent(self, verb, mood, tense, voice, principle_part):
@@ -708,6 +711,9 @@ class AthematicConjugation(GreekConjugation):
         return super(AthematicConjugation, self).conjugate(**kwargs)
 
     def stem_first_pp(self, principle_part, tense, mood, voice, number):
+        if (tense in self.tenses_with_no_passive and
+                voice in ['Middle', 'Passive']):
+            raise ValueError('This verb has no middle/passive in this tense')
         if not remove_accents(principle_part).endswith(u'μι'):
             raise ValueError('Are you sure this is an athematic verb?')
         base = remove_accents(principle_part[:-2])
@@ -732,6 +738,9 @@ class AthematicConjugation(GreekConjugation):
             return without_vowel + vowel
 
     def stem_third_pp(self, principle_part, tense, mood, voice, number):
+        if (tense in self.tenses_with_no_passive and
+                voice in ['Middle', 'Passive']):
+            raise ValueError('This verb has no middle/passive in this tense')
         if self.principle_parts[0] in stem_changers:
             long_with_augment = remove_accents(principle_part)[:-1]
             base, rest = long_with_augment[:-2], long_with_augment[-2:]
@@ -764,13 +773,14 @@ class AthematicConjugation(GreekConjugation):
             return False
         if tense == 'Present' and mood == 'Subjunctive':
             return True
-        if tense == 'Aorist' and mood == 'Subjunctive':
+        if tense == 'Aorist' and mood == 'Subjunctive' and voice != 'Passive':
             return True
         if tense == 'Aorist' and mood == 'Infinitive' and voice == 'Active':
             return True
         return False
 
     def add_accent(self, verb, mood, tense, voice, principle_part):
+        print verb, mood, tense, voice, principle_part
         if (mood == 'Optative' and voice in ['Middle', 'Passive'] and
                 tense in ['Present', 'Aorist']):
             if self.principle_parts[0] not in thematic_optative:

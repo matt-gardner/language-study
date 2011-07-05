@@ -57,6 +57,7 @@ from attic_greek.test_modules import athematic
 from attic_greek.test_modules import consonant_stems
 from attic_greek.test_modules import contracted
 from attic_greek.test_modules import contracted_future
+from attic_greek.test_modules import deponent
 from attic_greek.test_modules import erxomai
 from attic_greek.test_modules import regular
 from attic_greek.test_modules import vowel_augment
@@ -66,6 +67,7 @@ all_tests.extend(athematic.all_tests)
 all_tests.extend(consonant_stems.all_tests)
 all_tests.extend(contracted.all_tests)
 all_tests.extend(contracted_future.all_tests)
+all_tests.extend(deponent.all_tests)
 all_tests.extend(erxomai.all_tests)
 all_tests.extend(regular.all_tests)
 all_tests.extend(vowel_augment.all_tests)

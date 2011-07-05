@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
+from datetime import datetime
+
 from django import forms
 
 from language_study.drills.models import Verb
+from language_study.drills.models import Word
 
 # I wanted to do more complicated things than Django's built-in form
 # functionality would let me do, so I have a lot that I'm writing here, and
@@ -14,6 +17,7 @@ def create_form_for_word(wordlist, word=None):
     verb_form += irregular_forms_form(word)
     verb_form += irregular_stems_form(word)
     verb_form += irregular_augments_form(word)
+    verb_form += tenses_with_no_passive_form(word)
     return word_form + verb_form
 
 
@@ -150,6 +154,42 @@ def create_irregular_augment_row(language, augment, i):
         html += 'value="save" />\n'
         html += '<input type="hidden" name="irregular_augment_%d_id" ' % i
         html += 'value="%d" />\n' % augment.id
+        html += '</td>\n'
+    html += '</tr>\n\n'
+    return html
+
+
+def tenses_with_no_passive_form(word):
+    tnp_form = '\n\n<tr><th><label>Tenses with no Passive:</label></th>\n'
+    tnp_form += '<td>\n<table class=verb-option>\n'
+    tenses_with_no_passive = []
+    if word:
+        language = word.wordlist.language
+        try:
+            tenses_with_no_passive =  word.verb.verbtensewithnopassive_set.all()
+        except Verb.DoesNotExist:
+            pass
+    for i, tense in enumerate(tenses_with_no_passive):
+        tnp_form += create_tense_with_no_passive_row(language, tense, i)
+    tnp_form += '<tr><td><span class=add_tense_with_no_passive>Add</span></td>'
+    tnp_form += '</tr>\n</table></td></tr>'
+    return tnp_form
+
+
+def create_tense_with_no_passive_row(language, tense, i):
+    html = '<tr>\n'
+    html += '<td>'
+    html += make_select(language.tense_set.all(),
+            'no_passive_tense_%d_tense' % i, tense.tense)
+    html += '</td>\n'
+    html += '<td><span class="delete_irregular_form">X</span>'
+    html += '<input type="hidden" name="no_passive_tense_%d_action" ' % i
+    if isinstance(tense, MockIrregularForm):
+        html += 'value="add" /></td>\n'
+    else:
+        html += 'value="save" />\n'
+        html += '<input type="hidden" name="no_passive_tense_%d_id" ' % i
+        html += 'value="%d" />\n' % tense.id
         html += '</td>\n'
     html += '</tr>\n\n'
     return html

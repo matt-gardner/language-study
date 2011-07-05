@@ -28,7 +28,8 @@ function add_irregular_form($span, ajax_link) {
 	if (!name) {
 		var number = 0;
 	} else {
-		var number = parseInt(name.split("_")[2]) + 1;
+		var parts = name.split("_");
+		var number = parseInt(parts[parts.length-2]) + 1;
 	}
 	var link = document.URL.split('?')[0];
 	if (!link.match('/\/$/')) {
