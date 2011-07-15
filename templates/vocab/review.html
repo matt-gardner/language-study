@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "three_column_base.html" %}
 
 {% block script_config %}
 <script charset="utf-8" type="text/javascript">
@@ -9,21 +9,8 @@
 </script>
 {% endblock %}
 
-{% block content %}
 
-<div class="review_style">
-	Review style:
-	<select id="id_review_style" onChange="switch_review_style()">
-		{% for style in review_styles %}
-		<option value="{{ style.link }}"
-		{% ifequal style.link review_style %} selected {% endifequal %}>
-		{{ style.name }}
-		</option>
-		{% endfor %}
-	</select>
-</div>
-
-<div class="above_review">
+{% block above_review %}
 	{% block word_list_info %}
 
 	{% if wordlist %}
@@ -41,128 +28,109 @@
 		This word's difficulty: {{ word.difficulty|floatformat:"2" }};
 		Times reviewed: {{ word.review_count }}
 	</div>
-</div>
-
-<div class="review">
-
-	<div class="left_review">
-		<div class="options">
-		{% block options %}
-		{% endblock %}
-		</div>
-	</div>
-
-	<div class="center_review">
-		<div class="review_word">
-			<div class="text">
-				{% if not by_definition %}
-				{{ word.word }}
-				{% else %}
-				{{ word.definition }}
-				{% endif %}
-			</div>
-		</div>
-		<div class="review_definition">
-			<div class="text" style="display:none">
-				{% if not by_definition %}
-				{{ word.definition }}
-				{% else %}
-				{{ word.word }}
-				{% endif %}
-			</div>
-		</div>
-		<div class="review_buttons">
-		{% block review_buttons %}
-			<input type="submit"
-			value="Previous Word"
-			accesskey=p
-			id="id_prev_word"/>
-			<input type="submit"
-			{% if not by_definition %}
-			value="Show definition"
-			{% else %}
-			value="Show word"
-			{% endif %}
-			accesskey=s
-			id="id_show_definition"/>
-			<input type="submit"
-			value="Next Word"
-			accesskey=n
-			id="id_next_word"/>
-		{% endblock %}
-		</div>
-		<div class="review_buttons_below">
-		{% block review_buttons_below %}
-			<input type="submit"
-			value="That was easy"
-			accesskey=y
-			id="id_easy"/>
-			<input type="submit"
-			value="I got it, but it took a while"
-			accesskey=m
-			id="id_medium"/>
-			<input type="submit"
-			value="I didn't get it..."
-			accesskey=h
-			id="id_hard"/>
-		{% endblock %}
-		</div>
-		<div class="drill_button">
-			<input type="submit"
-			value="Drill forms for this verb"
-			accesskey=f
-			id="id_drill_verb"
-			{% if not word.verb %}
-			style="display: none;"
-			{% endif %}
-			/>
-		</div>
-	</div>
-
-	<div class="right_review">
-		<div class="word_font_buttons">
-			<input type="submit" value="+" id="id_increase_word_size" />
-			<br>
-			<input type="submit" value="&ndash;" id="id_decrease_word_size" />
-		</div>
-
-		<div class="definition_font_buttons">
-			<input type="submit" value="+" id="id_increase_definition_size" />
-			<br>
-			<input type="submit" value="&ndash;"
-				id="id_decrease_definition_size" />
-		</div>
-	</div>
-
-	<div class="tags">
-		<div class="filter">
-			<table>
-				<tbody id="id_filter_form">
-					{{ filter|safe }}
-				</tbody>
-			</table>
-		</div>
-		<hr>
-		<div class="word_tags">
-			{{ word_tags|safe }}
-		</div>
-		<div class="add_tag">
-			<select id="id_add_tag">
-				{% for tag in tags %}
-				<option value="{{ tag }}"> {{ tag }} </option>
-				{% endfor %}
-			</select>
-			<input type="submit" value="Add tag" id="id_add_tag_button" />
-		</div>
-		<div class="create_tag">
-			Create new tag:<br>
-			<form method="post" action="add-tag"> {% csrf_token %}
-				<input type="text" name="name" maxlength="128" />
-				<input type="submit" value="Create Tag" id="id_create_tag"/>
-			</form>
-		</div>
-	</div>
-
-</div>
-
 {% endblock %}
+
+{% block center_column %}
+<div class="center_review">
+	<div class="review_word">
+		<div class="text">
+			{% if not by_definition %}
+			{{ word.word }}
+			{% else %}
+			{{ word.definition }}
+			{% endif %}
+		</div>
+	</div>
+	<div class="review_definition">
+		<div class="text" style="display:none">
+			{% if not by_definition %}
+			{{ word.definition }}
+			{% else %}
+			{{ word.word }}
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block left_column %}
+<div class="left_review">
+	<div class="options">
+	{% block options %}
+	{% endblock %}
+	</div>
+</div>
+{% endblock %}
+
+{% block right_column %}
+<div class="tags">
+	<div class="filter">
+		<table>
+			<tbody id="id_filter_form">
+				{{ filter|safe }}
+			</tbody>
+		</table>
+	</div>
+	<hr>
+	<div class="word_tags">
+		{{ word_tags|safe }}
+	</div>
+	<div class="add_tag">
+		<select id="id_add_tag">
+			{% for tag in tags %}
+			<option value="{{ tag }}"> {{ tag }} </option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="Add tag"
+			id="id_add_tag_button" />
+	</div>
+	<div class="create_tag">
+		Create new tag:<br>
+		<form method="post" action="add-tag"> {% csrf_token %}
+			<input type="text" name="name" maxlength="128" />
+			<input type="submit" value="Create Tag"
+				id="id_create_tag"/>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block below_review %}
+<div class="review_buttons ui-widget-header">
+	<div>
+		<div class="ui-button ui-state-default" id="id_prev_word">
+			<a class="ui-button-text" accesskey=p> Previous Word </a>
+		</div>
+
+		<div class="ui-button ui-state-default" id="id_show_definition"/>
+			<a class="ui-button-text" accesskey=s>
+				{% if not by_definition %}
+				Show definition
+				{% else %}
+				Show word
+				{% endif %}
+			</a>
+		</div>
+
+		<div class="ui-button ui-state-default" id="id_next_word">
+			<a class="ui-button-text" accesskey=n> Next Word </a>
+		</div>
+	</div>
+	<div>
+		<div class="ui-button ui-state-default" id="id_easy">
+			<a class="ui-button-text" accesskey=y> That was easy </a>
+		</div>
+
+		<div class="ui-button ui-state-default" id="id_medium">
+			<a class="ui-button-text" accesskey=m>
+				I got it, but it took a while
+			</a>
+		</div>
+
+		<div class="ui-button ui-state-default" id="id_hard">
+			<a class="ui-button-text" accesskey=h> I didn't get it...  </a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

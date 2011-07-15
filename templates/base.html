@@ -4,8 +4,11 @@
 <head>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <title>Memorization Program</title>
+<link rel="stylesheet" title="default" href="/site-media/jquery-ui-1.8.14.custom.css" type="text/css" />
 <link rel="stylesheet" title="default" href="/site-media/style.css" type="text/css" />
-<script type="text/javascript" src="/site-media/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/site-media/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="/site-media/jquery-ui-1.8.14.custom.min.js">
+</script>
 <script type="text/javascript" src="/site-media/scripts.js"></script>
 
 {% block script_config %}
@@ -19,23 +22,45 @@
 
 <div id="navigation-base">
 <div id="navigation">
-	<ul>
-		<li><a href="/">Logo</a></li>
-		{% if wordlist %}
-		<li>Current list:
-			<a href="/{{ wordlist.name }}">{{ wordlist.name }}</a>
+	<ul class="ui-widget-header ui-corner-all">
+		<li id="nav_home" class="ui-state-default">
+			<a href="/">Home</a>
 		</li>
-		<li><a href="/{{ wordlist.name }}/all-words">Review Vocab</a></li>
-		<li><a href="/{{ wordlist.name }}/forms">Drill Forms</a></li>
-		{% endif %}
-		{% if logged_in %}
-		<li class="right"><a href="/logout">Log out</a></li>
-		{% else %}
-		<li class="right"><a href="/accounts/login?next=/">Log in</a></li>
-		{% endif %}
+		<li id="nav_wordlist" class="ui-state-default wordlist-needed">
+			{% if wordlist %}
+			<a href="/{{ wordlist.name }}">Current list: {{ wordlist.name }}</a>
+			{% else %}
+			<a href="">Current list: None</a>
+			{% endif %}
+		</li>
+		<li id="nav_vocab" class="ui-state-default wordlist-needed">
+			<a href="/{{ wordlist.name }}/all-words">Review Vocab</a>
+		</li>
+		<li id="nav_forms" class="ui-state-default wordlist-needed">
+			<a href="/{{ wordlist.name }}/forms">Drill Forms</a>
+		</li>
+		<li id="nav_login" class="right ui-state-default">
+			{% if logged_in %}
+			<a href="/logout">Log out</a>
+			{% else %}
+			<a href="/accounts/login?next=/">Log in</a>
+			{% endif %}
+		</li>
 	</ul>
 </div>
 </div>
+
+{% if nav_page %}
+<script type="text/javascript">
+	$("#{{ nav_page }}").addClass("ui-state-active");
+</script>
+{% endif %}
+{% if not wordlist %}
+<script type="text/javascript">
+	$("#navigation li.wordlist-needed").addClass("ui-state-disabled")
+	    .click(function() {return false;});
+</script>
+{% endif %}
 
 {% block message %}
 <div class="message">

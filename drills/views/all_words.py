@@ -15,6 +15,7 @@ from language_study.drills.models import Tag
 @login_required
 def main(request, listname):
     context, words = base_review_context(request, listname)
+    context['nav_page'] = 'nav_vocab'
     context['review_style'] = '/all-words/'
     if words:
         word_number = request.session.get('word-number', 0)

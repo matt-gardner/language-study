@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="above_review">
+	{% block above_review %}
+	{% endblock %}
+</div>
+
+<div class="column-base three-columns">
+	<div class="middle-column">
+		<div class="left-column">
+			<div class="column-1">
+				{% block center_column %}
+				{% endblock %}
+			</div>
+			<div class="column-2">
+				{% block left_column %}
+				{% endblock %}
+			</div>
+			<div class="column-3">
+				{% block right_column %}
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="below_review">
+	{% block below_review %}
+	{% endblock %}
+</div>
+
+{% endblock %}

@@ -1,10 +1,15 @@
 /* Basic page layout */
+body {
+	padding: 0px;
+	margin: 0px;
+}
 div.page
 {
+	padding: 0px;
+	margin: 0px;
 	position:absolute;
 	left: 12.5%;
 	width: 75%;
-	height: 100%;
 	font-family: "Gentium", "DejaVu LGC Serif", "New Athena Unicode", "Galatia SIL", "Arial Unicode MS", "Lucida Grande";
 }
 
@@ -15,36 +20,31 @@ div.page
 #navigation {
 	clear: both;
 }
-#navigation .left {
-	/* background: url('../images/navigation.png') no-repeat left top;
-	background: url('../images/navigation_l.png') no-repeat left top;*/
-}
 #navigation ul {
 	list-style-type: none;
-	overflow: auto;
-	margin: 2px;
-	padding: 2px;
+	overflow: hidden;
+	margin: 0px;
+	padding: 0px;
 }
 #navigation ul li {
 	float: left;
-	margin: 2px;
-	padding: 2px;
-	display: block;
+	display: list-item;
+	height: 35px;
+	font-size: 1.15em;
+	position: relative;
 }
 #navigation ul li.right {
 	float: right;
-	/*background: url('../images/navigation.png') no-repeat right top;*/
 }
 #navigation ul li a {
-	/*background: url('../images/navigation_s.png') no-repeat right top;*/
+	float: left;
+	padding: .5em 1em;
 }
-#navigation ul li.selected a {
+#navigation ul li.ui-state-disabled a:hover {
+	cursor: default;
 }
-#navigation ul li.last a{
-	background-image: none;
-}
-#navigation ul li a:hover {
-}
+
+/* end navigation */
 
 div.content {
 	clear:both;
@@ -65,16 +65,22 @@ div.wordlists
 	background:#aaf;
 	text-align:center;
 }
+div.center_review
+{
+	text-align: center;
+}
+div.review_buttons {
+	text-align: center;
+}
 div.above_review
 {
-	background:#ccc;
-	text-align:center;
+	background: #ccc;
+	text-align: center;
 }
 div.review
 {
-	height:60%;
-	background:#ccc;
-	text-align:center;
+	background: #ccc;
+	text-align: center;
 }
 div.add_word
 {
@@ -90,38 +96,20 @@ div.add_word ul
 /* Review options on the left */
 div.options
 {
-	margin-top:25%;
-	margin-right:10%;
 	background:#ccf;
 	text-align:left;
-	float:right;
+	height: 100%;
 }
 /* The main review box */
 div.center_review
 {
-	width:50%;
-	height:100%;
-	float:left;
-	margin-left:auto;
-	margin-right:auto;
+	width: 100%;
 }
-div.left_review
-{
-	width:25%;
-	float:left;
-	margin-left:auto;
-	margin-right:auto;
-}
-div.right_review
-{
-	width:5%;
-	float:left;
-	margin-left:auto;
-	margin-right:auto;
+div.left_review {
+	height: 100%;
 }
 div.tags
 {
-	width:20%;
 	float:left;
 	text-align:center;
 }
@@ -134,15 +122,15 @@ div.word_tags
 }
 div.review_word
 {
-	width:100%;
-	height:40%;
+	width: 100%;
+	height: 200px;
 	background:#eff;
 	display:table;
 }
 div.review_definition
 {
-	width:100%;
-	height:40%;
+	width: 100%;
+	height: 200px;
 	background:#eef;
 	display:table;
 }
@@ -154,44 +142,69 @@ div.text
 	text-align:center;
 	vertical-align:middle;
 }
-/* The font buttons on the side */
-div.word_font_buttons
-{
-	background:#ccf;
-	margin-top:100%;
-	text-align:left;
+.ui-state-active.ui-state-hover .ui-button-text {
+	color: #222;
 }
-div.definition_font_buttons
-{
-	background:#ccf;
-	margin-top:220%;
-	text-align:left;
-}
-/* The review buttons on the bottom */
-div.review_buttons
-{
-	background:#bbb;
-	margin-left:auto;
-	margin-right:auto;
-}
-div.review_buttons_below
-{
-	background:#bbb;
-	margin-left:auto;
-	margin-right:auto;
+.ui-button-text {
+	padding: .25em .5em;
 }
 div.drill_form_buttons
 {
-	background:#bbb;
 	margin-left:auto;
 	margin-right:auto;
-	text-align:left;
+	text-align:center;
 }
 div.drill_form_buttons ul
 {
 	list-style-type:none;
 	padding:0;
 	margin-left:0;
+}
+
+/* Three column layout stuff */
+/* See: http://matthewjamestaylor.com/blog/perfect-3-column.htm */
+.column-base {
+	position: relative;
+	clear: both;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+.right-column, .left-column, .middle-column {
+	float: left;
+	width: 100%;
+	position: relative;
+}
+.column-1, .column-2, .column-3 {
+	float: left;
+	position: relative;
+	padding: 0;
+	overflow: hidden;
+	height: 400px;
+}
+/* These settings affect the right column */
+.three-columns {
+	background: #eee;
+}
+.three-columns .middle-column {
+	right: 25%; /* width of the right column */
+	background: #fff;
+}
+.three-columns .left-column {
+	right: 50%;  /* width of the middle column */
+	background #f4f4f4;
+}
+.three-columns .column-1 {
+	width: 50%; /* width of center column content (width - padding) */
+	left: 100%;
+}
+.three-columns .column-2 {
+	width: 25%; /* width of left column content (width - padding) */
+	left: 25%;
+}
+.three-columns .column-3 {
+	width: 25%; /* width of right column content (width - padding) */
+	left: 75%;
 }
 
 /* Other general CSS stuff (coloring, whatever) */

@@ -10,6 +10,12 @@ $("#id_show_definition").click(function () {
 		$("#id_show_definition").val(new_text);
 	}
 });
+$(".ui-button").mousedown(function() {
+	$(this).addClass("ui-state-active");
+});
+$(".ui-button").mouseup(function() {
+	$(this).removeClass("ui-state-active");
+});
 $("#id_next_word").click(function () {
 	next_word();
 });
@@ -120,5 +126,15 @@ $(".delete_irregular_form").live('click', function() {
 $(".undo_delete_irregular_form").live('click', function() {
 	undo_delete_irregular_form($(this));
 });
+
+/* JQuery UI theming scripts */
+$(".ui-state-default").hover(
+	function() {
+		$(this).removeClass('ui-state-default').addClass('ui-state-hover');
+	},
+	function() {
+		$(this).removeClass('ui-state-hover').addClass('ui-state-default');
+	}
+);
 
 });

@@ -24,6 +24,7 @@ from form_table_util import create_table
 
 def base_form_drill_context(request, listname):
     context = base_context(request)
+    context['nav_page'] = 'nav_forms'
 
     errors = request.session.get('errors', None)
     if errors:
@@ -73,8 +74,8 @@ def main(request, listname):
         try:
             current_word = request.session.get('word-number', 0)
             word_id = request.session['words'][current_word].id
-            verb = verbs.get(pk=word_id)
-        except (Verb.DoesNotExist, IndexError, ValueError):
+            verb = verbs.get(word__id=word_id)
+        except (Verb.DoesNotExist, IndexError, ValueError, KeyError):
             verb = verbs[0]
         request.session['verb-id'] = verb.id
         context['verb_id'] = verb.id
@@ -101,6 +102,7 @@ def view_forms(request, listname):
 @login_required
 def view_table(request, listname, verb_id):
     context = base_context(request)
+    context['nav_page'] = 'nav_forms'
     wordlist = get_object_or_404(WordList, user=request.user, name=listname)
     context['wordlist'] = wordlist
     verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)

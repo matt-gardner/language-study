@@ -1,83 +1,68 @@
-{% extends "base.html" %}
+{% extends "three_column_base.html" %}
 
 {% load custom_filters %}
 
-{% block content %}
-<div class="review">
-	<div class="center_review">
-		<div class="review_word">
-			<div class="text">
-				{{ inflected_form }}
-			</div>
-		</div>
-		<div class="drill_form_buttons">
-			<table>
-				<tr>
-					<td>
-						Person
-						<select id="id_person">
-							{% for person in persons %}
-							<option value="{{ person|variablize }}">
-								{{ person }}
-							</option>
-							{% endfor %}
-						</select>
-					</td>
-					<td>
-						Number
-						<select id="id_number">
-						{% for number in numbers %}
-						<option value="{{ number|variablize }}">
-							{{ number }}
-						</option>
-						{% endfor %}
-						</select>
-					</td>
-					<td>
-						Tense
-						<select id="id_tense">
-						{% for tense in tenses %}
-						<option value="{{ tense|variablize }}">
-							{{ tense }}
-						</option>
-						{% endfor %}
-						</select>
-					</td>
-					<td>
-						Mood
-						<select id="id_mood">
-						{% for mood in moods %}
-						<option value="{{ mood|variablize }}">
-							{{ mood }}
-						</option>
-						{% endfor %}
-						</select>
-					</td>
-					<td>
-						Voice
-						<select id="id_voice">
-						{% for voice in voices %}
-						<option value="{{ voice|variablize }}">
-							{{ voice }}
-						</option>
-						{% endfor %}
-						</select>
-					</td>
-				</tr>
-			</table>
-			<input type="submit" id="id_guess_form" value="Guess" />
-			<input type="submit" id="id_new_form" value="New Form" />
-		</div>
+{% block above_review %}
+<select id="id_verblist" onchange="get_new_verb()">
+	{% for v in verbs %}
+		<option value="{{ v.id }}"
+		{% ifequal v.id verb_id %}selected{% endifequal %}>
+		{{ v.word }}
+		</option>
+	{% endfor %}
+</select>
+{% endblock %}
+
+{% block center_column %}
+<div class="review_word">
+	<div class="text">
+		{{ inflected_form }}
 	</div>
-	<div class="right_review">
-		<select id="id_verblist" onchange="get_new_verb()">
-			{% for v in verbs %}
-				<option value="{{ v.id }}"
-				{% ifequal v.id verb_id %}selected{% endifequal %}>
-				{{ v.word }}
-				</option>
+</div>
+{% endblock %}
+
+{% block below_review %}
+<div class="drill_form_buttons">
+	<div>
+		<select id="id_person">
+			{% for person in persons %}
+			<option value="{{ person|variablize }}">
+				{{ person }}
+			</option>
 			{% endfor %}
 		</select>
+		<select id="id_number">
+		{% for number in numbers %}
+		<option value="{{ number|variablize }}">
+			{{ number }}
+		</option>
+		{% endfor %}
+		</select>
+		<select id="id_tense">
+		{% for tense in tenses %}
+		<option value="{{ tense|variablize }}">
+			{{ tense }}
+		</option>
+		{% endfor %}
+		</select>
+		<select id="id_mood">
+		{% for mood in moods %}
+		<option value="{{ mood|variablize }}">
+			{{ mood }}
+		</option>
+		{% endfor %}
+		</select>
+		<select id="id_voice">
+		{% for voice in voices %}
+		<option value="{{ voice|variablize }}">
+			{{ voice }}
+		</option>
+		{% endfor %}
+		</select>
+	</div>
+	<div>
+		<input type="submit" id="id_guess_form" value="Guess" />
+		<input type="submit" id="id_new_form" value="New Form" />
 	</div>
 </div>
 {% endblock %}
