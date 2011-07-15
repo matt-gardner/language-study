@@ -4,7 +4,7 @@
 import unicodedata
 
 from collections import defaultdict
-from endings import *
+from verb_endings import *
 from greek_util import acute_accent
 from greek_util import add_final_circumflex
 from greek_util import add_penult_accent
@@ -34,6 +34,8 @@ from language_study.drills.models import *
 
 verbose = False
 
+# TODO: if this class is even worth having, it does not belong here.  It
+# belongs in some base location.
 class Conjugation(object):
     def __init__(self):
         pass

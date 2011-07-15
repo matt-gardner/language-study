@@ -5,7 +5,7 @@
 # Base Classes
 ##############
 
-class EndingSet(dict):
+class VerbEndingSet(dict):
     def __init__(self):
         self['First Person'] = {'Singular': u'', 'Plural': u''}
         self['Second Person'] = {'Singular': u'', 'Plural': u''}
@@ -26,7 +26,7 @@ class InfEndingSet(dict):
 # Present Tense
 ###############
 
-class PresentIndAct(EndingSet):
+class PresentIndAct(VerbEndingSet):
     def __init__(self):
         super(PresentIndAct, self).__init__()
         self['First Person']['Singular'] = u'ω'
@@ -37,7 +37,7 @@ class PresentIndAct(EndingSet):
         self['Third Person']['Plural'] = u'ουσι'
 
 
-class PresentSubjAct(EndingSet):
+class PresentSubjAct(VerbEndingSet):
     def __init__(self):
         super(PresentSubjAct, self).__init__()
         self['First Person']['Singular'] = u'ω'
@@ -48,7 +48,7 @@ class PresentSubjAct(EndingSet):
         self['Third Person']['Plural'] = u'ωσι'
 
 
-class PresentOptAct(EndingSet):
+class PresentOptAct(VerbEndingSet):
     def __init__(self):
         super(PresentOptAct, self).__init__()
         self['First Person']['Singular'] = u'οιμι'
@@ -59,7 +59,7 @@ class PresentOptAct(EndingSet):
         self['Third Person']['Plural'] = u'οιεν'
 
 
-class PresentImpAct(EndingSet):
+class PresentImpAct(VerbEndingSet):
     def __init__(self):
         super(PresentImpAct, self).__init__()
         del self['First Person']
@@ -75,7 +75,7 @@ class PresentInfAct(InfEndingSet):
         self['None']['None'] = u'ειν'
 
 
-class PresentIndMP(EndingSet):
+class PresentIndMP(VerbEndingSet):
     def __init__(self):
         super(PresentIndMP, self).__init__()
         self['First Person']['Singular'] = u'ομαι'
@@ -86,7 +86,7 @@ class PresentIndMP(EndingSet):
         self['Third Person']['Plural'] = u'ονται'
 
 
-class PresentSubjMP(EndingSet):
+class PresentSubjMP(VerbEndingSet):
     def __init__(self):
         super(PresentSubjMP, self).__init__()
         self['First Person']['Singular'] = u'ωμαι'
@@ -97,7 +97,7 @@ class PresentSubjMP(EndingSet):
         self['Third Person']['Plural'] = u'ωνται'
 
 
-class PresentOptMP(EndingSet):
+class PresentOptMP(VerbEndingSet):
     def __init__(self):
         super(PresentOptMP, self).__init__()
         self['First Person']['Singular'] = u'οιμην'
@@ -108,7 +108,7 @@ class PresentOptMP(EndingSet):
         self['Third Person']['Plural'] = u'οιντο'
 
 
-class PresentImpMP(EndingSet):
+class PresentImpMP(VerbEndingSet):
     def __init__(self):
         super(PresentImpMP, self).__init__()
         del self['First Person']
@@ -128,7 +128,7 @@ class PresentInfMP(InfEndingSet):
 # Imperfect Tense
 #################
 
-class ImperfectIndAct(EndingSet):
+class ImperfectIndAct(VerbEndingSet):
     def __init__(self):
         super(ImperfectIndAct, self).__init__()
         self['First Person']['Singular'] = u'ον'
@@ -139,7 +139,7 @@ class ImperfectIndAct(EndingSet):
         self['Third Person']['Plural'] = u'ον'
 
 
-class ImperfectIndMP(EndingSet):
+class ImperfectIndMP(VerbEndingSet):
     def __init__(self):
         super(ImperfectIndMP, self).__init__()
         self['First Person']['Singular'] = u'ομην'
@@ -157,7 +157,7 @@ class ImperfectIndMP(EndingSet):
 # Aorist Tense
 ##############
 
-class AoristIndAct(EndingSet):
+class AoristIndAct(VerbEndingSet):
     def __init__(self):
         super(AoristIndAct, self).__init__()
         self['First Person']['Singular'] = u'α'
@@ -170,7 +170,7 @@ class AoristIndAct(EndingSet):
 
 # Aorist Subjunctive Active uses present endings
 
-class AoristOptAct(EndingSet):
+class AoristOptAct(VerbEndingSet):
     def __init__(self):
         super(AoristOptAct, self).__init__()
         self['First Person']['Singular'] = u'αιμι'
@@ -181,7 +181,7 @@ class AoristOptAct(EndingSet):
         self['Third Person']['Plural'] = u'αιεν'
 
 
-class AoristImpAct(EndingSet):
+class AoristImpAct(VerbEndingSet):
     def __init__(self):
         super(AoristImpAct, self).__init__()
         del self['First Person']
@@ -197,7 +197,7 @@ class AoristInfAct(InfEndingSet):
         self['None']['None'] = u'αι'
 
 
-class AoristIndMid(EndingSet):
+class AoristIndMid(VerbEndingSet):
     def __init__(self):
         super(AoristIndMid, self).__init__()
         self['First Person']['Singular'] = u'αμην'
@@ -210,7 +210,7 @@ class AoristIndMid(EndingSet):
 
 # Aorist Subjunctive Middle uses present endings
 
-class AoristOptMid(EndingSet):
+class AoristOptMid(VerbEndingSet):
     def __init__(self):
         super(AoristOptMid, self).__init__()
         self['First Person']['Singular'] = u'αιμην'
@@ -221,7 +221,7 @@ class AoristOptMid(EndingSet):
         self['Third Person']['Plural'] = u'αιντο'
 
 
-class AoristImpMid(EndingSet):
+class AoristImpMid(VerbEndingSet):
     def __init__(self):
         super(AoristImpMid, self).__init__()
         del self['First Person']
@@ -237,7 +237,7 @@ class AoristInfMid(InfEndingSet):
         self['None']['None'] = u'ασθαι'
 
 
-class AoristIndPass(EndingSet):
+class AoristIndPass(VerbEndingSet):
     def __init__(self):
         super(AoristIndPass, self).__init__()
         self['First Person']['Singular'] = u'ην'
@@ -248,7 +248,7 @@ class AoristIndPass(EndingSet):
         self['Third Person']['Plural'] = u'ησαν'
 
 
-class AoristSubjPass(EndingSet):
+class AoristSubjPass(VerbEndingSet):
     def __init__(self):
         super(AoristSubjPass, self).__init__()
         self['First Person']['Singular'] = u'ῶ'
@@ -259,7 +259,7 @@ class AoristSubjPass(EndingSet):
         self['Third Person']['Plural'] = u'ῶσι'
 
 
-class AoristOptPass(EndingSet):
+class AoristOptPass(VerbEndingSet):
     def __init__(self):
         super(AoristOptPass, self).__init__()
         self['First Person']['Singular'] = u'ειην'
@@ -270,7 +270,7 @@ class AoristOptPass(EndingSet):
         self['Third Person']['Plural'] = u'ειησαν'
 
 
-class AoristImpPass(EndingSet):
+class AoristImpPass(VerbEndingSet):
     def __init__(self):
         super(AoristImpPass, self).__init__()
         del self['First Person']
@@ -290,7 +290,7 @@ class AoristInfPass(InfEndingSet):
 # Perfect Tense
 ###############
 
-class PerfectIndAct(EndingSet):
+class PerfectIndAct(VerbEndingSet):
     def __init__(self):
         super(PerfectIndAct, self).__init__()
         self['First Person']['Singular'] = u'α'
@@ -309,7 +309,7 @@ class PerfectInfAct(InfEndingSet):
         self['None']['None'] = u'εναι'
 
 
-class PerfectIndMP(EndingSet):
+class PerfectIndMP(VerbEndingSet):
     def __init__(self):
         super(PerfectIndMP, self).__init__()
         self['First Person']['Singular'] = u'μαι'
@@ -329,7 +329,7 @@ class PerfectInfMP(InfEndingSet):
 # Pluperfect Tense
 ##################
 
-class PluperfectIndAct(EndingSet):
+class PluperfectIndAct(VerbEndingSet):
     def __init__(self):
         super(PluperfectIndAct, self).__init__()
         self['First Person']['Singular'] = u'η'
@@ -340,7 +340,7 @@ class PluperfectIndAct(EndingSet):
         self['Third Person']['Plural'] = u'εσαν'
 
 
-class PluperfectIndMP(EndingSet):
+class PluperfectIndMP(VerbEndingSet):
     def __init__(self):
         super(PluperfectIndMP, self).__init__()
         self['First Person']['Singular'] = u'μην'
@@ -573,7 +573,7 @@ class ConsonantAddedSigma(ConsonantEndingSet):
 # Present Tense
 ###############
 
-class AthPresentIndAct(EndingSet):
+class AthPresentIndAct(VerbEndingSet):
     def __init__(self):
         super(AthPresentIndAct, self).__init__()
         self['First Person']['Singular'] = u'μι'
@@ -584,7 +584,7 @@ class AthPresentIndAct(EndingSet):
         self['Third Person']['Plural'] = u'ασι'
 
 
-class AthPresentOptAct(EndingSet):
+class AthPresentOptAct(VerbEndingSet):
     def __init__(self):
         super(AthPresentOptAct, self).__init__()
         self['First Person']['Singular'] = u'ιην'
@@ -595,7 +595,7 @@ class AthPresentOptAct(EndingSet):
         self['Third Person']['Plural'] = u'ιησαν'
 
 
-class AthPresentImpAct(EndingSet):
+class AthPresentImpAct(VerbEndingSet):
     def __init__(self):
         super(AthPresentImpAct, self).__init__()
         del self['First Person']
@@ -611,7 +611,7 @@ class AthPresentInfAct(InfEndingSet):
         self['None']['None'] = u'ναι'
 
 
-class AthPresentIndMP(EndingSet):
+class AthPresentIndMP(VerbEndingSet):
     def __init__(self):
         super(AthPresentIndMP, self).__init__()
         self['First Person']['Singular'] = u'μαι'
@@ -622,7 +622,7 @@ class AthPresentIndMP(EndingSet):
         self['Third Person']['Plural'] = u'νται'
 
 
-class AthPresentOptMP(EndingSet):
+class AthPresentOptMP(VerbEndingSet):
     def __init__(self):
         super(AthPresentOptMP, self).__init__()
         self['First Person']['Singular'] = u'ιμην'
@@ -633,7 +633,7 @@ class AthPresentOptMP(EndingSet):
         self['Third Person']['Plural'] = u'ιντο'
 
 
-class AthPresentImpMP(EndingSet):
+class AthPresentImpMP(VerbEndingSet):
     def __init__(self):
         super(AthPresentImpMP, self).__init__()
         del self['First Person']
@@ -653,7 +653,7 @@ class AthPresentInfMP(InfEndingSet):
 # Imperfect Tense
 #################
 
-class AthImperfectIndAct(EndingSet):
+class AthImperfectIndAct(VerbEndingSet):
     def __init__(self):
         super(AthImperfectIndAct, self).__init__()
         self['First Person']['Singular'] = u'ν'
@@ -664,7 +664,7 @@ class AthImperfectIndAct(EndingSet):
         self['Third Person']['Plural'] = u'σαν'
 
 
-class AthImperfectIndMP(EndingSet):
+class AthImperfectIndMP(VerbEndingSet):
     def __init__(self):
         super(AthImperfectIndMP, self).__init__()
         self['First Person']['Singular'] = u'μην'
@@ -678,7 +678,7 @@ class AthImperfectIndMP(EndingSet):
 # Aorist Tense
 ##############
 
-class AthAoristIndAct(EndingSet):
+class AthAoristIndAct(VerbEndingSet):
     def __init__(self):
         super(AthAoristIndAct, self).__init__()
         self['First Person']['Singular'] = u'α'
@@ -689,7 +689,7 @@ class AthAoristIndAct(EndingSet):
         self['Third Person']['Plural'] = u'σαν'
 
 
-class RootAoristIndAct(EndingSet):
+class RootAoristIndAct(VerbEndingSet):
     def __init__(self):
         super(RootAoristIndAct, self).__init__()
         self['First Person']['Singular'] = u'ν'
@@ -700,7 +700,7 @@ class RootAoristIndAct(EndingSet):
         self['Third Person']['Plural'] = u'σαν'
 
 
-class AthAoristImpAct(EndingSet):
+class AthAoristImpAct(VerbEndingSet):
     def __init__(self):
         super(AthAoristImpAct, self).__init__()
         del self['First Person']
@@ -710,7 +710,7 @@ class AthAoristImpAct(EndingSet):
         self['Third Person']['Plural'] = u'ντων'
 
 
-class RootAoristImpAct(EndingSet):
+class RootAoristImpAct(VerbEndingSet):
     def __init__(self):
         super(RootAoristImpAct, self).__init__()
         del self['First Person']
@@ -726,7 +726,7 @@ class AthAoristInfAct(InfEndingSet):
         self['None']['None'] = u'εναι'
 
 
-class AthAoristIndMid(EndingSet):
+class AthAoristIndMid(VerbEndingSet):
     def __init__(self):
         super(AthAoristIndMid, self).__init__()
         self['First Person']['Singular'] = u'μην'
@@ -737,7 +737,7 @@ class AthAoristIndMid(EndingSet):
         self['Third Person']['Plural'] = u'ντο'
 
 
-class AthAoristImpMid(EndingSet):
+class AthAoristImpMid(VerbEndingSet):
     def __init__(self):
         super(AthAoristImpMid, self).__init__()
         del self['First Person']
