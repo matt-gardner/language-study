@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
+from attic_greek.test_modules import verbs, verb_cases, imp_cases, GreekTestCase
 import unicodedata
 
 class RegularConjugationTest(GreekTestCase):
@@ -16,7 +16,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύετε', u'παιδεύουσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -29,7 +29,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύητε', u'παιδεύωσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -42,7 +42,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύοιτε', u'παιδεύοιεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -79,7 +79,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύεσθε', u'παιδεύονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -92,7 +92,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύησθε', u'παιδεύωνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -105,7 +105,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύοισθε', u'παιδεύοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -142,7 +142,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύεσθε', u'παιδεύονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -155,7 +155,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύησθε', u'παιδεύωνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -168,7 +168,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύοισθε', u'παιδεύοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -206,7 +206,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπαιδεύετε', u'ἐπαίδευον']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -219,7 +219,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπαιδεύεσθε', u'ἐπαιδεύοντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -232,7 +232,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπαιδεύεσθε', u'ἐπαιδεύοντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -246,7 +246,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύσετε', u'παιδεύσουσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -259,7 +259,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύσοιτε', u'παιδεύσοιεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -284,7 +284,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευσόμεθα', u'παιδεύσεσθε', u'παιδεύσονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -297,7 +297,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευσοίμεθα', u'παιδεύσοισθε', u'παιδεύσοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -322,7 +322,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευθησόμεθα', u'παιδευθήσεσθε', u'παιδευθήσονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -335,7 +335,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευθησοίμεθα', u'παιδευθήσοισθε', u'παιδευθήσοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -361,7 +361,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπαιδεύσατε', u'ἐπαίδευσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -374,7 +374,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύσητε', u'παιδεύσωσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -387,7 +387,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύσαιτε', u'παιδεύσαιεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -424,7 +424,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπαιδευσάμεθα', u'ἐπαιδεύσασθε', u'ἐπαιδεύσαντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -437,7 +437,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδεύσησθε', u'παιδεύσωνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -450,7 +450,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευσαίμεθα', u'παιδεύσαισθε', u'παιδεύσαιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -488,7 +488,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπαιδεύθημεν', u'ἐπαιδεύθητε', u'ἐπαιδεύθησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -501,7 +501,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευθῆτε', u'παιδευθῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -514,7 +514,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'παιδευθείημεν', u'παιδευθείητε', u'παιδευθείησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -553,7 +553,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'πεπαιδεύκαμεν', u'πεπαιδεύκατε', u'πεπαιδεύκασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -578,7 +578,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'πεπαιδεύμεθα', u'πεπαίδευσθε', u'πεπαίδευνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -603,7 +603,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'πεπαιδεύμεθα', u'πεπαίδευσθε', u'πεπαίδευνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -629,7 +629,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπεπαιδεύκεμεν', u'ἐπεπαιδεύκετε', u'ἐπεπαιδεύκεσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -642,7 +642,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπεπαιδεύμεθα', u'ἐπεπαίδευσθε', u'ἐπεπαίδευντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -655,7 +655,7 @@ class RegularConjugationTest(GreekTestCase):
                 u'ἐπεπαιδεύμεθα', u'ἐπεπαίδευσθε', u'ἐπεπαίδευντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['paideuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 

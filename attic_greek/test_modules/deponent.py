@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases, GreekTestCase
+from attic_greek.test_modules import verbs, verb_cases, GreekTestCase
 import unicodedata
 
 class DeponentFormsTest(GreekTestCase):
@@ -20,7 +20,7 @@ class DeponentFormsTest(GreekTestCase):
                 u'ἐμαχέσασθε', u'ἐμαχέσαντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['maxomai'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -32,7 +32,7 @@ class DeponentFormsTest(GreekTestCase):
         for tense in ['Present', 'Imperfect', 'Future', 'Aorist', 'Perfect',
                 'Pluperfect']:
             args['tense'] = tense
-            for case in cases:
+            for case in verb_cases:
                 args.update(case)
                 self.assertRaises(ValueError, conj.conjugate, **args)
 

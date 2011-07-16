@@ -3,7 +3,7 @@
 
 from attic_greek import conjugation
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
+from attic_greek.test_modules import verbs, verb_cases, imp_cases, GreekTestCase
 import unicodedata
 
 class ContractedPoieoTest(GreekTestCase):
@@ -17,7 +17,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ποιοῦσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -30,7 +30,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ποιῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -43,7 +43,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ποιοῖεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -80,7 +80,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ποιεῖσθε', u'ποιοῦνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -93,7 +93,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ποιῆσθε', u'ποιῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -106,7 +106,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ποιοῖσθε', u'ποιοῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -144,7 +144,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ἐποιεῖτε', u'ἐποίουν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -157,7 +157,7 @@ class ContractedPoieoTest(GreekTestCase):
                 u'ἐποιεῖσθε', u'ἐποιοῦντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['poieo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -173,7 +173,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'νικῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -186,7 +186,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'νικῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -199,7 +199,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'νικῷεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -236,7 +236,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'νικᾶσθε', u'νικῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -249,7 +249,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'νικᾶσθε', u'νικῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -262,7 +262,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'νικῷσθε', u'νικῷντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -300,7 +300,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'ἐνικᾶτε', u'ἐνίκων']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -313,7 +313,7 @@ class ContractedNikaoTest(GreekTestCase):
                 u'ἐνικᾶσθε', u'ἐνικῶντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['nikao'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -329,7 +329,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'δηλοῦσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -342,7 +342,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'δηλῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -355,7 +355,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'δηλοῖεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -392,7 +392,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'δηλοῦσθε', u'δηλοῦνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -405,7 +405,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'δηλῶσθε', u'δηλῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -418,7 +418,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'δηλοῖσθε', u'δηλοῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -456,7 +456,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'ἐδηλοῦτε', u'ἐδήλουν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -469,7 +469,7 @@ class ContractedDhlooTest(GreekTestCase):
                 u'ἐδηλοῦσθε', u'ἐδηλοῦντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['dhloo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -487,7 +487,7 @@ class ContractedFobeomaiTest(GreekTestCase):
                 u'φοβεῖσθε', u'φοβοῦνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['fobeomai'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 

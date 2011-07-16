@@ -3,7 +3,7 @@
 
 from attic_greek import conjugation
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases, GreekTestCase
+from attic_greek.test_modules import verbs, verb_cases, GreekTestCase
 import unicodedata
 
 class VowelAugmentTest(GreekTestCase):
@@ -16,7 +16,7 @@ class VowelAugmentTest(GreekTestCase):
                 u'ἠθέλετε', u'ἤθελον']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['ethelo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -29,7 +29,7 @@ class VowelAugmentTest(GreekTestCase):
                 u'ἠθελήσατε', u'ἠθέλησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['ethelo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -42,7 +42,7 @@ class VowelAugmentTest(GreekTestCase):
                 u'ἠθελήκετε', u'ἠθελήκεσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['ethelo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 

@@ -6,6 +6,7 @@ from django.test import TestCase
 import attic_greek
 
 from attic_greek import conjugation
+from language_study.drills.models import DeclinableWord
 from language_study.drills.models import Verb
 
 verbs = dict()
@@ -36,17 +37,31 @@ verbs['poieo'] = Verb.objects.get(word__word__contains=u'ποιέω')
 verbs['tatto'] = Verb.objects.get(word__word__contains=u'τάττω')
 verbs['tithemi'] = Verb.objects.get(word__word__contains=u'τίθημι')
 
-cases = [{'person': 'First Person', 'number': 'Singular'}]
-cases.append({'person': 'Second Person', 'number': 'Singular'})
-cases.append({'person': 'Third Person', 'number': 'Singular'})
-cases.append({'person': 'First Person', 'number': 'Plural'})
-cases.append({'person': 'Second Person', 'number': 'Plural'})
-cases.append({'person': 'Third Person', 'number': 'Plural'})
+verb_cases = [{'person': 'First Person', 'number': 'Singular'}]
+verb_cases.append({'person': 'Second Person', 'number': 'Singular'})
+verb_cases.append({'person': 'Third Person', 'number': 'Singular'})
+verb_cases.append({'person': 'First Person', 'number': 'Plural'})
+verb_cases.append({'person': 'Second Person', 'number': 'Plural'})
+verb_cases.append({'person': 'Third Person', 'number': 'Plural'})
 
 imp_cases = [{'person': 'Second Person', 'number': 'Singular'}]
 imp_cases.append({'person': 'Third Person', 'number': 'Singular'})
 imp_cases.append({'person': 'Second Person', 'number': 'Plural'})
 imp_cases.append({'person': 'Third Person', 'number': 'Plural'})
+
+nouns = dict()
+nouns['techne'] = DeclinableWord.objects.get(word__word__contains=u'τέχνη')
+
+decl_cases = [{'number': 'Singular', 'case': 'Nominative'}]
+decl_cases.append({'number': 'Singular', 'case': 'Genitive'})
+decl_cases.append({'number': 'Singular', 'case': 'Dative'})
+decl_cases.append({'number': 'Singular', 'case': 'Accusative'})
+decl_cases.append({'number': 'Singular', 'case': 'Vocative'})
+decl_cases.append({'number': 'Plural', 'case': 'Nominative'})
+decl_cases.append({'number': 'Plural', 'case': 'Genitive'})
+decl_cases.append({'number': 'Plural', 'case': 'Dative'})
+decl_cases.append({'number': 'Plural', 'case': 'Accusative'})
+decl_cases.append({'number': 'Plural', 'case': 'Vocative'})
 
 class GreekTestCase(TestCase):
     def tearDown(self):
@@ -59,7 +74,8 @@ from attic_greek.test_modules import contracted
 from attic_greek.test_modules import contracted_future
 from attic_greek.test_modules import deponent
 from attic_greek.test_modules import erxomai
-from attic_greek.test_modules import regular
+from attic_greek.test_modules import regular_verbs
+from attic_greek.test_modules import regular_nouns
 from attic_greek.test_modules import vowel_augment
 
 all_tests = []
@@ -69,7 +85,8 @@ all_tests.extend(contracted.all_tests)
 all_tests.extend(contracted_future.all_tests)
 all_tests.extend(deponent.all_tests)
 all_tests.extend(erxomai.all_tests)
-all_tests.extend(regular.all_tests)
+all_tests.extend(regular_verbs.all_tests)
+all_tests.extend(regular_nouns.all_tests)
 all_tests.extend(vowel_augment.all_tests)
 
 # vim: et sw=4 sts=4

@@ -4,7 +4,7 @@
 from attic_greek import conjugation
 from attic_greek.conjugation import AthematicConjugation
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases, imp_cases, GreekTestCase
+from attic_greek.test_modules import verbs, verb_cases, imp_cases, GreekTestCase
 import unicodedata
 
 class DidomiTest(GreekTestCase):
@@ -18,7 +18,7 @@ class DidomiTest(GreekTestCase):
                 u'δίδοτε', u'διδόασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -31,7 +31,7 @@ class DidomiTest(GreekTestCase):
                 u'διδῶτε', u'διδῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -44,7 +44,7 @@ class DidomiTest(GreekTestCase):
                 u'διδοίητε', u'διδοίησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -82,7 +82,7 @@ class DidomiTest(GreekTestCase):
                 u'δίδοσθε', u'δίδονται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -95,7 +95,7 @@ class DidomiTest(GreekTestCase):
                 u'διδῶσθε', u'διδῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -108,7 +108,7 @@ class DidomiTest(GreekTestCase):
                 u'διδοῖσθε', u'διδοῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -147,7 +147,7 @@ class DidomiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word,
                 verbs['didomi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -160,7 +160,7 @@ class DidomiTest(GreekTestCase):
                 u'ἐδίδοσθε', u'ἐδίδοντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -174,7 +174,7 @@ class DidomiTest(GreekTestCase):
                 u'ἔδοτε', u'ἔδοσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -187,7 +187,7 @@ class DidomiTest(GreekTestCase):
                 u'δῶτε', u'δῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -200,7 +200,7 @@ class DidomiTest(GreekTestCase):
                 u'δοίητε', u'δοίησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -238,7 +238,7 @@ class DidomiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word,
                 verbs['didomi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -251,7 +251,7 @@ class DidomiTest(GreekTestCase):
                 u'δῶσθε', u'δῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -264,7 +264,7 @@ class DidomiTest(GreekTestCase):
                 u'δοίμεθα', u'δοῖσθε', u'δοῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['didomi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -305,7 +305,7 @@ class TithemiTest(GreekTestCase):
                 u'τίθετε', u'τιθέασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -318,7 +318,7 @@ class TithemiTest(GreekTestCase):
                 u'τιθῆτε', u'τιθῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -331,7 +331,7 @@ class TithemiTest(GreekTestCase):
                 u'τιθείητε', u'τιθείησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -369,7 +369,7 @@ class TithemiTest(GreekTestCase):
                 u'τίθεσθε', u'τίθενται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -382,7 +382,7 @@ class TithemiTest(GreekTestCase):
                 u'τιθῆσθε', u'τιθῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -395,7 +395,7 @@ class TithemiTest(GreekTestCase):
                 u'τιθεῖσθε', u'τιθεῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -434,7 +434,7 @@ class TithemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word,
                 verbs['tithemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -447,7 +447,7 @@ class TithemiTest(GreekTestCase):
                 u'ἐτίθεσθε', u'ἐτίθεντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -461,7 +461,7 @@ class TithemiTest(GreekTestCase):
                 u'ἔθετε', u'ἔθεσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -474,7 +474,7 @@ class TithemiTest(GreekTestCase):
                 u'θῆτε', u'θῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -487,7 +487,7 @@ class TithemiTest(GreekTestCase):
                 u'θείητε', u'θείησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -525,7 +525,7 @@ class TithemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word,
                 verbs['tithemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -538,7 +538,7 @@ class TithemiTest(GreekTestCase):
                 u'θῆσθε', u'θῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -551,7 +551,7 @@ class TithemiTest(GreekTestCase):
                 u'θείμεθα', u'θεῖσθε', u'θεῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['tithemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -593,7 +593,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -607,7 +607,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -620,7 +620,7 @@ class HistemiTest(GreekTestCase):
                 u'ἱσταίητε', u'ἱσταίησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -658,7 +658,7 @@ class HistemiTest(GreekTestCase):
                 u'ἵστασθε', u'ἵστανται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -672,7 +672,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -685,7 +685,7 @@ class HistemiTest(GreekTestCase):
                 u'ἱσταῖσθε', u'ἱσταῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -723,7 +723,7 @@ class HistemiTest(GreekTestCase):
                 u'ἵστατε', u'ἵστασαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -736,7 +736,7 @@ class HistemiTest(GreekTestCase):
                 u'ἵστασθε', u'ἵσταντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -750,7 +750,7 @@ class HistemiTest(GreekTestCase):
                 u'ἔστητε', u'ἔστησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -764,7 +764,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -778,7 +778,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -818,7 +818,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -846,7 +846,7 @@ class HistemiTest(GreekTestCase):
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['histemi'].word.word,
                 verbs['histemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -862,7 +862,7 @@ class DeiknumiTest(GreekTestCase):
                 u'δείκνυτε', u'δεικνύασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -875,7 +875,7 @@ class DeiknumiTest(GreekTestCase):
                 u'δεικνύητε', u'δεικνύωσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -888,7 +888,7 @@ class DeiknumiTest(GreekTestCase):
                 u'δεικνύοιτε', u'δεικνύοιεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -926,7 +926,7 @@ class DeiknumiTest(GreekTestCase):
                 u'δείκνυσθε', u'δείκνυνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -939,7 +939,7 @@ class DeiknumiTest(GreekTestCase):
                 u'δεικνύησθε', u'δεικνύωνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -952,7 +952,7 @@ class DeiknumiTest(GreekTestCase):
                 u'δεικνύοισθε', u'δεικνύοιντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -990,7 +990,7 @@ class DeiknumiTest(GreekTestCase):
                 u'ἐδείκνυτε', u'ἐδείκνυσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1003,7 +1003,7 @@ class DeiknumiTest(GreekTestCase):
                 u'ἐδείκνυσθε', u'ἐδείκνυντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['deiknumi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1019,7 +1019,7 @@ class EimiTest(GreekTestCase):
                 u'ἐστέ', u'εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi'].word.word, verbs['eimi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1032,7 +1032,7 @@ class EimiTest(GreekTestCase):
                 u'ἦτε', u'ὦσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi'].word.word, verbs['eimi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1044,7 +1044,7 @@ class EimiTest(GreekTestCase):
         answers = [u'εἴην', u'εἴης', u'εἴη', u'εἴημεν', u'εἴητε', u'εἴησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi'].word.word, verbs['eimi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1081,7 +1081,7 @@ class EimiTest(GreekTestCase):
         answers = [u'ἦν', u'ἦσθα', u'ἦν', u'ἦμεν', u'ἦτε', u'ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi'].word.word, verbs['eimi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1097,7 +1097,7 @@ class PhemiTest(GreekTestCase):
                 u'φατέ', u'φασί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['phemi'].word.word, verbs['phemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1110,7 +1110,7 @@ class PhemiTest(GreekTestCase):
                 u'φῆτε', u'φῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['phemi'].word.word, verbs['phemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1123,7 +1123,7 @@ class PhemiTest(GreekTestCase):
                 u'φαίησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['phemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1160,7 +1160,7 @@ class PhemiTest(GreekTestCase):
         answers = [u'ἔφην', u'ἔφης', u'ἔφη', u'ἔφαμεν', u'ἔφατε', u'ἔφασαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['phemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1176,7 +1176,7 @@ class EgnonTest(GreekTestCase):
                 u'ἔγνωτε', u'ἔγνωσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['gignosko'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1189,7 +1189,7 @@ class EgnonTest(GreekTestCase):
                 u'γνῶτε', u'γνῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['gignosko'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1202,7 +1202,7 @@ class EgnonTest(GreekTestCase):
                 u'γνοίητε', u'γνοίησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['gignosko'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1243,7 +1243,7 @@ class Eimi2Test(GreekTestCase):
                 u'ἴτε', u'ἴασι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi2'].word.word, verbs['eimi2'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1255,7 +1255,7 @@ class Eimi2Test(GreekTestCase):
         answers = [u'ἴω', u'ἴῃς', u'ἴῃ', u'ἴωμεν', u'ἴητε', u'ἴωσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi2'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1267,7 +1267,7 @@ class Eimi2Test(GreekTestCase):
         answers = [u'ἴοιμι', u'ἴοις', u'ἴοι', u'ἴοιμεν', u'ἴοιτε', u'ἴοιεν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi2'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1304,7 +1304,7 @@ class Eimi2Test(GreekTestCase):
         answers = [u'ᾔειν', u'ᾔεις', u'ᾔει', u'ᾖμεν', u'ᾖτε', u'ᾖσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['eimi2'].word.word, verbs['eimi2'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1320,7 +1320,7 @@ class HiemiTest(GreekTestCase):
                 u'ἵετε', u'ἱᾶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word, verbs['hiemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1333,7 +1333,7 @@ class HiemiTest(GreekTestCase):
                 u'ἱῆτε', u'ἱῶσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1346,7 +1346,7 @@ class HiemiTest(GreekTestCase):
                 u'ἱείητε', u'ἱείησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1383,7 +1383,7 @@ class HiemiTest(GreekTestCase):
                 u'ἵεσθε', u'ἵενται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1396,7 +1396,7 @@ class HiemiTest(GreekTestCase):
                 u'ἱῆσθε', u'ἱῶνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1409,7 +1409,7 @@ class HiemiTest(GreekTestCase):
                 u'ἱεῖσθε', u'ἱεῖντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1447,7 +1447,7 @@ class HiemiTest(GreekTestCase):
                 u'ἵετε', u'ἵεσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word, verbs['hiemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1460,7 +1460,7 @@ class HiemiTest(GreekTestCase):
                 u'ἵεσθε', u'ἵεντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1474,7 +1474,7 @@ class HiemiTest(GreekTestCase):
                 u'εἷτε', u'εἷσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word, verbs['hiemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1487,7 +1487,7 @@ class HiemiTest(GreekTestCase):
                 u'ἧτε', u'ὧσι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1500,7 +1500,7 @@ class HiemiTest(GreekTestCase):
                 u'εἵητε', u'εἵησαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1537,7 +1537,7 @@ class HiemiTest(GreekTestCase):
                 u'εἵμεθα', u'εἷσθε', u'εἷντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word, verbs['hiemi'].id)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1550,7 +1550,7 @@ class HiemiTest(GreekTestCase):
                 u'ἧσθε', u'ὧνται']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -1563,7 +1563,7 @@ class HiemiTest(GreekTestCase):
                 u'εἵμεθα', u'εἷσθε', u'εἷντο']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = AthematicConjugation(verbs['hiemi'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 

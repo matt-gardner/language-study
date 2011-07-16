@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 from attic_greek.conjugation import GreekConjugation
-from attic_greek.test_modules import verbs, cases, GreekTestCase
+from attic_greek.test_modules import verbs, verb_cases, GreekTestCase
 import unicodedata
 
 class ConsonantStemsTest(GreekTestCase):
@@ -15,7 +15,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'γέγραφθε', u'γεγραμμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['grafo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -38,7 +38,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐγέγραφθε', u'γεγραμμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['grafo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -51,7 +51,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'πέπεμφθε', u'πεπεμμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['pempo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -74,7 +74,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐπέπεμφθε', u'πεπεμμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['pempo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -87,7 +87,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ᾔσχυνθε', u'ᾐσχυμμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['aischunomai'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -110,7 +110,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ᾔσχυνθε', u'ᾐσχυμμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['aischunomai'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -123,7 +123,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'τέταχθε', u'τεταγμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['tatto'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -146,7 +146,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐτέταχθε', u'τεταγμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['tatto'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -159,7 +159,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐλήλεγχθε', u'ἐληλεγμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['elegxo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -182,7 +182,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐλήλεγχθε', u'ἐληλεγμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['elegxo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -195,7 +195,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'κεκελεύσμεθα', u'κεκέλευσθε', u'κεκελευσμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['keleuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -218,7 +218,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐκεκελεύσμεθα', u'ἐκεκέλευσθε', u'κεκελευσμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['keleuo'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -231,7 +231,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'πεφάσμεθα', u'πέφανθε', u'πεφασμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['faino'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -254,7 +254,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἐπεφάσμεθα', u'ἐπέφανθε', u'πεφασμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['faino'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -267,7 +267,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἠγγέλμεθα', u'ἤγγελθε', u'ἠγγελμένοι εἰσί']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['aggello'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
@@ -290,7 +290,7 @@ class ConsonantStemsTest(GreekTestCase):
                 u'ἠγγέλμεθα', u'ἤγγελθε', u'ἠγγελμένοι ἦσαν']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         conj = GreekConjugation(verbs['aggello'].word.word)
-        for case, answer in zip(cases, answers):
+        for case, answer in zip(verb_cases, answers):
             args.update(case)
             self.failUnlessEqual(conj.conjugate(**args), [answer])
 
