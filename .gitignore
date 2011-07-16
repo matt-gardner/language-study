@@ -2,3 +2,7 @@
 *.pyc
 *.nfs*
 db
+real_db
+db.backup
+jquery-ui-theme
+data.dump
