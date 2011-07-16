@@ -119,6 +119,17 @@ def add_language():
                 s = stem['Stem']
                 irregular_verb_aug_stem(verb['word'], tense, mood, voice, s)
 
+    word_args = {'wordlist': object_cache['WordList'][args['name']]}
+    create_args = {'last_reviewed': datetime.now()}
+    for noun in json['Nouns']:
+        word_args['word'] = noun['word']
+        word_args['definition'] = noun['definition']
+        word = add_or_fail(Word, word_args, create_args)
+        n_args = {'word': word}
+        n_args['declension'] = object_cache['Declension'][noun['declension']]
+        n_args['type'] = object_cache['DeclinableType']['Noun']
+        add_or_fail(DeclinableWord, n_args)
+
     if not added:
         print 'Nothing added to the database'
 
@@ -165,6 +176,8 @@ def add_or_fail(model, query_args, create_args={}):
     if 'name' in query_args:
         output = query_args['name']
     elif 'conjugation' in query_args:
+        output = query_args['word'].word
+    elif 'declension' in query_args:
         output = query_args['word'].word
     elif 'word' in query_args:
         output = query_args['word']

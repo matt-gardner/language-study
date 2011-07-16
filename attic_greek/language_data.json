@@ -1,24 +1,24 @@
 {
-  "Declensions": ["First Declension", "Second Declension",
-	  "Third Declension"],
   "Cases": ["Nominative", "Genitive", "Dative", "Accusative", "Vocative"],
   "Genders": ["Masculine", "Feminine", "Neuter"],
   "Persons": ["First Person", "Second Person", "Third Person", "None"],
   "Numbers": ["Singular", "Plural", "None"],
   "Tenses": ["Present", "Imperfect", "Future", "Aorist", "Perfect",
-	  "Pluperfect"],
+      "Pluperfect"],
   "Moods": ["Indicative", "Subjunctive", "Optative", "Imperative",
-	  "Infinitive"],
+      "Infinitive"],
   "Voices": ["Active", "Middle", "Passive"],
 
+  "Declensions": ["First Declension", "Second Declension",
+      "Third Declension"],
   "Declinable Types": ["Noun", "Pronoun", "Adjective"],
   "Conjugations": ["Thematic", "Athematic"],
 
   "Verbs": [
     {
-	  "definition": "to announce",
-	  "word": "ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην",
-	  "conjugation": "Thematic"
+      "definition": "to announce",
+      "word": "ἀγγέλλω, ἀγγελῶ, ἤγγειλα, ἤγγελκα, ἤγγελμαι, ἠγγέλθην",
+      "conjugation": "Thematic"
     },
     {
       "definition": "to be ashamed",
@@ -735,6 +735,13 @@
       "definition": "to fear, be afraid",
       "word": "φοβέομαι, φοβήσομαι, _, _, πεφόβημαι, ἐφοβήθην",
       "conjugation": "Thematic"
+    }
+  ],
+  "Nouns": [
+    {
+      "definition": "art, skill",
+      "word": "τέχνη, τέχνης, ἡ",
+      "declension": "First Declension"
     }
   ]
 }

@@ -486,12 +486,12 @@
     "fields": {
       "wordlist": 1, 
       "definition": "to come", 
-      "review_count": 0, 
+      "review_count": 1, 
       "word": "\u1f14\u03c1\u03c7\u03bf\u03bc\u03b1\u03b9, \u1f10\u03bb\u03b5\u03cd\u03c3\u03bf\u03bc\u03b1\u03b9, \u1f26\u03bb\u03b8\u03bf\u03bd, \u1f10\u03bb\u03ae\u03bb\u03c5\u03b8\u03b1, _, _", 
-      "average_difficulty": 40.0, 
+      "average_difficulty": 32.0, 
       "tags": [], 
       "date_entered": "2011-07-02 22:18:44", 
-      "last_reviewed": "2011-07-02 22:18:39"
+      "last_reviewed": "2011-07-09 20:53:48"
     }
   }, 
   {
@@ -500,12 +500,12 @@
     "fields": {
       "wordlist": 1, 
       "definition": "to release, hurl, send", 
-      "review_count": 0, 
+      "review_count": 1, 
       "word": "\u1f35\u03b7\u03bc\u03b9, \u1f25\u03c3\u03c9, \u1f27\u03ba\u03b1, \u03b5\u1f37\u03ba\u03b1, \u03b5\u1f37\u03bc\u03b1\u03b9, \u03b5\u1f35\u03b8\u03b7\u03bd", 
-      "average_difficulty": 40.0, 
+      "average_difficulty": 32.0, 
       "tags": [], 
       "date_entered": "2011-07-02 22:18:44", 
-      "last_reviewed": "2011-07-02 22:18:39"
+      "last_reviewed": "2011-07-09 20:53:49"
     }
   }, 
   {
@@ -626,12 +626,12 @@
     "fields": {
       "wordlist": 1, 
       "definition": "to put", 
-      "review_count": 0, 
+      "review_count": 1, 
       "word": "\u03c4\u03af\u03b8\u03b7\u03bc\u03b9, \u03b8\u03ae\u03c3\u03c9, \u1f14\u03b8\u03b7\u03ba\u03b1, \u03c4\u03ad\u03b8\u03b7\u03ba\u03b1, \u03c4\u03ad\u03b8\u03b5\u03b9\u03bc\u03b1\u03b9, \u1f10\u03c4\u03ad\u03b8\u03b7\u03bd", 
       "average_difficulty": 40.0, 
       "tags": [], 
       "date_entered": "2011-07-02 22:18:48", 
-      "last_reviewed": "2011-07-02 22:18:39"
+      "last_reviewed": "2011-07-09 16:55:01"
     }
   }, 
   {
@@ -640,12 +640,12 @@
     "fields": {
       "wordlist": 1, 
       "definition": "to show", 
-      "review_count": 0, 
+      "review_count": 1, 
       "word": "\u03c6\u03b1\u03af\u03bd\u03c9, \u03c6\u03b1\u03bd\u1ff6, \u1f14\u03c6\u03b7\u03bd\u03b1, \u03c0\u03ad\u03c6\u03b7\u03bd\u03b1, \u03c0\u03ad\u03c6\u03b1\u03c3\u03bc\u03b1\u03b9, \u1f10\u03c6\u03ac\u03bd\u03b7\u03bd", 
-      "average_difficulty": 40.0, 
+      "average_difficulty": 32.0, 
       "tags": [], 
       "date_entered": "2011-07-02 22:18:49", 
-      "last_reviewed": "2011-07-02 22:18:39"
+      "last_reviewed": "2011-07-09 16:55:07"
     }
   }, 
   {
@@ -654,12 +654,12 @@
     "fields": {
       "wordlist": 1, 
       "definition": "to say", 
-      "review_count": 0, 
+      "review_count": 1, 
       "word": "\u03c6\u03b7\u03bc\u03af, \u03c6\u03ae\u03c3\u03c9, \u1f14\u03c6\u03b7\u03c3\u03b1, _, _, _", 
-      "average_difficulty": 40.0, 
+      "average_difficulty": 32.0, 
       "tags": [], 
       "date_entered": "2011-07-02 22:18:49", 
-      "last_reviewed": "2011-07-02 22:18:39"
+      "last_reviewed": "2011-07-09 16:55:08"
     }
   }, 
   {
@@ -668,12 +668,26 @@
     "fields": {
       "wordlist": 1, 
       "definition": "to fear, be afraid", 
-      "review_count": 0, 
+      "review_count": 1, 
       "word": "\u03c6\u03bf\u03b2\u03ad\u03bf\u03bc\u03b1\u03b9, \u03c6\u03bf\u03b2\u03ae\u03c3\u03bf\u03bc\u03b1\u03b9, _, _, \u03c0\u03b5\u03c6\u03cc\u03b2\u03b7\u03bc\u03b1\u03b9, \u1f10\u03c6\u03bf\u03b2\u03ae\u03b8\u03b7\u03bd", 
-      "average_difficulty": 40.0, 
+      "average_difficulty": 32.0, 
       "tags": [], 
       "date_entered": "2011-07-02 22:18:50", 
-      "last_reviewed": "2011-07-02 22:18:39"
+      "last_reviewed": "2011-07-09 16:55:10"
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "art, skill", 
+      "review_count": 0, 
+      "word": "\u03c4\u03ad\u03c7\u03bd\u03b7, \u03c4\u03ad\u03c7\u03bd\u03b7\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-15 22:02:04", 
+      "last_reviewed": "2011-07-15 22:02:04"
     }
   }, 
   {
@@ -1861,6 +1875,15 @@
     "fields": {
       "verb": 25, 
       "tense": 4
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 1, 
+      "word": 27, 
+      "type": 1
     }
   }
 ]

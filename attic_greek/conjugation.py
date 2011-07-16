@@ -782,7 +782,6 @@ class AthematicConjugation(GreekConjugation):
         return False
 
     def add_accent(self, verb, mood, tense, voice, principle_part):
-        print verb, mood, tense, voice, principle_part
         if (mood == 'Optative' and voice in ['Middle', 'Passive'] and
                 tense in ['Present', 'Aorist']):
             if self.principle_parts[0] not in thematic_optative:

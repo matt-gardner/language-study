@@ -3,6 +3,10 @@
 
 verbose = False
 
+import unicodedata
+
+from greek_util import add_final_circumflex
+from greek_util import remove_accents
 from greek_util import remove_all_combining
 from noun_endings import *
 
@@ -15,7 +19,7 @@ class Declension(object):
         raise NotImplementedError()
 
 
-class FirstDeclensionNoun(Declension):
+class GreekDeclension(Declension):
     def __init__(self, dictionary_entry, word_id=-1):
         self.dictionary_entry = dictionary_entry
         self.word_id = word_id
@@ -30,10 +34,12 @@ class FirstDeclensionNoun(Declension):
             self.nominative, self.genitive, article = entry_parts
             if remove_all_combining(article) == u'ο':
                 self.gender = 'Masculine'
-            if remove_all_combining(article) == u'η':
+            elif remove_all_combining(article) == u'η':
                 self.gender = 'Feminine'
-            if remove_all_combining(article) == u'το':
+            elif remove_all_combining(article) == u'το':
                 self.gender = 'Neuter'
+            else:
+                self.gender = 'None'
         else:
             raise ValueError("I don't know how to handle the dictionary entry "
                     "you gave me")
@@ -55,13 +61,14 @@ class FirstDeclensionNoun(Declension):
     def decline(self, **kwargs):
         case, number = self.check_kwargs(kwargs)
         if case == 'Nominative' and number == 'Singular':
-            return self.nominative
+            return unicodedata.normalize('NFKD', self.nominative)
         if case == 'Genitive' and number == 'Singular':
-            return self.genitive
+            return unicodedata.normalize('NFKD', self.genitive)
         stem = self.get_stem()
         ending = self.endings[case][number]
-        final_form = self.combine_parts(stem, ending)
-        return final_form
+        unchecked = self.combine_parts(stem, ending)
+        final_form = self.check_accent(unchecked, case, number)
+        return unicodedata.normalize('NFKD', final_form)
 
     def check_kwargs(self, kwargs):
         if 'case' not in kwargs:
@@ -70,6 +77,7 @@ class FirstDeclensionNoun(Declension):
         if 'number' not in kwargs:
             raise ValueError("Number must be specified")
         number = kwargs['number']
+        # TODO: figure out if I should check gender here, and what to do
         return case, number
 
     def get_stem(self):
@@ -78,6 +86,11 @@ class FirstDeclensionNoun(Declension):
 
     def combine_parts(self, stem, ending):
         return stem + ending
+
+    def check_accent(self, form, case, number):
+        if number == 'Plural' and case == 'Genitive':
+            return add_final_circumflex(remove_accents(form))
+        return form
 
 if __name__ == '__main__':
     # Some very simple testing, as I'm developing stuff.  More complicated
