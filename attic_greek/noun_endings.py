@@ -54,7 +54,7 @@ class FirstDeclensionFeminineEta(DeclensionEndingSet):
         return True
 
 
-class FirstDeclensionFeminineAlpha(DeclensionEndingSet):
+class FirstDeclensionFeminineAlpha(FirstDeclensionFeminineEta):
     def __init__(self):
         super(FirstDeclensionFeminineAlpha, self).__init__()
         self['Nominative']['Singular'] = u'α'
@@ -62,17 +62,6 @@ class FirstDeclensionFeminineAlpha(DeclensionEndingSet):
         self['Dative']['Singular'] = u'ᾳ'
         self['Accusative']['Singular'] = u'αν'
         self['Vocative']['Singular'] = u'α'
-        self['Nominative']['Plural'] = u'αι'
-        self['Genitive']['Plural'] = u'ων'
-        self['Dative']['Plural'] = u'αις'
-        self['Accusative']['Plural'] = u'ας'
-        self['Vocative']['Plural'] = u'αι'
-
-    def is_long(self, case, number):
-        if number == 'Plural':
-            if case in ['Nominative', 'Vocative']:
-                return False
-        return True
 
 
 # vim: et sw=4 sts=4
