@@ -6,6 +6,7 @@ from django.test import TestCase
 import attic_greek
 
 from attic_greek import conjugation
+from attic_greek import declension
 from language_study.drills.models import DeclinableWord
 from language_study.drills.models import Verb
 
@@ -51,6 +52,7 @@ imp_cases.append({'person': 'Third Person', 'number': 'Plural'})
 
 nouns = dict()
 nouns['techne'] = DeclinableWord.objects.get(word__word__contains=u'τέχνη')
+nouns['chora'] = DeclinableWord.objects.get(word__word__contains=u'χώρα')
 
 decl_cases = [{'number': 'Singular', 'case': 'Nominative'}]
 decl_cases.append({'number': 'Singular', 'case': 'Genitive'})
@@ -66,6 +68,7 @@ decl_cases.append({'number': 'Plural', 'case': 'Vocative'})
 class GreekTestCase(TestCase):
     def tearDown(self):
         conjugation.verbose = False
+        declension.verbose = False
 
 
 from attic_greek.test_modules import athematic

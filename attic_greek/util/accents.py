@@ -3,6 +3,8 @@
 
 import unicodedata
 
+# Imports from base are ok up here.  Imports from vowels must be in the method
+# that requires them.
 from base import split_syllables
 
 acute_accent = u'\u0301'
@@ -28,7 +30,12 @@ def remove_all_combining(word):
 
 
 def add_recessive_accent(word, optative=False, long_ending_vowel=False):
-    """long_ending_vowel is for ambigious cases, like α, ι, υ, αι, and οι.
+    """Add a recessive accent to a verb form.
+
+    Only verbs have a recessive accent, so we only really care about verbs
+    here.  Thus we have the optative option.
+
+    long_ending_vowel is for ambigious cases, like α, ι, υ, αι, and οι.
     optative is so that the conjugation code doesn't have to check to see if
     the person and number asked for ends in οι.
     As we are adding accents here, we assume that there are no accents in
@@ -66,8 +73,116 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
     return word
 
 
-def add_persistent_accent(original, inflected):
-    raise NotImplementedError()
+def fix_persistent_accent(form, long_ending_vowel=False):
+    """Look at the accent on a persistently accented form and fix if needed.
+
+    When we say "persistenly accented form" we mean a form that has kept its
+    original accent while changing its ending.  The ending could have changed
+    the necessary accent, or it could still be fine.  If the accent is fine as
+    it is, we leave it alone.  If fixes are needed, we follow the rules and
+    make the accent comply, keeping it as close to the original position as we
+    can.
+    """
+    form = unicodedata.normalize('NFKD', form)
+    result = is_accent_legal(form, long_ending_vowel)
+    attempts = 0
+    while result != 'ACCENT_OK':
+        attempts += 1
+        if attempts > 3:
+            raise RuntimeError("Failure in fix_persistent_accent.  Avoiding "
+                    "infinite recursion")
+        print form, result
+        if result == 'ACCENT_TOO_FAR_BACK':
+            form = remove_accents(form)
+            form = add_recessive_accent(form,
+                    long_ending_vowel=long_ending_vowel)
+        elif result == 'CIRCUMFLEX_ON_SHORT_VOWEL':
+            form = form.replace(circumflex, acute_accent)
+        elif result == 'IMPROPER_GRAVE':
+            form = form.replace(grave_accent, acute_accent)
+        elif result == 'PENULT_NEEDS_ACUTE':
+            form = form.replace(circumflex, acute_accent)
+        elif result == 'PENULT_NEEDS_CIRCUMFLEX':
+            form = form.replace(acute_accent, circumflex)
+        result = is_accent_legal(form, long_ending_vowel)
+    return form
+
+
+def is_accent_legal(form, long_ending_vowel=False):
+    """Check to see if the accent on a word is allowed by the rules of accents.
+
+    This method is intended for use by nouns or other words with persistent
+    accent, becase that's the way the code is structured.  We leave the accent
+    on the word, then after the form has been declined we move the accent if
+    it's necessary.  This method could be used by verbs if necessary, but there
+    currently aren't any places where we do.
+    """
+    from vowels import get_vowel
+    from vowels import is_short
+    syllables = split_syllables(form)
+    syllables.reverse()
+    accented = None
+    accent = None
+    for i, syllable in enumerate(syllables):
+        if is_accented(syllable):
+            accented = i
+            accent = get_accent(syllable)
+    if not accented:
+        raise ValueError("There is no accent on this word")
+    # Accent is on the last syllable
+    if accented == 0:
+        # Accent is "short" - always ok
+        if accent in [acute_accent, grave_accent]:
+            return 'ACCENT_OK'
+        # Accent is circumflex and vowel is long - ok
+        elif not is_short(get_vowel(syllables[accented]),
+                long_ending_vowel=long_ending_vowel):
+            return 'ACCENT_OK'
+        # Accent is circumflex and vowel is short - bad
+        else:
+            return 'CIRCUMFLEX_ON_SHORT_VOWEL'
+    # Accent is not on the last syllable, but accent is grave
+    elif accent == grave_accent:
+        return 'IMPROPER_GRAVE'
+    # Accent is on penult
+    elif accented == 1:
+        # Short penult
+        if is_short(get_vowel(syllables[accented])):
+            # Short penult - must be acute
+            if accent == acute_accent:
+                return 'ACCENT_OK'
+            else:
+                return 'CIRCUMFLEX_ON_SHORT_VOWEL'
+        # Long penult
+        else:
+            if is_short(get_vowel(syllables[0]),
+                    long_ending_vowel=long_ending_vowel):
+                # Long penult and short ultima - must be circumflex
+                if accent == circumflex:
+                    return 'ACCENT_OK'
+                else:
+                    return 'PENULT_NEEDS_CIRCUMFLEX'
+            else:
+                # Long penult and long ultima - must be acute
+                if accent == acute_accent:
+                    return 'ACCENT_OK'
+                else:
+                    return 'PENULT_NEEDS_ACUTE'
+    # Accent is on antepenult
+    elif accented == 2:
+        # Acute accent on penult with a short ending vowel - ok
+        if accent == acute_accent:
+            if is_short(get_vowel(syllables[0]),
+                    long_ending_vowel=long_ending_vowel):
+                return 'ACCENT_OK'
+            else:
+                return 'ACCENT_TOO_FAR_BACK'
+        # Antepenult cannot have circumflex
+        else:
+            return ANTE_PENULT_NEEDS_ACUTE
+    # Accent cannot be further back than the antepenult
+    else:
+        return 'ACCENT_TOO_FAR_BACK'
 
 
 def add_athematic_optative_accent(form):
@@ -106,7 +221,9 @@ def add_final_circumflex(word):
     from vowels import get_vowel
     syllables = split_syllables(word)
     last_vowel = get_vowel(syllables[-1])
-    index = word.find(last_vowel) + len(last_vowel)
+    index = syllables[-1].find(last_vowel) + len(last_vowel)
+    for syllable in syllables[:-1]:
+        index += len(syllable)
     word = word[:index] + circumflex + word[index:]
     return unicodedata.normalize('NFKD', word)
 
@@ -131,10 +248,25 @@ def is_accent(character, breathing=False):
 
 
 def get_breathing(word):
+    """Get the breathing (if any) that is in word.
+
+    Note that this assumes that there is at most one breathing in the word.
+    None is returned if there is no breathing."""
     if smooth_breathing in word:
         return smooth_breathing
     if rough_breathing in word:
         return rough_breathing
+    return None
+
+
+def get_accent(word):
+    """Get the accent (if any) that is in word.
+
+    Note that this assumes that there is at most one accent on the word.  None
+    is returned if there is no accent."""
+    for accent in accents:
+        if accent in word:
+            return accent
     return None
 
 

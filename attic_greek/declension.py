@@ -6,6 +6,7 @@ verbose = False
 import unicodedata
 
 from util.accents import add_final_circumflex
+from util.accents import fix_persistent_accent
 from util.accents import remove_accents
 from util.accents import remove_all_combining
 from noun_endings import *
@@ -90,6 +91,7 @@ class GreekDeclension(Declension):
     def check_accent(self, form, case, number):
         if number == 'Plural' and case == 'Genitive':
             return add_final_circumflex(remove_accents(form))
+        form = fix_persistent_accent(form, self.endings.is_long(case, number))
         return form
 
 if __name__ == '__main__':

@@ -28,8 +28,6 @@ def split_syllables(word):
                 syllables.append(u'')
             syllables[-1] = syllables[-1] + c
             continue
-        #print 'last char:', last_char
-        #print 'last two chars:', last_char + c
         if last_char not in vowels:
             syllables[-1] = syllables[-1] + c
             continue

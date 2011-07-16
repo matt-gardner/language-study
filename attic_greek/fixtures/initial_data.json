@@ -691,6 +691,20 @@
     }
   }, 
   {
+    "pk": 28, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "land", 
+      "review_count": 0, 
+      "word": "\u03c7\u03ce\u03c1\u03b1, \u03c7\u03ce\u03c1\u03b1\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 12:01:48", 
+      "last_reviewed": "2011-07-16 12:01:48"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -1883,6 +1897,15 @@
     "fields": {
       "declension": 1, 
       "word": 27, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 1, 
+      "word": 28, 
       "type": 1
     }
   }
