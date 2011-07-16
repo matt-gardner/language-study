@@ -5,9 +5,9 @@ verbose = False
 
 import unicodedata
 
-from greek_util import add_final_circumflex
-from greek_util import remove_accents
-from greek_util import remove_all_combining
+from util.accents import add_final_circumflex
+from util.accents import remove_accents
+from util.accents import remove_all_combining
 from noun_endings import *
 
 # TODO: this belongs somewhere else

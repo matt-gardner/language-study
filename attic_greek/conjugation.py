@@ -5,31 +5,9 @@ import unicodedata
 
 from collections import defaultdict
 from verb_endings import *
-from greek_util import acute_accent
-from greek_util import add_final_circumflex
-from greek_util import add_penult_accent
-from greek_util import add_recessive_accent
-from greek_util import add_athematic_optative_accent
-from greek_util import breathings
-from greek_util import circumflex
-from greek_util import contract_vowels
-from greek_util import diphthongs
-from greek_util import get_breathing
-from greek_util import get_final_consonant
-from greek_util import get_last_vowel
-from greek_util import get_matching_index
-from greek_util import get_vowel
-from greek_util import is_accent
-from greek_util import is_accented
-from greek_util import is_short
-from greek_util import lengthen_vowel
-from greek_util import remove_accents
-from greek_util import remove_all_combining
-from greek_util import remove_initial_vowel
-from greek_util import shorten_vowel
-from greek_util import split_syllables
-from greek_util import starts_with_vowel
-from greek_util import vowels
+from util.accents import *
+from util.base import *
+from util.vowels import *
 from language_study.drills.models import *
 
 verbose = False

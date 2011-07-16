@@ -14,7 +14,6 @@ class RegularFirstDeclensionTest(GreekTestCase):
         noun = GreekDeclension(nouns['techne'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
-            print answer, noun.decline(**args)
             self.failUnlessEqual(noun.decline(**args), answer)
 
 all_tests = [RegularFirstDeclensionTest]
