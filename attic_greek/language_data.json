@@ -739,39 +739,9 @@
   ],
   "Nouns": [
     {
-      "definition": "art, skill",
-      "word": "τέχνη, τέχνης, ἡ",
-      "declension": "First Declension"
-    },
-    {
-      "definition": "land",
-      "word": "χώρα, χώρας, ἡ",
-      "declension": "First Declension"
-    },
-    {
-      "definition": "soul",
-      "word": "ψυχή, ψυχῆς, ἡ",
-      "declension": "First Declension"
-    },
-    {
       "definition": "market place",
       "word": "ἀγορά, ἀγορᾶς, ἡ",
       "declension": "First Declension"
-    },
-    {
-      "definition": "word",
-      "word": "λόγος, λόγου, ὁ",
-      "declension": "Second Declension"
-    },
-    {
-      "definition": "work",
-      "word": "ἔργον, ἔργου, τό",
-      "declension": "Second Declension"
-    },
-    {
-      "definition": "man",
-      "word": "ἄνθρωπος, ἀνθρώπου, ὁ",
-      "declension": "Second Declension"
     },
     {
       "definition": "brother",
@@ -787,14 +757,44 @@
       ]
     },
     {
-      "definition": "island",
-      "word": "νῆσος, νήσου, ἡ",
+      "definition": "man",
+      "word": "ἄνθρωπος, ἀνθρώπου, ὁ",
       "declension": "Second Declension"
     },
     {
       "definition": "gift",
       "word": "δῶρον, δώρου, τό",
       "declension": "Second Declension"
+    },
+    {
+      "definition": "work",
+      "word": "ἔργον, ἔργου, τό",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "word",
+      "word": "λόγος, λόγου, ὁ",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "island",
+      "word": "νῆσος, νήσου, ἡ",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "art, skill",
+      "word": "τέχνη, τέχνης, ἡ",
+      "declension": "First Declension"
+    },
+    {
+      "definition": "land",
+      "word": "χώρα, χώρας, ἡ",
+      "declension": "First Declension"
+    },
+    {
+      "definition": "soul",
+      "word": "ψυχή, ψυχῆς, ἡ",
+      "declension": "First Declension"
     }
   ]
 }
