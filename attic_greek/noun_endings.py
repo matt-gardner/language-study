@@ -64,4 +64,36 @@ class FirstDeclensionFeminineAlpha(FirstDeclensionFeminineEta):
         self['Vocative']['Singular'] = u'α'
 
 
+###########################
+# Second Declension Endings
+###########################
+
+class SecondDeclensionMF(DeclensionEndingSet):
+    def __init__(self):
+        super(SecondDeclensionMF, self).__init__()
+        self['Nominative']['Singular'] = u'ος'
+        self['Genitive']['Singular'] = u'ου'
+        self['Dative']['Singular'] = u'ῳ'
+        self['Accusative']['Singular'] = u'ον'
+        self['Vocative']['Singular'] = u'ε'
+        self['Nominative']['Plural'] = u'οι'
+        self['Genitive']['Plural'] = u'ων'
+        self['Dative']['Plural'] = u'οις'
+        self['Accusative']['Plural'] = u'ους'
+        self['Vocative']['Plural'] = u'οι'
+
+    def is_long(self, case, number):
+        return self.default_is_long(case, number)
+
+
+class SecondDeclensionNeuter(SecondDeclensionMF):
+    def __init__(self):
+        super(SecondDeclensionNeuter, self).__init__()
+        self['Nominative']['Singular'] = u'ον'
+        self['Vocative']['Singular'] = u'ον'
+        self['Nominative']['Plural'] = u'α'
+        self['Accusative']['Plural'] = u'α'
+        self['Vocative']['Plural'] = u'α'
+
+
 # vim: et sw=4 sts=4

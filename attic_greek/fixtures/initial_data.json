@@ -705,6 +705,118 @@
     }
   }, 
   {
+    "pk": 29, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "soul", 
+      "review_count": 0, 
+      "word": "\u03c8\u03c5\u03c7\u03ae, \u03c8\u03c5\u03c7\u1fc6\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:16:08", 
+      "last_reviewed": "2011-07-16 14:16:08"
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "market place", 
+      "review_count": 0, 
+      "word": "\u1f00\u03b3\u03bf\u03c1\u03ac, \u1f00\u03b3\u03bf\u03c1\u1fb6\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:26:46", 
+      "last_reviewed": "2011-07-16 14:26:46"
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "word", 
+      "review_count": 0, 
+      "word": "\u03bb\u03cc\u03b3\u03bf\u03c2, \u03bb\u03cc\u03b3\u03bf\u03c5, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:58:37", 
+      "last_reviewed": "2011-07-16 14:58:37"
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "work", 
+      "review_count": 0, 
+      "word": "\u1f14\u03c1\u03b3\u03bf\u03bd, \u1f14\u03c1\u03b3\u03bf\u03c5, \u03c4\u03cc", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:58:37", 
+      "last_reviewed": "2011-07-16 14:58:37"
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "man", 
+      "review_count": 0, 
+      "word": "\u1f04\u03bd\u03b8\u03c1\u03c9\u03c0\u03bf\u03c2, \u1f00\u03bd\u03b8\u03c1\u03ce\u03c0\u03bf\u03c5, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:58:37", 
+      "last_reviewed": "2011-07-16 14:58:37"
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "brother", 
+      "review_count": 0, 
+      "word": "\u1f00\u03b4\u03b5\u03bb\u03c6\u03cc\u03c2, \u1f00\u03b4\u03b5\u03bb\u03c6\u03bf\u1fe6, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:58:37", 
+      "last_reviewed": "2011-07-16 14:58:37"
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "island", 
+      "review_count": 0, 
+      "word": "\u03bd\u1fc6\u03c3\u03bf\u03c2, \u03bd\u03ae\u03c3\u03bf\u03c5, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:58:38", 
+      "last_reviewed": "2011-07-16 14:58:37"
+    }
+  }, 
+  {
+    "pk": 36, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "gift", 
+      "review_count": 0, 
+      "word": "\u03b4\u1ff6\u03c1\u03bf\u03bd, \u03b4\u03ce\u03c1\u03bf\u03c5, \u03c4\u03cc", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-16 14:58:38", 
+      "last_reviewed": "2011-07-16 14:58:37"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -1907,6 +2019,89 @@
       "declension": 1, 
       "word": 28, 
       "type": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 1, 
+      "word": 29, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 1, 
+      "word": 30, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 2, 
+      "word": 31, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 2, 
+      "word": 32, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 2, 
+      "word": 33, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 2, 
+      "word": 34, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 2, 
+      "word": 35, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 2, 
+      "word": 36, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "drills.irregulardeclinableform", 
+    "fields": {
+      "case": 5, 
+      "gender": 1, 
+      "number": 1, 
+      "form": "\u1f04\u03b4\u03b5\u03bb\u03c6\u03b5", 
+      "declinable": 8
     }
   }
 ]

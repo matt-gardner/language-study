@@ -50,9 +50,18 @@ imp_cases.append({'person': 'Third Person', 'number': 'Singular'})
 imp_cases.append({'person': 'Second Person', 'number': 'Plural'})
 imp_cases.append({'person': 'Third Person', 'number': 'Plural'})
 
+DW = DeclinableWord
 nouns = dict()
-nouns['techne'] = DeclinableWord.objects.get(word__word__contains=u'τέχνη')
-nouns['chora'] = DeclinableWord.objects.get(word__word__contains=u'χώρα')
+nouns['techne'] = DW.objects.get(word__word__contains=u'τέχνη')
+nouns['chora'] = DW.objects.get(word__word__contains=u'χώρα')
+nouns['psuche'] = DW.objects.get(word__word__contains=u'ψυχή')
+nouns['agora'] = DW.objects.get(word__word__contains=u'ἀγορά')
+nouns['logos'] = DW.objects.get(word__word__contains=u'λόγος')
+nouns['ergon'] = DW.objects.get(word__word__contains=u'ἔργον')
+nouns['anthropos'] = DW.objects.get(word__word__contains=u'ἄνθρωπος')
+nouns['adelphos'] = DW.objects.get(word__word__contains=u'ἀδελφός')
+nouns['nesos'] = DW.objects.get(word__word__contains=u'νῆσος')
+nouns['doron'] = DW.objects.get(word__word__contains=u'δῶρον')
 
 decl_cases = [{'number': 'Singular', 'case': 'Nominative'}]
 decl_cases.append({'number': 'Singular', 'case': 'Genitive'})

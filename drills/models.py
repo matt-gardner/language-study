@@ -227,6 +227,14 @@ class DeclinableWord(models.Model):
     type = models.ForeignKey('DeclinableType')
 
 
+class IrregularDeclinableForm(models.Model):
+    declinable = models.ForeignKey('DeclinableWord')
+    gender = models.ForeignKey('Gender')
+    number = models.ForeignKey('Number')
+    case = models.ForeignKey('Case')
+    form = models.CharField(max_length=128)
+
+
 # Drilling statistics
 #####################
 

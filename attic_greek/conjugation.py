@@ -58,11 +58,10 @@ class GreekConjugation(Conjugation):
     def conjugate(self, **kwargs):
         person, number, tense, mood, voice = self.check_kwargs(kwargs)
         stem = None
-        if self.verb_id != -1:
-            if self.is_irregular(person, number, tense, mood, voice):
-                return [self.irregular_form(person, number, tense, mood, voice)]
-            if self.is_irregular_stem(tense, mood, voice):
-                stem = self.irregular_stem(tense, mood, voice)
+        if self.is_irregular(person, number, tense, mood, voice):
+            return [self.irregular_form(person, number, tense, mood, voice)]
+        if self.is_irregular_stem(tense, mood, voice):
+            stem = self.irregular_stem(tense, mood, voice)
         principle_part = self.get_principle_part(tense, voice)
         if stem == None:
             stem = self.stem_principle_part(principle_part, tense, mood, voice,

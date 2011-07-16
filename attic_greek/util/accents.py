@@ -6,6 +6,7 @@ import unicodedata
 # Imports from base are ok up here.  Imports from vowels must be in the method
 # that requires them.
 from base import split_syllables
+from base import log_if_verbose
 
 acute_accent = u'\u0301'
 grave_accent = u'\u0300'
@@ -83,7 +84,17 @@ def fix_persistent_accent(form, long_ending_vowel=False):
     make the accent comply, keeping it as close to the original position as we
     can.
     """
+    from vowels import get_last_vowel
+    from vowels import long_with_following_consonant
     form = unicodedata.normalize('NFKD', form)
+    last_vowel = get_last_vowel(form)
+    # This is a tricky special case - αι and οι are only short if they end the
+    # word; if they are followed by ς they are not short.  Putting this check
+    # in here is the easiest way to handle this problem, though I guess it
+    # really should be handled a little deeper.  That would just require too
+    # much change to existing code.
+    if last_vowel in long_with_following_consonant and form[-1] == u'ς':
+        long_ending_vowel = True
     result = is_accent_legal(form, long_ending_vowel)
     attempts = 0
     while result != 'ACCENT_OK':
@@ -127,7 +138,8 @@ def is_accent_legal(form, long_ending_vowel=False):
         if is_accented(syllable):
             accented = i
             accent = get_accent(syllable)
-    if not accented:
+    if accented is None:
+        print form
         raise ValueError("There is no accent on this word")
     # Accent is on the last syllable
     if accented == 0:
@@ -218,18 +230,28 @@ def add_penult_accent(word, long_ending_vowel=False, long_penult=False):
 
 
 def add_final_circumflex(word):
+    return add_final_accent(word, circumflex)
+
+
+def add_final_acute(word):
+    return add_final_accent(word, acute_accent)
+
+
+def add_final_accent(word, accent):
     from vowels import get_vowel
+    from attic_greek import declension
+    word = unicodedata.normalize('NFKD', word)
     syllables = split_syllables(word)
     last_vowel = get_vowel(syllables[-1])
     index = syllables[-1].find(last_vowel) + len(last_vowel)
     for syllable in syllables[:-1]:
         index += len(syllable)
-    word = word[:index] + circumflex + word[index:]
+    word = word[:index] + accent + word[index:]
     return unicodedata.normalize('NFKD', word)
 
 
 def is_accented(word):
-    for c in word:
+    for c in unicodedata.normalize('NFKD', word):
         if is_accent(c):
             return True
     return False

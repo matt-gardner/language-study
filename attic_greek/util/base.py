@@ -9,6 +9,11 @@ vowels = [u'α', u'ε', u'η', u'ι', u'ο', u'υ', u'ω']
 diphthongs = [u'αι', u'αυ', u'ει', u'ευ', u'ηυ', u'οι', u'ου', u'ωυ']
 
 
+def log_if_verbose(items):
+    from attic_greek import conjugation, declension
+    if conjugation.verbose or declension.verbose:
+        for item in items:
+            print u'%s: %s' % (item, items[item])
 def split_syllables(word):
     """Diacritics cannot have been removed for this method, because they affect
     the number of syllables in a diphthong, among other things.

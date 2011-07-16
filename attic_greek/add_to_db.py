@@ -129,6 +129,13 @@ def add_language():
         n_args['declension'] = object_cache['Declension'][noun['declension']]
         n_args['type'] = object_cache['DeclinableType']['Noun']
         add_or_fail(DeclinableWord, n_args)
+        if "irregular forms" in noun:
+            for form in noun["irregular forms"]:
+                gender = form['Gender']
+                number = form['Number']
+                case = form['Case']
+                f = form['Form']
+                irregular_declinable_form(noun['word'], gender, number, case, f)
 
     if not added:
         print 'Nothing added to the database'
@@ -169,6 +176,16 @@ def irregular_verb_aug_stem(verb, tense, mood, voice, stem):
     args['tense'] = object_cache['Tense'][tense]
     args['stem'] = stem
     add_or_fail(IrregularVerbAugmentedStem, args)
+
+
+def irregular_declinable_form(declinable, gender, number, case, form):
+    args = {}
+    args['declinable'] = object_cache['DeclinableWord'][declinable]
+    args['gender'] = object_cache['Gender'][gender]
+    args['number'] = object_cache['Number'][number]
+    args['case'] = object_cache['Case'][case]
+    args['form'] = form
+    add_or_fail(IrregularDeclinableForm, args)
 
 
 def add_or_fail(model, query_args, create_args={}):
