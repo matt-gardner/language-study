@@ -62,10 +62,18 @@ nouns['gephura'] = DW.objects.get(word__word__contains=u'γέφυρα')
 nouns['logos'] = DW.objects.get(word__word__contains=u'λόγος')
 nouns['moira'] = DW.objects.get(word__word__contains=u'μοῖρα')
 nouns['mousa'] = DW.objects.get(word__word__contains=u'μοῦσα')
+nouns['neanias'] = DW.objects.get(word__word__contains=u'νεανίας')
 nouns['nesos'] = DW.objects.get(word__word__contains=u'νῆσος')
+nouns['poietes'] = DW.objects.get(word__word__contains=u'ποιητής')
+nouns['polites'] = DW.objects.get(word__word__contains=u'πολίτης')
 nouns['psuche'] = DW.objects.get(word__word__contains=u'ψυχή')
 nouns['techne'] = DW.objects.get(word__word__contains=u'τέχνη')
 nouns['thalatta'] = DW.objects.get(word__word__contains=u'θάλαττα')
+
+adjectives = dict()
+adjectives['agathos'] = DW.objects.get(word__word__contains=u'ἀγαθός')
+adjectives['adikos'] = DW.objects.get(word__word__contains=u'ἄδικος')
+adjectives['axios'] = DW.objects.get(word__word__contains=u'ἄξιος')
 
 decl_cases = [{'number': 'Singular', 'case': 'Nominative'}]
 decl_cases.append({'number': 'Singular', 'case': 'Genitive'})
@@ -90,8 +98,9 @@ from attic_greek.test_modules import contracted
 from attic_greek.test_modules import contracted_future
 from attic_greek.test_modules import deponent
 from attic_greek.test_modules import erxomai
-from attic_greek.test_modules import regular_verbs
+from attic_greek.test_modules import regular_adjectives
 from attic_greek.test_modules import regular_nouns
+from attic_greek.test_modules import regular_verbs
 from attic_greek.test_modules import vowel_augment
 
 all_tests = []
@@ -101,8 +110,9 @@ all_tests.extend(contracted.all_tests)
 all_tests.extend(contracted_future.all_tests)
 all_tests.extend(deponent.all_tests)
 all_tests.extend(erxomai.all_tests)
-all_tests.extend(regular_verbs.all_tests)
+all_tests.extend(regular_adjectives.all_tests)
 all_tests.extend(regular_nouns.all_tests)
+all_tests.extend(regular_verbs.all_tests)
 all_tests.extend(vowel_augment.all_tests)
 
 # vim: et sw=4 sts=4

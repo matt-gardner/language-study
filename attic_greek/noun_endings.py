@@ -18,11 +18,11 @@ class DeclensionEndingSet(dict):
         self['Accusative'] = {'Singular': u'', 'Plural': u''}
         self['Vocative'] = {'Singular': u'', 'Plural': u''}
 
-    def is_long(self, case, number):
+    def is_long(self, number, case):
         raise NotImplementedError("If you really want to have a default, use "
-                "self.default_is_long(case, number)")
+                "self.default_is_long(number, case)")
 
-    def default_is_long(self, case, number):
+    def default_is_long(self, number, case):
         if not is_short(get_vowel(self[case][number])):
             return True
         else:
@@ -47,15 +47,24 @@ class FirstDeclensionFeminineEta(DeclensionEndingSet):
         self['Accusative']['Plural'] = u'ας'
         self['Vocative']['Plural'] = u'αι'
 
-    def is_long(self, case, number):
+    def is_long(self, number, case):
         if number == 'Plural':
             if case in ['Nominative', 'Vocative']:
                 return False
         return True
 
-    def short_alpha_is_long(self, case, number):
+    def short_alpha_is_long(self, number, case):
         if number == 'Singular':
             if case in ['Nominative', 'Accusative', 'Vocative']:
+                return False
+        if number == 'Plural':
+            if case in ['Nominative', 'Vocative']:
+                return False
+        return True
+
+    def masculine_is_long(self, number, case):
+        if number == 'Singular':
+            if case in ['Vocative']:
                 return False
         if number == 'Plural':
             if case in ['Nominative', 'Vocative']:
@@ -91,8 +100,8 @@ class SecondDeclensionMF(DeclensionEndingSet):
         self['Accusative']['Plural'] = u'ους'
         self['Vocative']['Plural'] = u'οι'
 
-    def is_long(self, case, number):
-        return self.default_is_long(case, number)
+    def is_long(self, number, case):
+        return self.default_is_long(number, case)
 
 
 class SecondDeclensionNeuter(SecondDeclensionMF):

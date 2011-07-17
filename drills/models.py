@@ -235,6 +235,11 @@ class IrregularDeclinableForm(models.Model):
     form = models.CharField(max_length=128)
 
 
+# Maybe this should be in attic_greek/models.py?
+class LongPenult(models.Model):
+    declinable = models.OneToOneField('DeclinableWord')
+
+
 # Drilling statistics
 #####################
 

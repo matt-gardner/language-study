@@ -74,7 +74,7 @@ def add_recessive_accent(word, optative=False, long_ending_vowel=False):
     return word
 
 
-def fix_persistent_accent(form, long_ending_vowel=False):
+def fix_persistent_accent(form, long_penult=False, long_ending_vowel=False):
     """Look at the accent on a persistently accented form and fix if needed.
 
     When we say "persistenly accented form" we mean a form that has kept its
@@ -83,6 +83,9 @@ def fix_persistent_accent(form, long_ending_vowel=False):
     it is, we leave it alone.  If fixes are needed, we follow the rules and
     make the accent comply, keeping it as close to the original position as we
     can.
+
+    long_penult is only checked on ambiguous cases, where it affects the accent
+    and we don't know apriori if the vowel is long or short.
     """
     from vowels import get_last_vowel
     from vowels import long_except_at_end
@@ -95,14 +98,13 @@ def fix_persistent_accent(form, long_ending_vowel=False):
     # much change to existing code.
     if last_vowel in long_except_at_end and form[-1] == u'ς':
         long_ending_vowel = True
-    result = is_accent_legal(form, long_ending_vowel)
+    result = is_accent_legal(form, long_penult, long_ending_vowel)
     attempts = 0
     while result != 'ACCENT_OK':
         attempts += 1
         if attempts > 3:
             raise RuntimeError("Failure in fix_persistent_accent.  Avoiding "
                     "infinite recursion")
-        print form, result
         if result == 'ACCENT_TOO_FAR_BACK':
             form = remove_accents(form)
             form = add_recessive_accent(form,
@@ -115,11 +117,11 @@ def fix_persistent_accent(form, long_ending_vowel=False):
             form = form.replace(circumflex, acute_accent)
         elif result == 'PENULT_NEEDS_CIRCUMFLEX':
             form = form.replace(acute_accent, circumflex)
-        result = is_accent_legal(form, long_ending_vowel)
+        result = is_accent_legal(form, long_penult, long_ending_vowel)
     return form
 
 
-def is_accent_legal(form, long_ending_vowel=False):
+def is_accent_legal(form, long_penult=False, long_ending_vowel=False):
     """Check to see if the accent on a word is allowed by the rules of accents.
 
     This method is intended for use by nouns or other words with persistent
@@ -128,6 +130,7 @@ def is_accent_legal(form, long_ending_vowel=False):
     it's necessary.  This method could be used by verbs if necessary, but there
     currently aren't any places where we do.
     """
+    from vowels import ambiguous
     from vowels import get_vowel
     from vowels import is_short
     from vowels import long_except_at_end
@@ -140,7 +143,6 @@ def is_accent_legal(form, long_ending_vowel=False):
             accented = i
             accent = get_accent(syllable)
     if accented is None:
-        print form
         raise ValueError("There is no accent on this word")
     # Accent is on the last syllable
     if accented == 0:
@@ -160,10 +162,11 @@ def is_accent_legal(form, long_ending_vowel=False):
     # Accent is on penult
     elif accented == 1:
         # Short penult
+        penult_vowel = get_vowel(syllables[accented])
         # Another special case where is_short breaks...  I should fix it,
         # instead of having these cases to work around it...
-        if (is_short(get_vowel(syllables[accented])) and
-                get_vowel(syllables[accented]) not in long_except_at_end):
+        if (is_short(penult_vowel) and not (penult_vowel in long_except_at_end)
+                and not (penult_vowel in ambiguous and long_penult)):
             # Short penult - must be acute
             if accent == acute_accent:
                 return 'ACCENT_OK'

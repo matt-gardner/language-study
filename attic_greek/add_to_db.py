@@ -122,23 +122,32 @@ def add_language():
     word_args = {'wordlist': object_cache['WordList'][args['name']]}
     create_args = {'last_reviewed': datetime.now()}
     for noun in json['Nouns']:
-        word_args['word'] = noun['word']
-        word_args['definition'] = noun['definition']
-        word = add_or_fail(Word, word_args, create_args)
-        n_args = {'word': word}
-        n_args['declension'] = object_cache['Declension'][noun['declension']]
-        n_args['type'] = object_cache['DeclinableType']['Noun']
-        add_or_fail(DeclinableWord, n_args)
-        if "irregular forms" in noun:
-            for form in noun["irregular forms"]:
-                gender = form['Gender']
-                number = form['Number']
-                case = form['Case']
-                f = form['Form']
-                irregular_declinable_form(noun['word'], gender, number, case, f)
+        add_declinable_type(noun, 'Noun', word_args, create_args)
+    for adjective in json['Adjectives']:
+        add_declinable_type(adjective, 'Adjective', word_args, create_args)
 
     if not added:
         print 'Nothing added to the database'
+
+
+def add_declinable_type(decl, type, word_args, create_args):
+    word_args['word'] = decl['word']
+    word_args['definition'] = decl['definition']
+    word = add_or_fail(Word, word_args, create_args)
+    n_args = {'word': word}
+    n_args['declension'] = object_cache['Declension'][decl['declension']]
+    n_args['type'] = object_cache['DeclinableType'][type]
+    add_or_fail(DeclinableWord, n_args)
+    if "irregular forms" in decl:
+        for form in decl["irregular forms"]:
+            gender = form['Gender']
+            number = form['Number']
+            case = form['Case']
+            f = form['Form']
+            irregular_declinable_form(decl['word'], gender, number, case, f)
+    if "long penult" in decl and decl["long penult"] == 'True':
+        args = {'declinable': object_cache['DeclinableWord'][decl['word']]}
+        add_or_fail(LongPenult, args)
 
 
 def tense_with_no_passive(verb, tense):
@@ -196,6 +205,8 @@ def add_or_fail(model, query_args, create_args={}):
         output = query_args['word'].word
     elif 'declension' in query_args:
         output = query_args['word'].word
+    elif 'declinable' in query_args:
+        output = query_args['declinable'].word.word
     elif 'word' in query_args:
         output = query_args['word']
     elif 'form' in query_args:

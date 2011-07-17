@@ -8,6 +8,7 @@ from attic_greek.test_modules import nouns, decl_cases, GreekTestCase
 import unicodedata
 
 class RegularFirstDeclensionTest(GreekTestCase):
+    # FEMININE TESTS
     def test_techne(self):
         args = {}
         answers = [u'τέχνη', u'τέχνης', u'τέχνῃ', u'τέχνην', u'τέχνη',
@@ -86,6 +87,38 @@ class RegularFirstDeclensionTest(GreekTestCase):
                 u'μοῖραι', u'μοιρῶν', u'μοίραις', u'μοίρας', u'μοῖραι']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         noun = FirstDeclensionNoun(nouns['moira'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    # MASCULINE TESTS
+    def test_polites(self):
+        args = {}
+        answers = [u'πολίτης', u'πολίτου', u'πολίτῃ', u'πολίτην', u'πολῖτα',
+                u'πολῖται', u'πολιτῶν', u'πολίταις', u'πολίτας', u'πολῖται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['polites'].word.word,
+                nouns['polites'].id)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_poietes(self):
+        args = {}
+        answers = [u'ποιητής', u'ποιητοῦ', u'ποιητῇ', u'ποιητήν', u'ποιητά',
+                u'ποιηταί', u'ποιητῶν', u'ποιηταῖς', u'ποιητάς', u'ποιηταί']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['poietes'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_neanias(self):
+        args = {}
+        answers = [u'νεανίας', u'νεανίου', u'νεανίᾳ', u'νεανίαν', u'νεανία',
+                u'νεανίαι', u'νεανιῶν', u'νεανίαις', u'νεανίας', u'νεανίαι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['neanias'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
             self.failUnlessEqual(noun.decline(**args), answer)

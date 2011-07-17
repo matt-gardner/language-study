@@ -764,7 +764,7 @@
     {
       "definition": "bridge",
       "word": "γέφυρα, γεφύρας, ἡ",
-      "declension": "Second Declension"
+      "declension": "First Declension"
     },
     {
       "definition": "gift",
@@ -779,7 +779,7 @@
     {
       "definition": "sea",
       "word": "θάλαττα, θαλάττης, ἡ",
-      "declension": "Second Declension"
+      "declension": "First Declension"
     },
     {
       "definition": "word",
@@ -789,17 +789,33 @@
     {
       "definition": "fate",
       "word": "μοῖρα, μοίρας, ἡ",
-      "declension": "Second Declension"
+      "declension": "First Declension"
     },
     {
       "definition": "muse",
       "word": "μοῦσα, μούσης, ἡ",
-      "declension": "Second Declension"
+      "declension": "First Declension"
+    },
+    {
+      "definition": "young man",
+      "word": "νεανίας, νεανίου, ὁ",
+      "declension": "First Declension"
     },
     {
       "definition": "island",
       "word": "νῆσος, νήσου, ἡ",
       "declension": "Second Declension"
+    },
+    {
+      "definition": "citizen",
+      "word": "πολίτης, πολίτου, ὁ",
+      "declension": "First Declension",
+      "long penult": "True"
+    },
+    {
+      "definition": "poet",
+      "word": "ποιητής, ποιητοῦ, ὁ",
+      "declension": "First Declension"
     },
     {
       "definition": "art, skill",
@@ -815,6 +831,23 @@
       "definition": "soul",
       "word": "ψυχή, ψυχῆς, ἡ",
       "declension": "First Declension"
+    }
+  ],
+  "Adjectives": [
+    {
+      "definition": "good",
+      "word": "ἀγαθός, ἀγαθή, ἀγαθόν",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "unjust",
+      "word": "ἄδικος, ἄδικον",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "worthy",
+      "word": "ἄξιος, ἀξία, ἄξιον",
+      "declension": "Second Declension"
     }
   ]
 }
