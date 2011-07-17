@@ -48,6 +48,48 @@ class RegularFirstDeclensionTest(GreekTestCase):
             args.update(case)
             self.failUnlessEqual(noun.decline(**args), answer)
 
+    # SHORT ALPHA TESTS
+    def test_thalatta(self):
+        args = {}
+        answers = [u'θάλαττα', u'θαλάττης', u'θαλάττῃ', u'θάλατταν', u'θάλαττα',
+                u'θάλατται', u'θαλαττῶν', u'θαλάτταις', u'θαλάττας',
+                u'θάλατται']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['thalatta'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_mousa(self):
+        args = {}
+        answers = [u'μοῦσα', u'μούσης', u'μούσῃ', u'μοῦσαν', u'μοῦσα',
+                u'μοῦσαι', u'μουσῶν', u'μούσαις', u'μούσας', u'μοῦσαι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['mousa'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_gephura(self):
+        args = {}
+        answers = [u'γέφυρα', u'γεφύρας', u'γεφύρᾳ', u'γέφυραν', u'γέφυρα',
+                u'γέφυραι', u'γεφυρῶν', u'γεφύραις', u'γεφύρας', u'γέφυραι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['gephura'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_moira(self):
+        args = {}
+        answers = [u'μοῖρα', u'μοίρας', u'μοίρᾳ', u'μοῖραν', u'μοῖρα',
+                u'μοῖραι', u'μοιρῶν', u'μοίραις', u'μοίρας', u'μοῖραι']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = FirstDeclensionNoun(nouns['moira'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
 
 class RegularSecondDeclensionTest(GreekTestCase):
     def test_logos(self):

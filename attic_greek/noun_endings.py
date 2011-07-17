@@ -53,6 +53,15 @@ class FirstDeclensionFeminineEta(DeclensionEndingSet):
                 return False
         return True
 
+    def short_alpha_is_long(self, case, number):
+        if number == 'Singular':
+            if case in ['Nominative', 'Accusative', 'Vocative']:
+                return False
+        if number == 'Plural':
+            if case in ['Nominative', 'Vocative']:
+                return False
+        return True
+
 
 class FirstDeclensionFeminineAlpha(FirstDeclensionFeminineEta):
     def __init__(self):

@@ -85,7 +85,7 @@ def fix_persistent_accent(form, long_ending_vowel=False):
     can.
     """
     from vowels import get_last_vowel
-    from vowels import long_with_following_consonant
+    from vowels import long_except_at_end
     form = unicodedata.normalize('NFKD', form)
     last_vowel = get_last_vowel(form)
     # This is a tricky special case - αι and οι are only short if they end the
@@ -93,7 +93,7 @@ def fix_persistent_accent(form, long_ending_vowel=False):
     # in here is the easiest way to handle this problem, though I guess it
     # really should be handled a little deeper.  That would just require too
     # much change to existing code.
-    if last_vowel in long_with_following_consonant and form[-1] == u'ς':
+    if last_vowel in long_except_at_end and form[-1] == u'ς':
         long_ending_vowel = True
     result = is_accent_legal(form, long_ending_vowel)
     attempts = 0
@@ -130,6 +130,7 @@ def is_accent_legal(form, long_ending_vowel=False):
     """
     from vowels import get_vowel
     from vowels import is_short
+    from vowels import long_except_at_end
     syllables = split_syllables(form)
     syllables.reverse()
     accented = None
@@ -159,7 +160,10 @@ def is_accent_legal(form, long_ending_vowel=False):
     # Accent is on penult
     elif accented == 1:
         # Short penult
-        if is_short(get_vowel(syllables[accented])):
+        # Another special case where is_short breaks...  I should fix it,
+        # instead of having these cases to work around it...
+        if (is_short(get_vowel(syllables[accented])) and
+                get_vowel(syllables[accented]) not in long_except_at_end):
             # Short penult - must be acute
             if accent == acute_accent:
                 return 'ACCENT_OK'

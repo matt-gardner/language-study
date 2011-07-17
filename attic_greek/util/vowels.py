@@ -9,7 +9,7 @@ from base import vowels
 short_vowels = [u'α', u'ε', u'ι', u'ο', u'υ', u'αι', u'οι']
 ambiguous = [u'α', u'ι', u'υ']
 long_optative = [u'οι', u'αι']
-long_with_following_consonant = [u'οι', u'αι']
+long_except_at_end = [u'οι', u'αι']
 
 
 def starts_with_vowel(word):

@@ -762,6 +762,11 @@
       "declension": "Second Declension"
     },
     {
+      "definition": "bridge",
+      "word": "γέφυρα, γεφύρας, ἡ",
+      "declension": "Second Declension"
+    },
+    {
       "definition": "gift",
       "word": "δῶρον, δώρου, τό",
       "declension": "Second Declension"
@@ -772,8 +777,23 @@
       "declension": "Second Declension"
     },
     {
+      "definition": "sea",
+      "word": "θάλαττα, θαλάττης, ἡ",
+      "declension": "Second Declension"
+    },
+    {
       "definition": "word",
       "word": "λόγος, λόγου, ὁ",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "fate",
+      "word": "μοῖρα, μοίρας, ἡ",
+      "declension": "Second Declension"
+    },
+    {
+      "definition": "muse",
+      "word": "μοῦσα, μούσης, ἡ",
       "declension": "Second Declension"
     },
     {

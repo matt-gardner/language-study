@@ -6,6 +6,7 @@ import unicodedata
 from language_study.drills.models import DeclinableWord
 from noun_endings import *
 from util.accents import *
+from util.base import *
 
 verbose = False
 
@@ -116,8 +117,23 @@ class FirstDeclensionNoun(GreekDeclension):
     def set_endings(self):
         if remove_accents(self.genitive).endswith(u'ης'):
             self.endings = FirstDeclensionFeminineEta()
+            if remove_accents(self.nominative).endswith(u'α'):
+                self.endings.is_long = self.endings.short_alpha_is_long
+                self.endings['Nominative']['Singular'] = u'α'
+                self.endings['Accusative']['Singular'] = u'αν'
+                self.endings['Vocative']['Singular'] = u'α'
         elif remove_accents(self.genitive).endswith(u'ας'):
             self.endings = FirstDeclensionFeminineAlpha()
+            is_short_alpha = False
+            syllables = split_syllables(self.nominative)
+            syllables.reverse()
+            if len(syllables) > 2 and is_accented(syllables[2]):
+                is_short_alpha = True
+            if (len(syllables) > 1 and is_accented(syllables[1]) and
+                    get_accent(syllables[1]) == circumflex):
+                is_short_alpha = True
+            if is_short_alpha:
+                self.endings.is_long = self.endings.short_alpha_is_long
         else:
             raise ValueError("I don't know what set of endings to use for this "
                     "word")
