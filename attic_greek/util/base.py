@@ -7,6 +7,9 @@ import unicodedata
 # util.  I was just trying to keep the dependencies clean.
 vowels = [u'α', u'ε', u'η', u'ι', u'ο', u'υ', u'ω']
 diphthongs = [u'αι', u'αυ', u'ει', u'ευ', u'ηυ', u'οι', u'ου', u'ωυ']
+labials = [u'π', u'β', u'φ']
+palatals = [u'κ', u'γ', u'χ']
+dentals = [u'τ', u'δ', u'θ']
 
 
 def log_if_verbose(items):
@@ -14,6 +17,7 @@ def log_if_verbose(items):
     if conjugation.verbose or declension.verbose:
         for item in items:
             print u'%s: %s' % (item, items[item])
+
 def split_syllables(word):
     """Diacritics cannot have been removed for this method, because they affect
     the number of syllables in a diphthong, among other things.
@@ -97,5 +101,29 @@ def get_final_consonant(word):
         stem = stem[:-1]
     return consonant
 
+
+def combine_consonants(stem, ending):
+    """Combine consonants (if needed) for the dative plural of third declension
+
+    This just returns stem and ending exactly as they are if no combination is
+    required.
+    """
+    if ending != u'σι':
+        raise ValueError("I don't think you meant to call this method...")
+    if stem[-1] in labials:
+        return stem[:-1], u'ψι'
+    elif stem[-1] in palatals:
+        return stem[:-1], u'ξι'
+    elif stem[-1] in dentals:
+        return stem[:-1], u'σι'
+    elif stem[-1] in [u'ν', u'σ']:
+        return stem[-1], u'σι'
+    elif stem[-3:] == u'αντ':
+        return stem[:-3], u'ασι'
+    elif stem[-3:] == u'εντ':
+        return stem[:-3], u'εισι'
+    elif stem[-3:] == u'οντ':
+        return stem[:-3], u'ουσι'
+    return stem, ending
 
 # vim: et sw=4 sts=4

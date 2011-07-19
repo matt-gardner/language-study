@@ -4,6 +4,7 @@
 from attic_greek import declension
 from attic_greek.declension import FirstDeclensionNoun
 from attic_greek.declension import SecondDeclensionNoun
+from attic_greek.declension import ThirdDeclensionNoun
 from attic_greek.test_modules import nouns, decl_cases, GreekTestCase
 import unicodedata
 
@@ -188,6 +189,60 @@ class RegularSecondDeclensionTest(GreekTestCase):
             self.failUnlessEqual(noun.decline(**args), answer)
 
 
-all_tests = [RegularFirstDeclensionTest, RegularSecondDeclensionTest]
+class RegularThirdDeclensionTest(GreekTestCase):
+    def test_phulax(self):
+        args = {}
+        answers = [u'φύλαξ', u'φύλακος', u'φύλακι', u'φύλακα', u'φύλαξ',
+                u'φύλακες', u'φυλάκων', u'φύλαξι', u'φύλακας', u'φύλακες']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['phulax'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_elpis(self):
+        args = {}
+        answers = [u'ἐλπίς', u'ἐλπίδος', u'ἐλπίδι', u'ἐλπίδα', u'ἐλπί',
+                u'ἐλπίδες', u'ἐλπίδων', u'ἐλπίσι', u'ἐλπίδας', u'ἐλπίδες']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['elpis'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_charis(self):
+        args = {}
+        answers = [u'χάρις', u'χάριτος', u'χάριτι', u'χάριν', u'χάρι',
+                u'χάριτες', u'χαρίτων', u'χάρισι', u'χάριτας', u'χάριτες']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['charis'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_soma(self):
+        args = {}
+        answers = [u'σῶμα', u'σώματος', u'σώματι', u'σῶμα', u'σῶμα',
+                u'σώματα', u'σωμάτων', u'σώμασι', u'σώματα', u'σώματα']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['soma'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_aix(self):
+        args = {}
+        answers = [u'αἴξ', u'αἰγός', u'αἰγί', u'αἶγα', u'αἴξ',
+                u'αἶγες', u'αἰγῶν', u'αἰξί', u'αἶγας', u'αἶγες']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['aix'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            print answer, noun.decline(**args)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+
+all_tests = [RegularFirstDeclensionTest, RegularSecondDeclensionTest,
+        RegularThirdDeclensionTest]
 
 # vim: et sw=4 sts=4

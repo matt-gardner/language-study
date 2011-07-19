@@ -957,6 +957,76 @@
     }
   }, 
   {
+    "pk": 47, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "goat", 
+      "review_count": 0, 
+      "word": "\u03b1\u1f34\u03be, \u03b1\u1f30\u03b3\u03cc\u03c2, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-18 20:10:24", 
+      "last_reviewed": "2011-07-18 20:10:24"
+    }
+  }, 
+  {
+    "pk": 48, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "hope", 
+      "review_count": 0, 
+      "word": "\u1f10\u03bb\u03c0\u03af\u03c2, \u1f10\u03bb\u03c0\u03af\u03b4\u03bf\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-18 20:10:24", 
+      "last_reviewed": "2011-07-18 20:10:24"
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "body", 
+      "review_count": 0, 
+      "word": "\u03c3\u1ff6\u03bc\u03b1, \u03c3\u03ce\u03bc\u03b1\u03c4\u03bf\u03c2, \u03c4\u03cc", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-18 20:10:25", 
+      "last_reviewed": "2011-07-18 20:10:24"
+    }
+  }, 
+  {
+    "pk": 50, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "guard", 
+      "review_count": 0, 
+      "word": "\u03c6\u03cd\u03bb\u03b1\u03be, \u03c6\u03cd\u03bb\u03b1\u03ba\u03bf\u03c2, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-18 20:10:25", 
+      "last_reviewed": "2011-07-18 20:10:24"
+    }
+  }, 
+  {
+    "pk": 51, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "grace", 
+      "review_count": 0, 
+      "word": "\u03c7\u03ac\u03c1\u03b9\u03c2, \u03c7\u03ac\u03c1\u03b9\u03c4\u03bf\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-18 20:59:19", 
+      "last_reviewed": "2011-07-18 20:59:19"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -2310,6 +2380,51 @@
       "declension": 2, 
       "word": 46, 
       "type": 3
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 47, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 48, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 49, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 50, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 51, 
+      "type": 1
     }
   }, 
   {

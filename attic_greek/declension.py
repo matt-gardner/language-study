@@ -166,11 +166,15 @@ class GreekNounDeclension(GreekDeclension):
         raise NotImplementedError()
 
     def get_stem(self, gender):
-        # I think only the third declension really need to go from the genitive
-        # singular.  Because of that, we get the right persistent accent easier
-        # if we go from the nominative here.  The third declension will
-        # override this.
+        # I think only the third declension really needs to go from the
+        # genitive singular.  Because of that, we get the right persistent
+        # accent easier if we go from the nominative here.  The third
+        # declension will override this.
         ending = self.endings['Nominative']['Singular']
+        # I think this only works because self.nominative is not normalized.
+        # Otherwise we would have to be a little more tricky in case the ending
+        # was accented.  As it is, we can just check the same number of
+        # characters and get the accent with it.  So it works.
         nominative_ending = self.nominative[-len(ending):]
         if is_accented(nominative_ending):
             self.accented_ending = True
@@ -241,6 +245,63 @@ class SecondDeclensionNoun(GreekNounDeclension):
         else:
             raise ValueError("I don't know what set of endings to use for this "
                     "word")
+
+
+class ThirdDeclensionNoun(GreekNounDeclension):
+    def set_endings(self):
+        if self.gender in ['Masculine', 'Feminine']:
+            self.endings = ThirdDeclensionMF()
+        elif self.gender == 'Neuter':
+            self.endings = ThirdDeclensionNeuter()
+        else:
+            raise ValueError("I don't know what set of endings to use for this "
+                    "word")
+
+    def decline(self, **kwargs):
+        gender, number, case = self.check_kwargs(kwargs)
+        if (gender == 'Neuter' and number == 'Singular' and
+                case in ['Nominative', 'Accusative', 'Vocative']):
+            return unicodedata.normalize('NFKD', self.nominative)
+        if number == 'Singular' and case == 'Nominative':
+            return unicodedata.normalize('NFKD', self.nominative)
+        if number == 'Singular' and case == 'Vocative':
+            if self.nominative[-1] in [u'ξ', u'ψ']:
+                return unicodedata.normalize('NFKD', self.nominative)
+            elif self.nominative[-1] in [u'ν', u'ρ']:
+                syllables = split_syllables(self.nominative)
+                if is_accented(syllables[-1]):
+                    return unicodedata.normalize('NFKD', self.nominative)
+        # We do this check again on purpose, to easily catch any vocatives that
+        # weren't caught in the special cases above.
+        if number == 'Singular' and case == 'Vocative':
+            stem = self.get_stem(gender)
+            if stem[-1] in dentals:
+                stem = stem[:-1]
+            return unicodedata.normalize('NFKD', stem)
+        return super(ThirdDeclensionNoun, self).decline(**kwargs)
+
+    def get_stem(self, gender):
+        ending = self.endings['Genitive']['Singular']
+        # I think this only works because self.genitive is not normalized.  See
+        # above.
+        genitive_ending = self.genitive[-len(ending):]
+        if is_accented(genitive_ending):
+            self.accented_ending = True
+        return self.genitive[:-len(ending)]
+
+    def combine_parts(self, stem, ending, number, case):
+        if number == 'Plural' and case == 'Dative':
+            stem, ending = combine_consonants(stem, ending)
+        if number == 'Singular' and case == 'Accusative':
+            if stem[-2:] in [u'ιτ', u'ιδ', u'ιθ']:
+                stem = stem[:-1]
+                ending = u'ν'
+        syllables = split_syllables(stem)
+        if len(syllables) == 1:
+            if case not in ['Genitive', 'Dative']:
+                return add_penult_accent(remove_accents(stem) + ending)
+        return super(ThirdDeclensionNoun, self).combine_parts(stem, ending,
+                number, case)
 
 
 # vim: et sw=4 sts=4

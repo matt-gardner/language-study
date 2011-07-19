@@ -114,4 +114,35 @@ class SecondDeclensionNeuter(SecondDeclensionMF):
         self['Vocative']['Plural'] = u'α'
 
 
+##########################
+# Third Declension Endings
+##########################
+
+class ThirdDeclensionMF(DeclensionEndingSet):
+    def __init__(self):
+        super(ThirdDeclensionMF, self).__init__()
+        self['Nominative']['Singular'] = u''
+        self['Genitive']['Singular'] = u'ος'
+        self['Dative']['Singular'] = u'ι'
+        self['Accusative']['Singular'] = u'α'
+        self['Vocative']['Singular'] = u''
+        self['Nominative']['Plural'] = u'ες'
+        self['Genitive']['Plural'] = u'ων'
+        self['Dative']['Plural'] = u'σι'
+        self['Accusative']['Plural'] = u'ας'
+        self['Vocative']['Plural'] = u'ες'
+
+    def is_long(self, number, case):
+        return self.default_is_long(number, case)
+
+
+class ThirdDeclensionNeuter(ThirdDeclensionMF):
+    def __init__(self):
+        super(ThirdDeclensionNeuter, self).__init__()
+        self['Accusative']['Singular'] = u''
+        self['Nominative']['Plural'] = u'α'
+        self['Accusative']['Plural'] = u'α'
+        self['Vocative']['Plural'] = u'α'
+
+
 # vim: et sw=4 sts=4

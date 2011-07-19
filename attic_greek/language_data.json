@@ -757,6 +757,11 @@
       ]
     },
     {
+      "definition": "goat",
+      "word": "αἴξ, αἰγός, ὁ",
+      "declension": "Third Declension"
+    },
+    {
       "definition": "man",
       "word": "ἄνθρωπος, ἀνθρώπου, ὁ",
       "declension": "Second Declension"
@@ -770,6 +775,11 @@
       "definition": "gift",
       "word": "δῶρον, δώρου, τό",
       "declension": "Second Declension"
+    },
+    {
+      "definition": "hope",
+      "word": "ἐλπίς, ἐλπίδος, ἡ",
+      "declension": "Third Declension"
     },
     {
       "definition": "work",
@@ -818,9 +828,24 @@
       "declension": "First Declension"
     },
     {
+      "definition": "body",
+      "word": "σῶμα, σώματος, τό",
+      "declension": "Third Declension"
+    },
+    {
       "definition": "art, skill",
       "word": "τέχνη, τέχνης, ἡ",
       "declension": "First Declension"
+    },
+    {
+      "definition": "guard",
+      "word": "φύλαξ, φύλακος, ὁ",
+      "declension": "Third Declension"
+    },
+    {
+      "definition": "grace",
+      "word": "χάρις, χάριτος, ἡ",
+      "declension": "Third Declension"
     },
     {
       "definition": "land",
