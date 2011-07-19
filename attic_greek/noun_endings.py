@@ -145,4 +145,22 @@ class ThirdDeclensionNeuter(ThirdDeclensionMF):
         self['Vocative']['Plural'] = u'α'
 
 
+class PolisEndings(DeclensionEndingSet):
+    def __init__(self):
+        super(PolisEndings, self).__init__()
+        self['Nominative']['Singular'] = u'ις'
+        self['Genitive']['Singular'] = u'εως'
+        self['Dative']['Singular'] = u'ει'
+        self['Accusative']['Singular'] = u'ιν'
+        self['Vocative']['Singular'] = u'ι'
+        self['Nominative']['Plural'] = u'εις'
+        self['Genitive']['Plural'] = u'εων'
+        self['Dative']['Plural'] = u'εσι'
+        self['Accusative']['Plural'] = u'εις'
+        self['Vocative']['Plural'] = u'εις'
+
+    def is_long(self, number, case):
+        return self.default_is_long(number, case)
+
+
 # vim: et sw=4 sts=4

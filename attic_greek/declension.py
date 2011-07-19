@@ -248,8 +248,18 @@ class SecondDeclensionNoun(GreekNounDeclension):
 
 
 class ThirdDeclensionNoun(GreekNounDeclension):
+    def __init__(self, dictionary_entry, word_id=-1):
+        self.polis_like = False
+        self.special = False
+        super(ThirdDeclensionNoun, self).__init__(dictionary_entry, word_id)
+
     def set_endings(self):
-        if self.gender in ['Masculine', 'Feminine']:
+        if self.nominative[-2:] == u'ις' and self.genitive[-3:] == u'εως':
+            print 'Polis!'
+            self.endings = PolisEndings()
+            self.special = True
+            self.polis_like = True
+        elif self.gender in ['Masculine', 'Feminine']:
             self.endings = ThirdDeclensionMF()
         elif self.gender == 'Neuter':
             self.endings = ThirdDeclensionNeuter()
@@ -273,7 +283,7 @@ class ThirdDeclensionNoun(GreekNounDeclension):
                     return unicodedata.normalize('NFKD', self.nominative)
         # We do this check again on purpose, to easily catch any vocatives that
         # weren't caught in the special cases above.
-        if number == 'Singular' and case == 'Vocative':
+        if number == 'Singular' and case == 'Vocative' and not self.special:
             stem = self.get_stem(gender)
             if stem[-1] in dentals:
                 stem = stem[:-1]
@@ -290,6 +300,8 @@ class ThirdDeclensionNoun(GreekNounDeclension):
         return self.genitive[:-len(ending)]
 
     def combine_parts(self, stem, ending, number, case):
+        if self.polis_like:
+            return unicodedata.normalize('NFKD', stem + ending)
         if number == 'Plural' and case == 'Dative':
             stem, ending = combine_consonants(stem, ending)
         if number == 'Singular' and case == 'Accusative':
@@ -301,6 +313,12 @@ class ThirdDeclensionNoun(GreekNounDeclension):
             if case not in ['Genitive', 'Dative']:
                 return add_penult_accent(remove_accents(stem) + ending)
         return super(ThirdDeclensionNoun, self).combine_parts(stem, ending,
+                number, case)
+
+    def check_accent(self, form, gender, number, case):
+        if self.polis_like:
+            return form
+        return super(ThirdDeclensionNoun, self).check_accent(form, gender,
                 number, case)
 
 

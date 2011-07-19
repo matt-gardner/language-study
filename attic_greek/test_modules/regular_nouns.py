@@ -238,11 +238,24 @@ class RegularThirdDeclensionTest(GreekTestCase):
         noun = ThirdDeclensionNoun(nouns['aix'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+
+class SpecialThirdDeclensionTest(GreekTestCase):
+    def test_polis(self):
+        declension.verbose = True
+        args = {}
+        answers = [u'πόλις', u'πόλεως', u'πόλει', u'πόλιν', u'πόλι',
+                u'πόλεις', u'πόλεων', u'πόλεσι', u'πόλεις', u'πόλεις']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['polis'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
             print answer, noun.decline(**args)
             self.failUnlessEqual(noun.decline(**args), answer)
 
 
 all_tests = [RegularFirstDeclensionTest, RegularSecondDeclensionTest,
-        RegularThirdDeclensionTest]
+        RegularThirdDeclensionTest, SpecialThirdDeclensionTest]
 
 # vim: et sw=4 sts=4

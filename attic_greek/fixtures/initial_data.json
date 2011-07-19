@@ -1027,6 +1027,20 @@
     }
   }, 
   {
+    "pk": 52, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "city", 
+      "review_count": 0, 
+      "word": "\u03c0\u03cc\u03bb\u03b9\u03c2, \u03c0\u03cc\u03bb\u03b5\u03c9\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-18 21:32:52", 
+      "last_reviewed": "2011-07-18 21:32:52"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -2424,6 +2438,15 @@
     "fields": {
       "declension": 3, 
       "word": 51, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 52, 
       "type": 1
     }
   }, 
