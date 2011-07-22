@@ -272,6 +272,8 @@ class ThirdDeclensionNoun(GreekNounDeclension):
                     "word")
         if self.genitive.endswith(u'τρός'):
             self.special = 'meter'
+        elif self.genitive.endswith(u'δρός'):
+            self.special = 'aner'
 
     def decline(self, **kwargs):
         gender, number, case = self.check_kwargs(kwargs)
@@ -280,7 +282,7 @@ class ThirdDeclensionNoun(GreekNounDeclension):
             return unicodedata.normalize('NFKD', self.nominative)
         if number == 'Singular' and case == 'Nominative':
             return unicodedata.normalize('NFKD', self.nominative)
-        if number == 'Singular' and case == 'Vocative':
+        if number == 'Singular' and case == 'Vocative' and not self.special:
             if self.nominative[-1] in [u'ξ', u'ψ']:
                 return unicodedata.normalize('NFKD', self.nominative)
             elif self.nominative[-1] in [u'ν', u'ρ']:
@@ -319,6 +321,12 @@ class ThirdDeclensionNoun(GreekNounDeclension):
                 elif case == 'Dative':
                     stem += u'ά'
                     self.accented_ending = False
+        elif self.special == 'aner':
+            if number == 'Singular' and case == 'Vocative':
+                stem = stem[:-2] + u'ερ'
+            elif number == 'Plural' and case == 'Dative':
+                stem += u'ά'
+                self.accented_ending = False
         return stem
 
     def combine_parts(self, stem, ending, number, case):
@@ -355,6 +363,16 @@ class ThirdDeclensionNoun(GreekNounDeclension):
             if case == 'Genitive' and number == 'Plural':
                 return unicodedata.normalize('NFKD',
                         add_final_circumflex(remove_accents(form)))
+        elif self.special == 'aner':
+            if number == 'Singular':
+                if case in ['Accustaive', 'Vocative']:
+                    log_if_verbose({'form': form})
+                    return unicodedata.normalize('NFKD',
+                            add_penult_accent(remove_accents(form)))
+            elif number == 'Plural':
+                if case in ['Nominative', 'Accustaive', 'Vocative']:
+                    return unicodedata.normalize('NFKD',
+                            add_penult_accent(remove_accents(form)))
         return super(ThirdDeclensionNoun, self).check_accent(form, gender,
                 number, case)
 

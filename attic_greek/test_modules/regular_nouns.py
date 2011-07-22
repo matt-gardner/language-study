@@ -274,12 +274,22 @@ class SpecialThirdDeclensionTest(GreekTestCase):
             self.failUnlessEqual(noun.decline(**args), answer)
 
     def test_meter(self):
-        declension.verbose = True
         args = {}
         answers = [u'μήτηρ', u'μητρός', u'μητρί', u'μητέρα', u'μῆτερ',
                 u'μητέρες', u'μητέρων', u'μητράσι', u'μητέρας', u'μητέρες']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         noun = ThirdDeclensionNoun(nouns['meter'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_aner(self):
+        declension.verbose = True
+        args = {}
+        answers = [u'ἀνήρ', u'ἀνδρός', u'ἀνδρί', u'ἄνδρα', u'ἄνερ',
+                u'ἄνδρες', u'ἀνδρῶν', u'ἀνδράσι', u'ἄνδρας', u'ἄνδρες']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['aner'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
             print answer, noun.decline(**args)

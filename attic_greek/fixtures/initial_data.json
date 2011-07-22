@@ -1083,6 +1083,20 @@
     }
   }, 
   {
+    "pk": 56, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "man", 
+      "review_count": 0, 
+      "word": "\u1f00\u03bd\u03ae\u03c1, \u1f00\u03bd\u03b4\u03c1\u03cc\u03c2, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-21 20:22:10", 
+      "last_reviewed": "2011-07-21 20:22:10"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -2516,6 +2530,15 @@
     "fields": {
       "declension": 3, 
       "word": 55, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 56, 
       "type": 1
     }
   }, 
