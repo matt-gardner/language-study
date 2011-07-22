@@ -59,7 +59,7 @@ class GreekDeclension(Declension):
         if (gender, number, case) in self.irregular_forms:
             return self.irregular_forms[(gender, number, case)]
         self.accented_ending = False
-        stem = self.get_stem(gender)
+        stem = self.get_stem(gender, number, case)
         ending = self.get_ending(gender, number, case)
         unchecked = self.combine_parts(stem, ending, number, case)
         final_form = self.check_accent(unchecked, gender, number, case)
@@ -80,7 +80,7 @@ class GreekDeclension(Declension):
             gender = kwargs['gender']
         return gender, number, case
 
-    def get_stem(self, gender):
+    def get_stem(self, gender, number, case):
         raise NotImplementedError()
 
     def get_ending(self, gender, number, case):
@@ -131,7 +131,7 @@ class GreekAdjectiveDeclension(GreekDeclension):
             self.endings['Feminine'] = FirstDeclensionFeminineAlpha()
         self.endings['Neuter'] = SecondDeclensionNeuter()
 
-    def get_stem(self, gender):
+    def get_stem(self, gender, number, case):
         ending = self.endings['Neuter']['Nominative']['Singular']
         nominative_ending = self.nominative['Neuter'][-len(ending):]
         if is_accented(nominative_ending):
@@ -165,7 +165,7 @@ class GreekNounDeclension(GreekDeclension):
     def set_endings(self):
         raise NotImplementedError()
 
-    def get_stem(self, gender):
+    def get_stem(self, gender, number, case):
         # I think only the third declension really needs to go from the
         # genitive singular.  Because of that, we get the right persistent
         # accent easier if we go from the nominative here.  The third
@@ -249,16 +249,20 @@ class SecondDeclensionNoun(GreekNounDeclension):
 
 class ThirdDeclensionNoun(GreekNounDeclension):
     def __init__(self, dictionary_entry, word_id=-1):
-        self.polis_like = False
-        self.special = False
+        self.special = None
         super(ThirdDeclensionNoun, self).__init__(dictionary_entry, word_id)
 
     def set_endings(self):
         if self.nominative[-2:] == u'ις' and self.genitive[-3:] == u'εως':
-            print 'Polis!'
             self.endings = PolisEndings()
-            self.special = True
-            self.polis_like = True
+            self.special = 'polis'
+        elif (self.nominative.endswith(u'εύς') and
+                self.genitive.endswith(u'έως')):
+            self.endings = BasileusEndings()
+            self.special = 'basileus'
+        elif self.nominative[-2:] == u'ος' and self.genitive[-3:] == u'ους':
+            self.endings = GenosEndings()
+            self.special = 'genos'
         elif self.gender in ['Masculine', 'Feminine']:
             self.endings = ThirdDeclensionMF()
         elif self.gender == 'Neuter':
@@ -266,6 +270,8 @@ class ThirdDeclensionNoun(GreekNounDeclension):
         else:
             raise ValueError("I don't know what set of endings to use for this "
                     "word")
+        if self.genitive.endswith(u'τρός'):
+            self.special = 'meter'
 
     def decline(self, **kwargs):
         gender, number, case = self.check_kwargs(kwargs)
@@ -284,25 +290,49 @@ class ThirdDeclensionNoun(GreekNounDeclension):
         # We do this check again on purpose, to easily catch any vocatives that
         # weren't caught in the special cases above.
         if number == 'Singular' and case == 'Vocative' and not self.special:
-            stem = self.get_stem(gender)
+            stem = self.get_stem(gender, number, case)
             if stem[-1] in dentals:
                 stem = stem[:-1]
             return unicodedata.normalize('NFKD', stem)
         return super(ThirdDeclensionNoun, self).decline(**kwargs)
 
-    def get_stem(self, gender):
+    def get_stem(self, gender, number, case):
         ending = self.endings['Genitive']['Singular']
         # I think this only works because self.genitive is not normalized.  See
         # above.
         genitive_ending = self.genitive[-len(ending):]
         if is_accented(genitive_ending):
             self.accented_ending = True
-        return self.genitive[:-len(ending)]
+        stem = self.genitive[:-len(ending)]
+        if self.special == 'meter':
+            if number == 'Singular':
+                if case == 'Accusative':
+                    stem = stem[:-1] + u'έρ'
+                    self.accented_ending = False
+                elif case == 'Vocative':
+                    stem = stem[:-3] + u'ῆτερ'
+                    self.accented_ending = False
+            elif number == 'Plural':
+                if case in ['Nominative', 'Genitive', 'Vocative', 'Accusative']:
+                    stem = stem[:-1] + u'έρ'
+                    self.accented_ending = False
+                elif case == 'Dative':
+                    stem += u'ά'
+                    self.accented_ending = False
+        return stem
 
     def combine_parts(self, stem, ending, number, case):
-        if self.polis_like:
+        if self.special == 'polis':
+            if case == 'Genitive' and number in ['Singular', 'Plural']:
+                combined = stem + ending
+                accented = add_antepenult_accent(remove_accents(combined))
+                return unicodedata.normalize('NFKD', accented)
+            else:
+                return super(ThirdDeclensionNoun, self).combine_parts(stem,
+                        ending, number, case)
+        elif self.special == 'basileus':
             return unicodedata.normalize('NFKD', stem + ending)
-        if number == 'Plural' and case == 'Dative':
+        if number == 'Plural' and case == 'Dative' and not self.special:
             stem, ending = combine_consonants(stem, ending)
         if number == 'Singular' and case == 'Accusative':
             if stem[-2:] in [u'ιτ', u'ιδ', u'ιθ']:
@@ -316,8 +346,15 @@ class ThirdDeclensionNoun(GreekNounDeclension):
                 number, case)
 
     def check_accent(self, form, gender, number, case):
-        if self.polis_like:
+        if self.special == 'polis':
+            if case == 'Genitive' and number in ['Singular', 'Plural']:
+                return form
+        elif self.special == 'basileus':
             return form
+        elif self.special == 'genos':
+            if case == 'Genitive' and number == 'Plural':
+                return unicodedata.normalize('NFKD',
+                        add_final_circumflex(remove_accents(form)))
         return super(ThirdDeclensionNoun, self).check_accent(form, gender,
                 number, case)
 

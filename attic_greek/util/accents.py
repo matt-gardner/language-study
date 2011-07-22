@@ -101,6 +101,7 @@ def fix_persistent_accent(form, long_penult=False, long_ending_vowel=False):
     result = is_accent_legal(form, long_penult, long_ending_vowel)
     attempts = 0
     while result != 'ACCENT_OK':
+        log_if_verbose({'result': result, 'form': form})
         attempts += 1
         if attempts > 3:
             raise RuntimeError("Failure in fix_persistent_accent.  Avoiding "
@@ -233,6 +234,19 @@ def add_penult_accent(word, long_ending_vowel=False, long_penult=False):
         syllables[-2] += circumflex
     else:
         syllables[-2] += acute_accent
+    return unicodedata.normalize('NFKD', u''.join(syllables))
+
+
+def add_antepenult_accent(word):
+    """Add an accent to the third-to-last syllable (the antepenult).
+
+    If you are calling this method, we assume you know what you're doing (as
+    opposed to some of the other accent-adding methods).  No checks, just add
+    an accent.
+    """
+    from vowels import get_vowel
+    syllables = split_syllables(word)
+    syllables[-3] += acute_accent
     return unicodedata.normalize('NFKD', u''.join(syllables))
 
 

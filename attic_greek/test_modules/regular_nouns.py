@@ -243,12 +243,43 @@ class RegularThirdDeclensionTest(GreekTestCase):
 
 class SpecialThirdDeclensionTest(GreekTestCase):
     def test_polis(self):
-        declension.verbose = True
         args = {}
         answers = [u'πόλις', u'πόλεως', u'πόλει', u'πόλιν', u'πόλι',
                 u'πόλεις', u'πόλεων', u'πόλεσι', u'πόλεις', u'πόλεις']
         answers = [unicodedata.normalize('NFKD', word) for word in answers]
         noun = ThirdDeclensionNoun(nouns['polis'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_basileus(self):
+        args = {}
+        answers = [u'βασιλεύς', u'βασιλέως', u'βασιλεῖ', u'βασιλέα',
+                u'βασιλεῦ', u'βασιλεῖς', u'βασιλέων', u'βασιλεῦσι',
+                u'βασιλέας', u'βασιλεῖς']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['basileus'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_genos(self):
+        args = {}
+        answers = [u'γένος', u'γένους', u'γένει', u'γένος', u'γένος',
+                u'γένη', u'γενῶν', u'γένεσι', u'γένη', u'γένη']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['genos'].word.word)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_meter(self):
+        declension.verbose = True
+        args = {}
+        answers = [u'μήτηρ', u'μητρός', u'μητρί', u'μητέρα', u'μῆτερ',
+                u'μητέρες', u'μητέρων', u'μητράσι', u'μητέρας', u'μητέρες']
+        answers = [unicodedata.normalize('NFKD', word) for word in answers]
+        noun = ThirdDeclensionNoun(nouns['meter'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
             print answer, noun.decline(**args)

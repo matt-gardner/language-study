@@ -1041,6 +1041,48 @@
     }
   }, 
   {
+    "pk": 53, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "king", 
+      "review_count": 0, 
+      "word": "\u03b2\u03b1\u03c3\u03b9\u03bb\u03b5\u03cd\u03c2, \u03b2\u03b1\u03c3\u03b9\u03bb\u03ad\u03c9\u03c2, \u1f41", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-21 19:11:19", 
+      "last_reviewed": "2011-07-21 19:11:19"
+    }
+  }, 
+  {
+    "pk": 54, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "race", 
+      "review_count": 0, 
+      "word": "\u03b3\u03ad\u03bd\u03bf\u03c2, \u03b3\u03ad\u03bd\u03bf\u03c5\u03c2, \u03c4\u03cc", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-21 19:27:13", 
+      "last_reviewed": "2011-07-21 19:27:13"
+    }
+  }, 
+  {
+    "pk": 55, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "mother", 
+      "review_count": 0, 
+      "word": "\u03bc\u03ae\u03c4\u03b7\u03c1, \u03bc\u03b7\u03c4\u03c1\u03cc\u03c2, \u1f21", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-21 19:41:54", 
+      "last_reviewed": "2011-07-21 19:41:54"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -2447,6 +2489,33 @@
     "fields": {
       "declension": 3, 
       "word": 52, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 53, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 54, 
+      "type": 1
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 55, 
       "type": 1
     }
   }, 

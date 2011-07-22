@@ -767,6 +767,16 @@
       "declension": "Second Declension"
     },
     {
+      "definition": "king",
+      "word": "βασιλεύς, βασιλέως, ὁ",
+      "declension": "Third Declension"
+    },
+    {
+      "definition": "race",
+      "word": "γένος, γένους, τό",
+      "declension": "Third Declension"
+    },
+    {
       "definition": "bridge",
       "word": "γέφυρα, γεφύρας, ἡ",
       "declension": "First Declension"
@@ -795,6 +805,11 @@
       "definition": "word",
       "word": "λόγος, λόγου, ὁ",
       "declension": "Second Declension"
+    },
+    {
+      "definition": "mother",
+      "word": "μήτηρ, μητρός, ἡ",
+      "declension": "Third Declension"
     },
     {
       "definition": "fate",

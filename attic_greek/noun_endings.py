@@ -3,6 +3,7 @@
 
 """Contains ending sets for all declinable types (not just nouns)."""
 
+from util.base import split_syllables
 from util.vowels import get_vowel
 from util.vowels import is_short
 
@@ -23,7 +24,8 @@ class DeclensionEndingSet(dict):
                 "self.default_is_long(number, case)")
 
     def default_is_long(self, number, case):
-        if not is_short(get_vowel(self[case][number])):
+        syllables = split_syllables(self[case][number])
+        if not is_short(get_vowel(syllables[-1])):
             return True
         else:
             return False
@@ -133,6 +135,8 @@ class ThirdDeclensionMF(DeclensionEndingSet):
         self['Vocative']['Plural'] = u'ες'
 
     def is_long(self, number, case):
+        if number == 'Singular' and case in ['Nominative', 'Vocative']:
+            return False
         return self.default_is_long(number, case)
 
 
@@ -158,6 +162,42 @@ class PolisEndings(DeclensionEndingSet):
         self['Dative']['Plural'] = u'εσι'
         self['Accusative']['Plural'] = u'εις'
         self['Vocative']['Plural'] = u'εις'
+
+    def is_long(self, number, case):
+        return self.default_is_long(number, case)
+
+
+class BasileusEndings(DeclensionEndingSet):
+    def __init__(self):
+        super(BasileusEndings, self).__init__()
+        self['Nominative']['Singular'] = u'εύς'
+        self['Genitive']['Singular'] = u'έως'
+        self['Dative']['Singular'] = u'εῖ'
+        self['Accusative']['Singular'] = u'έα'
+        self['Vocative']['Singular'] = u'εῦ'
+        self['Nominative']['Plural'] = u'εῖς'
+        self['Genitive']['Plural'] = u'έων'
+        self['Dative']['Plural'] = u'εῦσι'
+        self['Accusative']['Plural'] = u'έας'
+        self['Vocative']['Plural'] = u'εῖς'
+
+    def is_long(self, number, case):
+        raise ValueError("this shouldn't need to be called")
+
+
+class GenosEndings(DeclensionEndingSet):
+    def __init__(self):
+        super(GenosEndings, self).__init__()
+        self['Nominative']['Singular'] = u'ος'
+        self['Genitive']['Singular'] = u'ους'
+        self['Dative']['Singular'] = u'ει'
+        self['Accusative']['Singular'] = u'ος'
+        self['Vocative']['Singular'] = u'ος'
+        self['Nominative']['Plural'] = u'η'
+        self['Genitive']['Plural'] = u'ων'
+        self['Dative']['Plural'] = u'εσι'
+        self['Accusative']['Plural'] = u'η'
+        self['Vocative']['Plural'] = u'η'
 
     def is_long(self, number, case):
         return self.default_is_long(number, case)
