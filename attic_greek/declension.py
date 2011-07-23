@@ -145,6 +145,52 @@ class GreekAdjectiveDeclension(GreekDeclension):
         return self.endings[gender].is_long(number, case)
 
 
+class ThirdDeclensionAdjective(GreekAdjectiveDeclension):
+    def __init__(self, dictionary_entry, word_id=-1):
+        self.special = None
+        super(ThirdDeclensionAdjective, self).__init__(dictionary_entry,
+                word_id)
+
+    def decline(self, **kwargs):
+        gender, number, case = self.check_kwargs(kwargs)
+        if number == 'Singular' and case == 'Nominative':
+            return unicodedata.normalize('NFKD', self.nominative[gender])
+        return super(ThirdDeclensionAdjective, self).decline(**kwargs)
+
+    def set_endings(self):
+        self.endings = {}
+        self.endings['Masculine'] = ThirdDeclensionMF()
+        self.endings['Feminine'] = ThirdDeclensionMF()
+        self.endings['Neuter'] = ThirdDeclensionNeuter()
+        if (remove_accents(self.nominative['Masculine']).endswith(u'ης') and
+                remove_accents(self.nominative['Neuter']).endswith(u'ες')):
+            self.special = 'eugenes'
+            self.endings['Masculine'] = EugenesEndingsMF()
+            self.endings['Feminine'] = EugenesEndingsMF()
+            self.endings['Neuter'] = EugenesEndingsNeuter()
+
+    def get_stem(self, gender, number, case):
+        if remove_accents(self.nominative['Neuter']).endswith(u'ον'):
+            return self.nominative['Neuter']
+        elif remove_accents(self.nominative['Neuter']).endswith(u'ες'):
+            return self.nominative['Neuter'][:-2]
+        raise ValueError("I don't know how to handle this yet...")
+
+    def combine_parts(self, stem, ending, number, case):
+        if self.special == 'eugenes':
+            return unicodedata.normalize('NFKD', stem + ending)
+        if number == 'Plural' and case == 'Dative':
+            stem, ending = combine_consonants(stem, ending)
+        return super(ThirdDeclensionAdjective, self).combine_parts(stem, ending,
+                number, case)
+
+    def check_accent(self, form, gender, number, case):
+        if self.special == 'eugenes':
+            return form
+        return super(ThirdDeclensionAdjective, self).check_accent(form, gender,
+                number, case)
+
+
 class GreekNounDeclension(GreekDeclension):
     def process_dictionary_entry(self, dictionary_entry):
         entry_parts = dictionary_entry.split(', ')
@@ -366,7 +412,6 @@ class ThirdDeclensionNoun(GreekNounDeclension):
         elif self.special == 'aner':
             if number == 'Singular':
                 if case in ['Accustaive', 'Vocative']:
-                    log_if_verbose({'form': form})
                     return unicodedata.normalize('NFKD',
                             add_penult_accent(remove_accents(form)))
             elif number == 'Plural':

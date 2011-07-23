@@ -84,6 +84,8 @@ adjectives = dict()
 adjectives['agathos'] = DW.objects.get(word__word__contains=u'ἀγαθός')
 adjectives['adikos'] = DW.objects.get(word__word__contains=u'ἄδικος')
 adjectives['axios'] = DW.objects.get(word__word__contains=u'ἄξιος')
+adjectives['eudaimon'] = DW.objects.get(word__word__contains=u'εὐδαίμων')
+adjectives['eugenes'] = DW.objects.get(word__word__contains=u'εὐγενής')
 
 decl_cases = [{'number': 'Singular', 'case': 'Nominative'}]
 decl_cases.append({'number': 'Singular', 'case': 'Genitive'})

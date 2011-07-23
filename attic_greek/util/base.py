@@ -117,7 +117,7 @@ def combine_consonants(stem, ending):
     elif stem[-1] in dentals:
         return stem[:-1], u'σι'
     elif stem[-1] in [u'ν', u'σ']:
-        return stem[-1], u'σι'
+        return stem[:-1], u'σι'
     elif stem[-3:] == u'αντ':
         return stem[:-3], u'ασι'
     elif stem[-3:] == u'εντ':

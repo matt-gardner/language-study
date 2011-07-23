@@ -3,6 +3,7 @@
 
 """Contains ending sets for all declinable types (not just nouns)."""
 
+from util.base import log_if_verbose
 from util.base import split_syllables
 from util.vowels import get_vowel
 from util.vowels import is_short
@@ -25,6 +26,8 @@ class DeclensionEndingSet(dict):
 
     def default_is_long(self, number, case):
         syllables = split_syllables(self[case][number])
+        if not syllables[-1]:
+            return False
         if not is_short(get_vowel(syllables[-1])):
             return True
         else:
@@ -201,6 +204,35 @@ class GenosEndings(DeclensionEndingSet):
 
     def is_long(self, number, case):
         return self.default_is_long(number, case)
+
+
+class EugenesEndingsMF(DeclensionEndingSet):
+    def __init__(self):
+        super(EugenesEndingsMF, self).__init__()
+        self['Nominative']['Singular'] = u'ής'
+        self['Genitive']['Singular'] = u'οῦς'
+        self['Dative']['Singular'] = u'εῖ'
+        self['Accusative']['Singular'] = u'ῆ'
+        self['Vocative']['Singular'] = u'ές'
+        self['Nominative']['Plural'] = u'εῖς'
+        self['Genitive']['Plural'] = u'ῶν'
+        self['Dative']['Plural'] = u'έσι'
+        self['Accusative']['Plural'] = u'εῖς'
+        self['Vocative']['Plural'] = u'εῖς'
+
+    def is_long(self, number, case):
+        raise ValueError("this shouldn't need to be called")
+
+
+class EugenesEndingsNeuter(EugenesEndingsMF):
+    def __init__(self):
+        super(EugenesEndingsNeuter, self).__init__()
+        self['Nominative']['Singular'] = u'ές'
+        self['Accusative']['Singular'] = u'ές'
+        self['Vocative']['Singular'] = u'ές'
+        self['Nominative']['Plural'] = u'ῆ'
+        self['Accusative']['Plural'] = u'ῆ'
+        self['Vocative']['Plural'] = u'ῆ'
 
 
 # vim: et sw=4 sts=4

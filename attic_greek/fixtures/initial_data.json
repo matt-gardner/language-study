@@ -1097,6 +1097,34 @@
     }
   }, 
   {
+    "pk": 57, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "fortunate, wealthy, happy", 
+      "review_count": 0, 
+      "word": "\u03b5\u1f50\u03b4\u03b1\u03af\u03bc\u03c9\u03bd, \u03b5\u1f54\u03b4\u03b1\u03b9\u03bc\u03bf\u03bd", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-23 14:41:55", 
+      "last_reviewed": "2011-07-23 14:41:55"
+    }
+  }, 
+  {
+    "pk": 58, 
+    "model": "drills.word", 
+    "fields": {
+      "wordlist": 1, 
+      "definition": "well-born, noble", 
+      "review_count": 0, 
+      "word": "\u03b5\u1f50\u03b3\u03b5\u03bd\u03ae\u03c2, \u03b5\u1f50\u03b3\u03b5\u03bd\u03ad\u03c2", 
+      "average_difficulty": 40.0, 
+      "tags": [], 
+      "date_entered": "2011-07-23 15:23:04", 
+      "last_reviewed": "2011-07-23 15:23:03"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "drills.verb", 
     "fields": {
@@ -2540,6 +2568,24 @@
       "declension": 3, 
       "word": 56, 
       "type": 1
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 57, 
+      "type": 3
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "drills.declinableword", 
+    "fields": {
+      "declension": 3, 
+      "word": 58, 
+      "type": 3
     }
   }, 
   {

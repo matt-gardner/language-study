@@ -284,7 +284,6 @@ class SpecialThirdDeclensionTest(GreekTestCase):
             self.failUnlessEqual(noun.decline(**args), answer)
 
     def test_aner(self):
-        declension.verbose = True
         args = {}
         answers = [u'ἀνήρ', u'ἀνδρός', u'ἀνδρί', u'ἄνδρα', u'ἄνερ',
                 u'ἄνδρες', u'ἀνδρῶν', u'ἀνδράσι', u'ἄνδρας', u'ἄνδρες']
@@ -292,7 +291,6 @@ class SpecialThirdDeclensionTest(GreekTestCase):
         noun = ThirdDeclensionNoun(nouns['aner'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
-            print answer, noun.decline(**args)
             self.failUnlessEqual(noun.decline(**args), answer)
 
 
