@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
@@ -22,61 +22,61 @@
 
 <div id="navigation-base">
 <div id="navigation">
-	<ul class="ui-widget-header ui-corner-all">
-		<li id="nav_home" class="ui-state-default">
-			<a href="/">Home</a>
-		</li>
-		<li id="nav_wordlist" class="ui-state-default wordlist-needed">
-			{% if wordlist %}
-			<a href="/{{ wordlist.name }}">Current list: {{ wordlist.name }}</a>
-			{% else %}
-			<a href="">Current list: None</a>
-			{% endif %}
-		</li>
-		<li id="nav_vocab" class="ui-state-default wordlist-needed">
-			<a href="/{{ wordlist.name }}/all-words">Review Vocab</a>
-		</li>
-		<li id="nav_forms" class="ui-state-default wordlist-needed">
-			<a href="/{{ wordlist.name }}/forms">Drill Forms</a>
-		</li>
-		<li id="nav_login" class="right ui-state-default">
-			{% if logged_in %}
-			<a href="/logout">Log out</a>
-			{% else %}
-			<a href="/accounts/login?next=/">Log in</a>
-			{% endif %}
-		</li>
-	</ul>
+    <ul class="ui-widget-header ui-corner-all">
+        <li id="nav_home" class="ui-state-default">
+            <a href="/">Home</a>
+        </li>
+        <li id="nav_wordlist" class="ui-state-default wordlist-needed">
+            {% if wordlist %}
+            <a href="/{{ wordlist.name }}">Current list: {{ wordlist.name }}</a>
+            {% else %}
+            <a href="">Current list: None</a>
+            {% endif %}
+        </li>
+        <li id="nav_vocab" class="ui-state-default wordlist-needed">
+            <a href="/{{ wordlist.name }}/vocab">Review Vocab</a>
+        </li>
+        <li id="nav_forms" class="ui-state-default wordlist-needed">
+            <a href="/{{ wordlist.name }}/forms">Drill Forms</a>
+        </li>
+        <li id="nav_login" class="right ui-state-default">
+            {% if logged_in %}
+            <a href="/logout">Log out</a>
+            {% else %}
+            <a href="/accounts/login?next=/">Log in</a>
+            {% endif %}
+        </li>
+    </ul>
 </div>
 </div>
 
 {% if nav_page %}
 <script type="text/javascript">
-	$("#{{ nav_page }}").addClass("ui-state-active");
+    $("#{{ nav_page }}").addClass("ui-state-active");
 </script>
 {% endif %}
 {% if not wordlist %}
 <script type="text/javascript">
-	$("#navigation li.wordlist-needed").addClass("ui-state-disabled")
-	    .click(function() {return false;});
+    $("#navigation li.wordlist-needed").addClass("ui-state-disabled")
+        .click(function() {return false;});
 </script>
 {% endif %}
 
 {% block message %}
 <div class="message">
-	{{ message }}
+    {{ message }}
 </div>
 {% endblock %}
 
 {% block errors %}
 <div class="errors">
-	{% if errors %}
-	<ul>
-	{% for error in errors %}
-	<li>{{ error }}</li>
-	{% endfor %}
-	</ul>
-	{% endif %}
+    {% if errors %}
+    <ul>
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -2,135 +2,137 @@
 
 {% block script_config %}
 <script charset="utf-8" type="text/javascript">
-	$.fn.message_config = function() {};
-	$.fn.message_config.before_word_number = "Reviewing word  ";
-	$.fn.message_config.after_word_number = " out of ";
-	$.fn.message_config.after_num_words = "";
+    $.fn.wordlist = function() {};
+    $.fn.wordlist.listname = "{{ wordlist.name }}";
+    $.fn.message_config = function() {};
+    $.fn.message_config.before_word_number = "Reviewing word  ";
+    $.fn.message_config.after_word_number = " out of ";
+    $.fn.message_config.after_num_words = "";
 </script>
 {% endblock %}
 
 
 {% block above_review %}
-	{% block word_list_info %}
+    {% block word_list_info %}
 
-	{% if wordlist %}
-	<div class="words">
-		Reviewing word {{ word_number }} out of {{ num_words }}
-	</div>
-	<div class="wordlist_difficulty">
-		Average difficulty of words: {{ average_difficulty|floatformat:"2" }}
-	</div>
-	{% endif %}
+    {% if wordlist %}
+    <div class="words">
+        Reviewing word {{ word_number }} out of {{ num_words }}
+    </div>
+    <div class="wordlist_difficulty">
+        Average difficulty of words: {{ average_difficulty|floatformat:"2" }}
+    </div>
+    {% endif %}
 
-	{% endblock %}
+    {% endblock %}
 
-	<div class="word_difficulty">
-		This word's difficulty: {{ word.difficulty|floatformat:"2" }};
-		Times reviewed: {{ word.review_count }}
-	</div>
+    <div class="word_difficulty">
+        This word's difficulty: {{ word.difficulty|floatformat:"2" }};
+        Times reviewed: {{ word.review_count }}
+    </div>
 {% endblock %}
 
 {% block center_column %}
 <div class="center_review">
-	<div class="review_word">
-		<div class="text">
-			{% if not by_definition %}
-			{{ word.word }}
-			{% else %}
-			{{ word.definition }}
-			{% endif %}
-		</div>
-	</div>
-	<div class="review_definition">
-		<div class="text" style="display:none">
-			{% if not by_definition %}
-			{{ word.definition }}
-			{% else %}
-			{{ word.word }}
-			{% endif %}
-		</div>
-	</div>
+    <div class="review_word">
+        <div class="text">
+            {% if not by_definition %}
+            {{ word.word }}
+            {% else %}
+            {{ word.definition }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="review_definition">
+        <div class="text" style="display:none">
+            {% if not by_definition %}
+            {{ word.definition }}
+            {% else %}
+            {{ word.word }}
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block left_column %}
 <div class="left_review">
-	<div class="options">
-	{% block options %}
-	{% endblock %}
-	</div>
+    <div class="options">
+    {% block options %}
+    {% endblock %}
+    </div>
 </div>
 {% endblock %}
 
 {% block right_column %}
 <div class="tags">
-	<div class="filter">
-		<table>
-			<tbody id="id_filter_form">
-				{{ filter|safe }}
-			</tbody>
-		</table>
-	</div>
-	<hr>
-	<div class="word_tags">
-		{{ word_tags|safe }}
-	</div>
-	<div class="add_tag">
-		<select id="id_add_tag">
-			{% for tag in tags %}
-			<option value="{{ tag }}"> {{ tag }} </option>
-			{% endfor %}
-		</select>
-		<input type="submit" value="Add tag"
-			id="id_add_tag_button" />
-	</div>
-	<div class="create_tag">
-		Create new tag:<br>
-		<form method="post" action="add-tag"> {% csrf_token %}
-			<input type="text" name="name" maxlength="128" />
-			<input type="submit" value="Create Tag"
-				id="id_create_tag"/>
-		</form>
-	</div>
+    <div class="filter">
+        <table>
+            <tbody id="id_filter_form">
+                {{ filter|safe }}
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="word_tags">
+        {{ word_tags|safe }}
+    </div>
+    <div class="add_tag">
+        <select id="id_add_tag">
+            {% for tag in tags %}
+            <option value="{{ tag }}"> {{ tag }} </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Add tag"
+            id="id_add_tag_button" />
+    </div>
+    <div class="create_tag">
+        Create new tag:<br>
+        <form method="post" action="add-tag"> {% csrf_token %}
+            <input type="text" name="name" maxlength="128" />
+            <input type="submit" value="Create Tag"
+                id="id_create_tag"/>
+        </form>
+    </div>
 </div>
 {% endblock %}
 
 {% block below_review %}
 <div class="review_buttons ui-widget-header">
-	<div>
-		<div class="ui-button ui-state-default" id="id_prev_word">
-			<a class="ui-button-text" accesskey=p> Previous Word </a>
-		</div>
+    <div>
+        <div class="ui-button ui-state-default" id="id_prev_word">
+            <a class="ui-button-text" accesskey=p> Previous Word </a>
+        </div>
 
-		<div class="ui-button ui-state-default" id="id_show_definition"/>
-			<a class="ui-button-text" accesskey=s>
-				{% if not by_definition %}
-				Show definition
-				{% else %}
-				Show word
-				{% endif %}
-			</a>
-		</div>
+        <div class="ui-button ui-state-default" id="id_show_definition"/>
+            <a class="ui-button-text" accesskey=s>
+                {% if not by_definition %}
+                Show definition
+                {% else %}
+                Show word
+                {% endif %}
+            </a>
+        </div>
 
-		<div class="ui-button ui-state-default" id="id_next_word">
-			<a class="ui-button-text" accesskey=n> Next Word </a>
-		</div>
-	</div>
-	<div>
-		<div class="ui-button ui-state-default" id="id_easy">
-			<a class="ui-button-text" accesskey=y> That was easy </a>
-		</div>
+        <div class="ui-button ui-state-default" id="id_next_word">
+            <a class="ui-button-text" accesskey=n> Next Word </a>
+        </div>
+    </div>
+    <div>
+        <div class="ui-button ui-state-default" id="id_easy">
+            <a class="ui-button-text" accesskey=y> That was easy </a>
+        </div>
 
-		<div class="ui-button ui-state-default" id="id_medium">
-			<a class="ui-button-text" accesskey=m>
-				I got it, but it took a while
-			</a>
-		</div>
+        <div class="ui-button ui-state-default" id="id_medium">
+            <a class="ui-button-text" accesskey=m>
+                I got it, but it took a while
+            </a>
+        </div>
 
-		<div class="ui-button ui-state-default" id="id_hard">
-			<a class="ui-button-text" accesskey=h> I didn't get it...  </a>
-		</div>
-	</div>
+        <div class="ui-button ui-state-default" id="id_hard">
+            <a class="ui-button-text" accesskey=h> I didn't get it...  </a>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

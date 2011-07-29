@@ -80,7 +80,7 @@ def filter_words(words, filters):
     return words.all(), filter_form
 
 
-def add_filter(request, name):
+def add_filter(request, listname, name):
     filters = request.session.get('filters', [])
     filter_form = FilterForm(possible_word_filters())
     id = 0
@@ -88,8 +88,7 @@ def add_filter(request, name):
         filter.id = id
         filter_form.add_filter(filter)
         id += 1
-    wordlist_name = request.session['wordlist-name']
-    wordlist = request.user.wordlist_set.get(name=wordlist_name)
+    wordlist = request.user.wordlist_set.get(name=listname)
     new_filter = get_word_filter_by_name(name)(id, wordlist)
     filter_form.add_filter(new_filter)
     filters.append(new_filter)

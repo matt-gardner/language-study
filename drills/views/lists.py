@@ -101,6 +101,20 @@ def add_word_to_list(request, listname):
 # Ajax requests
 ###############
 
+# TODO: fix this
+def create_word_list(request, next_url):
+    wordlist = WordList(name=request.POST['name'], user=request.user)
+    wordlist.save()
+    return HttpResponseRedirect(next_url)
+
+
+# TODO: fix this
+def delete_word_list(request, name, next_url):
+    wordlist = WordList.objects.get(name=name)
+    wordlist.delete()
+    return HttpResponseRedirect(next_url)
+
+
 def add_irregular_form(request, listname, number, word_id=None):
     word = None
     if word_id:

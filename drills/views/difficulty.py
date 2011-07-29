@@ -9,7 +9,6 @@ from language_study.drills.views import common
 from common import AjaxWord
 from common import base_review_context
 from common import render_tags
-from common import review_styles
 from common import update_word_difficulty_from_session
 from language_study.drills.views.filters import filter_words
 from language_study.drills.models import Word
@@ -29,8 +28,6 @@ def main(request):
         request.session['words-reviewed'] = 0
         context['words_reviewed'] = 0
     context['word_tags'] = render_tags(context['word'].tags.all())
-
-    context['review_style'] = '/difficulty/'
 
     return render_to_response('vocab/difficulty.html', context)
 

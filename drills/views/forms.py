@@ -26,16 +26,6 @@ def base_form_drill_context(request, listname):
     context = base_context(request)
     context['nav_page'] = 'nav_forms'
 
-    errors = request.session.get('errors', None)
-    if errors:
-        if isinstance(errors, list):
-            context['errors'] = errors
-        else:
-            context['errors'] = [errors]
-        del request.session['errors']
-
-    context['greeting'] = 'Hello %s!' % request.user.first_name
-
     wordlist = request.user.wordlist_set.get(name=listname)
 
     context['wordlist'] = wordlist

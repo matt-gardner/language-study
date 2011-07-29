@@ -1,94 +1,89 @@
 /* Basic page layout */
 body {
-	padding: 0px;
-	margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 div.page
 {
-	padding: 0px;
-	margin: 0px;
-	position:absolute;
-	left: 12.5%;
-	width: 75%;
-	font-family: "Gentium", "DejaVu LGC Serif", "New Athena Unicode", "Galatia SIL", "Arial Unicode MS", "Lucida Grande";
+    padding: 0px;
+    margin: 0px;
+    position:absolute;
+    left: 12.5%;
+    width: 75%;
+    font-family: "Gentium", "DejaVu LGC Serif", "New Athena Unicode", "Galatia SIL", "Arial Unicode MS", "Lucida Grande";
 }
 
 /* Navigation */
 #navigation-base {
-	clear: both;
+    clear: both;
 }
 #navigation {
-	clear: both;
+    clear: both;
 }
 #navigation ul {
-	list-style-type: none;
-	overflow: hidden;
-	margin: 0px;
-	padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
 }
 #navigation ul li {
-	float: left;
-	display: list-item;
-	height: 35px;
-	font-size: 1.15em;
-	position: relative;
+    float: left;
+    display: list-item;
+    height: 35px;
+    font-size: 1.15em;
+    position: relative;
 }
 #navigation ul li.right {
-	float: right;
+    float: right;
 }
 #navigation ul li a {
-	float: left;
-	padding: .5em 1em;
+    float: left;
+    padding: .5em 1em;
 }
 #navigation ul li.ui-state-disabled a:hover {
-	cursor: default;
+    cursor: default;
 }
 
 /* end navigation */
 
 div.content {
-	clear:both;
+    clear:both;
 }
 div.greeting
 {
-	margin-top:5%;
-	background:#aaf;
-	text-align:center;
-}
-div.review_style
-{
-	text-align:center;
-	background:#abf;
+    margin-top:5%;
+    background:#aaf;
+    text-align:center;
 }
 div.wordlists
 {
-	background:#aaf;
-	text-align:center;
+    background:#aaf;
+    text-align:center;
 }
 div.center_review
 {
-	text-align: center;
+    text-align: center;
 }
 div.review_buttons {
-	text-align: center;
+    text-align: center;
 }
 div.above_review
 {
-	background: #ccc;
-	text-align: center;
+    background: #ccc;
+    text-align: center;
 }
 div.review
 {
-	background: #ccc;
-	text-align: center;
+    background: #ccc;
+    text-align: center;
 }
 div.add_word
 {
-	clear:both;
+    clear:both;
 }
 div.add_word ul
 {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 /* Inside the review panel */
@@ -96,181 +91,181 @@ div.add_word ul
 /* Review options on the left */
 div.options
 {
-	background:#ccf;
-	text-align:left;
-	height: 100%;
+    background:#ccf;
+    text-align:left;
+    height: 100%;
 }
 /* The main review box */
 div.center_review
 {
-	width: 100%;
+    width: 100%;
 }
 div.left_review {
-	height: 100%;
+    height: 100%;
 }
 div.tags
 {
-	float:left;
-	text-align:center;
+    float:left;
+    text-align:center;
 }
 div.word_tags
 {
-	text-align:center;
-	display:table;
-	margin-left:auto;
-	margin-right:auto;
+    text-align:center;
+    display:table;
+    margin-left:auto;
+    margin-right:auto;
 }
 div.review_word
 {
-	width: 100%;
-	height: 200px;
-	background:#eff;
-	display:table;
+    width: 100%;
+    height: 200px;
+    background:#eff;
+    display:table;
 }
 div.review_definition
 {
-	width: 100%;
-	height: 200px;
-	background:#eef;
-	display:table;
+    width: 100%;
+    height: 200px;
+    background:#eef;
+    display:table;
 }
 div.text
 {
-	font-size:2em;
-	overflow:auto;
-	display:table-cell;
-	text-align:center;
-	vertical-align:middle;
+    font-size:2em;
+    overflow:auto;
+    display:table-cell;
+    text-align:center;
+    vertical-align:middle;
 }
 .ui-state-active.ui-state-hover .ui-button-text {
-	color: #222;
+    color: #222;
 }
 .ui-button-text {
-	padding: .25em .5em;
+    padding: .25em .5em;
 }
 div.drill_form_buttons
 {
-	margin-left:auto;
-	margin-right:auto;
-	text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
 }
 div.drill_form_buttons ul
 {
-	list-style-type:none;
-	padding:0;
-	margin-left:0;
+    list-style-type:none;
+    padding:0;
+    margin-left:0;
 }
 
 /* Three column layout stuff */
 /* See: http://matthewjamestaylor.com/blog/perfect-3-column.htm */
 .column-base {
-	position: relative;
-	clear: both;
-	float: left;
-	width: 100%;
-	overflow: hidden;
+    position: relative;
+    clear: both;
+    float: left;
+    width: 100%;
+    overflow: hidden;
 }
 .right-column, .left-column, .middle-column {
-	float: left;
-	width: 100%;
-	position: relative;
+    float: left;
+    width: 100%;
+    position: relative;
 }
 .column-1, .column-2, .column-3 {
-	float: left;
-	position: relative;
-	padding: 0;
-	overflow: hidden;
-	height: 400px;
+    float: left;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    height: 400px;
 }
 /* These settings affect the right column */
 .three-columns {
-	background: #eee;
+    background: #eee;
 }
 .three-columns .middle-column {
-	right: 25%; /* width of the right column */
-	background: #fff;
+    right: 25%; /* width of the right column */
+    background: #fff;
 }
 .three-columns .left-column {
-	right: 50%;  /* width of the middle column */
-	background #f4f4f4;
+    right: 50%;  /* width of the middle column */
+    background #f4f4f4;
 }
 .three-columns .column-1 {
-	width: 50%; /* width of center column content (width - padding) */
-	left: 100%;
+    width: 50%; /* width of center column content (width - padding) */
+    left: 100%;
 }
 .three-columns .column-2 {
-	width: 25%; /* width of left column content (width - padding) */
-	left: 25%;
+    width: 25%; /* width of left column content (width - padding) */
+    left: 25%;
 }
 .three-columns .column-3 {
-	width: 25%; /* width of right column content (width - padding) */
-	left: 75%;
+    width: 25%; /* width of right column content (width - padding) */
+    left: 75%;
 }
 
 /* Other general CSS stuff (coloring, whatever) */
 label[disabled]
 {
-	color:#777;
+    color:#777;
 }
 
 div.add_word input[type=text]
 {
-	width:400px;
+    width:400px;
 }
 td.remove {
-	color:#000F3E;
-	text-decoration:none;
+    color:#000F3E;
+    text-decoration:none;
 }
 td.remove:hover, td.link:hover, .clickable_text:hover {
-	cursor:pointer;
+    cursor:pointer;
 }
 
 .words_in_list a {
-	text-decoration: none;
-	color:#000;
+    text-decoration: none;
+    color:#000;
 }
 
 input[readonly="True"] {
-	border: 0;
+    border: 0;
 }
 
 tbody {
-	margin-top: 2px;
-	margin-bottom: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 div.single-word-form input[type=text] {
 }
 
 #id_single_word_form th {
-	text-align: center;
+    text-align: center;
 }
 
 span.warning {
-	color: #F00;
-	margin-left: 5px;
+    color: #F00;
+    margin-left: 5px;
 }
 
 .add_irregular_form:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .add_irregular_stem:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .add_irregular_augment:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .add_tense_with_no_passive:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .delete_irregular_form:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .undo_delete_irregular_form:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
