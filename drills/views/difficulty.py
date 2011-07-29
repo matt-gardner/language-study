@@ -63,10 +63,7 @@ def next_word(request, difficulty=None):
     if difficulty:
         update_word_difficulty_from_session(request, difficulty)
         request.session['words-reviewed'] += 1
-
-    wordlist_name = request.session['wordlist-name']
-    wordlist = request.user.wordlist_set.get(name=wordlist_name)
-
+    wordlist = request.user.wordlist_set.get(name=listname)
     filters = request.session.get('filters', [])
     words = wordlist.word_set
     words, filter_form = filter_words(words, filters)

@@ -6,19 +6,20 @@ function delete_word_list() {
         window.location = "delete-word-list/"+list;
     }
 }
-function toggle_verb_options($checkbox) {
-    $verboptions = $checkbox.parent().parent().parent().find(".verb-option");
+function toggle_options($checkbox, type) {
+    var option_type = '.' + type + '-option';
+    $options = $checkbox.parent().parent().parent().find(option_type);
     if ($checkbox.is(':checked')) {
-        $verboptions.parent().parent().fadeIn('fast');
+        $options.parent().parent().fadeIn('fast');
         $checkbox.parent().find('.warning').remove();
     } else {
-        if ($verboptions.is(":visible")) {
-            $verboptions.parent().parent().fadeOut('fast');
-            if ($.fn.word_vars.has_verb) {
+        if ($options.is(":visible")) {
+            $options.parent().parent().fadeOut('fast');
+            if ($.fn.word_vars.has_type(type)) {
                 $checkbox.after('<span class="warning">' +
                         'This will irrevocably delete all data associated ' +
-                        'with this verb, including irregular forms and ' +
-                        'drilling statistics</span>');
+                        'with this ' + type + ', including irregular forms ' +
+                        'and drilling statistics</span>');
             }
         }
     }

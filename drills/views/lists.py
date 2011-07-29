@@ -19,7 +19,7 @@ from language_study.drills.models import WordList
 from language_study.drills.views.common import base_context
 from language_study.drills.views import word_editing_util
 from word_editing_util import create_irregular_augment_row
-from word_editing_util import create_irregular_form_row
+from word_editing_util import create_irregular_verb_form_row
 from word_editing_util import create_irregular_stem_row
 from word_editing_util import create_form_for_word
 from word_editing_util import create_tense_with_no_passive_row
@@ -123,7 +123,8 @@ def add_irregular_form(request, listname, number, word_id=None):
     if word and word.wordlist != wordlist:
         raise Http404
     mock_form = MockIrregularForm()
-    html = create_irregular_form_row(wordlist.language, mock_form, int(number))
+    html = create_irregular_verb_form_row(wordlist.language, mock_form,
+            int(number))
     return HttpResponse(html)
 
 

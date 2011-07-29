@@ -7,23 +7,46 @@
 <table>
 {{ form|safe }}
 <script>
-	var $checkbox = $("#id_single_word_form #id_verb");
-	$.fn.word_vars = function () {};
-	$.fn.word_vars.has_verb = $checkbox.is(':checked');
-	if (!$.fn.word_vars.has_verb) {
-		$checkbox.parent().parent().parent()
-		.find(".verb-option").parent().parent().hide();
-	}
+    var $verb_checkbox = $("#id_single_word_form #id_verb");
+    var $noun_checkbox = $("#id_single_word_form #id_noun");
+    var $adj_checkbox = $("#id_single_word_form #id_adjective");
+    $.fn.word_vars = function () {};
+    $.fn.word_vars.has_verb = $verb_checkbox.is(':checked');
+    $.fn.word_vars.has_noun = $noun_checkbox.is(':checked');
+    $.fn.word_vars.has_adjective = $adj_checkbox.is(':checked');
+    $.fn.word_vars.has_type = function(type) {
+        if (type == "verb") {
+            return $.fn.word_vars.has_verb;
+        } else if (type == "noun") {
+            return $.fn.word_vars.has_noun;
+        } else if (type == "adjective") {
+            return $.fn.word_vars.has_adjective;
+        }
+    };
+    if (!$.fn.word_vars.has_verb) {
+        $verb_checkbox.parent().parent().parent()
+        .find(".verb-option").parent().parent().hide();
+    }
+    if (!$.fn.word_vars.has_noun) {
+        $noun_checkbox.parent().parent().parent()
+        .find(".noun-option").parent().parent().hide();
+    }
+    var $verb_row = $("#id_verb").parent().parent();
+    $(".verb-option").parent().parent().remove().insertAfter($verb_row);
+    var $noun_row = $("#id_noun").parent().parent();
+    $(".noun-option").parent().parent().remove().insertAfter($noun_row);
+    var $adj_row = $("#id_adjective").parent().parent();
+    $(".adjective-option").parent().parent().remove().insertAfter($adj_row);
 </script>
 <tr>
-	<td></td>
-	<td>
-		<input type="submit" name="submit" value="{{ submit_label }}" />
-		{% if not adding_word %}
-		<input id="id_delete_word" type="submit" name="delete"
-				value="Delete Word" />
-		{% endif %}
-	</td>
+    <td></td>
+    <td>
+        <input type="submit" name="submit" value="{{ submit_label }}" />
+        {% if not adding_word %}
+        <input id="id_delete_word" type="submit" name="delete"
+                value="Delete Word" />
+        {% endif %}
+    </td>
 </tr>
 </table>
 </form>
