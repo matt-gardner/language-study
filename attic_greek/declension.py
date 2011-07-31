@@ -74,6 +74,8 @@ class GreekDeclension(Declension):
         number = kwargs['number']
         if self.gender:
             gender = self.gender
+            if 'gender' in kwargs and kwargs['gender'] != self.gender:
+                raise ValueError("Incorrect gender given")
         else:
             if 'gender' not in kwargs:
                 raise ValueError("Gender must be specified")
