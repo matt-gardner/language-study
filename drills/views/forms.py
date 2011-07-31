@@ -178,7 +178,6 @@ def get_random_form_from_session(request, listname):
     request.session['word-id'] = r.choice(list(words)).id
     while True:
         random_form(request, wordlist)
-        print request.session
         try:
             if request.session['review-style'] == 'conjugation':
                 form = conj_verb_from_session(request.session, True)
