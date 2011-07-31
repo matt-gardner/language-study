@@ -26,10 +26,17 @@
     if (!$.fn.word_vars.has_verb) {
         $verb_checkbox.parent().parent().parent()
         .find(".verb-option").parent().parent().hide();
+        $verb_checkbox.parent().parent().addClass("option-not-checked");
     }
     if (!$.fn.word_vars.has_noun) {
         $noun_checkbox.parent().parent().parent()
         .find(".noun-option").parent().parent().hide();
+        $noun_checkbox.parent().parent().addClass("option-not-checked");
+    }
+    if (!$.fn.word_vars.has_adjective) {
+        $adj_checkbox.parent().parent().parent()
+        .find(".adjective-option").parent().parent().hide();
+        $adj_checkbox.parent().parent().addClass("option-not-checked");
     }
     var $verb_row = $("#id_verb").parent().parent();
     $(".verb-option").parent().parent().remove().insertAfter($verb_row);

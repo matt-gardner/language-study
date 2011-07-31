@@ -97,7 +97,9 @@ $("#id_table_view #id_verb").change(function() {
     var new_id = $(this).val();
     window.location = new_id
 });
+
 /* List view scripts */
+$(".message").delay(2000).fadeOut('slow');
 $("#id_delete_word").click(function() {
     var answer = confirm("Delete this word?");
     if (answer) {
@@ -111,16 +113,25 @@ $("#id_single_word_form #id_verb").click(function() {
 $("#id_single_word_form #id_noun").click(function() {
     toggle_options($(this), 'noun');
 });
-$(".add_irregular_form").click(function() {
-    add_irregular_form($(this), "add-irregular-form/");
+$("#id_single_word_form #id_adjective").click(function() {
+    toggle_options($(this), 'adjective');
 });
-$(".add_irregular_stem").click(function() {
+$(".add_irregular_noun_form").live('click', function() {
+    add_irregular_form($(this), "add-irregular-noun-form/");
+});
+$(".add_irregular_adjective_form").live('click', function() {
+    add_irregular_form($(this), "add-irregular-adj-form/");
+});
+$(".add_irregular_verb_form").live('click', function() {
+    add_irregular_form($(this), "add-irregular-verb-form/");
+});
+$(".add_irregular_stem").live('click', function() {
     add_irregular_form($(this), "add-irregular-stem/");
 });
-$(".add_irregular_augment").click(function() {
+$(".add_irregular_augment").live('click', function() {
     add_irregular_form($(this), "add-irregular-augment/");
 });
-$(".add_tense_with_no_passive").click(function() {
+$(".add_tense_with_no_passive").live('click', function() {
     add_irregular_form($(this), "add-no-passive-tense/");
 });
 $(".delete_irregular_form").live('click', function() {

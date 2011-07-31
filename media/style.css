@@ -49,17 +49,6 @@ div.page
 div.content {
     clear:both;
 }
-div.greeting
-{
-    margin-top:5%;
-    background:#aaf;
-    text-align:center;
-}
-div.wordlists
-{
-    background:#aaf;
-    text-align:center;
-}
 div.center_review
 {
     text-align: center;
@@ -208,6 +197,15 @@ label[disabled]
     color:#777;
 }
 
+div.known-issues {
+    margin-top: 1em;
+}
+div.known-issues ul {
+    margin-top: .5em;
+}
+div.known-issues ul li {
+    margin: .25em;
+}
 div.add_word input[type=text]
 {
     width:400px;
@@ -246,26 +244,9 @@ span.warning {
     margin-left: 5px;
 }
 
-.add_irregular_form:hover {
-    cursor: pointer;
+.option-not-checked {
+    color:#aaa;
 }
-
-.add_irregular_stem:hover {
-    cursor: pointer;
-}
-
-.add_irregular_augment:hover {
-    cursor: pointer;
-}
-
-.add_tense_with_no_passive:hover {
-    cursor: pointer;
-}
-
-.delete_irregular_form:hover {
-    cursor: pointer;
-}
-
-.undo_delete_irregular_form:hover {
+.add:hover, .delete:hover, .undo:hover {
     cursor: pointer;
 }

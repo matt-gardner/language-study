@@ -185,6 +185,7 @@ class Word(models.Model):
 
 class Verb(models.Model):
     word = models.OneToOneField('Word')
+    wordlist = models.ForeignKey('WordList') # duplicate, but speeds things up
     conjugation = models.ForeignKey('Conjugation')
 
 
@@ -223,6 +224,7 @@ class VerbTenseWithNoPassive(models.Model):
 
 class DeclinableWord(models.Model):
     word = models.OneToOneField('Word')
+    wordlist = models.ForeignKey('WordList') # duplicate, but speeds things up
     declension = models.ForeignKey('Declension')
     type = models.ForeignKey('DeclinableType')
 

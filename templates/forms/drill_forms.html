@@ -3,66 +3,61 @@
 {% load custom_filters %}
 
 {% block above_review %}
-<select id="id_verblist" onchange="get_new_verb()">
-	{% for v in verbs %}
-		<option value="{{ v.id }}"
-		{% ifequal v.id verb_id %}selected{% endifequal %}>
-		{{ v.word }}
-		</option>
-	{% endfor %}
-</select>
+<div class="ui-button
+    {% ifequal review_type "conjugation" %}
+    ui-state-active
+    {% endifequal %}
+    ui-state-default" id="id_conjugations">
+    <a class="ui-button-text" accesskey=c href="conjugations"> Conjugations </a>
+</div>
+<div class="ui-button
+    {% ifequal review_type "declension" %}
+    ui-state-active
+    {% endifequal %}
+    ui-state-default" id="id_declensions">
+    <a class="ui-button-text" accesskey=d href="declensions"> Declensions </a>
+</div>
 {% endblock %}
 
 {% block center_column %}
 <div class="review_word">
-	<div class="text">
-		{{ inflected_form }}
-	</div>
+    <div class="text">
+        {{ inflected_form }}
+    </div>
+</div>
+<div class="review_definition">
+    <div class="text">
+    </div>
+</div>
+{% endblock %}
+
+{% block left_column %}
+<div class="left_review">
+    <div class="options">
+        Review options coming soon!
+    </div>
+</div>
+{% endblock %}
+
+{% block right_column %}
+<div class="tags">
+    <div class="filter">
+        Filters coming soon!
+    </div>
 </div>
 {% endblock %}
 
 {% block below_review %}
-<div class="drill_form_buttons">
-	<div>
-		<select id="id_person">
-			{% for person in persons %}
-			<option value="{{ person|variablize }}">
-				{{ person }}
-			</option>
-			{% endfor %}
-		</select>
-		<select id="id_number">
-		{% for number in numbers %}
-		<option value="{{ number|variablize }}">
-			{{ number }}
-		</option>
-		{% endfor %}
-		</select>
-		<select id="id_tense">
-		{% for tense in tenses %}
-		<option value="{{ tense|variablize }}">
-			{{ tense }}
-		</option>
-		{% endfor %}
-		</select>
-		<select id="id_mood">
-		{% for mood in moods %}
-		<option value="{{ mood|variablize }}">
-			{{ mood }}
-		</option>
-		{% endfor %}
-		</select>
-		<select id="id_voice">
-		{% for voice in voices %}
-		<option value="{{ voice|variablize }}">
-			{{ voice }}
-		</option>
-		{% endfor %}
-		</select>
-	</div>
-	<div>
-		<input type="submit" id="id_guess_form" value="Guess" />
-		<input type="submit" id="id_new_form" value="New Form" />
-	</div>
+<div class="drill_form_buttons ui-widget-header">
+{% block form_options %}
+{% endblock %}
+    <div>
+        <div class="ui-button ui-state-default" id="id_guess_form">
+            <a class="ui-button-text" accesskey=g> Guess Form </a>
+        </div>
+        <div class="ui-button ui-state-default" id="id_new_form">
+            <a class="ui-button-text" accesskey=n> New Form </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

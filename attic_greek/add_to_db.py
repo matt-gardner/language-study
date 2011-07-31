@@ -91,6 +91,7 @@ def add_language():
         word_args['definition'] = verb['definition']
         word = add_or_fail(Word, word_args, create_args)
         v_args = {'word': word}
+        v_args['wordlist'] = word_args['wordlist']
         v_args['conjugation'] = object_cache['Conjugation'][verb['conjugation']]
         add_or_fail(Verb, v_args)
         if "tenses with no passive" in verb:
@@ -135,6 +136,7 @@ def add_declinable_type(decl, type, word_args, create_args):
     word_args['definition'] = decl['definition']
     word = add_or_fail(Word, word_args, create_args)
     n_args = {'word': word}
+    n_args['wordlist'] = word_args['wordlist']
     n_args['declension'] = object_cache['Declension'][decl['declension']]
     n_args['type'] = object_cache['DeclinableType'][type]
     add_or_fail(DeclinableWord, n_args)

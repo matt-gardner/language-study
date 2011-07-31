@@ -11,6 +11,13 @@
 </script>
 <script type="text/javascript" src="/site-media/scripts.js"></script>
 
+{% if wordlist %}
+<script charset="utf-8" type="text/javascript">
+    $.fn.wordlist = function() {};
+    $.fn.wordlist.listname = "{{ wordlist.name }}";
+</script>
+{% endif %}
+
 {% block script_config %}
 {% endblock %}
 

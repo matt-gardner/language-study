@@ -10,9 +10,13 @@ function toggle_options($checkbox, type) {
     var option_type = '.' + type + '-option';
     $options = $checkbox.parent().parent().parent().find(option_type);
     if ($checkbox.is(':checked')) {
+        $checkbox.parent().parent().removeClass('option-not-checked');
+        $options.removeAttr('disabled');
         $options.parent().parent().fadeIn('fast');
         $checkbox.parent().find('.warning').remove();
     } else {
+        $checkbox.parent().parent().addClass('option-not-checked');
+        $options.attr('disabled', 'disabled');
         if ($options.is(":visible")) {
             $options.parent().parent().fadeOut('fast');
             if ($.fn.word_vars.has_type(type)) {
@@ -51,7 +55,7 @@ function delete_irregular_form($span) {
         .filter(':not(input[type="hidden"])')
         .attr('disabled', 'disabled');
     $span.next().val("delete");
-    $('<span class="undo_delete_irregular_form">Undo</span>')
+    $('<span class="undo undo_delete_irregular_form">Undo</span>')
         .attr("prev_val", prev_val)
         .insertBefore($span.next());
     $span.next().before('<span class="warning">Will be deleted. </span>');
@@ -79,14 +83,32 @@ function get_new_form() {
     });
 }
 function guess_form() {
+    if ($.fn.review_type.name_ == "conjugation") {
+        guess_verb_form();
+    } else if ($.fn.review_type.name_ == "declension") {
+        guess_noun_form();
+    }
+}
+function guess_verb_form() {
     person = $("#id_person").val();
     number = $("#id_number").val();
     tense = $("#id_tense").val();
     mood = $("#id_mood").val();
     voice = $("#id_voice").val();
-    link = "/guess-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
+    link = "/guess-verb-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
+    current_form = $(".review_word .text").text();
     $.getJSON(link, {}, function(data) {
-        switch_text(data.result, "");
+        switch_text(current_form, data.result);
+    });
+}
+function guess_noun_form() {
+    gender = $("#id_gender").val();
+    number = $("#id_number").val();
+    case_ = $("#id_case").val();
+    link = "/guess-noun-form/"+gender+"/"+number+"/"+case_;
+    current_form = $(".review_word .text").text();
+    $.getJSON(link, {}, function(data) {
+        switch_text(current_form, data.result);
     });
 }
 function get_new_verb() {
@@ -96,7 +118,7 @@ function get_new_verb() {
     });
 }
 function get_new_random_form() {
-    $.getJSON("/get-new-random-form/", {}, function(data) {
+    $.getJSON("get-new-random-form/", {}, function(data) {
         switch_text(data.inflected_form, "");
     });
 }

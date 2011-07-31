@@ -1,0 +1,41 @@
+{% extends "forms/drill_forms.html" %}
+
+{% load custom_filters %}
+
+{% block script_config %}
+<script charset="utf-8" type="text/javascript">
+    $.fn.review_type = function() {};
+    $.fn.review_type.name_ = "conjugation";
+</script>
+{% endblock %}
+
+{% block form_options %}
+<div>
+    <select id="id_person">
+        {% for person in persons %}
+        <option value="{{ person|variablize }}"> {{ person }} </option>
+        {% endfor %}
+    </select>
+    <select id="id_number">
+        {% for number in numbers %}
+        <option value="{{ number|variablize }}"> {{ number }} </option>
+        {% endfor %}
+    </select>
+    <select id="id_tense">
+        {% for tense in tenses %}
+        <option value="{{ tense|variablize }}"> {{ tense }} </option>
+        {% endfor %}
+    </select>
+    <select id="id_mood">
+        {% for mood in moods %}
+        <option value="{{ mood|variablize }}"> {{ mood }} </option>
+        {% endfor %}
+    </select>
+    <select id="id_voice">
+        {% for voice in voices %}
+        <option value="{{ voice|variablize }}"> {{ voice }} </option>
+        {% endfor %}
+    </select>
+</div>
+{% endblock %}
+

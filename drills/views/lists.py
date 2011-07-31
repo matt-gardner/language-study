@@ -8,17 +8,11 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from language_study.drills.models import Conjugation
-from language_study.drills.models import IrregularVerbAugmentedStem
-from language_study.drills.models import IrregularVerbForm
-from language_study.drills.models import IrregularVerbStem
-from language_study.drills.models import Verb
-from language_study.drills.models import VerbTenseWithNoPassive
-from language_study.drills.models import Word
-from language_study.drills.models import WordList
+from language_study.drills.models import *
 from language_study.drills.views.common import base_context
 from language_study.drills.views import word_editing_util
 from word_editing_util import create_irregular_augment_row
+from word_editing_util import create_irregular_decl_form_row
 from word_editing_util import create_irregular_verb_form_row
 from word_editing_util import create_irregular_stem_row
 from word_editing_util import create_form_for_word
@@ -115,60 +109,51 @@ def delete_word_list(request, name, next_url):
     return HttpResponseRedirect(next_url)
 
 
-def add_irregular_form(request, listname, number, word_id=None):
-    word = None
-    if word_id:
-        word = get_object_or_404(Word, pk=word_id)
-    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
-    if word and word.wordlist != wordlist:
-        raise Http404
-    mock_form = MockIrregularForm()
-    html = create_irregular_verb_form_row(wordlist.language, mock_form,
-            int(number))
-    return HttpResponse(html)
+def add_irregular_noun_form(request, listname, number, word_id=None):
+    return add_form_row(request, listname, number, word_id,
+            create_irregular_decl_form_row, 'noun')
+
+
+def add_irregular_adj_form(request, listname, number, word_id=None):
+    return add_form_row(request, listname, number, word_id,
+            create_irregular_decl_form_row, 'adjective')
+
+
+def add_irregular_verb_form(request, listname, number, word_id=None):
+    return add_form_row(request, listname, number, word_id,
+            create_irregular_verb_form_row)
 
 
 def add_irregular_stem(request, listname, number, word_id=None):
-    word = None
-    if word_id:
-        word = get_object_or_404(Word, pk=word_id)
-    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
-    if word and word.wordlist != wordlist:
-        raise Http404
-    mock_form = MockIrregularForm()
-    html = create_irregular_stem_row(wordlist.language, mock_form, int(number))
-    return HttpResponse(html)
+    return add_form_row(request, listname, number, word_id,
+            create_irregular_stem_row)
 
 
 def add_irregular_augment(request, listname, number, word_id=None):
-    word = None
-    if word_id:
-        word = get_object_or_404(Word, pk=word_id)
-    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
-    if word and word.wordlist != wordlist:
-        raise Http404
-    mock_form = MockIrregularForm()
-    number = int(number)
-    html = create_irregular_augment_row(wordlist.language, mock_form, number)
-    return HttpResponse(html)
+    return add_form_row(request, listname, number, word_id,
+            create_irregular_augment_row)
 
 
 def add_tense_with_no_passive(request, listname, number, word_id=None):
-    word = None
-    if word_id:
-        word = get_object_or_404(Word, pk=word_id)
-    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
-    if word and word.wordlist != wordlist:
-        raise Http404
-    mock_form = MockIrregularForm()
-    number = int(number)
-    html = create_tense_with_no_passive_row(wordlist.language, mock_form,
-            number)
-    return HttpResponse(html)
+    return add_form_row(request, listname, number, word_id,
+            create_tense_with_no_passive_row)
 
 
 # Important helper methods
 ##########################
+
+def add_form_row(request, listname, number, word_id, func, *args):
+    word = None
+    if word_id:
+        word = get_object_or_404(Word, pk=word_id)
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    if word and word.wordlist != wordlist:
+        raise Http404
+    mock_form = MockIrregularForm()
+    number = int(number)
+    html = func(wordlist.language, mock_form, number, *args)
+    return HttpResponse(html)
+
 
 # TODO: make this a managed transaction, to speed things up; it's slow
 def update_word_from_post(word, POST):
@@ -188,28 +173,27 @@ def update_word_from_post(word, POST):
             verb = word.verb
             conj = Conjugation.objects.get(pk=POST['conjugation'])
             verb.conjugation = conj
-            verb.no_passive = POST.get('no_passive', False)
             verb.save()
         except Verb.DoesNotExist:
             # Need to create a verb object for this word
             conj = Conjugation.objects.get(pk=POST['conjugation'])
-            no_passive = POST.get('no_passive', False)
-            verb = Verb(word=word, conjugation=conj, no_passive=no_passive)
+            verb = Verb(word=word, conjugation=conj)
             verb.save()
-        irregular_forms = []
+        irregular_verb_forms = []
         irregular_stems = []
         irregular_augments = []
         tenses_with_no_passive = []
         for key in POST:
-            if key.startswith("irregular_form_") and key.endswith("_action"):
-                irregular_forms.append(key)
+            if (key.startswith("irregular_verb_form_") and
+                    key.endswith("_action")):
+                irregular_verb_forms.append(key)
             if key.startswith("irregular_stem_") and key.endswith("_action"):
                 irregular_stems.append(key)
             if key.startswith("irregular_augment_") and key.endswith("_action"):
                 irregular_augments.append(key)
             if key.startswith("no_passive_tense_") and key.endswith("_action"):
                 tenses_with_no_passive.append(key)
-        save_irregular_forms(language, verb, irregular_forms, POST)
+        save_irregular_verb_forms(language, verb, irregular_verb_forms, POST)
         save_irregular_stems(language, verb, irregular_stems, POST)
         save_irregular_augments(language, verb, irregular_augments, POST)
         save_tenses_with_no_passive(language, verb, tenses_with_no_passive,
@@ -222,26 +206,143 @@ def update_word_from_post(word, POST):
         except Verb.DoesNotExist:
             # Word wasn't a verb and still isn't a verb, so do nothing
             pass
+    # Handle noun stuff - again, we have a bunch of cases, but they're not
+    # quite as bad as with verbs
+    has_noun = word_has_declinable_type(word, 'Noun')
+    if POST.get('noun', None):
+        if has_noun:
+            # Need to update the noun object with other options
+            decl = word.declinableword
+            declension = Declension.objects.get(pk=POST['noun_declension'])
+            decl.declension = declension
+            decl.save()
+        else:
+            # Need to create the noun object
+            declension = Declension.objects.get(pk=POST['noun_declension'])
+            type = DeclinableType.objects.get(name='Noun')
+            decl = DeclinableWord(word=word, declension=declension, type=type)
+            decl.save()
+        # Update the rest of the stuff here (irregular forms, long penult)
+        if POST.get('noun_has_long_penult', False):
+            # Same four cases with LongPenult
+            try:
+                decl.longpenult
+            except LongPenult.DoesNotExist:
+                longpenult = LongPenult(declinable=decl)
+                longpenult.save()
+        else:
+            try:
+                longpenult = decl.longpenult
+                longpenult.delete()
+            except LongPenult.DoesNotExist:
+                pass
+        irregular_noun_forms = []
+        for key in POST:
+            if (key.startswith("irregular_noun_form_") and
+                    key.endswith("_action")):
+                irregular_noun_forms.append(key)
+        save_irregular_decl_forms(language, decl, irregular_noun_forms, POST,
+                'irregular_noun_form_')
+    else:
+        if has_noun:
+            # Need to delete the noun object
+            decl = word.declinableword
+            decl.delete()
+        else:
+            # Word was not a noun and still isn't, so do nothing
+            pass
+    # And lastly, the adjectives.  This could probably be combined with nouns
+    # somehow...
+    has_adjective = word_has_declinable_type(word, 'Adjective')
+    if POST.get('adjective', None):
+        if has_adjective:
+            # Need to update the adjective object with other options
+            decl = word.declinableword
+            declension = Declension.objects.get(pk=POST['adj_declension'])
+            decl.declension = declension
+            decl.save()
+        else:
+            # Need to create the adjective object
+            declension = Declension.objects.get(pk=POST['adj_declension'])
+            type = DeclinableType.objects.get(name='Adjective')
+            decl = DeclinableWord(word=word, declension=declension, type=type)
+            decl.save()
+        # Update the rest of the stuff here (irregular forms, long penult)
+        if POST.get('adj_has_long_penult', False):
+            # Same four cases with LongPenult
+            try:
+                decl.longpenult
+            except LongPenult.DoesNotExist:
+                longpenult = LongPenult(declinable=decl)
+                longpenult.save()
+        else:
+            try:
+                longpenult = decl.longpenult
+                longpenult.delete()
+            except LongPenult.DoesNotExist:
+                pass
+        irregular_adj_forms = []
+        for key in POST:
+            if (key.startswith("irregular_adjective_form_") and
+                    key.endswith("_action")):
+                irregular_adj_forms.append(key)
+        save_irregular_decl_forms(language, decl, irregular_adj_forms, POST,
+                'irregular_adjective_form_')
+    else:
+        if has_adjective:
+            # Need to delete the adjective object
+            decl = word.declinableword
+            decl.delete()
+        else:
+            # Word was not a adjective and still isn't, so do nothing
+            pass
 
 
-def save_irregular_forms(language, verb, irregular_forms, POST):
+def save_irregular_decl_forms(language, decl, irregular_forms, POST, prefix):
     for irregular_form in irregular_forms:
         form_number = int(irregular_form.split('_')[-2])
         if POST[irregular_form] == 'delete':
-            id = POST['irregular_form_%d_id' % form_number]
+            id = POST[prefix + '%d_id' % form_number]
+            i_form = get_object_or_404(IrregularDeclinableForm, pk=id,
+                    declinable=decl)
+            i_form.delete()
+            continue
+        gender = POST[prefix + '%d_gender' % form_number]
+        number = POST[prefix + '%d_number' % form_number]
+        case = POST[prefix + '%d_case' % form_number]
+        form = POST[prefix + '%d_form' % form_number]
+        if POST[irregular_form] == 'add':
+            i_form = IrregularDeclinableForm()
+        elif POST[irregular_form] == 'save':
+            id = POST[prefix + '%d_id' % form_number]
+            i_form = get_object_or_404(IrregularDeclinableForm, pk=id,
+                    declinable=decl)
+        i_form.declinable = decl
+        i_form.gender = language.gender_set.get(pk=gender)
+        i_form.number = language.number_set.get(pk=number)
+        i_form.case = language.case_set.get(pk=case)
+        i_form.form = form
+        i_form.save()
+
+
+def save_irregular_verb_forms(language, verb, irregular_verb_forms, POST):
+    for irregular_form in irregular_verb_forms:
+        form_number = int(irregular_form.split('_')[-2])
+        if POST[irregular_form] == 'delete':
+            id = POST['irregular_verb_form_%d_id' % form_number]
             i_form = get_object_or_404(IrregularVerbForm, pk=id, verb=verb)
             i_form.delete()
             continue
-        person = POST['irregular_form_%d_person' % form_number]
-        number = POST['irregular_form_%d_number' % form_number]
-        tense = POST['irregular_form_%d_tense' % form_number]
-        mood = POST['irregular_form_%d_mood' % form_number]
-        voice = POST['irregular_form_%d_voice' % form_number]
-        form = POST['irregular_form_%d_form' % form_number]
+        person = POST['irregular_verb_form_%d_person' % form_number]
+        number = POST['irregular_verb_form_%d_number' % form_number]
+        tense = POST['irregular_verb_form_%d_tense' % form_number]
+        mood = POST['irregular_verb_form_%d_mood' % form_number]
+        voice = POST['irregular_verb_form_%d_voice' % form_number]
+        form = POST['irregular_verb_form_%d_form' % form_number]
         if POST[irregular_form] == 'add':
             i_form = IrregularVerbForm()
         elif POST[irregular_form] == 'save':
-            id = POST['irregular_form_%d_id' % form_number]
+            id = POST['irregular_verb_form_%d_id' % form_number]
             i_form = get_object_or_404(IrregularVerbForm, pk=id, verb=verb)
         i_form.verb = verb
         i_form.person = language.person_set.get(pk=person)
@@ -319,6 +420,17 @@ def save_tenses_with_no_passive(language, verb, tenses_with_no_passive, POST):
         t.verb = verb
         t.tense = language.tense_set.get(pk=tense)
         t.save()
+
+
+def word_has_declinable_type(word, decl_type):
+    noun_type = DeclinableType.objects.get(name=decl_type)
+    try:
+        decl = word.declinableword
+        if decl.type == noun_type:
+            return True
+    except DeclinableWord.DoesNotExist:
+        pass
+    return False
 
 
 # vim: et sw=4 sts=4

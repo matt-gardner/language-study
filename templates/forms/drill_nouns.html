@@ -1,0 +1,31 @@
+{% extends "forms/drill_forms.html" %}
+
+{% load custom_filters %}
+
+{% block script_config %}
+<script charset="utf-8" type="text/javascript">
+    $.fn.review_type = function() {};
+    $.fn.review_type.name_ = "declension";
+</script>
+{% endblock %}
+
+{% block form_options %}
+<div>
+    <select id="id_gender">
+        {% for gender in genders %}
+        <option value="{{ gender|variablize }}"> {{ gender }} </option>
+        {% endfor %}
+    </select>
+    <select id="id_number">
+        {% for number in numbers %}
+        <option value="{{ number|variablize }}"> {{ number }} </option>
+        {% endfor %}
+    </select>
+    <select id="id_case">
+        {% for case in cases %}
+        <option value="{{ case|variablize }}"> {{ case }} </option>
+        {% endfor %}
+    </select>
+</div>
+{% endblock %}
+

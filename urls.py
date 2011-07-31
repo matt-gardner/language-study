@@ -5,10 +5,12 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
+case = '(?P<case>[^/]+)'
 choice = '(?P<choice>[^/]+)'
 comp = '(?P<comp>[^/]+)'
 day = '(?P<day>[^/]+)'
 difficulty = '(?P<difficulty>[^/]+)'
+gender = '(?P<gender>[^/]+)'
 id = '(?P<id>[^/]+)'
 listname = '(?P<listname>[^/]+)'
 month = '(?P<month>[^/]+)'
@@ -69,15 +71,21 @@ urlpatterns = patterns('',
 
     # Form drilling urls
     (r'^'+listname+'/forms/$',
-        'drills.views.forms.main'),
+        'drills.views.forms.drill_conjugations'),
+    (r'^'+listname+'/forms/conjugations$',
+        'drills.views.forms.drill_conjugations'),
+    (r'^'+listname+'/forms/declensions$',
+        'drills.views.forms.drill_declensions'),
+    (r'^'+listname+'/forms/get-new-random-form/$',
+        'drills.views.forms.get_new_random_form'),
     (r'^inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
         'drills.views.forms.inflect_form'),
-    (r'^guess-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
-        'drills.views.forms.guess_form'),
+    (r'^guess-verb-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
+        'drills.views.forms.guess_verb_form'),
+    (r'^guess-noun-form/'+gender+'/'+number+'/'+case+'$',
+        'drills.views.forms.guess_noun_form'),
     (r'^get-new-verb/'+id+'$',
         'drills.views.forms.get_new_verb'),
-    (r'^get-new-random-form/$',
-        'drills.views.forms.get_new_random_form'),
 
     # Form viewing urls
     (r'^'+listname+'/view-forms/$',
@@ -95,8 +103,12 @@ urlpatterns = patterns('',
         'drills.views.lists.single_list'),
     (r'^'+listname+'/add-word$',
         'drills.views.lists.add_word_to_list'),
-    (r'^'+listname+'/add-word/add-irregular-form/'+number+'$',
-        'drills.views.lists.add_irregular_form'),
+    (r'^'+listname+'/add-word/add-irregular-noun-form/'+number+'$',
+        'drills.views.lists.add_irregular_noun_form'),
+    (r'^'+listname+'/add-word/add-irregular-adj-form/'+number+'$',
+        'drills.views.lists.add_irregular_adj_form'),
+    (r'^'+listname+'/add-word/add-irregular-verb-form/'+number+'$',
+        'drills.views.lists.add_irregular_verb_form'),
     (r'^'+listname+'/add-word/add-irregular-stem/'+number+'$',
         'drills.views.lists.add_irregular_stem'),
     (r'^'+listname+'/add-word/add-irregular-augment/'+number+'$',
@@ -105,8 +117,12 @@ urlpatterns = patterns('',
         'drills.views.lists.add_tense_with_no_passive'),
     (r'^'+listname+'/'+word_id+'$',
         'drills.views.lists.single_word'),
-    (r'^'+listname+'/'+word_id+'/add-irregular-form/'+number+'$',
-        'drills.views.lists.add_irregular_form'),
+    (r'^'+listname+'/'+word_id+'/add-irregular-noun-form/'+number+'$',
+        'drills.views.lists.add_irregular_noun_form'),
+    (r'^'+listname+'/'+word_id+'/add-irregular-adj-form/'+number+'$',
+        'drills.views.lists.add_irregular_adj_form'),
+    (r'^'+listname+'/'+word_id+'/add-irregular-verb-form/'+number+'$',
+        'drills.views.lists.add_irregular_verb_form'),
     (r'^'+listname+'/'+word_id+'/add-irregular-stem/'+number+'$',
         'drills.views.lists.add_irregular_stem'),
     (r'^'+listname+'/'+word_id+'/add-irregular-augment/'+number+'$',
