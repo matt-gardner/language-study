@@ -78,10 +78,16 @@ def add_language():
         args['name'] = name
         add_or_fail(Conjugation, args)
 
+    # Default User
+    user_args = {'username': "attic_greek_default_user"}
+    add_or_fail(User, user_args)
+    user = object_cache['User'][user_args['username']]
+    user.set_password('default')
+    user.save()
+
     # Default WordList
     args['name'] = 'Attic Greek Default Words'
-    # TODO: make this a little better...  Maybe make a default user
-    args['user'] = User.objects.get(pk=1)
+    args['user'] = user
     add_or_fail(WordList, args)
 
     word_args = {'wordlist': object_cache['WordList'][args['name']]}
@@ -201,7 +207,9 @@ def irregular_declinable_form(declinable, gender, number, case, form):
 
 def add_or_fail(model, query_args, create_args={}):
     global object_cache
-    if 'name' in query_args:
+    if 'username' in query_args:
+        output = query_args['username']
+    elif 'name' in query_args:
         output = query_args['name']
     elif 'conjugation' in query_args:
         output = query_args['word'].word
