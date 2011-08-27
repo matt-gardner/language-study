@@ -4,7 +4,7 @@
 import os, sys
 
 sys.path.append(os.getcwd()+'/..')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 
 import codecs
 import simplejson
@@ -13,7 +13,7 @@ from collections import defaultdict
 from copy import deepcopy
 from datetime import datetime
 from django.contrib.auth.models import User
-from drills.models import *
+from language_study.drills.models import *
 from optparse import OptionParser
 
 incremental = False

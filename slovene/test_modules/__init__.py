@@ -5,8 +5,8 @@ from django.test import TestCase
 
 import slovene
 
-from drills.models import DeclinableWord
-from drills.models import Verb
+from language_study.drills.models import DeclinableWord
+from language_study.drills.models import Verb
 
 verbs = dict()
 
