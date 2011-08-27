@@ -1,0 +1,28 @@
+{
+  "Cases": ["Nominative", "Genitive", "Dative", "Accusative", "Locative",
+       "Instrumental"],
+  "Genders": ["Masculine", "Feminine", "Neuter"],
+  "Persons": ["First Person", "Second Person", "Third Person", "None"],
+  "Numbers": ["Singular", "Dual", "Plural", "None"],
+  "Tenses": ["Present", "Future", "Past", "Pluperfect", "None"],
+  "Moods": ["Indicative", "Imperative", "Conditional", "Infinitive"],
+  "Voices": ["Active", "Passive"],
+
+  "Declensions": ["First Declension", "Second Declension",
+      "Third Declension"],
+  "Declinable Types": ["Noun", "Pronoun", "Adjective"],
+  "Conjugations": ["First Conjugation", "Second Conjugation",
+      "Third Conjugation", "Fourth Conjugation", "Athematic"],
+
+  "Verbs": [
+  ],
+  "Nouns": [
+    {
+      "definition": "pupil, student",
+      "word": "učenec",
+      "declension": "First Declension"
+    },
+  ],
+  "Adjectives": [
+  ]
+}
