@@ -29,29 +29,30 @@ imp_cases.append({'person': 'Third Person', 'number': 'Plural'})
 
 DW = DeclinableWord
 nouns = dict()
+nouns['ucenec'] = DW.objects.get(word__word__contains=u'učenec')
 
 adjectives = dict()
 
 decl_cases = [{'number': 'Singular', 'case': 'Nominative'}]
-decl_cases.append({'number': 'Singular', 'case': 'Genitive'})
-decl_cases.append({'number': 'Singular', 'case': 'Dative'})
-decl_cases.append({'number': 'Singular', 'case': 'Accusative'})
-decl_cases.append({'number': 'Singular', 'case': 'Locative'})
-decl_cases.append({'number': 'Singular', 'case': 'Instrumental'})
 decl_cases.append({'number': 'Dual', 'case': 'Nominative'})
-decl_cases.append({'number': 'Dual', 'case': 'Genitive'})
-decl_cases.append({'number': 'Dual', 'case': 'Dative'})
-decl_cases.append({'number': 'Dual', 'case': 'Accusative'})
-decl_cases.append({'number': 'Dual', 'case': 'Locative'})
-decl_cases.append({'number': 'Dual', 'case': 'Instrumental'})
 decl_cases.append({'number': 'Plural', 'case': 'Nominative'})
+decl_cases.append({'number': 'Singular', 'case': 'Genitive'})
+decl_cases.append({'number': 'Dual', 'case': 'Genitive'})
 decl_cases.append({'number': 'Plural', 'case': 'Genitive'})
+decl_cases.append({'number': 'Singular', 'case': 'Dative'})
+decl_cases.append({'number': 'Dual', 'case': 'Dative'})
 decl_cases.append({'number': 'Plural', 'case': 'Dative'})
+decl_cases.append({'number': 'Singular', 'case': 'Accusative'})
+decl_cases.append({'number': 'Dual', 'case': 'Accusative'})
 decl_cases.append({'number': 'Plural', 'case': 'Accusative'})
+decl_cases.append({'number': 'Singular', 'case': 'Locative'})
+decl_cases.append({'number': 'Dual', 'case': 'Locative'})
 decl_cases.append({'number': 'Plural', 'case': 'Locative'})
+decl_cases.append({'number': 'Singular', 'case': 'Instrumental'})
+decl_cases.append({'number': 'Dual', 'case': 'Instrumental'})
 decl_cases.append({'number': 'Plural', 'case': 'Instrumental'})
 
-class GreekTestCase(TestCase):
+class SloveneTestCase(TestCase):
     def tearDown(self):
         pass
         #conjugation.verbose = False
