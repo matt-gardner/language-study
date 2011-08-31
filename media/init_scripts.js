@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+/* Vocab review scripts */
 $("#id_show_definition").click(function () {
     $(".review_definition .text").toggle(0);
     var current_text = $("#id_show_definition").val()
@@ -9,12 +11,6 @@ $("#id_show_definition").click(function () {
         var new_text = "Show" + current_text.substring(4);
         $("#id_show_definition").val(new_text);
     }
-});
-$(".ui-button").mousedown(function() {
-    $(this).addClass("ui-state-active");
-});
-$(".ui-button").mouseup(function() {
-    $(this).removeClass("ui-state-active");
 });
 $("#id_next_word").click(function () {
     next_word();
@@ -31,44 +27,19 @@ $("#id_medium").click(function () {
 $("#id_hard").click(function () {
     next_word('hard');
 });
-$("#id_delete_list").click(function () {
-    delete_word_list();
-});
-$("#id_create_list").click(function () {
-    create_word_list();
-});
-$("#id_increase_word_size").click(function(){
-    var currentFontSize = $('.review_word .text').css('font-size');
-    var currentFontSizeNum = parseFloat(currentFontSize, 10);
-    var newFontSize = currentFontSizeNum*1.2;
-    $('.review_word .text').css('font-size', newFontSize);
-});
-$("#id_decrease_word_size").click(function(){
-    var currentFontSize = $('.review_word .text').css('font-size');
-    var currentFontSizeNum = parseFloat(currentFontSize, 10);
-    var newFontSize = currentFontSizeNum*0.8;
-    $('.review_word .text').css('font-size', newFontSize);
-});
-$("#id_increase_definition_size").click(function(){
-    var currentFontSize = $('.review_definition .text').css('font-size');
-    var currentFontSizeNum = parseFloat(currentFontSize, 10);
-    var newFontSize = currentFontSizeNum*1.2;
-    $('.review_definition .text').css('font-size', newFontSize);
-});
-$("#id_decrease_definition_size").click(function(){
-    var currentFontSize = $('.review_definition .text').css('font-size');
-    var currentFontSizeNum = parseFloat(currentFontSize, 10);
-    var newFontSize = currentFontSizeNum*0.8;
-    $('.review_definition .text').css('font-size', newFontSize);
-});
 $("input[name=review_order]").click(function() {
     reorder_words($("input[name=review_order]:checked").val());
 });
-$(".view_form").change(function() {
-    get_new_form();
-});
 $("#id_add_tag_button").click(function () {
     add_tag();
+});
+$("#id_by_definition").click(function() {
+    set_by_definition();
+});
+
+/* Form drilling scripts */
+$(".view_form").change(function() {
+    get_new_form();
 });
 $("#id_verblist").click(function() {
     get_new_verb();
@@ -79,11 +50,9 @@ $("#id_new_form").click(function() {
 $("#id_guess_form").click(function() {
     guess_form();
 });
+// I think this may be old and not used anymore
 $("#id_drill_verb").click(function() {
     window.location = "/forms";
-});
-$("#id_by_definition").click(function() {
-    set_by_definition();
 });
 
 /* Table form view scripts */
@@ -140,6 +109,13 @@ $(".delete_irregular_form").live('click', function() {
 $(".undo_delete_irregular_form").live('click', function() {
     undo_delete_irregular_form($(this));
 });
+// Are these two still used?
+$("#id_delete_list").click(function () {
+    delete_word_list();
+});
+$("#id_create_list").click(function () {
+    create_word_list();
+});
 
 /* JQuery UI theming scripts */
 $(".ui-state-default").hover(
@@ -150,5 +126,37 @@ $(".ui-state-default").hover(
         $(this).removeClass('ui-state-hover').addClass('ui-state-default');
     }
 );
+$(".ui-button").mousedown(function() {
+    $(this).addClass("ui-state-active");
+});
+$(".ui-button").mouseup(function() {
+    $(this).removeClass("ui-state-active");
+});
+
+/* Old functions (keeping around in case I decide to bring them back) */
+$("#id_increase_word_size").click(function(){
+    var currentFontSize = $('.review_word .text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*1.2;
+    $('.review_word .text').css('font-size', newFontSize);
+});
+$("#id_decrease_word_size").click(function(){
+    var currentFontSize = $('.review_word .text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*0.8;
+    $('.review_word .text').css('font-size', newFontSize);
+});
+$("#id_increase_definition_size").click(function(){
+    var currentFontSize = $('.review_definition .text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*1.2;
+    $('.review_definition .text').css('font-size', newFontSize);
+});
+$("#id_decrease_definition_size").click(function(){
+    var currentFontSize = $('.review_definition .text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*0.8;
+    $('.review_definition .text').css('font-size', newFontSize);
+});
 
 });
