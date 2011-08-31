@@ -77,7 +77,8 @@ function get_new_form() {
     tense = $("#id_tense").val();
     mood = $("#id_mood").val();
     voice = $("#id_voice").val();
-    link = "/inflect-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
+    link = "/" + $.fn.wordlist.listname;
+    link += "/inflect-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
     $.getJSON(link, {}, function(data) {
         switch_text(data.inflected_form, "");
     });
@@ -95,7 +96,8 @@ function guess_verb_form() {
     tense = $("#id_tense").val();
     mood = $("#id_mood").val();
     voice = $("#id_voice").val();
-    link = "/guess-verb-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
+    link = "/" + $.fn.wordlist.listname;
+    link += "/guess-verb-form/"+person+"/"+number+"/"+tense+"/"+mood+"/"+voice;
     current_form = $(".review_word .text").text();
     $.getJSON(link, {}, function(data) {
         switch_text(current_form, data.result);
@@ -105,7 +107,8 @@ function guess_noun_form() {
     gender = $("#id_gender").val();
     number = $("#id_number").val();
     case_ = $("#id_case").val();
-    link = "/guess-noun-form/"+gender+"/"+number+"/"+case_;
+    link = "/" + $.fn.wordlist.listname;
+    link += "/guess-noun-form/"+gender+"/"+number+"/"+case_;
     current_form = $(".review_word .text").text();
     $.getJSON(link, {}, function(data) {
         switch_text(current_form, data.result);
@@ -113,12 +116,14 @@ function guess_noun_form() {
 }
 function get_new_verb() {
     var verb = $("#id_verblist").val();
-    $.getJSON("/get-new-verb/"+verb, {}, function(data) {
+    link = "/" + $.fn.wordlist.listname + "/get-new-verb/" + verb;
+    $.getJSON(link, {}, function(data) {
         switch_text(data.inflected_form, "");
     });
 }
 function get_new_random_form() {
-    $.getJSON("get-new-random-form/", {}, function(data) {
+    link = "/" + $.fn.wordlist.listname + "/get-new-random-form/";
+    $.getJSON(link, {}, function(data) {
         switch_text(data.inflected_form, "");
     });
 }
@@ -190,7 +195,7 @@ function new_word(data) {
     reset_word_number(data.word_number, data.num_words, data.word.difficulty);
     reset_word_difficulty(data.word.difficulty, data.word.review_count);
     reset_word_tags(data.word.tags);
-    //reset_list_difficulty(data.average_difficulty);
+    reset_list_difficulty(data.average_difficulty);
 }
 function switch_text(word, definition) {
     $(".review_word .text").html(word);

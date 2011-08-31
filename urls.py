@@ -76,15 +76,17 @@ urlpatterns = patterns('',
         'drills.views.forms.drill_conjugations'),
     (r'^'+listname+'/forms/declensions$',
         'drills.views.forms.drill_declensions'),
-    (r'^'+listname+'/forms/get-new-random-form/$',
+    (r'^'+listname+'/get-new-random-form/$',
         'drills.views.forms.get_new_random_form'),
-    (r'^inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
+    (r'^'+listname+'/inflect-form/'+person+'/'+number+'/'+tense+'/'+mood+
+            '/'+voice+'$',
         'drills.views.forms.inflect_form'),
-    (r'^guess-verb-form/'+person+'/'+number+'/'+tense+'/'+mood+'/'+voice+'$',
+    (r'^'+listname+'/guess-verb-form/'+person+'/'+number+'/'+tense+'/'+mood+
+            '/'+voice+'$',
         'drills.views.forms.guess_verb_form'),
-    (r'^guess-noun-form/'+gender+'/'+number+'/'+case+'$',
+    (r'^'+listname+'/guess-noun-form/'+gender+'/'+number+'/'+case+'$',
         'drills.views.forms.guess_noun_form'),
-    (r'^get-new-verb/'+id+'$',
+    (r'^'+listname+'/get-new-verb/'+id+'$',
         'drills.views.forms.get_new_verb'),
 
     # Form viewing urls

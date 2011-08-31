@@ -208,23 +208,25 @@ def get_new_random_form(request, listname):
     return HttpResponse(simplejson.dumps(ret_val))
 
 
-def get_new_verb(request, id):
+def get_new_verb(request, listname, id):
     request.session['word-id'] = id
     ret_val = dict()
     ret_val['inflected_form'] = conj_verb_from_session(request.session)
     return HttpResponse(simplejson.dumps(ret_val))
 
 
-def guess_verb_form(request, person, number, tense, mood, voice):
+def guess_verb_form(request, listname, person, number, tense, mood, voice):
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    language = wordlist.language
     guessed = dict()
-    guessed['person'] = Person.objects.get(name=devariablize(person)).name
-    guessed['number'] = Number.objects.get(name=devariablize(number)).name
-    guessed['tense'] = Tense.objects.get(name=devariablize(tense)).name
-    guessed['mood'] = Mood.objects.get(name=devariablize(mood)).name
-    guessed['voice'] = Voice.objects.get(name=devariablize(voice)).name
+    guessed['person'] = language.person_set.get(name=devariablize(person)).name
+    guessed['number'] = language.number_set.get(name=devariablize(number)).name
+    guessed['tense'] = language.tense_set.get(name=devariablize(tense)).name
+    guessed['mood'] = language.mood_set.get(name=devariablize(mood)).name
+    guessed['voice'] = language.voice_set.get(name=devariablize(voice)).name
     form = request.session['form']
-    verb = Verb.objects.get(pk=request.session['word-id'])
-    language = verb.word.wordlist.language
+    verb_id = request.session['word-id']
+    verb = get_object_or_404(Verb, pk=verb_id, word__wordlist=wordlist)
     acceptable = get_matching_verb_forms(language, verb, form)
     ret_val = dict()
     fields = ['person', 'number', 'tense', 'mood', 'voice']
@@ -239,14 +241,17 @@ def guess_verb_form(request, person, number, tense, mood, voice):
     return HttpResponse(simplejson.dumps(ret_val))
 
 
-def guess_noun_form(request, gender, number, case):
+def guess_noun_form(request, listname, gender, number, case):
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
+    language = wordlist.language
     guessed = dict()
-    guessed['gender'] = Gender.objects.get(name=devariablize(gender)).name
-    guessed['number'] = Number.objects.get(name=devariablize(number)).name
-    guessed['case'] = Case.objects.get(name=devariablize(case)).name
+    guessed['gender'] = language.gender_set.get(name=devariablize(gender)).name
+    guessed['number'] = language.number_set.get(name=devariablize(number)).name
+    guessed['case'] = language.case_set.get(name=devariablize(case)).name
     form = request.session['form']
-    word = DeclinableWord.objects.get(pk=request.session['word-id'])
-    language = word.word.wordlist.language
+    word_id = request.session['word-id']
+    word = get_object_or_404(DeclinableWord, pk=word_id,
+            word__wordlist=wordlist)
     acceptable = get_matching_noun_forms(language, word, form)
     ret_val = dict()
     fields = ['gender', 'number', 'case']
@@ -261,17 +266,18 @@ def guess_noun_form(request, gender, number, case):
     return HttpResponse(simplejson.dumps(ret_val))
 
 
-def inflect_form(request, person, number, tense, mood, voice):
+def inflect_form(request, listname, person, number, tense, mood, voice):
+    wordlist = get_object_or_404(WordList, user=request.user, name=listname)
     person = devariablize(person)
-    request.session['person-id'] = Person.objects.get(name=person).id
+    request.session['person-id'] = wordlist.person_set.get(name=person).id
     number = devariablize(number)
-    request.session['number-id'] = Number.objects.get(name=number).id
+    request.session['number-id'] = wordlist.number_set.get(name=number).id
     tense = devariablize(tense)
-    request.session['tense-id'] = Tense.objects.get(name=tense).id
+    request.session['tense-id'] = wordlist.tense_set.get(name=tense).id
     mood = devariablize(mood)
-    request.session['mood-id'] = Mood.objects.get(name=mood).id
+    request.session['mood-id'] = wordlist.mood_set.get(name=mood).id
     voice = devariablize(voice)
-    request.session['voice-id'] = Voice.objects.get(name=voice).id
+    request.session['voice-id'] = wordlist.voice_set.get(name=voice).id
     ret_val = dict()
     ret_val['inflected_form'] = conj_verb_from_session(request.session)
     return HttpResponse(simplejson.dumps(ret_val))
