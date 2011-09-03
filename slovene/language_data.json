@@ -20,7 +20,9 @@
     {
       "definition": "pupil, student",
       "word": "učenec",
-      "declension": "First Declension"
+      "declension": "First Declension",
+      "animate": "True",
+      "fleeting vowel": "True"
     },
     {
       "definition": "girl",
@@ -28,9 +30,10 @@
       "declension": "Second Declension"
     },
     {
-      "definition": "man, husband",
-      "word": "mož",
-      "declension": "First Declension"
+      "definition": "traveller",
+      "word": "potnik",
+      "declension": "First Declension",
+      "animate": "True"
     }
   ],
   "Adjectives": [

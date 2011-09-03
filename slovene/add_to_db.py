@@ -6,15 +6,18 @@ import os, sys
 sys.path.append(os.getcwd()+'/..')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 
+from django.contrib.auth.models import User
+
 import codecs
 import simplejson
 
 from collections import defaultdict
 from copy import deepcopy
 from datetime import datetime
-from django.contrib.auth.models import User
-from language_study.drills.models import *
 from optparse import OptionParser
+
+from language_study.drills.models import *
+from models import *
 
 incremental = False
 added = []
@@ -117,9 +120,12 @@ def add_declinable_type(decl, type, word_args, create_args):
             case = form['Case']
             f = form['Form']
             irregular_declinable_form(decl['word'], gender, number, case, f)
-    if "long penult" in decl and decl["long penult"] == 'True':
+    if "animate" in decl and decl["animate"] == 'True':
         args = {'declinable': object_cache['DeclinableWord'][decl['word']]}
-        add_or_fail(LongPenult, args)
+        add_or_fail(Animate, args)
+    if "fleeting vowel" in decl and decl["fleeting vowel"] == 'True':
+        args = {'declinable': object_cache['DeclinableWord'][decl['word']]}
+        add_or_fail(FleetingVowel, args)
 
 
 def irregular_declinable_form(declinable, gender, number, case, form):
@@ -171,8 +177,8 @@ def add_or_fail(model, query_args, create_args={}):
 
 def dump_fixture_file(filename):
     from subprocess import Popen
-    proc = Popen('python manage.py dumpdata drills --indent=2 >%s' % filename,
-            shell=True)
+    proc = Popen('python manage.py dumpdata drills slovene --indent=2 >%s'
+            % filename, shell=True)
     proc.wait()
     print 'Created fixture file %s' % filename
 

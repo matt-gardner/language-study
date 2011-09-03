@@ -1,0 +1,3089 @@
+[
+  {
+    "pk": 1,
+    "model": "drills.language",
+    "fields": {
+      "module_name": "attic_greek",
+      "name": "Attic Greek"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.language",
+    "fields": {
+      "module_name": "slovene",
+      "name": "Slovene"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.declension",
+    "fields": {
+      "name": "First Declension",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.declension",
+    "fields": {
+      "name": "Second Declension",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.declension",
+    "fields": {
+      "name": "Third Declension",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.declension",
+    "fields": {
+      "name": "First Declension",
+      "language": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.declension",
+    "fields": {
+      "name": "Second Declension",
+      "language": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.declension",
+    "fields": {
+      "name": "Third Declension",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.declinabletype",
+    "fields": {
+      "name": "Noun",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.declinabletype",
+    "fields": {
+      "name": "Pronoun",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.declinabletype",
+    "fields": {
+      "name": "Adjective",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.declinabletype",
+    "fields": {
+      "name": "Noun",
+      "language": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.declinabletype",
+    "fields": {
+      "name": "Pronoun",
+      "language": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.declinabletype",
+    "fields": {
+      "name": "Adjective",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.case",
+    "fields": {
+      "name": "Nominative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.case",
+    "fields": {
+      "name": "Genitive",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.case",
+    "fields": {
+      "name": "Dative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.case",
+    "fields": {
+      "name": "Accusative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.case",
+    "fields": {
+      "name": "Vocative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.case",
+    "fields": {
+      "name": "Nominative",
+      "language": 2
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.case",
+    "fields": {
+      "name": "Genitive",
+      "language": 2
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.case",
+    "fields": {
+      "name": "Dative",
+      "language": 2
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.case",
+    "fields": {
+      "name": "Accusative",
+      "language": 2
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.case",
+    "fields": {
+      "name": "Locative",
+      "language": 2
+    }
+  },
+  {
+    "pk": 11,
+    "model": "drills.case",
+    "fields": {
+      "name": "Instrumental",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.number",
+    "fields": {
+      "name": "Singular",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.number",
+    "fields": {
+      "name": "Plural",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.number",
+    "fields": {
+      "name": "None",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.number",
+    "fields": {
+      "name": "Singular",
+      "language": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.number",
+    "fields": {
+      "name": "Dual",
+      "language": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.number",
+    "fields": {
+      "name": "Plural",
+      "language": 2
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.number",
+    "fields": {
+      "name": "None",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.gender",
+    "fields": {
+      "name": "Masculine",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.gender",
+    "fields": {
+      "name": "Feminine",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.gender",
+    "fields": {
+      "name": "Neuter",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.gender",
+    "fields": {
+      "name": "Masculine",
+      "language": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.gender",
+    "fields": {
+      "name": "Feminine",
+      "language": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.gender",
+    "fields": {
+      "name": "Neuter",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "Thematic",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "Athematic",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "First Conjugation",
+      "language": 2
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "Second Conjugation",
+      "language": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "Third Conjugation",
+      "language": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "Fourth Conjugation",
+      "language": 2
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.conjugation",
+    "fields": {
+      "name": "Athematic",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Present",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Imperfect",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Future",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Aorist",
+      "language": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Perfect",
+      "language": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Pluperfect",
+      "language": 1
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Present",
+      "language": 2
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Future",
+      "language": 2
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Past",
+      "language": 2
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.tense",
+    "fields": {
+      "name": "Pluperfect",
+      "language": 2
+    }
+  },
+  {
+    "pk": 11,
+    "model": "drills.tense",
+    "fields": {
+      "name": "None",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.voice",
+    "fields": {
+      "name": "Active",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.voice",
+    "fields": {
+      "name": "Middle",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.voice",
+    "fields": {
+      "name": "Passive",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.voice",
+    "fields": {
+      "name": "Active",
+      "language": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.voice",
+    "fields": {
+      "name": "Passive",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Indicative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Subjunctive",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Optative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Imperative",
+      "language": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Infinitive",
+      "language": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Indicative",
+      "language": 2
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Imperative",
+      "language": 2
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Conditional",
+      "language": 2
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.mood",
+    "fields": {
+      "name": "Infinitive",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.person",
+    "fields": {
+      "name": "First Person",
+      "language": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.person",
+    "fields": {
+      "name": "Second Person",
+      "language": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.person",
+    "fields": {
+      "name": "Third Person",
+      "language": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.person",
+    "fields": {
+      "name": "None",
+      "language": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.person",
+    "fields": {
+      "name": "First Person",
+      "language": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.person",
+    "fields": {
+      "name": "Second Person",
+      "language": 2
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.person",
+    "fields": {
+      "name": "Third Person",
+      "language": 2
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.person",
+    "fields": {
+      "name": "None",
+      "language": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.wordlist",
+    "fields": {
+      "user": 1,
+      "language": 1,
+      "name": "Attic Greek Default Words"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.wordlist",
+    "fields": {
+      "user": 2,
+      "language": 2,
+      "name": "Slovene Default Words"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to announce",
+      "review_count": 0,
+      "word": "\u1f00\u03b3\u03b3\u03ad\u03bb\u03bb\u03c9, \u1f00\u03b3\u03b3\u03b5\u03bb\u1ff6, \u1f24\u03b3\u03b3\u03b5\u03b9\u03bb\u03b1, \u1f24\u03b3\u03b3\u03b5\u03bb\u03ba\u03b1, \u1f24\u03b3\u03b3\u03b5\u03bb\u03bc\u03b1\u03b9, \u1f20\u03b3\u03b3\u03ad\u03bb\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:22:31",
+      "last_reviewed": "2011-07-30 22:22:31"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to be ashamed",
+      "review_count": 0,
+      "word": "\u03b1\u1f30\u03c3\u03c7\u03cd\u03bd\u03bf\u03bc\u03b1\u03b9, \u03b1\u1f30\u03c3\u03c7\u03c5\u03bd\u03bf\u1fe6\u03bc\u03b1\u03b9, _, _, \u1f94\u03c3\u03c7\u03c5\u03bc\u03bc\u03b1\u03b9, \u1f90\u03c3\u03c7\u03cd\u03bd\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:55",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to write, draw",
+      "review_count": 0,
+      "word": "\u03b3\u03b9\u03b3\u03bd\u03ce\u03c3\u03ba\u03c9, \u03b3\u03bd\u03ce\u03c3\u03bf\u03bc\u03b1\u03b9, \u1f14\u03b3\u03bd\u03c9\u03bd, \u1f14\u03b3\u03bd\u03c9\u03ba\u03b1, \u1f14\u03b3\u03bd\u03c9\u03c3\u03bc\u03b1\u03b9, \u1f10\u03b3\u03bd\u03ce\u03c3\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:55",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to write, draw",
+      "review_count": 0,
+      "word": "\u03b3\u03c1\u03ac\u03c6\u03c9, \u03b3\u03c1\u03ac\u03c8\u03c9, \u1f14\u03b3\u03c1\u03b1\u03c8\u03b1, \u03b3\u03ad\u03b3\u03c1\u03b1\u03c6\u03b1, \u03b3\u03ad\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03b9, \u1f10\u03b3\u03c1\u03ac\u03c6\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:55",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to show",
+      "review_count": 0,
+      "word": "\u03b4\u03b5\u03af\u03ba\u03bd\u03c5\u03bc\u03b9, \u03b4\u03b5\u03af\u03be\u03c9, \u1f14\u03b4\u03b5\u03b9\u03be\u03b1, \u03b4\u03ad\u03b4\u03b5\u03b9\u03c7\u03b1, \u03b4\u03ad\u03b4\u03b5\u03b9\u03b3\u03bc\u03b1\u03b9, \u1f10\u03b4\u03b5\u03af\u03c7\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:55",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to make clear",
+      "review_count": 0,
+      "word": "\u03b4\u03b7\u03bb\u03cc\u03c9, \u03b4\u03b7\u03bb\u03ce\u03c3\u03c9, \u1f10\u03b4\u03ae\u03bb\u03c9\u03c3\u03b1, \u03b4\u03b5\u03b4\u03ae\u03bb\u03c9\u03ba\u03b1, \u03b4\u03b5\u03b4\u03ae\u03bb\u03c9\u03bc\u03b1\u03b9, \u1f10\u03b4\u03b7\u03bb\u03ce\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:55",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to give",
+      "review_count": 0,
+      "word": "\u03b4\u03af\u03b4\u03c9\u03bc\u03b9, \u03b4\u03ce\u03c3\u03c9, \u1f14\u03b4\u03c9\u03ba\u03b1, \u03b4\u03ad\u03b4\u03c9\u03ba\u03b1, \u03b4\u03ad\u03b4\u03bf\u03bc\u03b1\u03b9, \u1f10\u03b4\u03cc\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:56",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to go",
+      "review_count": 0,
+      "word": "\u03b5\u1f36\u03bc\u03b9, _, _, _, _, _",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:56",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to be",
+      "review_count": 0,
+      "word": "\u03b5\u1f30\u03bc\u03af, \u1f14\u03c3\u03bf\u03bc\u03b1\u03b9, _, _, _, _",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:57",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to wish, want",
+      "review_count": 0,
+      "word": "\u1f10\u03b8\u03ad\u03bb\u03c9, \u1f10\u03b8\u03b5\u03bb\u03ae\u03c3\u03c9, \u1f20\u03b8\u03ad\u03bb\u03b7\u03c3\u03b1, \u1f20\u03b8\u03ad\u03bb\u03b7\u03ba\u03b1, _, _",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:59",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to drive, march",
+      "review_count": 0,
+      "word": "\u1f10\u03bb\u03b1\u03cd\u03bd\u03c9, \u1f10\u03bb\u03ac\u03c9, \u1f24\u03bb\u03b1\u03c3\u03b1, \u1f10\u03bb\u03ae\u03bb\u03b1\u03ba\u03b1, \u1f10\u03bb\u03ae\u03bb\u03b1\u03bc\u03b1\u03b9, \u1f20\u03bb\u03ac\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:59",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "I'm not sure",
+      "review_count": 0,
+      "word": "\u1f10\u03bb\u03ad\u03b3\u03c7\u03c9, \u1f10\u03bb\u03ad\u03b3\u03be\u03c9, \u1f24\u03bb\u03b5\u03b3\u03be\u03b1, _, \u1f10\u03bb\u03ae\u03bb\u03b5\u03b3\u03bc\u03b1\u03b9, \u1f20\u03bb\u03ad\u03b3\u03c7\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:59",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to come",
+      "review_count": 1,
+      "word": "\u1f14\u03c1\u03c7\u03bf\u03bc\u03b1\u03b9, \u1f10\u03bb\u03b5\u03cd\u03c3\u03bf\u03bc\u03b1\u03b9, \u1f26\u03bb\u03b8\u03bf\u03bd, \u1f10\u03bb\u03ae\u03bb\u03c5\u03b8\u03b1, _, _",
+      "average_difficulty": 24.4,
+      "tags": [],
+      "date_entered": "2011-07-30 22:23:59",
+      "last_reviewed": "2011-08-27 21:40:42"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to release, hurl, send",
+      "review_count": 0,
+      "word": "\u1f35\u03b7\u03bc\u03b9, \u1f25\u03c3\u03c9, \u1f27\u03ba\u03b1, \u03b5\u1f37\u03ba\u03b1, \u03b5\u1f37\u03bc\u03b1\u03b9, \u03b5\u1f35\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:00",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to stand",
+      "review_count": 0,
+      "word": "\u1f35\u03c3\u03c4\u03b7\u03bc\u03b9, \u03c3\u03c4\u03ae\u03c3\u03c9, \u1f14\u03c3\u03c4\u03b7\u03bd, \u1f15\u03c3\u03c4\u03b7\u03ba\u03b1, \u1f15\u03c3\u03c4\u03b1\u03bc\u03b1\u03b9, \u1f10\u03c3\u03c4\u03ac\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:01",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to command, order",
+      "review_count": 0,
+      "word": "\u03ba\u03b5\u03bb\u03b5\u03cd\u03c9, \u03ba\u03b5\u03bb\u03b5\u03cd\u03c3\u03c9, \u1f10\u03ba\u03ad\u03bb\u03b5\u03c5\u03c3\u03b1, \u03ba\u03b5\u03ba\u03ad\u03bb\u03b5\u03c5\u03ba\u03b1, \u03ba\u03b5\u03ba\u03ad\u03bb\u03b5\u03c5\u03c3\u03bc\u03b1\u03b9, \u1f10\u03ba\u03b5\u03bb\u03b5\u03cd\u03c3\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:02",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to fight",
+      "review_count": 0,
+      "word": "\u03bc\u03ac\u03c7\u03bf\u03bc\u03b1\u03b9, \u03bc\u03b1\u03c7\u03bf\u1fe6\u03bc\u03b1\u03b9, \u1f10\u03bc\u03b1\u03c7\u03b5\u03c3\u03ac\u03bc\u03b7\u03bd, _, \u03bc\u03b5\u03bc\u03ac\u03c7\u03b7\u03bc\u03b1\u03b9, _",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:03",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to win, conquer, be victorious",
+      "review_count": 0,
+      "word": "\u03bd\u03b9\u03ba\u03ac\u03c9, \u03bd\u03b9\u03ba\u03ae\u03c3\u03c9, \u1f10\u03bd\u03af\u03ba\u03b7\u03c3\u03b1, \u03bd\u03b5\u03bd\u03af\u03ba\u03b7\u03ba\u03b1, \u03bd\u03b5\u03bd\u03af\u03ba\u03b7\u03bc\u03b1\u03b9, \u1f10\u03bd\u03b9\u03ba\u03ae\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:03",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to teach",
+      "review_count": 0,
+      "word": "\u03c0\u03b1\u03b9\u03b4\u03b5\u03cd\u03c9, \u03c0\u03b1\u03b9\u03b4\u03b5\u03cd\u03c3\u03c9, \u1f10\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03c3\u03b1, \u03c0\u03b5\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03ba\u03b1, \u03c0\u03b5\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03bc\u03b1\u03b9, \u1f10\u03c0\u03b1\u03b9\u03b4\u03b5\u03cd\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:03",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to send",
+      "review_count": 0,
+      "word": "\u03c0\u03ad\u03bc\u03c0\u03c9, \u03c0\u03ad\u03bc\u03c8\u03c9, \u1f14\u03c0\u03b5\u03bc\u03c8\u03b1, \u03c0\u03ad\u03c0\u03bf\u03bc\u03c6\u03b1, \u03c0\u03ad\u03c0\u03b5\u03bc\u03bc\u03b1\u03b9, \u1f10\u03c0\u03ad\u03bc\u03c6\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:03",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to do",
+      "review_count": 0,
+      "word": "\u03c0\u03bf\u03b9\u03ad\u03c9, \u03c0\u03bf\u03b9\u03ae\u03c3\u03c9, \u1f10\u03c0\u03bf\u03af\u03b7\u03c3\u03b1, \u03c0\u03b5\u03c0\u03bf\u03af\u03b7\u03ba\u03b1, \u03c0\u03b5\u03c0\u03bf\u03af\u03b7\u03bc\u03b1\u03b9, \u1f10\u03c0\u03bf\u03b9\u03ae\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:03",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 22,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to arrange, station, align, order",
+      "review_count": 0,
+      "word": "\u03c4\u03ac\u03c4\u03c4\u03c9, \u03c4\u03ac\u03be\u03c9, \u1f14\u03c4\u03b1\u03be\u03b1, \u03c4\u03ad\u03c4\u03b1\u03c7\u03b1, \u03c4\u03ad\u03c4\u03b1\u03b3\u03bc\u03b1\u03b9, \u1f10\u03c4\u03ac\u03c7\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:03",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 23,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to put",
+      "review_count": 0,
+      "word": "\u03c4\u03af\u03b8\u03b7\u03bc\u03b9, \u03b8\u03ae\u03c3\u03c9, \u1f14\u03b8\u03b7\u03ba\u03b1, \u03c4\u03ad\u03b8\u03b7\u03ba\u03b1, \u03c4\u03ad\u03b8\u03b5\u03b9\u03bc\u03b1\u03b9, \u1f10\u03c4\u03ad\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:04",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 24,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to show",
+      "review_count": 0,
+      "word": "\u03c6\u03b1\u03af\u03bd\u03c9, \u03c6\u03b1\u03bd\u1ff6, \u1f14\u03c6\u03b7\u03bd\u03b1, \u03c0\u03ad\u03c6\u03b7\u03bd\u03b1, \u03c0\u03ad\u03c6\u03b1\u03c3\u03bc\u03b1\u03b9, \u1f10\u03c6\u03ac\u03bd\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:04",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 25,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to say",
+      "review_count": 0,
+      "word": "\u03c6\u03b7\u03bc\u03af, \u03c6\u03ae\u03c3\u03c9, \u1f14\u03c6\u03b7\u03c3\u03b1, _, _, _",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:04",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 26,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "to fear, be afraid",
+      "review_count": 0,
+      "word": "\u03c6\u03bf\u03b2\u03ad\u03bf\u03bc\u03b1\u03b9, \u03c6\u03bf\u03b2\u03ae\u03c3\u03bf\u03bc\u03b1\u03b9, _, _, \u03c0\u03b5\u03c6\u03cc\u03b2\u03b7\u03bc\u03b1\u03b9, \u1f10\u03c6\u03bf\u03b2\u03ae\u03b8\u03b7\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:06",
+      "last_reviewed": "2011-07-30 22:23:54"
+    }
+  },
+  {
+    "pk": 27,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "market place",
+      "review_count": 0,
+      "word": "\u1f00\u03b3\u03bf\u03c1\u03ac, \u1f00\u03b3\u03bf\u03c1\u1fb6\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:06",
+      "last_reviewed": "2011-07-30 22:24:06"
+    }
+  },
+  {
+    "pk": 28,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "brother",
+      "review_count": 0,
+      "word": "\u1f00\u03b4\u03b5\u03bb\u03c6\u03cc\u03c2, \u1f00\u03b4\u03b5\u03bb\u03c6\u03bf\u1fe6, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:34",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 29,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "goat",
+      "review_count": 0,
+      "word": "\u03b1\u1f34\u03be, \u03b1\u1f30\u03b3\u03cc\u03c2, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:34",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 30,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "man",
+      "review_count": 0,
+      "word": "\u1f00\u03bd\u03ae\u03c1, \u1f00\u03bd\u03b4\u03c1\u03cc\u03c2, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:34",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 31,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "man",
+      "review_count": 1,
+      "word": "\u1f04\u03bd\u03b8\u03c1\u03c9\u03c0\u03bf\u03c2, \u1f00\u03bd\u03b8\u03c1\u03ce\u03c0\u03bf\u03c5, \u1f41",
+      "average_difficulty": 24.4,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:34",
+      "last_reviewed": "2011-08-27 21:40:39"
+    }
+  },
+  {
+    "pk": 32,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "king",
+      "review_count": 0,
+      "word": "\u03b2\u03b1\u03c3\u03b9\u03bb\u03b5\u03cd\u03c2, \u03b2\u03b1\u03c3\u03b9\u03bb\u03ad\u03c9\u03c2, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:35",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 33,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "race",
+      "review_count": 0,
+      "word": "\u03b3\u03ad\u03bd\u03bf\u03c2, \u03b3\u03ad\u03bd\u03bf\u03c5\u03c2, \u03c4\u03cc",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:35",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 34,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "bridge",
+      "review_count": 0,
+      "word": "\u03b3\u03ad\u03c6\u03c5\u03c1\u03b1, \u03b3\u03b5\u03c6\u03cd\u03c1\u03b1\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:35",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 35,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "gift",
+      "review_count": 0,
+      "word": "\u03b4\u1ff6\u03c1\u03bf\u03bd, \u03b4\u03ce\u03c1\u03bf\u03c5, \u03c4\u03cc",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:35",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 36,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "hope",
+      "review_count": 0,
+      "word": "\u1f10\u03bb\u03c0\u03af\u03c2, \u1f10\u03bb\u03c0\u03af\u03b4\u03bf\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:35",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 37,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "work",
+      "review_count": 0,
+      "word": "\u1f14\u03c1\u03b3\u03bf\u03bd, \u1f14\u03c1\u03b3\u03bf\u03c5, \u03c4\u03cc",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:35",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 38,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "sea",
+      "review_count": 0,
+      "word": "\u03b8\u03ac\u03bb\u03b1\u03c4\u03c4\u03b1, \u03b8\u03b1\u03bb\u03ac\u03c4\u03c4\u03b7\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:36",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 39,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "word",
+      "review_count": 0,
+      "word": "\u03bb\u03cc\u03b3\u03bf\u03c2, \u03bb\u03cc\u03b3\u03bf\u03c5, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:36",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 40,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "mother",
+      "review_count": 0,
+      "word": "\u03bc\u03ae\u03c4\u03b7\u03c1, \u03bc\u03b7\u03c4\u03c1\u03cc\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:36",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 41,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "fate",
+      "review_count": 0,
+      "word": "\u03bc\u03bf\u1fd6\u03c1\u03b1, \u03bc\u03bf\u03af\u03c1\u03b1\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:36",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 42,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "muse",
+      "review_count": 0,
+      "word": "\u03bc\u03bf\u1fe6\u03c3\u03b1, \u03bc\u03bf\u03cd\u03c3\u03b7\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:36",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 43,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "young man",
+      "review_count": 0,
+      "word": "\u03bd\u03b5\u03b1\u03bd\u03af\u03b1\u03c2, \u03bd\u03b5\u03b1\u03bd\u03af\u03bf\u03c5, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:36",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 44,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "island",
+      "review_count": 0,
+      "word": "\u03bd\u1fc6\u03c3\u03bf\u03c2, \u03bd\u03ae\u03c3\u03bf\u03c5, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:37",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 45,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "city",
+      "review_count": 0,
+      "word": "\u03c0\u03cc\u03bb\u03b9\u03c2, \u03c0\u03cc\u03bb\u03b5\u03c9\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:37",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 46,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "citizen",
+      "review_count": 0,
+      "word": "\u03c0\u03bf\u03bb\u03af\u03c4\u03b7\u03c2, \u03c0\u03bf\u03bb\u03af\u03c4\u03bf\u03c5, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:37",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 47,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "poet",
+      "review_count": 0,
+      "word": "\u03c0\u03bf\u03b9\u03b7\u03c4\u03ae\u03c2, \u03c0\u03bf\u03b9\u03b7\u03c4\u03bf\u1fe6, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:37",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 48,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "body",
+      "review_count": 0,
+      "word": "\u03c3\u1ff6\u03bc\u03b1, \u03c3\u03ce\u03bc\u03b1\u03c4\u03bf\u03c2, \u03c4\u03cc",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:37",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 49,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "art, skill",
+      "review_count": 0,
+      "word": "\u03c4\u03ad\u03c7\u03bd\u03b7, \u03c4\u03ad\u03c7\u03bd\u03b7\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:38",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 50,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "guard",
+      "review_count": 0,
+      "word": "\u03c6\u03cd\u03bb\u03b1\u03be, \u03c6\u03cd\u03bb\u03b1\u03ba\u03bf\u03c2, \u1f41",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:38",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 51,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "grace",
+      "review_count": 0,
+      "word": "\u03c7\u03ac\u03c1\u03b9\u03c2, \u03c7\u03ac\u03c1\u03b9\u03c4\u03bf\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:38",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 52,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "land",
+      "review_count": 0,
+      "word": "\u03c7\u03ce\u03c1\u03b1, \u03c7\u03ce\u03c1\u03b1\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:38",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 53,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "soul",
+      "review_count": 0,
+      "word": "\u03c8\u03c5\u03c7\u03ae, \u03c8\u03c5\u03c7\u1fc6\u03c2, \u1f21",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:38",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 54,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "good",
+      "review_count": 0,
+      "word": "\u1f00\u03b3\u03b1\u03b8\u03cc\u03c2, \u1f00\u03b3\u03b1\u03b8\u03ae, \u1f00\u03b3\u03b1\u03b8\u03cc\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:39",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 55,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "unjust",
+      "review_count": 0,
+      "word": "\u1f04\u03b4\u03b9\u03ba\u03bf\u03c2, \u1f04\u03b4\u03b9\u03ba\u03bf\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:39",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 56,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "worthy",
+      "review_count": 0,
+      "word": "\u1f04\u03be\u03b9\u03bf\u03c2, \u1f00\u03be\u03af\u03b1, \u1f04\u03be\u03b9\u03bf\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:39",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 57,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "fortunate, wealthy, happy",
+      "review_count": 0,
+      "word": "\u03b5\u1f50\u03b4\u03b1\u03af\u03bc\u03c9\u03bd, \u03b5\u1f54\u03b4\u03b1\u03b9\u03bc\u03bf\u03bd",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:39",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 58,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 1,
+      "definition": "well-born, noble",
+      "review_count": 0,
+      "word": "\u03b5\u1f50\u03b3\u03b5\u03bd\u03ae\u03c2, \u03b5\u1f50\u03b3\u03b5\u03bd\u03ad\u03c2",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-07-30 22:24:39",
+      "last_reviewed": "2011-07-30 22:24:34"
+    }
+  },
+  {
+    "pk": 62,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 4,
+      "definition": "pupil, student",
+      "review_count": 0,
+      "word": "u\u010denec",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-09-02 19:54:44",
+      "last_reviewed": "2011-09-02 19:54:44"
+    }
+  },
+  {
+    "pk": 63,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 4,
+      "definition": "girl",
+      "review_count": 0,
+      "word": "punca",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-09-02 19:54:44",
+      "last_reviewed": "2011-09-02 19:54:44"
+    }
+  },
+  {
+    "pk": 64,
+    "model": "drills.word",
+    "fields": {
+      "wordlist": 4,
+      "definition": "traveller",
+      "review_count": 0,
+      "word": "potnik",
+      "average_difficulty": 40.0,
+      "tags": [],
+      "date_entered": "2011-09-02 20:07:18",
+      "last_reviewed": "2011-09-02 20:07:18"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 1,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 2,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 3,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 4,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 5,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 6,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 7,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 8,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 9,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 10,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 11,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 11,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 12,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 12,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 13,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 13,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 14,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 14,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 15,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 15,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 16,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 16,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 17,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 17,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 18,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 18,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 19,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 19,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 20,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 20,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 21,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 21,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 22,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 22,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 23,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 23,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 24,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 24,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 25,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 25,
+      "conjugation": 2
+    }
+  },
+  {
+    "pk": 26,
+    "model": "drills.verb",
+    "fields": {
+      "wordlist": 1,
+      "word": 26,
+      "conjugation": 1
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03b3\u03bd\u03cc\u03bd\u03c4\u03c9\u03bd",
+      "number": 2,
+      "person": 3,
+      "verb": 3,
+      "tense": 4,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03b4\u03b5\u03af\u03ba\u03bd\u03c5",
+      "number": 1,
+      "person": 2,
+      "verb": 5,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03b4\u03af\u03b4\u03bf\u03c5\u03bd",
+      "number": 1,
+      "person": 1,
+      "verb": 7,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03b4\u03af\u03b4\u03bf\u03c5\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 7,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03b4\u03af\u03b4\u03bf\u03c5",
+      "number": 1,
+      "person": 3,
+      "verb": 7,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03b4\u03af\u03b4\u03bf\u03c5",
+      "number": 1,
+      "person": 2,
+      "verb": 7,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f14\u03b4\u03bf\u03c5",
+      "number": 1,
+      "person": 2,
+      "verb": 7,
+      "tense": 4,
+      "voice": 2
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03b4\u03bf\u1fe6",
+      "number": 1,
+      "person": 2,
+      "verb": 7,
+      "tense": 4,
+      "voice": 2
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f36",
+      "number": 1,
+      "person": 2,
+      "verb": 8,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f94\u03b5\u03b9\u03bd",
+      "number": 1,
+      "person": 1,
+      "verb": 8,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 11,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f94\u03b5\u03b9\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 8,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 12,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f94\u03b5\u03b9",
+      "number": 1,
+      "person": 3,
+      "verb": 8,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 13,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f96\u03bc\u03b5\u03bd",
+      "number": 2,
+      "person": 1,
+      "verb": 8,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 14,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f96\u03c4\u03b5",
+      "number": 2,
+      "person": 2,
+      "verb": 8,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 15,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f96\u03c3\u03b1\u03bd",
+      "number": 2,
+      "person": 3,
+      "verb": 8,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 16,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u1f30\u03cc\u03bd\u03c4\u03c9\u03bd",
+      "number": 2,
+      "person": 3,
+      "verb": 8,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 17,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 5,
+      "form": "\u1f30\u03ad\u03bd\u03b1\u03b9",
+      "number": 3,
+      "person": 4,
+      "verb": 8,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 18,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f30\u03bc\u03af",
+      "number": 1,
+      "person": 1,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 19,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f36",
+      "number": 1,
+      "person": 2,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 20,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03c3\u03c4\u03af",
+      "number": 1,
+      "person": 3,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 21,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03c3\u03bc\u03ad\u03bd",
+      "number": 2,
+      "person": 1,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 22,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03c3\u03c4\u03ad",
+      "number": 2,
+      "person": 2,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 23,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f30\u03c3\u03af",
+      "number": 2,
+      "person": 3,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 24,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f14\u03c3\u03c4\u03b1\u03b9",
+      "number": 1,
+      "person": 3,
+      "verb": 9,
+      "tense": 3,
+      "voice": 2
+    }
+  },
+  {
+    "pk": 25,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f26\u03c3\u03b8\u03b1",
+      "number": 1,
+      "person": 2,
+      "verb": 9,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 26,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f26\u03bd",
+      "number": 1,
+      "person": 3,
+      "verb": 9,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 27,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u1f34\u03c3\u03b8\u03b9",
+      "number": 1,
+      "person": 2,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 28,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u1f14\u03c3\u03c4\u03c9\u03bd",
+      "number": 2,
+      "person": 3,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 29,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 5,
+      "form": "\u03b5\u1f36\u03bd\u03b1\u03b9",
+      "number": 3,
+      "person": 4,
+      "verb": 9,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 30,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f31\u1fb6\u03c3\u03b9",
+      "number": 2,
+      "person": 3,
+      "verb": 14,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 31,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u1f35\u03b5\u03b9",
+      "number": 1,
+      "person": 2,
+      "verb": 14,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 32,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f35\u03b5\u03b9\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 14,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 33,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f35\u03b5\u03b9",
+      "number": 1,
+      "person": 3,
+      "verb": 14,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 34,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f27\u03ba\u03b1",
+      "number": 1,
+      "person": 1,
+      "verb": 14,
+      "tense": 4,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 35,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f27\u03ba\u03b1\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 14,
+      "tense": 4,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 36,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f27\u03ba\u03b5",
+      "number": 1,
+      "person": 3,
+      "verb": 14,
+      "tense": 4,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 37,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03bf\u1f57",
+      "number": 1,
+      "person": 2,
+      "verb": 14,
+      "tense": 4,
+      "voice": 2
+    }
+  },
+  {
+    "pk": 38,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f31\u03c3\u03c4\u1fb6\u03c3\u03b9",
+      "number": 2,
+      "person": 3,
+      "verb": 15,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 39,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u1f35\u03c3\u03c4\u03b7",
+      "number": 1,
+      "person": 2,
+      "verb": 15,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 40,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03c3\u03c4\u03ac\u03bd\u03c4\u03c9\u03bd",
+      "number": 2,
+      "person": 3,
+      "verb": 15,
+      "tense": 4,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 41,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03bc\u03b5\u03bd",
+      "number": 2,
+      "person": 1,
+      "verb": 15,
+      "tense": 5,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 42,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03c4\u03b5",
+      "number": 2,
+      "person": 2,
+      "verb": 15,
+      "tense": 5,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 43,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f11\u03c3\u03c4\u1fb6\u03c3\u03b9",
+      "number": 2,
+      "person": 3,
+      "verb": 15,
+      "tense": 5,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 44,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f31\u03c3\u03c4\u03ae\u03ba\u03b7",
+      "number": 1,
+      "person": 1,
+      "verb": 15,
+      "tense": 6,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 45,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f31\u03c3\u03c4\u03ae\u03ba\u03b7\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 15,
+      "tense": 6,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 46,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03b5\u1f31\u03c3\u03c4\u03ae\u03ba\u03b5\u03b9",
+      "number": 1,
+      "person": 3,
+      "verb": 15,
+      "tense": 6,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 47,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03bc\u03b5\u03bd",
+      "number": 2,
+      "person": 1,
+      "verb": 15,
+      "tense": 6,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 48,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03c4\u03b5",
+      "number": 2,
+      "person": 2,
+      "verb": 15,
+      "tense": 6,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 49,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f15\u03c3\u03c4\u03b1\u03c3\u03b1\u03bd",
+      "number": 2,
+      "person": 3,
+      "verb": 15,
+      "tense": 6,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 50,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 5,
+      "form": "\u1f11\u03c3\u03c4\u03ac\u03bd\u03b1\u03b9",
+      "number": 3,
+      "person": 4,
+      "verb": 15,
+      "tense": 5,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 51,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03c4\u03af\u03b8\u03b5\u03b9\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 23,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 52,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f10\u03c4\u03af\u03b8\u03b5\u03b9",
+      "number": 1,
+      "person": 3,
+      "verb": 23,
+      "tense": 2,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 53,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03c4\u03af\u03b8\u03b5\u03b9",
+      "number": 1,
+      "person": 2,
+      "verb": 23,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 54,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u1f14\u03b8\u03bf\u03c5",
+      "number": 1,
+      "person": 2,
+      "verb": 23,
+      "tense": 4,
+      "voice": 2
+    }
+  },
+  {
+    "pk": 55,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 4,
+      "form": "\u03b8\u03bf\u1fe6",
+      "number": 1,
+      "person": 2,
+      "verb": 23,
+      "tense": 4,
+      "voice": 2
+    }
+  },
+  {
+    "pk": 56,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03c6\u03b7\u03bc\u03af",
+      "number": 1,
+      "person": 1,
+      "verb": 25,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 57,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03c6\u1fc4\u03c2",
+      "number": 1,
+      "person": 2,
+      "verb": 25,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 58,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03c6\u03b7\u03c3\u03af",
+      "number": 1,
+      "person": 3,
+      "verb": 25,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 59,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03c6\u03b1\u03bc\u03ad\u03bd",
+      "number": 2,
+      "person": 1,
+      "verb": 25,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 60,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03c6\u03b1\u03c4\u03ad",
+      "number": 2,
+      "person": 2,
+      "verb": 25,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 61,
+    "model": "drills.irregularverbform",
+    "fields": {
+      "mood": 1,
+      "form": "\u03c6\u03b1\u03c3\u03af",
+      "number": 2,
+      "person": 3,
+      "verb": 25,
+      "tense": 1,
+      "voice": 1
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 9,
+      "tense": 2,
+      "mood": 1,
+      "stem": "\u1f10"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 9,
+      "tense": 1,
+      "mood": 2,
+      "stem": "\u0313"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 9,
+      "tense": 1,
+      "mood": 3,
+      "stem": "\u03b5\u0313"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 9,
+      "tense": 1,
+      "mood": 4,
+      "stem": "\u1f10\u03c3"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 15,
+      "tense": 1,
+      "mood": 2,
+      "stem": "\u1f31\u03c3\u03c4\u03b5"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 2,
+      "verb": 15,
+      "tense": 1,
+      "mood": 2,
+      "stem": "\u1f31\u03c3\u03c4\u03b5"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 3,
+      "verb": 15,
+      "tense": 1,
+      "mood": 2,
+      "stem": "\u1f31\u03c3\u03c4\u03b5"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 15,
+      "tense": 4,
+      "mood": 2,
+      "stem": "\u03c3\u03c4\u03b5"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 15,
+      "tense": 4,
+      "mood": 3,
+      "stem": "\u03c3\u03c4\u03b1"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.irregularverbstem",
+    "fields": {
+      "voice": 1,
+      "verb": 25,
+      "tense": 1,
+      "mood": 2,
+      "stem": "\u03c6\u03b5"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.irregularverbaugmentedstem",
+    "fields": {
+      "verb": 14,
+      "tense": 4,
+      "stem": "\u03b5\u03b9"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 9,
+      "tense": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 9,
+      "tense": 2
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 15,
+      "tense": 4
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 25,
+      "tense": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 25,
+      "tense": 2
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 25,
+      "tense": 3
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.verbtensewithnopassive",
+    "fields": {
+      "verb": 25,
+      "tense": 4
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 27,
+      "type": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 28,
+      "type": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 29,
+      "type": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 30,
+      "type": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 31,
+      "type": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 32,
+      "type": 1
+    }
+  },
+  {
+    "pk": 7,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 33,
+      "type": 1
+    }
+  },
+  {
+    "pk": 8,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 34,
+      "type": 1
+    }
+  },
+  {
+    "pk": 9,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 35,
+      "type": 1
+    }
+  },
+  {
+    "pk": 10,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 36,
+      "type": 1
+    }
+  },
+  {
+    "pk": 11,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 37,
+      "type": 1
+    }
+  },
+  {
+    "pk": 12,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 38,
+      "type": 1
+    }
+  },
+  {
+    "pk": 13,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 39,
+      "type": 1
+    }
+  },
+  {
+    "pk": 14,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 40,
+      "type": 1
+    }
+  },
+  {
+    "pk": 15,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 41,
+      "type": 1
+    }
+  },
+  {
+    "pk": 16,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 42,
+      "type": 1
+    }
+  },
+  {
+    "pk": 17,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 43,
+      "type": 1
+    }
+  },
+  {
+    "pk": 18,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 44,
+      "type": 1
+    }
+  },
+  {
+    "pk": 19,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 45,
+      "type": 1
+    }
+  },
+  {
+    "pk": 20,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 46,
+      "type": 1
+    }
+  },
+  {
+    "pk": 21,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 47,
+      "type": 1
+    }
+  },
+  {
+    "pk": 22,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 48,
+      "type": 1
+    }
+  },
+  {
+    "pk": 23,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 49,
+      "type": 1
+    }
+  },
+  {
+    "pk": 24,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 50,
+      "type": 1
+    }
+  },
+  {
+    "pk": 25,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 51,
+      "type": 1
+    }
+  },
+  {
+    "pk": 26,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 52,
+      "type": 1
+    }
+  },
+  {
+    "pk": 27,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 1,
+      "word": 53,
+      "type": 1
+    }
+  },
+  {
+    "pk": 28,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 54,
+      "type": 3
+    }
+  },
+  {
+    "pk": 29,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 55,
+      "type": 3
+    }
+  },
+  {
+    "pk": 30,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 2,
+      "word": 56,
+      "type": 3
+    }
+  },
+  {
+    "pk": 31,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 57,
+      "type": 3
+    }
+  },
+  {
+    "pk": 32,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 1,
+      "declension": 3,
+      "word": 58,
+      "type": 3
+    }
+  },
+  {
+    "pk": 35,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 4,
+      "declension": 4,
+      "word": 62,
+      "type": 4
+    }
+  },
+  {
+    "pk": 36,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 4,
+      "declension": 5,
+      "word": 63,
+      "type": 4
+    }
+  },
+  {
+    "pk": 37,
+    "model": "drills.declinableword",
+    "fields": {
+      "wordlist": 4,
+      "declension": 4,
+      "word": 64,
+      "type": 4
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.irregulardeclinableform",
+    "fields": {
+      "case": 5,
+      "gender": 1,
+      "number": 1,
+      "form": "\u1f04\u03b4\u03b5\u03bb\u03c6\u03b5",
+      "declinable": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "drills.longpenult",
+    "fields": {
+      "declinable": 20
+    }
+  },
+  {
+    "pk": 1,
+    "model": "slovene.fleetingvowel",
+    "fields": {
+      "declinable": 35
+    }
+  },
+  {
+    "pk": 1,
+    "model": "slovene.animate",
+    "fields": {
+      "declinable": 35
+    }
+  },
+  {
+    "pk": 2,
+    "model": "slovene.animate",
+    "fields": {
+      "declinable": 37
+    }
+  }
+]

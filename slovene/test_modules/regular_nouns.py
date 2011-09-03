@@ -9,8 +9,8 @@ from slovene.declension import FourthDeclensionNoun
 from slovene.test_modules import nouns, decl_cases, SloveneTestCase
 
 class RegularFirstDeclensionTest(SloveneTestCase):
-
     def test_ucenec(self):
+        declension.verbose = True
         args = {}
         answers = [u'učenec', u'učenca', u'učenci',
                 u'učenca', u'učencev', u'učencev',
@@ -18,7 +18,21 @@ class RegularFirstDeclensionTest(SloveneTestCase):
                 u'učenca', u'učenca', u'učence',
                 u'učencu', u'učencih', u'učencih',
                 u'učencem', u'učencema', u'učenci']
-        noun = FirstDeclensionNoun(nouns['ucenec'].word.word)
+        noun = FirstDeclensionNoun(nouns['ucenec'].word.word,
+                nouns['ucenec'].id)
+        for case, answer in zip(decl_cases, answers):
+            args.update(case)
+            self.failUnlessEqual(noun.decline(**args), answer)
+
+    def test_potnik(self):
+        args = {}
+        answers = [u'potnik', u'potnika', u'potniki',
+                u'potnika', u'potnikov', u'potnikov',
+                u'potniku', u'potnikoma', u'potnikom',
+                u'potnika', u'potnika', u'potnike',
+                u'potniku', u'potnikih', u'potnikih',
+                u'potnikom', u'potnikoma', u'potniki']
+        noun = FirstDeclensionNoun(nouns['potnik'].word.word)
         for case, answer in zip(decl_cases, answers):
             args.update(case)
             self.failUnlessEqual(noun.decline(**args), answer)

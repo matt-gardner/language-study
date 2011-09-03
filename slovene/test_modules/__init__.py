@@ -4,9 +4,11 @@
 from django.test import TestCase
 
 import slovene
+from slovene import declension
 
-from language_study.drills.models import DeclinableWord
-from language_study.drills.models import Verb
+from language_study.drills.models import WordList
+
+wordlist = WordList.objects.get(name='Slovene Default Words')
 
 verbs = dict()
 
@@ -27,9 +29,11 @@ imp_cases.append({'person': 'Third Person', 'number': 'Dual'})
 imp_cases.append({'person': 'Second Person', 'number': 'Plural'})
 imp_cases.append({'person': 'Third Person', 'number': 'Plural'})
 
-DW = DeclinableWord
+DWs = wordlist.declinableword_set
 nouns = dict()
-nouns['ucenec'] = DW.objects.get(word__word__contains=u'učenec')
+nouns['potnik'] = DWs.get(word__word__contains=u'potnik')
+nouns['punca'] = DWs.get(word__word__contains=u'punca')
+nouns['ucenec'] = DWs.get(word__word__contains=u'učenec')
 
 adjectives = dict()
 
@@ -54,12 +58,13 @@ decl_cases.append({'number': 'Plural', 'case': 'Instrumental'})
 
 class SloveneTestCase(TestCase):
     def tearDown(self):
-        pass
+        declension.verbose = False
         #conjugation.verbose = False
-        #declension.verbose = False
 
+
+from slovene.test_modules import regular_nouns
 
 all_tests = []
-#all_tests.extend(vowel_augment.all_tests)
+all_tests.extend(regular_nouns.all_tests)
 
 # vim: et sw=4 sts=4
