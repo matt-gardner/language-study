@@ -228,6 +228,9 @@ class DeclinableWord(models.Model):
     declension = models.ForeignKey('Declension')
     type = models.ForeignKey('DeclinableType')
 
+    def __unicode__(self):
+        return self.word.word
+
 
 class IrregularDeclinableForm(models.Model):
     declinable = models.ForeignKey('DeclinableWord')
