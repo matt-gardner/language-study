@@ -219,7 +219,7 @@ def update_word_from_post(word, POST):
         else:
             # Need to create the noun object
             declension = Declension.objects.get(pk=POST['noun_declension'])
-            type = DeclinableType.objects.get(name='Noun')
+            type = language.declinabletype_set.get(name='Noun')
             decl = DeclinableWord(word=word, declension=declension, type=type)
             decl.save()
         # Update the rest of the stuff here (irregular forms, long penult)
@@ -264,7 +264,7 @@ def update_word_from_post(word, POST):
         else:
             # Need to create the adjective object
             declension = Declension.objects.get(pk=POST['adj_declension'])
-            type = DeclinableType.objects.get(name='Adjective')
+            type = language.declinabletype_set.get(name='Adjective')
             decl = DeclinableWord(word=word, declension=declension, type=type)
             decl.save()
         # Update the rest of the stuff here (irregular forms, long penult)
@@ -423,7 +423,7 @@ def save_tenses_with_no_passive(language, verb, tenses_with_no_passive, POST):
 
 
 def word_has_declinable_type(word, decl_type):
-    noun_type = DeclinableType.objects.get(name=decl_type)
+    noun_type = word.wordlist.language.declinabletype_set.get(name=decl_type)
     try:
         decl = word.declinableword
         if decl.type == noun_type:
