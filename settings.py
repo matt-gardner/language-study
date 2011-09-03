@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'language_study.drills',
     'language_study.attic_greek',
+    'language_study.slovene',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )
