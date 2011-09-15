@@ -110,6 +110,7 @@ def get_word_info_from_session(request):
     ret_val['word'] = vars(words[current_word])
     ret_val['word_number'] = current_word + 1
     ret_val['num_words'] = num_words
+    # This seems inefficient...
     ret_val['difficulty'] = sum([c.difficulty for c in words])/len(words)
     return ret_val
 

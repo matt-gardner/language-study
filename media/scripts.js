@@ -182,10 +182,12 @@ function new_word(data) {
     } else {
         show_text += "definition";
     }
-    if ($("#id_show_definition").val().substring(0, 4) == "Hide") {
+    var $showdef = $("#id_show_definition a");
+    var showdef_str = $("#id_show_definition a").text();
+    if ($("#id_show_definition a").text().substring(0, 4) == "Hide") {
         $(".review_definition .text").toggle(0);
     }
-    $("#id_show_definition").val(show_text);
+    $("#id_show_definition a").text(show_text);
     if (data.by_definition) {
         switch_text(data.word.definition, data.word.word);
     } else {
@@ -195,7 +197,7 @@ function new_word(data) {
     reset_word_number(data.word_number, data.num_words, data.word.difficulty);
     reset_word_difficulty(data.word.difficulty, data.word.review_count);
     reset_word_tags(data.word.tags);
-    reset_list_difficulty(data.average_difficulty);
+    reset_list_difficulty(data.difficulty);
 }
 function switch_text(word, definition) {
     $(".review_word .text").html(word);

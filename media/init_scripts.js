@@ -3,13 +3,13 @@ $(document).ready(function() {
 /* Vocab review scripts */
 $("#id_show_definition").click(function () {
     $(".review_definition .text").toggle(0);
-    var current_text = $("#id_show_definition").val()
+    var current_text = $.trim($("#id_show_definition a").text());
     if (current_text.substring(0, 4) == "Show") {
         var new_text = "Hide" + current_text.substring(4);
-        $("#id_show_definition").val(new_text);
+        $("#id_show_definition a").text(new_text);
     } else {
         var new_text = "Show" + current_text.substring(4);
-        $("#id_show_definition").val(new_text);
+        $("#id_show_definition a").text(new_text);
     }
 });
 $("#id_next_word").click(function () {
