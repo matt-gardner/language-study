@@ -107,14 +107,14 @@ div.word_tags
 div.review_word
 {
     width: 100%;
-    height: 200px;
+    height: 125px;
     background:#eff;
     display:table;
 }
 div.review_definition
 {
     width: 100%;
-    height: 200px;
+    height: 125px;
     background:#eef;
     display:table;
 }
@@ -130,6 +130,7 @@ div.text
     color: #222;
 }
 .ui-button-text {
+    font-size: 1.25em;
     padding: .25em .5em;
 }
 div.drill_form_buttons
@@ -138,11 +139,13 @@ div.drill_form_buttons
     margin-right:auto;
     text-align:center;
 }
-div.drill_form_buttons ul
-{
+div.drill_form_buttons ul {
     list-style-type:none;
     padding:0;
     margin-left:0;
+}
+div.second_row_buttons {
+    margin-top: 10px;
 }
 
 /* Three column layout stuff */
@@ -164,7 +167,7 @@ div.drill_form_buttons ul
     position: relative;
     padding: 0;
     overflow: hidden;
-    height: 400px;
+    height: 250px;
 }
 /* These settings affect the right column */
 .three-columns {
