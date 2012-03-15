@@ -195,7 +195,7 @@ function new_word(data) {
     }
     reset_drill_button(data.word);
     reset_word_number(data.word_number, data.num_words);
-    reset_word_difficulty(data.word.difficulty, data.word.review_count);
+    reset_word_difficulty(data.word.time_in_memory, data.word.review_count);
     reset_word_tags(data.word.tags);
 }
 function switch_text(word, definition) {
@@ -218,9 +218,8 @@ function reset_word_number(word_number, num_words) {
     $(".words").html(html);
 }
 function reset_word_difficulty(difficulty, review_count) {
-    $(".word_difficulty").html("This word's difficulty: " +
-            difficulty.toFixed(2) + '; Times reviewed: ' +
-            review_count);
+    $(".word_difficulty").html("Estimated time in memory: " + difficulty +
+            '; Times reviewed: ' + review_count);
 }
 
 function reset_word_tags(tags) {

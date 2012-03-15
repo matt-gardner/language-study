@@ -102,6 +102,7 @@ class AjaxWord(object):
         self.word = word.word
         self.definition = word.definition
         self.review_count = word.review_count
+        self.time_in_memory = Word.REVIEW_PERIODS[word.memory_index][0]
         self.id = word.id
         self.tags = None
         try:

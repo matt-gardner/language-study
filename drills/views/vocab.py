@@ -68,7 +68,7 @@ def next_word(request, listname, correct=None):
     if correct:
         word = set_reviewed_from_session(request, listname, correct)
         ajaxword = request.session['words'][request.session['word-number']]
-        ajaxword.memory_index = Word.REVIEW_PERIODS[word.memory_index][0]
+        ajaxword.time_in_memory = Word.REVIEW_PERIODS[word.memory_index][0]
         ajaxword.review_count = word.review_count
     request.session['word-number'] += 1
     return return_word_from_session(request)

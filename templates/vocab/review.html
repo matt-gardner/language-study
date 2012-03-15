@@ -17,15 +17,12 @@
     <div class="words">
         Reviewing word {{ word_number }} out of {{ num_words }}
     </div>
-    <div class="wordlist_difficulty">
-        Average difficulty of words: {{ average_difficulty|floatformat:"2" }}
-    </div>
     {% endif %}
 
     {% endblock %}
 
     <div class="word_difficulty">
-        This word's difficulty: {{ word.difficulty|floatformat:"2" }};
+        Estimated time in memory: {{ word.time_in_memory }};
         Times reviewed: {{ word.review_count }}
     </div>
 {% endblock %}
