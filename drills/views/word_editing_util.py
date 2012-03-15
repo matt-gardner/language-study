@@ -306,8 +306,12 @@ class WordForm(forms.Form):
             widget=forms.TextInput({'readonly': True, 'size': 50}))
     last_reviewed = forms.CharField(
             widget=forms.TextInput({'readonly': True, 'size': 50}))
-    average_difficulty = forms.CharField(
-            widget=forms.TextInput({'readonly': True, 'size': 5}))
+    last_wrong = forms.CharField(
+            widget=forms.TextInput({'readonly': True, 'size': 50}))
+    memory_index = forms.CharField(
+            widget=forms.TextInput({'readonly': True, 'size': 15}))
+    next_review = forms.CharField(
+            widget=forms.TextInput({'readonly': True, 'size': 50}))
     review_count = forms.CharField(
             widget=forms.TextInput({'readonly': True, 'size': 5}))
     verb = forms.BooleanField()
@@ -346,7 +350,9 @@ class WordForm(forms.Form):
         self.fields['definition'].initial = word.definition
         self.fields['date_entered'].initial = word.date_entered
         self.fields['last_reviewed'].initial = word.last_reviewed
-        self.fields['average_difficulty'].initial = word.average_difficulty
+        self.fields['last_wrong'].initial = word.last_wrong
+        self.fields['memory_index'].initial = word.memory_index
+        self.fields['next_review'].initial = word.next_review
         self.fields['review_count'].initial = word.review_count
         try:
             verb = word.verb
@@ -376,7 +382,9 @@ class WordForm(forms.Form):
         hard = Word.DIFFICULTY_SCORES['hard']
         self.fields['date_entered'].initial = now
         self.fields['last_reviewed'].initial = now
-        self.fields['average_difficulty'].initial = hard
+        self.fields['last_wrong'].initial = now
+        self.fields['memory_index'].initial = 0
+        self.fields['next_review'].initial = now
         self.fields['review_count'].initial = 0
 
 # vim: et sw=4 sts=4

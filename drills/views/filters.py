@@ -36,12 +36,12 @@ class FilterForm(forms.Form):
 def possible_word_filters():
     possible_filters = [('None', '-------')]
     possible_filters.append(('tag', 'Tag'))
-    possible_filters.append(('difficulty', 'Difficulty'))
     possible_filters.append(('startswith', 'Word starts With'))
     possible_filters.append(('contains', 'Word contains'))
     possible_filters.append(('defstartswith', 'Text starts With'))
     possible_filters.append(('defcontains', 'Text contains'))
     possible_filters.append(('lastreviewed', 'Last Reviewed'))
+    possible_filters.append(('nextreview', 'Next Review'))
     possible_filters.append(('timesreviewed', 'Times Reviewed'))
     possible_filters.append(('dateentered', 'Date Entered'))
     return possible_filters
@@ -50,8 +50,6 @@ def possible_word_filters():
 def get_word_filter_by_name(name):
     if name == 'tag':
         return TagFilter
-    if name == 'difficulty':
-        return DifficultyFilter
     if name == 'startswith':
         return StartsWithFilter
     if name == 'contains':
@@ -62,6 +60,8 @@ def get_word_filter_by_name(name):
         return DefContainsFilter
     if name == 'lastreviewed':
         return LastReviewedFilter
+    if name == 'nextreview':
+        return NextReviewFilter
     if name == 'timesreviewed':
         return TimesReviewedFilter
     if name == 'dateentered':
@@ -283,16 +283,6 @@ class ValueComparatorFilterForm(forms.Form):
                 'update_value_comp_filter(%d)' % id
 
 
-class DifficultyFilter(ValueComparatorFilter):
-    def __init__(self, id, wordlist):
-        super(DifficultyFilter, self).__init__(id, wordlist)
-        self.label = 'Difficulty'
-        self.filter_arg = 'average_difficulty'
-        self.value_choices = [(i*5, i*5) for i in range(9)]
-        self.current_value = self.value_choices[0][0]
-        self.remake_form()
-
-
 class TimesReviewedFilter(ValueComparatorFilter):
     def __init__(self, id, wordlist):
         super(TimesReviewedFilter, self).__init__(id, wordlist)
@@ -447,6 +437,14 @@ class LastReviewedFilter(DateFilter):
         super(LastReviewedFilter, self).__init__(id, wordlist)
         self.label = 'Last Reviewed'
         self.filter_arg = 'last_reviewed'
+        self.remake_form()
+
+
+class NextReviewFilter(DateFilter):
+    def __init__(self, id, wordlist):
+        super(NextReviewFilter, self).__init__(id, wordlist)
+        self.label = 'Next Review'
+        self.filter_arg = 'next_review'
         self.remake_form()
 
 

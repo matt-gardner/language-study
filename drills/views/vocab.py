@@ -34,8 +34,6 @@ def main(request, listname):
     context['num_words'] = len(words)
 
     if words:
-        ave_difficulty = words.aggregate(ave=Avg('average_difficulty'))['ave']
-        context['average_difficulty'] = ave_difficulty
         word_number = request.session.get('word-number', 0)
         if word_number >= len(words):
             word_number = 0
@@ -66,12 +64,11 @@ def reorder_word_list(request, listname, ordering):
     return return_word_from_session(request)
 
 
-def next_word(request, listname, difficulty=None):
-    if difficulty:
-        word = update_word_difficulty_from_session(request, listname,
-                difficulty)
+def next_word(request, listname, correct=None):
+    if correct:
+        word = set_reviewed_from_session(request, listname, correct)
         ajaxword = request.session['words'][request.session['word-number']]
-        ajaxword.difficulty = word.average_difficulty
+        ajaxword.memory_index = Word.REVIEW_PERIODS[word.memory_index][0]
         ajaxword.review_count = word.review_count
     request.session['word-number'] += 1
     return return_word_from_session(request)
@@ -110,8 +107,6 @@ def get_word_info_from_session(request):
     ret_val['word'] = vars(words[current_word])
     ret_val['word_number'] = current_word + 1
     ret_val['num_words'] = num_words
-    # This seems inefficient...
-    ret_val['difficulty'] = sum([c.difficulty for c in words])/len(words)
     return ret_val
 
 
@@ -120,12 +115,13 @@ def get_word_info_from_session(request):
 
 def valid_orderings():
     orderings = []
+    orderings.append({'db_name': 'random', 'name': 'Randomize'})
+    orderings.append({'db_name': 'next_review', 'name': 'Next Needing Review'})
     orderings.append({'db_name': 'date_entered', 'name': 'Date Entered'})
     orderings.append({'db_name': 'alphabetical', 'name': 'Alphabetical'})
-    orderings.append({'db_name': 'random', 'name': 'Randomize'})
     orderings.append({'db_name': 'last_reviewed', 'name': 'Last Reviewed'})
+    orderings.append({'db_name': 'last_wrong', 'name': 'Last Wrong'})
     orderings.append({'db_name': 'least_reviewed', 'name': 'Least Reviewed'})
-    orderings.append({'db_name': 'difficulty', 'name': 'Difficulty'})
     return orderings
 
 
@@ -140,23 +136,27 @@ def reorder_words_in_session(request, listname, word_number=0):
     words, _ = filter_words(wordlist.word_set, filters)
     if ordering == 'alphabetical':
         words = words.order_by('word')
+    elif ordering == 'next_review':
+        words = words.order_by('next_review')
     elif ordering == 'last_reviewed':
         words = words.order_by('last_reviewed')
+    elif ordering == 'last_wrong':
+        words = words.order_by('-last_wrong')
     elif ordering == 'least_reviewed':
         words = words.order_by('review_count')
     elif ordering == 'date_entered':
         words = words.order_by('date_entered')
-    elif ordering == 'difficulty':
-        words = words.order_by('-average_difficulty')
     request.session['words'] = [AjaxWord(c) for c in words]
     request.session['word-number'] = word_number
 
 
-def update_word_difficulty_from_session(request, listname, difficulty):
+def set_reviewed_from_session(request, listname, correct):
     wordlist = request.user.wordlist_set.get(name=listname)
     word = wordlist.word_set.get(pk=request.session['word-id'])
-    word.update_difficulty(Word.DIFFICULTY_SCORES[difficulty])
-    word.reviewed()
+    if correct == 'correct': correct = True
+    if correct == 'wrong': correct = False
+    if correct == 'neither': correct = None
+    word.reviewed(correct)
     return word
 
 

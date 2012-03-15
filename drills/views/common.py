@@ -101,7 +101,6 @@ class AjaxWord(object):
     def __init__(self, word):
         self.word = word.word
         self.definition = word.definition
-        self.difficulty = word.average_difficulty
         self.review_count = word.review_count
         self.id = word.id
         self.tags = None

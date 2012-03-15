@@ -157,12 +157,15 @@ def add_form_row(request, listname, number, word_id, func, *args):
 
 # TODO: make this a managed transaction, to speed things up; it's slow
 def update_word_from_post(word, POST):
-    # This is the only field we need to actually set for new words that we
-    # don't for editing words, because the other required fields have good
-    # defaults
-    word.last_reviewed = POST['last_reviewed']
     word.word = POST['word']
     word.definition = POST['definition']
+    word.date_entered = POST['date_entered']
+    word.last_reviewed = POST['last_reviewed']
+    word.last_wrong = POST['last_wrong']
+    word.memory_index = POST['memory_index']
+    word.next_review = POST['next_review']
+    word.review_count = POST['review_count']
+
     word.save()
 
     language = word.wordlist.language

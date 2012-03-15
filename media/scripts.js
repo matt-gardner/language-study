@@ -161,10 +161,10 @@ function set_by_definition() {
 }
 
 /* Get word functions */
-function next_word(difficulty) {
+function next_word(correct) {
     var link = "next-word/"
-    if (difficulty) {
-        link += difficulty
+    if (correct) {
+        link += correct
     }
     $.getJSON(link, {}, function(data) {
         new_word(data);
@@ -194,10 +194,9 @@ function new_word(data) {
         switch_text(data.word.word, data.word.definition);
     }
     reset_drill_button(data.word);
-    reset_word_number(data.word_number, data.num_words, data.word.difficulty);
+    reset_word_number(data.word_number, data.num_words);
     reset_word_difficulty(data.word.difficulty, data.word.review_count);
     reset_word_tags(data.word.tags);
-    reset_list_difficulty(data.difficulty);
 }
 function switch_text(word, definition) {
     $(".review_word .text").html(word);
@@ -223,12 +222,9 @@ function reset_word_difficulty(difficulty, review_count) {
             difficulty.toFixed(2) + '; Times reviewed: ' +
             review_count);
 }
+
 function reset_word_tags(tags) {
     $(".word_tags").html(tags);
-}
-function reset_list_difficulty(difficulty) {
-    $(".wordlist_difficulty").html('Average difficulty of words: ' +
-            difficulty.toFixed(2));
 }
 
 /* Tags */

@@ -9,7 +9,7 @@ case = '(?P<case>[^/]+)'
 choice = '(?P<choice>[^/]+)'
 comp = '(?P<comp>[^/]+)'
 day = '(?P<day>[^/]+)'
-difficulty = '(?P<difficulty>[^/]+)'
+correct = '(?P<correct>[^/]+)'
 gender = '(?P<gender>[^/]+)'
 id = '(?P<id>[^/]+)'
 listname = '(?P<listname>[^/]+)'
@@ -42,7 +42,7 @@ urlpatterns = patterns('',
         'drills.views.vocab.add_tag'),
     (r'^'+listname+'/vocab/next-word/$',
         'drills.views.vocab.next_word'),
-    (r'^'+listname+'/vocab/next-word/'+difficulty+'$',
+    (r'^'+listname+'/vocab/next-word/'+correct+'$',
         'drills.views.vocab.next_word'),
     (r'^'+listname+'/vocab/prev-word/$',
         'drills.views.vocab.prev_word'),

@@ -19,13 +19,13 @@ $("#id_prev_word").click(function () {
     prev_word();
 });
 $("#id_easy").click(function () {
-    next_word('easy');
+    next_word('correct');
 });
 $("#id_medium").click(function () {
-    next_word('medium');
+    next_word('neither');
 });
 $("#id_hard").click(function () {
-    next_word('hard');
+    next_word('wrong');
 });
 $("input[name=review_order]").click(function() {
     reorder_words($("input[name=review_order]:checked").val());

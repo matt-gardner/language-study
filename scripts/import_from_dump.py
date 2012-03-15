@@ -7,6 +7,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'language_study.settings'
 
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.db.models.fields import DateTimeField # a bit of a hack...
 
 from language_study.drills.models import *
 
@@ -24,26 +25,6 @@ def main(filename, username):
     # Organize the JSON dump by model type
     for item in json:
         types[item['model']].append(item)
-    # Match verbs and declinable words with data from the words, removing the
-    # word so we can insert just once
-    for verb in types.get('drills.verb', []):
-        pk = verb['pk']
-        # this is slow, but we don't run this script much, so it's ok
-        for word in types['drills.word']:
-            if word['pk'] == pk:
-                w = word
-                break
-        verb['fields'].update(w['fields'])
-        types['drills.word'].remove(w)
-    for dw in types.get('drills.declinableword', []):
-        pk = dw['pk']
-        # this is slow, but we don't run this script much, so it's ok
-        for word in types['drills.word']:
-            if word['pk'] == pk:
-                w = word
-                break
-        dw['fields'].update(w['fields'])
-        types['drills.word'].remove(w)
     # Rebuild the models in the necessary order
     # Languages and associated models first
     languages = dict()
@@ -69,7 +50,7 @@ def main(filename, username):
                 language=languages[gender['fields']['language']])
         x.save()
     declinabletypes = dict()
-    for dt in types.get('drills.denclinabletype', []):
+    for dt in types.get('drills.declinabletype', []):
         declinabletypes[dt['pk']] = DeclinableType(name=dt['fields']['name'],
                 language=languages[dt['fields']['language']])
         declinabletypes[dt['pk']].save()
@@ -103,7 +84,6 @@ def main(filename, username):
                 language=languages[wordlist['fields']['language']])
         wordlists[wordlist['pk']].save()
     now = datetime.now()
-    hard = Word.DIFFICULTY_SCORES['hard']
     tags = dict()
     for tag in types.get('drills.tag', []):
         args = dict()
@@ -111,55 +91,71 @@ def main(filename, username):
         args['name'] = tag['fields']['name']
         tags[tag['pk']] = Tag(**args)
         tags[tag['pk']].save()
-    # Then the words themselves
+    # Now words
+    words = dict()
     for word in types.get('drills.word', []):
+        word_pk = word['pk']
         word = word['fields']
         args = dict()
         args['wordlist'] = wordlists[word['wordlist']]
         args['word'] = word['word']
         args['definition'] = word['definition']
+        args['date_entered'] = word.get('date_entered', now)
         args['last_reviewed'] = word.get('last_reviewed', now)
-        # This is ignored because of auto_now_add
-        #args['date_entered'] = word.get('date_entered', now)
-        args['average_difficulty'] = word.get('average_difficulty', hard)
+        args['last_wrong'] = word.get('last_wrong', now)
+        # Try to handle the old "average_difficulty" field gracefully
+        if 'average_difficulty' in word:
+            difficulty = word['average_difficulty']
+            if difficulty < 1:
+                memory_index = 9
+            elif difficulty < 2:
+                memory_index = 8
+            elif difficulty < 5:
+                memory_index = 7
+            elif difficulty < 10:
+                memory_index = 6
+            elif difficulty < 20:
+                memory_index = 5
+            elif difficulty < 25:
+                memory_index = 4
+            elif difficulty < 30:
+                memory_index = 3
+            else:
+                memory_index = 0
+            args['memory_index'] = memory_index
+            # HACK!  This is to get a datetime object without having to parse
+            # the string myself.
+            hack = DateTimeField()
+            last_reviewed = hack.to_python(args['last_reviewed'])
+            args['next_review'] = (last_reviewed +
+                    Word.REVIEW_PERIODS[memory_index][1])
+        else:
+            args['memory_index'] = word.get('memory_index', 0)
+            args['next_review'] = word.get('next_review', now)
         args['review_count'] = word.get('review_count', 0)
-        w = Word(**args)
-        w.save()
+        words[word_pk] = Word(**args)
+        words[word_pk].save()
         for tag_id in word['tags']:
             w.tags.add(tags[tag_id])
+    # Verbs
     for verb in types.get('drills.verb', []):
         verb = verb['fields']
         args = dict()
-        args['conjugation'] = conjugations[verb['conjugation']]
         args['wordlist'] = wordlists[verb['wordlist']]
-        args['word'] = verb['word']
-        args['definition'] = verb['definition']
-        args['last_reviewed'] = verb.get('last_reviewed', now)
-        # This is ignored because of auto_now_add
-        #args['date_entered'] = verb.get('date_entered', now)
-        args['average_difficulty'] = verb.get('average_difficulty', hard)
-        args['review_count'] = verb.get('review_count', 0)
+        args['conjugation'] = conjugations[verb['conjugation']]
+        args['word'] = words[verb['word']]
         v = Verb(**args)
         v.save()
-        for tag_id in verb['tags']:
-            v.tags.add(tags[tag_id])
+    # Declinable words
     for dw in types.get('drills.declinableword', []):
         dw = dw['fields']
         args = dict()
+        args['wordlist'] = wordlists[dw['wordlist']]
         args['declension'] = declensions[dw['declension']]
         args['type'] = declinabletypes[dw['type']]
-        args['wordlist'] = wordlists[dw['wordlist']]
-        args['word'] = dw['word']
-        args['definition'] = dw['definition']
-        args['last_reviewed'] = dw.get('last_reviewed', now)
-        # This is ignored because of auto_now_add
-        #args['date_entered'] = dw.get('date_entered', now)
-        args['average_difficulty'] = dw.get('average_difficulty', hard)
-        args['review_count'] = dw.get('review_count', 0)
+        args['word'] = words[dw['word']]
         d = DeclinableWord(**args)
         d.save()
-        for tag_id in dw['tags']:
-            d.tags.add(tags[tag_id])
     # And finally the stats (TODO)
     transaction.commit()
 
