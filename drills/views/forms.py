@@ -316,7 +316,7 @@ def get_matching_verb_forms(language, verb, form):
 def get_matching_noun_forms(language, word, form):
     decl_cls = __import__(language.module_name)\
             .mapping[word.declension.name][word.type.name]
-    decl = decl_cls(word.word.word)
+    decl = decl_cls(word.word.word, word.id)
     genders = language.gender_set.all()
     numbers = language.number_set.all()
     cases = language.case_set.all()
