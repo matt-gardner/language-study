@@ -32,6 +32,10 @@ def main(request):
     context['greeting'] = 'Hello %s!' % request.user.first_name
     lists = request.user.wordlist_set.all()
     context['wordlists'] = lists
+    # Reset filters here - potentially nasty hidden functionality, but it works
+    # for my personal use on a smartphone.  At least this isn't too
+    # unreasonable to expect to happen, anyway.
+    del request.session['filters']
     return render_to_response('lists/main.html', context)
 
 
