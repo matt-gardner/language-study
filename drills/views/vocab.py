@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils import simplejson
 
+from datetime import datetime
+from random import Random
 from random import shuffle
 
 from language_study.drills.views import common
@@ -15,11 +17,28 @@ from language_study.drills.views.common import filter_words
 from language_study.drills.views.common import render_tags
 from language_study.drills.models import Word
 
-# Main vocab view
-#################
+# Main vocab views
+##################
 
 @login_required
 def main(request, listname):
+    context = base_context(request)
+    context['nav_page'] = 'nav_vocab'
+
+    wordlist = request.user.wordlist_set.get(name=listname)
+    context['wordlist'] = wordlist
+
+    words = wordlist.word_set
+    context['num_words'] = words.count()
+    word, num_to_review = get_next_word(words)
+    context['num_to_review'] = num_to_review
+    context['word'] = word
+
+    return render_to_response('vocab/review.html', context)
+
+
+@login_required
+def manual(request, listname):
     context = base_context(request)
     context['nav_page'] = 'nav_vocab'
 
@@ -48,7 +67,7 @@ def main(request, listname):
     context['orderings'] = valid_orderings()
     context['ordering'] = request.session.get('ordering', 'date_entered')
 
-    return render_to_response('vocab/all_words.html', context)
+    return render_to_response('vocab/manual.html', context)
 
 
 # Ajax requests
@@ -64,7 +83,16 @@ def reorder_word_list(request, listname, ordering):
     return return_word_from_session(request)
 
 
-def next_word(request, listname, correct=None):
+def next_word(request, listname, correct):
+    if correct:
+        word = set_reviewed_from_session(request, listname, correct)
+        ajaxword = request.session['words'][request.session['word-number']]
+        ajaxword.time_in_memory = Word.REVIEW_PERIODS[word.memory_index][0]
+        ajaxword.review_count = word.review_count
+    return return_next_needing_review(request)
+
+
+def next_word_manual(request, listname, correct=None):
     if correct:
         word = set_reviewed_from_session(request, listname, correct)
         ajaxword = request.session['words'][request.session['word-number']]
@@ -112,6 +140,23 @@ def get_word_info_from_session(request):
 
 # Helper methods
 ################
+
+def get_next_word(words):
+    now = datetime.now()
+    needing_review = words.filter(next_review__lte=now).order_by('next_review')
+    num_needing_review = needing_review.count()
+    if num_needing_review == 0:
+        return None, num_needing_review
+    word_num = 0
+    r = Random()
+    while True:
+        if r.random() < .3:
+            break
+        word_num += 1
+        if word_num == num_needing_review:
+            word_num = 0
+    return AjaxWord(needing_review[word_num]), num_needing_review
+
 
 def valid_orderings():
     orderings = []

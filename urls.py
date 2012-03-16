@@ -8,8 +8,8 @@ from django.conf import settings
 case = '(?P<case>[^/]+)'
 choice = '(?P<choice>[^/]+)'
 comp = '(?P<comp>[^/]+)'
-day = '(?P<day>[^/]+)'
 correct = '(?P<correct>[^/]+)'
+day = '(?P<day>[^/]+)'
 gender = '(?P<gender>[^/]+)'
 id = '(?P<id>[^/]+)'
 listname = '(?P<listname>[^/]+)'
@@ -19,6 +19,7 @@ name = '(?P<name>[^/]+)'
 number = '(?P<number>[^/]+)'
 ordering = '(?P<ordering>[^/]+)'
 person = '(?P<person>[^/]+)'
+review_style = '(?P<review_style>[^/]+)'
 string = '(?P<string>[^/]+)'
 tag = '(?P<tag>[^/]+)'
 tense = '(?P<tense>[^/]+)'
@@ -38,17 +39,21 @@ urlpatterns = patterns('',
     # Vocab urls
     (r'^'+listname+'/vocab/$',
         'drills.views.vocab.main'),
-    (r'^'+listname+'/vocab/add-tag$',
-        'drills.views.vocab.add_tag'),
-    (r'^'+listname+'/vocab/next-word/$',
-        'drills.views.vocab.next_word'),
     (r'^'+listname+'/vocab/next-word/'+correct+'$',
         'drills.views.vocab.next_word'),
-    (r'^'+listname+'/vocab/prev-word/$',
+    (r'^'+listname+'/vocab/manual$',
+        'drills.views.vocab.manual'),
+    (r'^'+listname+'/vocab/manual/add-tag$',
+        'drills.views.vocab.add_tag'),
+    (r'^'+listname+'/vocab/manual/next-word/$',
+        'drills.views.vocab.next_word_manual'),
+    (r'^'+listname+'/vocab/manual/next-word/'+correct+'$',
+        'drills.views.vocab.next_word_manual'),
+    (r'^'+listname+'/vocab/manual/prev-word/$',
         'drills.views.vocab.prev_word'),
-    (r'^'+listname+'/vocab/reorder-word-list/'+ordering+'$',
+    (r'^'+listname+'/vocab/manual/reorder-word-list/'+ordering+'$',
         'drills.views.vocab.reorder_word_list'),
-    (r'^'+listname+'/vocab/set-by-definition/'+value+'$',
+    (r'^'+listname+'/vocab/manual/set-by-definition/'+value+'$',
         'drills.views.vocab.set_by_definition'),
 
     # Filters and tags

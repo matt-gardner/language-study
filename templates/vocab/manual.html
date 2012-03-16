@@ -1,40 +1,100 @@
 {% extends "vocab/review.html" %}
 
+{% block word_list_info %}
+
+{% if wordlist %}
+<div class="words">
+  Reviewing word <span id="id_word_number">{{ num_to_review }}</span> out of
+  <span id="id_num_words">{{ num_words }}</span>
+</div>
+{% endif %}
+
+{% endblock %}
+
 {% block options %}
 <table>
-	<tr>
-		<td>
-			<label for="id_by_definition" class="option">
-				<input type="checkbox"
-				name="by_definition"
-				value="by_definition"
-				class="option"
-				id="id_by_definition"
-				{% if by_definition %}
-				checked
-				{% endif %}
-			   	/>
-				By Definition
-			</label>
-		</td>
-	</tr>
-	{% for order in orderings %}
-	<tr>
-		<td>
-			<label for="id_{{ order.db_name }}" class="option">
-				<input type="radio"
-				name="review_order"
-				value="{{ order.db_name }}"
-				class="option"
-				id="id_{{ order.db_name }}"
-				{% ifequal ordering order.db_name %}
-				checked
-				{% endifequal %}
-			   	/>
-				{{ order.name }}
-			</label>
-		</td>
-	</tr>
-	{% endfor %}
+  <tr>
+    <td>
+      <label for="id_by_definition" class="option">
+        <input type="checkbox"
+        name="by_definition"
+        value="by_definition"
+        class="option"
+        id="id_by_definition"
+        {% if by_definition %}
+        checked
+        {% endif %}
+           />
+        By Definition
+      </label>
+    </td>
+  </tr>
+  {% for order in orderings %}
+  <tr>
+    <td>
+      <label for="id_{{ order.db_name }}" class="option">
+        <input type="radio"
+            name="review_order"
+            value="{{ order.db_name }}"
+            class="option"
+            id="id_{{ order.db_name }}"
+            {% ifequal ordering order.db_name %} checked {% endifequal %} />
+        {{ order.name }}
+      </label>
+    </td>
+  </tr>
+  {% endfor %}
 </table>
 {% endblock %}
+
+{% block right_column %}
+<div class="tags">
+  <div class="filter">
+    <table>
+      <tbody id="id_filter_form">
+        {{ filter|safe }}
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <div class="word_tags">
+    {{ word_tags|safe }}
+  </div>
+  <div class="add_tag">
+    <select id="id_add_tag">
+      {% for tag in tags %}
+      <option value="{{ tag }}"> {{ tag }} </option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Add tag" id="id_add_tag_button" />
+  </div>
+  <div class="create_tag">
+    Create new tag:<br>
+    <form method="post" action="add-tag"> {% csrf_token %}
+      <input type="text" name="name" maxlength="128" />
+      <input type="submit" value="Create Tag" id="id_create_tag"/>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block top_row_buttons %}
+<div>
+  <div class="ui-button ui-state-default" id="id_prev_word">
+    <a class="ui-button-text" accesskey=p> Previous Word </a>
+  </div>
+  <div class="ui-button ui-state-default" id="id_show_definition"/>
+    <a class="ui-button-text" accesskey=s>
+      {% if not by_definition %}
+      Show definition
+      {% else %}
+      Show word
+      {% endif %}
+    </a>
+  </div>
+  <div class="ui-button ui-state-default" id="id_next_word">
+    <a class="ui-button-text" accesskey=n> Next Word </a>
+  </div>
+</div>
+{% endblock %}
+
