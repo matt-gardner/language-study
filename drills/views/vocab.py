@@ -28,10 +28,9 @@ def main(request, listname):
     wordlist = request.user.wordlist_set.get(name=listname)
     context['wordlist'] = wordlist
 
-    words = wordlist.word_set
-    context['num_words'] = words.count()
-    word, num_to_review = get_next_word(words)
-    context['num_to_review'] = num_to_review
+    word, num_to_review, total = get_next_word(request, listname)
+    context['first_number'] = num_to_review
+    context['second_number'] = total
     context['word'] = word
 
     return render_to_response('vocab/review.html', context)
@@ -50,7 +49,6 @@ def manual(request, listname):
     filters = request.session.get('filters', [])
     words, filter_form = filter_words(words, filters)
     context['filter'] = filter_form
-    context['num_words'] = len(words)
 
     if words:
         word_number = request.session.get('word-number', 0)
@@ -85,11 +83,13 @@ def reorder_word_list(request, listname, ordering):
 
 def next_word(request, listname, correct):
     if correct:
-        word = set_reviewed_from_session(request, listname, correct)
-        ajaxword = request.session['words'][request.session['word-number']]
-        ajaxword.time_in_memory = Word.REVIEW_PERIODS[word.memory_index][0]
-        ajaxword.review_count = word.review_count
-    return return_next_needing_review(request)
+        set_reviewed_from_session(request, listname, correct)
+    word, num_to_review, total = get_next_word(request, listname)
+    ret_val = dict()
+    ret_val['word'] = vars(word)
+    ret_val['first_number'] = num_to_review
+    ret_val['second_number'] = total
+    return HttpResponse(simplejson.dumps(ret_val))
 
 
 def next_word_manual(request, listname, correct=None):
@@ -133,20 +133,23 @@ def get_word_info_from_session(request):
     words[current_word].get_tags()
     ret_val['by_definition'] = request.session.get('by-definition', False)
     ret_val['word'] = vars(words[current_word])
-    ret_val['word_number'] = current_word + 1
-    ret_val['num_words'] = num_words
+    ret_val['first_number'] = current_word + 1
+    ret_val['second_number'] = num_words
     return ret_val
 
 
 # Helper methods
 ################
 
-def get_next_word(words):
+def get_next_word(request, listname):
     now = datetime.now()
+    wordlist = request.user.wordlist_set.get(name=listname)
+    words = wordlist.word_set
     needing_review = words.filter(next_review__lte=now).order_by('next_review')
     num_needing_review = needing_review.count()
     if num_needing_review == 0:
-        return None, num_needing_review
+        request.session['word-id'] = -1
+        return None, num_needing_review, words.count()
     word_num = 0
     r = Random()
     while True:
@@ -155,7 +158,9 @@ def get_next_word(words):
         word_num += 1
         if word_num == num_needing_review:
             word_num = 0
-    return AjaxWord(needing_review[word_num]), num_needing_review
+    word = needing_review[word_num]
+    request.session['word-id'] = word.id
+    return AjaxWord(word), num_needing_review, words.count()
 
 
 def valid_orderings():

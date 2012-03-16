@@ -182,7 +182,6 @@ function new_word(data) {
     } else {
         show_text += "definition";
     }
-    var $showdef = $("#id_show_definition a");
     var showdef_str = $("#id_show_definition a").text();
     if ($("#id_show_definition a").text().substring(0, 4) == "Hide") {
         $(".review_definition .text").toggle(0);
@@ -194,7 +193,7 @@ function new_word(data) {
         switch_text(data.word.word, data.word.definition);
     }
     reset_drill_button(data.word);
-    reset_word_number(data.word_number, data.num_words);
+    reset_numbers(data.first_number, data.second_number);
     reset_word_difficulty(data.word.time_in_memory, data.word.review_count);
     reset_word_tags(data.word.tags);
 }
@@ -209,13 +208,11 @@ function reset_drill_button(word) {
         $("#id_drill_verb").hide();
     }
 }
-function reset_word_number(word_number, num_words) {
-    var html = $.fn.message_config.before_word_number;
-    html += word_number;
-    html += $.fn.message_config.after_word_number;
-    html += num_words;
-    html += $.fn.message_config.after_num_words;
-    $(".words").html(html);
+// This is a little obtuse, because the "numbers" mean different thing
+// depending on if this is manual or not
+function reset_numbers(first_number, second_number) {
+    $("#id_first_number").text(first_number);
+    $("#id_second_number").text(second_number);
 }
 function reset_word_difficulty(difficulty, review_count) {
     $(".word_difficulty").html("Estimated time in memory: " + difficulty +
