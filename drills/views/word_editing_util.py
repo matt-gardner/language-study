@@ -379,7 +379,6 @@ class WordForm(forms.Form):
 
     def default_init(self):
         now = datetime.now()
-        hard = Word.DIFFICULTY_SCORES['hard']
         self.fields['date_entered'].initial = now
         self.fields['last_reviewed'].initial = now
         self.fields['last_wrong'].initial = now
