@@ -127,14 +127,18 @@ class Tag(models.Model):
 
 class Word(models.Model):
     REVIEW_PERIODS = [
+            ('0 minutes', timedelta(0)),
             ('1 minute', timedelta(0, 60)),
             ('10 minutes', timedelta(0, 600)),
             ('1 hour', timedelta(0, 3600)),
             ('5 hours', timedelta(0, 18000)),
             ('1 day', timedelta(1)),
+            ('2 days', timedelta(2)),
             ('4 days', timedelta(4)),
+            ('1 week', timedelta(7)),
             ('2 weeks', timedelta(14)),
             ('1 month', timedelta(30)),
+            ('2 months', timedelta(60)),
             ('4 months', timedelta(120)),
             ('1 year', timedelta(365)),
             ]
