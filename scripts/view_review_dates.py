@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from language_study.drills.models import *
 
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from optparse import OptionParser
 
 def main(username, listname):
@@ -18,9 +18,10 @@ def main(username, listname):
     words = wordlist.word_set.all()
     review_dates = defaultdict(int)
     today = datetime.now().strftime('%m/%d/%Y')
+    tomorrow = (datetime.now()+timedelta(1)).strftime('%m/%d/%Y')
     for w in words:
         date_str = w.next_review.strftime('%m/%d/%Y')
-        if date_str == today:
+        if date_str == today or date_str == tomorrow:
             date_str = w.next_review.strftime('%m/%d/%Y %H')
         review_dates[date_str] += 1
     dates = review_dates.keys()
@@ -32,11 +33,11 @@ def main(username, listname):
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option('-u', '--user',
-            default='',
+            default='matt',
             dest='user',
             help='Username to look for the list')
     parser.add_option('-l', '--list',
-            default='',
+            default='Slovene',
             dest='list',
             help='Name of the list to show review dates for')
     opts, args = parser.parse_args()
