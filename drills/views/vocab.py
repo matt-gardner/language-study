@@ -82,8 +82,7 @@ def reorder_word_list(request, listname, ordering):
 
 
 def next_word(request, listname, correct):
-    if correct:
-        set_reviewed_from_session(request, listname, correct)
+    set_reviewed_from_session(request, listname, correct)
     word, num_to_review, total = get_next_word(request, listname)
     ret_val = dict()
     ret_val['word'] = vars(word)
