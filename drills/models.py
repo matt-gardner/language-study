@@ -2,6 +2,8 @@ from django.db import models
 
 from datetime import datetime, timedelta
 
+import random
+
 
 # Language Models
 #################
@@ -157,15 +159,30 @@ class Word(models.Model):
         now = datetime.now()
         if correct == True:
             time_in_memory = now - self.last_wrong
+            time_since_last_seen = now - self.last_reviewed
             if time_in_memory > Word.REVIEW_PERIODS[self.memory_index][1]:
+                self.memory_index += 1
+            while (time_since_last_seen >
+                    Word.REVIEW_PERIODS[self.memory_index][1]):
                 self.memory_index += 1
         elif correct == False:
             self.memory_index = 0
             self.last_wrong = now
         self.last_reviewed = now
-        self.next_review = now + Word.REVIEW_PERIODS[self.memory_index][1]
+        self._set_next_review_date()
         self.review_count += 1
         self.save()
+        self.wordlist.user.log.log_vocab_review(self, correct, now)
+
+    def _set_next_review_date(self):
+        # This is only called by reviewed(), which calls save(), so we don't
+        # call save() at the end of this method.
+        delta = Word.REVIEW_PERIODS[self.memory_index][1]
+        seconds = 86400 * delta.days + delta.seconds
+        new_seconds = seconds * .8 + random.uniform(0, 2) * seconds * .2
+        new_days = int(new_seconds / 86400)
+        new_seconds = int(new_seconds % 86400)
+        self.next_review = datetime.now() + timedelta(new_days, new_seconds)
 
     def __unicode__(self):
         return u'%s: %s' % (self.wordlist.name, self.word)
@@ -239,6 +256,44 @@ class LongPenult(models.Model):
 # Drilling statistics
 #####################
 
+class Log(models.Model):
+    user = models.OneToOneField('auth.User')
+    logfile = models.CharField(max_length=256)
+
+    def log(self, string):
+        f = open(self.logfile, 'a')
+        f.write('%s\n' % string.encode('utf-8'))
+        f.close()
+
+    def log_vocab_review(self, word, correct, time):
+        log_str = '%s\tWORD_REVIEWED\t' % str(time)
+        log_str += 'Wordlist: %s\t' % word.wordlist.name
+        log_str += 'Word: %s\t' % word.word
+        log_str += 'Word ID: %s\t' % word.id
+        log_str += 'Memory Index: %d\t' % word.memory_index
+        log_str += 'Correct?: %s\t' % str(correct)
+        r = VocabReviewResult(wordlist=word.wordlist, word=word,
+                memory_index=word.memory_index, correct=correct, time=time)
+        r.save()
+        self.log(log_str)
+
+    def log_word_added(self, word, time):
+        log_str = '%s\tWORD_ADDED\t' % str(time)
+        log_str += 'Wordlist: %s\t' % word.wordlist.name
+        log_str += 'Word: %s\t' % word.word
+        log_str += 'Definition: %s\t' % word.definition
+        log_str += 'Word ID: %s\t' % word.id
+        self.log(log_str)
+
+
+class VocabReviewResult(models.Model):
+    wordlist = models.ForeignKey('WordList')
+    word = models.ForeignKey('Word')
+    memory_index = models.IntegerField()
+    correct = models.NullBooleanField()
+    time = models.DateTimeField()
+
+
 class ConjugationDrillResult(models.Model):
     wordlist = models.ForeignKey('WordList')
     verb = models.ForeignKey('Verb')
@@ -248,7 +303,7 @@ class ConjugationDrillResult(models.Model):
     tense = models.ForeignKey('Tense')
     mood = models.ForeignKey('Mood')
     voice = models.ForeignKey('Voice')
-    correct = models.BooleanField()
+    correct = models.NullBooleanField()
     date = models.DateTimeField(auto_now_add=True)
 
 
@@ -260,7 +315,7 @@ class DeclensionDrillResult(models.Model):
     gender = models.ForeignKey('Gender')
     number = models.ForeignKey('Number')
     case = models.ForeignKey('Case')
-    correct = models.BooleanField()
+    correct = models.NullBooleanField()
     date = models.DateTimeField(auto_now_add=True)
 
 

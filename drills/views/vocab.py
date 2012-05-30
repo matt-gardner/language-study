@@ -54,6 +54,9 @@ def get_next_word(request, listname):
     num_needing_review = needing_review.count()
     if num_needing_review == 0:
         request.session['word-id'] = -1
+        # To fix the crash when review the last word, make the None into some
+        # reasonable "no more words" message - it crashes on the
+        # ret_val['word'] = vars(word) line above.
         return None, num_needing_review, words.count()
     word_num = 0
     r = Random()
