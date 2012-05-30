@@ -85,6 +85,7 @@ def add_word_to_list(request, listname):
         word = Word()
         word.wordlist = wordlist
         update_word_from_post(word, request.POST)
+        word.wordlist.user.log.log_word_added(word, word.date_entered)
         return HttpResponseRedirect('/%s/%s?saved=true' % (listname, word.id))
     context = base_context(request)
     wordlist = get_object_or_404(WordList, user=request.user, name=listname)
