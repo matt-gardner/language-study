@@ -95,6 +95,9 @@ def add_language():
 
     word_args = {'wordlist': object_cache['WordList'][args['name']]}
     create_args = {'last_reviewed': datetime.now()}
+    create_args['date_entered'] = datetime.now()
+    create_args['next_review'] = datetime.now()
+    create_args['last_wrong'] = datetime.now()
     for noun in json['Nouns']:
         add_declinable_type(noun, 'Noun', word_args, create_args)
     for adjective in json['Adjectives']:
