@@ -50,7 +50,7 @@ def get_next_word(request, listname):
     now = datetime.now()
     wordlist = request.user.wordlist_set.get(name=listname)
     words = wordlist.word_set
-    needing_review = words.filter(next_review__lte=now).order_by('next_review')
+    needing_review = words.filter(next_review__lte=now).order_by('-next_review')
     num_needing_review = needing_review.count()
     if num_needing_review == 0:
         request.session['word-id'] = -1
@@ -80,5 +80,12 @@ def set_reviewed_from_session(request, listname, correct):
     word.reviewed(correct)
     return word
 
+
+# Extension requests
+####################
+
+def get_definition(request):
+    print request.GET
+    return HttpResponse("Success!");
 
 # vim: et sw=4 sts=4

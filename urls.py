@@ -36,6 +36,10 @@ urlpatterns = patterns('',
     (r'^logout$',
         'drills.views.common.logout'),
 
+    # Extension urls
+    (r'^extension/definition',
+        'drills.views.vocab.get_definition'),
+
     # Vocab urls
     (r'^'+listname+'/vocab/$',
         'drills.views.vocab.main'),

@@ -1,13 +1,11 @@
-#!/usr/bin/env python
-
 from copy import copy
 import random as r
-import simplejson
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
+from django.utils import simplejson
 
 from language_study.drills.models import *
 from language_study.drills.views.common import base_context

@@ -95,7 +95,7 @@ if __name__ == '__main__':
             dest='list',
             help='Name of the list to show review dates for')
     parser.add_option('-n', '--num-words',
-            default=30,
+            default=0,
             type=int,
             dest='num_words',
             help='Number of words added per day')
