@@ -1,0 +1,17 @@
+{
+  "name": "Language Study",
+  "description": "A helper extension for my language study app",
+  "version": "0.1",
+  "permissions": [
+    "http://ceden.ml.cmu.edu:8002/",
+    "contextMenus"
+  ],
+  "background": {
+    "scripts": [
+      "jquery-1.9.1.min.js",
+      "scripts.js"
+    ]
+  },
+  "options_page": "options.html",
+  "manifest_version": 2
+}
