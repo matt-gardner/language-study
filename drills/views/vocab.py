@@ -85,7 +85,6 @@ def set_reviewed_from_session(request, listname, correct):
 ####################
 
 def get_definition(request):
-    print request.GET
-    return HttpResponse("Success!");
+    return HttpResponse("<b>Success!</b><br>Word: " + request.GET['word']);
 
 # vim: et sw=4 sts=4
