@@ -5,8 +5,11 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils import simplejson
 
+from BeautifulSoup import BeautifulSoup
 from datetime import datetime
 from random import Random
+
+from scrape import urlopen_with_chrome
 
 from language_study.drills.views.common import AjaxWord
 from language_study.drills.views.common import base_context
@@ -85,6 +88,60 @@ def set_reviewed_from_session(request, listname, correct):
 ####################
 
 def get_definition(request):
-    return HttpResponse("<b>Success!</b><br>Word: " + request.GET['word']);
+    from subprocess import Popen, PIPE
+    word = request.GET['word']
+    proc = Popen(('flookup', 'resources/slovene.bin'), stdin=PIPE, stdout=PIPE)
+    proc.stdin.write('%s\n' % word.encode('utf-8'))
+    proc.stdin.close()
+    analyses = []
+    lemmas = set()
+    for line in proc.stdout:
+        if line.isspace(): continue
+        try:
+            form, analysis = line.strip().split('\t')
+        except ValueError:
+            print 'Bad line from stdout:', line
+        analysis = analysis.decode('utf-8')
+        analyses.append(analysis)
+        lemmas.add(analysis.split('+', 1)[0])
+    proc.stdout.close()
+    response = u'Word: ' + word
+    response += u'<br><br>Analyses:'
+    for analysis in analyses:
+        response += u'<br>' + analysis
+    response += '<br><br>Definitions:'
+    for lemma in lemmas:
+        definition = get_definition_from_pons(lemma)
+        response += u'<br>' + definition.replace('\n', '<br>')
+    return HttpResponse(response);
+
+
+def get_definition_from_pons(word):
+    definition = ''
+    url = 'http://en.pons.eu/dict/search/results/?q=%s&l=ensl&in=&lf=en' % (
+            word)
+    html = urlopen_with_chrome(url.encode('utf-8'))
+    soup = BeautifulSoup(html)
+    senses = []
+    for sense in soup.findAll('span', attrs={'class':'sense'}):
+        if sense.parent.name == 'th':
+            table = sense.parent.parent.parent.parent
+        else:
+            table = sense.parent.parent.parent
+        senses.append((sense, table))
+    for sense, table in senses:
+        definition += ''.join(sense.parent.findAll(text=True)).strip() + '\n'
+        for target in table.findAll('td', attrs={'class':'target'}):
+            source = target.findPreviousSibling('td', attrs={'class': 'source'})
+            definition += ''.join(source.findAll(text=True)).strip() + ' : '
+            definition += ''.join(target.findAll(text=True)).strip() + '\n'
+        definition += '\n'
+    if not senses:
+        for target in soup.findAll('td', attrs={'class':'target'}):
+            source = target.findPreviousSibling('td', attrs={'class': 'source'})
+            definition += ''.join(source.findAll(text=True)).strip() + ' : '
+            definition += ''.join(target.findAll(text=True)).strip() + '\n'
+    return definition
+
 
 # vim: et sw=4 sts=4
