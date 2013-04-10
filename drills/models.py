@@ -147,6 +147,7 @@ class Word(models.Model):
     wordlist = models.ForeignKey('WordList')
     word = models.CharField(max_length=128)
     definition = models.CharField(max_length=4096)
+    description = models.TextField(blank=True)
     date_entered = models.DateTimeField()
     last_reviewed = models.DateTimeField()
     last_wrong = models.DateTimeField()
