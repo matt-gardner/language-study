@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.utils import simplejson
 
@@ -11,6 +13,8 @@ from random import Random
 
 from scrape import urlopen_with_chrome
 
+from language_study.drills.models import Word
+from language_study.drills.models import WordList
 from language_study.drills.views.common import AjaxWord
 from language_study.drills.views.common import base_context
 
@@ -87,23 +91,57 @@ def set_reviewed_from_session(request, listname, correct):
 # Extension requests
 ####################
 
-def get_definition(request):
+def get_definition(request, user, listname):
+    user = get_object_or_404(User, username=user)
+    wordlist = get_object_or_404(WordList, user=user, name=listname)
     from subprocess import Popen, PIPE
     word = request.GET['word']
+    word = word.lower()
+    response = process_word(word, user, wordlist, correct=False,
+            always_get_definition=True)
+    return HttpResponse(response);
+
+
+def submit_as_read(request, user, listname):
+    user = get_object_or_404(User, username=user)
+    wordlist = get_object_or_404(WordList, user=user, name=listname)
+    text = request.GET['text']
+    to_remove = ['"', ',', '.', ':', '(', ')', '?', ';']
+    for char in to_remove:
+        text = text.replace(char, '')
+    for word in text.split():
+        if '--' in word or '@' in word or '/' in word:
+            continue
+        if word == '-':
+            continue
+        if word.isdigit():
+            continue
+        word = word.lower()
+        process_word(word, user, wordlist, correct=True)
+    return HttpResponse("Success");
+
+
+def process_word(word, user, wordlist, correct, always_get_definition=False):
+    from subprocess import Popen, PIPE
     proc = Popen(('flookup', 'resources/slovene.bin'), stdin=PIPE, stdout=PIPE)
     proc.stdin.write('%s\n' % word.encode('utf-8'))
     proc.stdin.close()
     analyses = []
     lemmas = set()
+    # TODO: make this check for +?, try lower case
     for line in proc.stdout:
         if line.isspace(): continue
         try:
             form, analysis = line.strip().split('\t')
         except ValueError:
             print 'Bad line from stdout:', line
+            continue
         analysis = analysis.decode('utf-8')
+        if '+?' in analysis:
+            continue
         analyses.append(analysis)
-        lemmas.add(analysis.split('+', 1)[0])
+        if 'Proper' not in analysis:
+            lemmas.add(analysis.split('+', 1)[0])
     proc.stdout.close()
     response = u'Word: ' + word
     response += u'<br><br>Analyses:'
@@ -111,15 +149,31 @@ def get_definition(request):
         response += u'<br>' + analysis
     response += '<br><br>Definitions:'
     for lemma in lemmas:
-        definition = get_definition_from_pons(lemma)
-        response += u'<br>' + definition.replace('\n', '<br>')
-    return HttpResponse(response);
+        try:
+            word = wordlist.word_set.get(word=lemma)
+            if always_get_definition:
+                definition = get_definition_from_pons(lemma)
+                response += u'<br>' + definition.replace('\n', '<br>')
+        except Word.DoesNotExist:
+            definition = get_definition_from_pons(lemma)
+            response += u'<br>' + definition.replace('\n', '<br>')
+            now = datetime.now()
+            word = Word(wordlist=wordlist, word=lemma, definition=definition,
+                    description=definition, date_entered=now,
+                    last_reviewed=now, last_wrong=now, next_review=now)
+            word.save()
+        word.reviewed(correct=correct)
+    return response
 
 
 def get_definition_from_pons(word):
+    # TODO: get more than just the definition, get the morphology too, put it
+    # into a more complex object.
+    # Also keep the URL, for easy access
     definition = ''
     url = 'http://en.pons.eu/dict/search/results/?q=%s&l=ensl&in=&lf=en' % (
             word)
+    print 'Querying pons with url:', url
     html = urlopen_with_chrome(url.encode('utf-8'))
     soup = BeautifulSoup(html)
     senses = []
@@ -141,7 +195,7 @@ def get_definition_from_pons(word):
             source = target.findPreviousSibling('td', attrs={'class': 'source'})
             definition += ''.join(source.findAll(text=True)).strip() + ' : '
             definition += ''.join(target.findAll(text=True)).strip() + '\n'
-    return definition
+    return definition.strip()
 
 
 # vim: et sw=4 sts=4

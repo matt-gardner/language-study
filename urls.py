@@ -23,6 +23,7 @@ review_style = '(?P<review_style>[^/]+)'
 string = '(?P<string>[^/]+)'
 tag = '(?P<tag>[^/]+)'
 tense = '(?P<tense>[^/]+)'
+user = '(?P<user>[^/]+)'
 value = '(?P<value>[^/]+)'
 verb_id = '(?P<verb_id>[^/]+)'
 voice = '(?P<voice>[^/]+)'
@@ -37,8 +38,10 @@ urlpatterns = patterns('',
         'drills.views.common.logout'),
 
     # Extension urls
-    (r'^extension/definition',
+    (r'^extension/definition/' + user + '/' + listname + '$',
         'drills.views.vocab.get_definition'),
+    (r'^extension/read/' + user + '/' + listname + '$',
+        'drills.views.vocab.submit_as_read'),
 
     # Vocab urls
     (r'^'+listname+'/vocab/$',

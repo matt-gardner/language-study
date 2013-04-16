@@ -25,14 +25,14 @@
             {% if not by_definition %}
             {{ word.word }}
             {% else %}
-            {{ word.definition }}
+            {{ word.definition|safe|linebreaks }}
             {% endif %}
         </div>
     </div>
     <div class="review_definition">
         <div class="text" style="display:none">
             {% if not by_definition %}
-            {{ word.definition }}
+            {{ word.definition|safe|linebreaks }}
             {% else %}
             {{ word.word }}
             {% endif %}

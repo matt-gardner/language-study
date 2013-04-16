@@ -239,14 +239,14 @@ function remove_tag(tag_name) {
 /* Filters */
 function add_new_filter()
 {
-    var link = "../new-filter/" + $("#id_filter").val();
+    var link = "../../new-filter/" + $("#id_filter").val();
     $.get(link, {}, function(filter) {
         $("#id_filter_form").html(filter);
     });
 }
 function remove_filter(id)
 {
-    var link = "/remove-filter/" + id;
+    var link = "/../remove-filter/" + id;
     $.get(link, {}, function(filter) {
         $("#id_filter_form").html(filter);
         location.reload();
@@ -254,7 +254,7 @@ function remove_filter(id)
 }
 function update_one_choice_filter(id)
 {
-    var link = "/update-one-choice-filter/" + id + "/";
+    var link = "/../update-one-choice-filter/" + id + "/";
     link += $("#id_one_choice_filter_"+id).val();
     $.get(link, {}, function(filter) {
         $("#id_filter_form").html(filter);
@@ -263,7 +263,7 @@ function update_one_choice_filter(id)
 }
 function update_value_comp_filter(id)
 {
-    var link = "/update-value-comp-filter/" + id + "/";
+    var link = "/../update-value-comp-filter/" + id + "/";
     link += $("#id_value_comp_filter_comp_"+id).val() + "/";
     link += $("#id_value_comp_filter_value_"+id).val();
     $.get(link, {}, function(filter) {
@@ -273,7 +273,7 @@ function update_value_comp_filter(id)
 }
 function update_string_filter(id)
 {
-    var link = "/update-string-filter/" + id + "/";
+    var link = "/../update-string-filter/" + id + "/";
     link += $("#id_string_filter_"+id).val();
     $.get(link, {}, function(filter) {
         $("#id_filter_form").html(filter);
@@ -282,7 +282,7 @@ function update_string_filter(id)
 }
 function update_date_filter(id)
 {
-    var link = "/update-date-filter/" + id + "/";
+    var link = "/../update-date-filter/" + id + "/";
     link += $("#id_date_filter_"+id).val() + "/";
     link += $("#id_date_filter_"+id+"_year").val() + "/";
     link += $("#id_date_filter_"+id+"_month").val() + "/";

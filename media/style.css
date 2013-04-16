@@ -114,7 +114,7 @@ div.review_word
 div.review_definition
 {
     width: 100%;
-    height: 125px;
+    height: 225px;
     background:#eef;
     display:table;
 }
@@ -167,7 +167,7 @@ div.second_row_buttons {
     position: relative;
     padding: 0;
     overflow: hidden;
-    height: 250px;
+    height: 350px;
 }
 /* These settings affect the right column */
 .three-columns {
