@@ -1,47 +1,44 @@
+var jqueryui = 'jquery-ui-1.10.2.custom.min.js';
+var jquerycss = 'jquery-ui-1.10.2.custom.min.css';
+var jquery = 'jquery-1.9.1.min.js';
+
 function getDefinition(info, tab) {
-  console.log("Getting definition");
-  var word = info.selectionText;
-  if (word.indexOf(' ') != -1) {
-    alert('More than one word selected!');
-    return;
-  }
-  console.log("selected: " + info.selectionText);
-  var server_location = localStorage['server_location'];
-  var username = localStorage['username'];
-  var wordlist = localStorage['wordlist'];
-  var link = 'http://' + server_location + "/extension/definition";
-  link += '/' + username + '/' + wordlist;
-  console.log("Requesting url: " + link);
-  $.get(link, {word: word}, function(data) {
-    console.log("Response received");
-    var definition = data;
-    w = chrome.windows.create({
-        url: chrome.extension.getURL("definition.html"),
-        type: "popup",
-        focused: true,
-        width: 400,
-        height: 400,
+  console.log("Injecting 'getDefinition' script");
+  var code = "var options = {request: 'definition', selection: '";
+  code += info.selectionText + "', localStorage: '";
+  code += JSON.stringify(localStorage) + "'};";
+  chrome.tabs.executeScript(null, {file: jquery}, function() {
+    chrome.tabs.executeScript(null, {file: jqueryui}, function() {
+      chrome.tabs.insertCSS(null, {file: jquerycss}, function() {
+        chrome.tabs.executeScript(null, {code: code}, function() {
+          chrome.tabs.executeScript(null, {file: "window.js"});
+        });
+      });
     });
-    chrome.extension.sendMessage({type: 'definition', definition: data});
   });
-}
+};
 
 function submitAsRead(info, tab) {
-  alert("Submitting");
-  console.log("Submitting as read");
-  console.log("selected: " + info.selectionText);
-  var text = info.selectionText;
-  var server_location = localStorage['server_location'];
-  var username = localStorage['username'];
-  var wordlist = localStorage['wordlist'];
-  var link = 'http://' + server_location + "/extension/read";
-  link += '/' + username + '/' + wordlist;
-  console.log("Requesting url: " + link);
-  $.get(link, {text: text}, function(data) {
-    console.log("Response received");
-    alert("Submit successful");
+  console.log("Injecting 'submitAsRead' script");
+  var code = "var options = {request: 'submit', selection: '";
+  var text = info.selectionText.replace('"', '');
+  text = text.replace("'", '');
+  text = text.replace(";", '');
+  text = text.replace("}", '');
+  text = text.replace("{", '');
+  code += text + "', localStorage: '";
+  code += JSON.stringify(localStorage) + "'};";
+  console.log(code);
+  chrome.tabs.executeScript(null, {file: jquery}, function() {
+    chrome.tabs.executeScript(null, {file: jqueryui}, function() {
+      chrome.tabs.insertCSS(null, {file: jquerycss}, function() {
+        chrome.tabs.executeScript(null, {code: code}, function() {
+          chrome.tabs.executeScript(null, {file: "window.js"});
+        });
+      });
+    });
   });
-}
+};
 
 chrome.contextMenus.create({"title": "Get definition",
   "contexts": ["selection"], "onclick": getDefinition});
