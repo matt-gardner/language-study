@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="book">
+  {% regroup pages by chapter as chapter_list %}
+  <ul>
+    {% for chapter in chapter_list %}
+    <li>Chapter {{ chapter.grouper }}
+    <ul>
+      {% for page in chapter.list %}
+      <li>
+        <a href="page/{{ page.page_number }}">Page {{ page.page_number }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

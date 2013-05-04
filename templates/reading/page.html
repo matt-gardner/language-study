@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="info">
+  {{ page.book.book.title }} page {{ page.page_number }}
+</div>
+<div class="page">
+  <div class="image">
+    <img src="/{{ page.image_path }}" width="50%">
+  </div>
+  <div class="text">
+    {{ page.text|linebreaks }}
+  </div>
+</div>
+
+{% endblock %}

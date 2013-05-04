@@ -5,6 +5,7 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
+book_id = '(?P<book_id>[^/]+)'
 case = '(?P<case>[^/]+)'
 choice = '(?P<choice>[^/]+)'
 comp = '(?P<comp>[^/]+)'
@@ -18,6 +19,7 @@ mood = '(?P<mood>[^/]+)'
 name = '(?P<name>[^/]+)'
 number = '(?P<number>[^/]+)'
 ordering = '(?P<ordering>[^/]+)'
+page_num = '(?P<page_num>[^/]+)'
 person = '(?P<person>[^/]+)'
 review_style = '(?P<review_style>[^/]+)'
 string = '(?P<string>[^/]+)'
@@ -36,6 +38,12 @@ urlpatterns = patterns('',
         'drills.views.lists.main'),
     (r'^logout$',
         'drills.views.common.logout'),
+
+    # Reading urls
+    (r'^book/'+book_id+'/$',
+        'reading.views.book'),
+    (r'^book/'+book_id+'/page/'+page_num+'/$',
+        'reading.views.page'),
 
     # Extension urls
     (r'^extension/definition/' + user + '/' + listname + '$',
@@ -148,6 +156,9 @@ urlpatterns = patterns('',
 
     # Site media
     (r'^site-media/(?P<path>.*)$',
+        'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT}),
+    (r'^media/(?P<path>.*)$',
         'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT}),
 

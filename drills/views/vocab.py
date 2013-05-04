@@ -2,7 +2,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.utils import simplejson
@@ -117,7 +117,17 @@ def submit_as_read(request, user, listname):
         if word.isdigit():
             continue
         word = word.lower()
-        process_word(word, user, wordlist, correct=True)
+        try:
+            process_word(word, user, wordlist, correct=True)
+        except UnicodeDecodeError:
+            print 'Error processing word', word
+            continue
+        #except:
+            #import traceback
+            #tb = traceback.format_exc()
+            #if 'database is locked' in tb:
+                #raise
+            #return HttpResponseServerError("Error!\n" + tb)
     return HttpResponse("Success");
 
 
