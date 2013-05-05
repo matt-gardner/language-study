@@ -44,6 +44,10 @@ urlpatterns = patterns('',
         'reading.views.book'),
     (r'^book/'+book_id+'/page/'+page_num+'/$',
         'reading.views.page'),
+    (r'^book/'+book_id+'/page/'+page_num+'/edit-chapter$',
+        'reading.views.edit_page_chapter'),
+    (r'^book/'+book_id+'/page/'+page_num+'/edit-text$',
+        'reading.views.edit_page_text'),
 
     # Extension urls
     (r'^extension/definition/' + user + '/' + listname + '$',

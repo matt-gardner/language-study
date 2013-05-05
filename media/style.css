@@ -118,7 +118,7 @@ div.review_definition
     background:#eef;
     display:table;
 }
-div.text
+div.center_review div.text
 {
     font-size:2em;
     overflow:auto;
@@ -252,4 +252,29 @@ span.warning {
 }
 .add:hover, .delete:hover, .undo:hover {
     cursor: pointer;
+}
+
+
+/* FOR BOOKS */
+.book-page {
+    width: 100%;
+}
+.book-page .info {
+    text-align: center;
+}
+.book-page .title {
+    font-size: larger;
+    font-weight: bold;
+}
+.book-page .text {
+    float: left;
+    width: 50%;
+}
+.book-page .image {
+    margin-left: 3em;
+    float: left;
+    width: 40%;
+}
+.book-page .image img {
+    width: 100%;
 }

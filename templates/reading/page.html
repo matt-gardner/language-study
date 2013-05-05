@@ -2,16 +2,39 @@
 
 {% block content %}
 
-<div class="info">
-  {{ page.book.book.title }} page {{ page.page_number }}
-</div>
-<div class="page">
-  <div class="image">
-    <img src="/{{ page.image_path }}" width="50%">
+<div class="book-page" id="page-{{ page.id }}">
+  <div class="info">
+    <div class="title">
+      {{ page.book.book.title }} - {{ page.book.language.name }}
+    </div>
+    <div class="chapter">
+      Chapter <span class="edit-chapter">{{ page.chapter }}</span>
+    </div>
+    <div class="page-num">
+      {% if prev_page %}
+      <a href="/book/{{ page.book.id }}/page/{{ prev_page }}/">&lt;&lt;</a>
+      &nbsp;&nbsp;
+      {% endif %}
+      page {{ page.page_number }}
+      {% if next_page %}
+      &nbsp;&nbsp;
+      <a href="/book/{{ page.book.id }}/page/{{ next_page }}/">&gt;&gt;</a>
+      {% endif %}
+    </div>
   </div>
   <div class="text">
-    {{ page.text|linebreaks }}
+    <div class="text-body">
+      {{ page.text|linebreaks }}
+    </div>
+    <button class="edit-text">Edit</button>
+  </div>
+  <div class="image">
+    <img src="/{{ page.image_path }}">
   </div>
 </div>
 
+<script charset="utf-8" type="text/javascript">
+  $.fn.csrf = function() {};
+  $.fn.csrf.csrf_token = "{{ csrf_token }}";
+</script>
 {% endblock %}
