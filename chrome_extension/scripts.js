@@ -21,11 +21,11 @@ function getDefinition(info, tab) {
 function submitAsRead(info, tab) {
   console.log("Injecting 'submitAsRead' script");
   var code = "var options = {request: 'submit', selection: '";
-  var text = info.selectionText.replace('"', '');
-  text = text.replace("'", '');
-  text = text.replace(";", '');
-  text = text.replace("}", '');
-  text = text.replace("{", '');
+  var text = info.selectionText.replace(/"/g, '');
+  text = text.replace(/'/g, '');
+  text = text.replace(/;/g, '');
+  text = text.replace(/\{/g, '');
+  text = text.replace(/\}/g, '');
   code += text + "', localStorage: '";
   code += JSON.stringify(localStorage) + "'};";
   console.log(code);
