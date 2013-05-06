@@ -97,8 +97,7 @@ def get_definition(request, user, listname):
     from subprocess import Popen, PIPE
     word = request.GET['word']
     word = word.lower()
-    response = process_word(word, user, wordlist, correct=False,
-            always_get_definition=True)
+    response = process_word(word, user, wordlist, correct=False)
     return HttpResponse(response);
 
 
@@ -164,6 +163,8 @@ def process_word(word, user, wordlist, correct, always_get_definition=False):
             if always_get_definition:
                 definition = get_definition_from_pons(lemma)
                 response += u'<br>' + definition.replace('\n', '<br>')
+            else:
+                response += u'<br>' + word.definition.replace('\n', '<br>')
         except Word.DoesNotExist:
             definition = get_definition_from_pons(lemma)
             response += u'<br>' + definition.replace('\n', '<br>')
