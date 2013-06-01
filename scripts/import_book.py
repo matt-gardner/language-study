@@ -27,6 +27,7 @@ def main(base_dir, book_title, language_name, tesseract_language):
     except BookTranslation.DoesNotExist:
         translation = BookTranslation(book=book, language=language)
         translation.save()
+    filenames = []
     for root, dirs, files in os.walk(base_dir):
         for filename in files:
             if filename.endswith('.jpg'):
@@ -38,19 +39,24 @@ def main(base_dir, book_title, language_name, tesseract_language):
                     page = translation.page_set.get(page_number=pagenum)
                     continue
                 except Page.DoesNotExist:
-                    pass
-                print 'OCRing page', pagenum
-                command = ['tesseract', filename, base, '-l',
-                        tesseract_language]
-                proc = Popen(command, cwd=root)
-                proc.wait()
-                text = open(root + base + '.txt').read()
-                image_path = root + filename
-                chapter = -1 # I don't think we can do any better for now
-                print 'Saving page'
-                p = Page(book=translation, chapter=chapter,
-                        page_number=pagenum, image_path=image_path, text=text)
-                p.save()
+                    filenames.append(filename)
+    filenames.sort()
+    for filename in filenames:
+        base = filename[:-4]
+        # We assume that the file ends with '_[pagenum].jpg'
+        pagenum = int(base.split('_')[-1])
+        print 'OCRing page', pagenum
+        command = ['tesseract', filename, base, '-l',
+                tesseract_language]
+        proc = Popen(command, cwd=root)
+        proc.wait()
+        text = open(root + base + '.txt').read()
+        image_path = root + filename
+        chapter = -1 # I don't think we can do any better for now
+        print 'Saving page'
+        p = Page(book=translation, chapter=chapter,
+                page_number=pagenum, image_path=image_path, text=text)
+        p.save()
 
 
 
