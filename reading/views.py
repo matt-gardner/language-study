@@ -16,6 +16,7 @@ def book(request, book_id):
     context['pages'] = book.page_set.all()
     return render_to_response('reading/book.html', context)
 
+@login_required
 def page(request, book_id, page_num):
     context = RequestContext(request)
     book = get_object_or_404(BookTranslation, pk=book_id)
