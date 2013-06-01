@@ -28,10 +28,14 @@ def main(request):
     context['nav_page'] = 'nav_home'
     if not context['logged_in']:
         context['greeting'] = 'Please log in'
-        return render_to_response('lists/main.html', context)
-    context['greeting'] = 'Hello %s!' % request.user.first_name
-    lists = request.user.wordlist_set.all()
-    context['wordlists'] = lists
+    else:
+        context['greeting'] = 'Hello %s!' % request.user.first_name
+        lists = request.user.wordlist_set.all()
+        context['wordlists'] = lists
+    # TODO: move this to a more general main page that includes both apps, so
+    # we don't have this particular dependency between the apps.
+    from reading.models import BookTranslation
+    context['books'] = BookTranslation.objects.all()
     # Reset filters here - potentially nasty hidden functionality, but it works
     # for my personal use on a smartphone.  At least this isn't too
     # unreasonable to expect to happen, anyway.

@@ -9,80 +9,38 @@ Click on a list to begin reviewing.
 </div>
 
 <div class="wordlists">
-    Your word lists:
-    {% if wordlists %}
-    <ul>
-        {% for list in wordlists %}
-        <li>
-            <a href="/{{ list.name }}">{{ list.name }}</a>
-            <!--<input type="submit" value="Delete list" id="id_delete_list" />
-            -->
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    You don't have any word lists!
-    {% endif %}
-    <!--
-    <div class="create_list">
-        <form method="post" action="create-word-list"> {% csrf_token %}
-        New word list:
-        <input type="text" name="name" maxlength="128" />
-        <input type="submit" value="Create list" id="id_create_list"/>
-        </form>
-    </div>
-    -->
-    <div class="howto">
-        Instructions on how to use this site&mdash;coming soon!
-    </div>
-    <div class="known-issues">
-        Known issues:
-        <ul>
-            <li>
-                Participles are not currently supported (coming soon, though).
-            </li>
-            <li>
-                Verbs with prefixes (e.g. πάρειμι) are also not correctly
-                handled.  Some forms may work, but most will not (particularly
-                those with augments).
-            </li>
-            <li>
-                Some verbs beginning with vowels may not be correctly
-                augmented.  I tried to get them right, but double check before
-                you trust what you see.
-            </li>
-            <li>
-                And for that matter, double check the forms for all verbs you
-                enter before trusting them.  I worked pretty hard to get most
-                things right, but there are certainly some things that are
-                still wrong.  If you see any problems, send an email to
-                greekdrilling _at_ gmail _dot_ com.
-            </li>
-            <li>
-                If there are several possibilities for a single form, or more
-                than one principle part for a single tense in a verb, I
-                currently can only handle one of them.  So, for instance, the
-                sixth principle part of the verb βλάπτω can be either ἐβλάβην
-                or ἐβλάφθην.  You will have to pick one of the two and enter
-                it, because I can't currently take both.
-            </li>
-            <li>
-                Sorting of words doesn't work quite right, because I don't
-                handle the diacritics properly when sorting.  This should be
-                fixed pretty soon.
-            </li>
-            <li>
-                I currently keep track of difficulty for reviewing vocabulary.
-                I have plans to also keep statistics for drilling forms,
-                helping you focus on forms you don't know very well.  But that
-                isn't ready yet.
-            </li>
-        </ul>
-    </div>
-    <div class="parting-words">
-        If you have comments, suggestions, or questions, email greekdrilling
-        _at_ gmail _dot_ com.  Thanks!
-    </div>
+  Your word lists:
+  {% if wordlists %}
+  <ul>
+      {% for list in wordlists %}
+      <li>
+          <a href="/{{ list.name }}">{{ list.name }}</a>
+          <!--<input type="submit" value="Delete list" id="id_delete_list" />
+          -->
+      </li>
+      {% endfor %}
+  </ul>
+  {% else %}
+  You don't have any word lists!
+  {% endif %}
+  <!--
+  <div class="create_list">
+      <form method="post" action="create-word-list"> {% csrf_token %}
+      New word list:
+      <input type="text" name="name" maxlength="128" />
+      <input type="submit" value="Create list" id="id_create_list"/>
+      </form>
+  </div>
+  -->
+</div>
+
+<div class="books">
+  Available books:
+  <ul>
+    {% for book in books %}
+    <li><a href="/book/{{ book.id }}/">{{ book.book.title }} - {{ book.language.name }}</a></li>
+    {% endfor %}
+  </ul>
 </div>
 
 {% endblock %}

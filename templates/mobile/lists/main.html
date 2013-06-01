@@ -1,0 +1,14 @@
+{% extends "mobile/base.html" %}
+
+{% block content %}
+
+<div class="books">
+  Available books:
+  <ul>
+    {% for book in books %}
+    <li><a href="/book/{{ book.id }}/">{{ book.book.title }} - {{ book.language.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
