@@ -62,9 +62,14 @@ SECRET_KEY = 'i8n%ia)xnx%x1dwg^3m&udsn5saxl=lt51x^8y%8^!orj0918='
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django_mobile.context_processors.flavour',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +78,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 ROOT_URLCONF = 'language_study.urls'
@@ -92,6 +99,7 @@ INSTALLED_APPS = (
     'language_study.slovene',
     'language_study.reading',
     'south',
+    'django_mobile',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )
