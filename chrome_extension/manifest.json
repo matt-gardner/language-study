@@ -7,6 +7,20 @@
     "contextMenus",
     "activeTab"
   ],
+  "commands": {
+    "definition": {
+      "suggested_key": {
+        "default": "Alt+D"
+      },
+      "description": "Get Definition"
+    },
+    "submit_as_read": {
+      "suggested_key": {
+        "default": "Alt+S"
+      },
+      "description": "Submit as read"
+    }
+  },
   "background": {
     "scripts": [
       "jquery-1.9.1.min.js",
