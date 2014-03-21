@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+# -*- encoding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseServerError
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.utils import simplejson
@@ -94,7 +95,6 @@ def set_reviewed_from_session(request, listname, correct):
 def get_definition(request, user, listname):
     user = get_object_or_404(User, username=user)
     wordlist = get_object_or_404(WordList, user=user, name=listname)
-    from subprocess import Popen, PIPE
     word = request.GET['word']
     word = word.lower()
     response = process_word(word, user, wordlist, correct=False)
@@ -105,9 +105,7 @@ def submit_as_read(request, user, listname):
     user = get_object_or_404(User, username=user)
     wordlist = get_object_or_404(WordList, user=user, name=listname)
     text = request.GET['text']
-    to_remove = ['"', ',', '.', ':', '(', ')', '?', ';']
-    for char in to_remove:
-        text = text.replace(char, '')
+    text = remove_punctuation(text)
     for word in text.split():
         if '--' in word or '@' in word or '/' in word:
             continue
@@ -128,6 +126,13 @@ def submit_as_read(request, user, listname):
                 #raise
             #return HttpResponseServerError("Error!\n" + tb)
     return HttpResponse("Success");
+
+
+to_remove = ['"', ',', '.', ':', '(', ')', '?', ';', u'»', u'«', '!']
+def remove_punctuation(text):
+    for char in to_remove:
+        text = text.replace(char, '')
+    return text
 
 
 def process_word(word, user, wordlist, correct, always_get_definition=False):
@@ -181,29 +186,32 @@ def get_definition_from_pons(word):
     # TODO: get more than just the definition, get the morphology too, put it
     # into a more complex object.
     # Also keep the URL, for easy access
+    print 'Getting definition for word', word
     definition = ''
-    url = 'http://en.pons.eu/dict/search/results/?q=%s&l=ensl&in=&lf=en' % (
-            word)
-    print 'Querying pons with url:', url
-    html = urlopen_with_chrome(url.encode('utf-8'))
+    url = 'http://en.pons.eu/translate'
+    params = {'q': word, 'l': 'ensl', 'in': '', 'lf': 'en'}
+    html = urlopen_with_chrome(url, params)
     soup = BeautifulSoup(html)
     senses = []
-    for sense in soup.findAll('span', attrs={'class':'sense'}):
+    for sense in soup.findAll('span', attrs={'class': 'sense'}):
         if sense.parent.name == 'th':
             table = sense.parent.parent.parent.parent
         else:
-            table = sense.parent.parent.parent
+            table = sense.parent.parent
+        senses.append((sense, table))
+    for sense in soup.findAll('span', attrs={'class': 'rhetoric'}):
+        table = sense.parent.parent
         senses.append((sense, table))
     for sense, table in senses:
         definition += ''.join(sense.parent.findAll(text=True)).strip() + '\n'
-        for target in table.findAll('td', attrs={'class':'target'}):
-            source = target.findPreviousSibling('td', attrs={'class': 'source'})
+        for target in table.findAll('div', attrs={'class':'target'}):
+            source = target.findPrevious('div', attrs={'class': 'source'})
             definition += ''.join(source.findAll(text=True)).strip() + ' : '
             definition += ''.join(target.findAll(text=True)).strip() + '\n'
         definition += '\n'
     if not senses:
-        for target in soup.findAll('td', attrs={'class':'target'}):
-            source = target.findPreviousSibling('td', attrs={'class': 'source'})
+        for target in soup.findAll('div', attrs={'class':'target'}):
+            source = target.findPrevious('div', attrs={'class': 'source'})
             definition += ''.join(source.findAll(text=True)).strip() + ' : '
             definition += ''.join(target.findAll(text=True)).strip() + '\n'
     return definition.strip()
