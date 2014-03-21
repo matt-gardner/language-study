@@ -6,7 +6,7 @@ function createDialog() {
     $('body').append('<div id="ls_dialog" title="Language Study">'
         + '</div>');
     window['dialog'] = $('#ls_dialog').dialog({position:
-        {my: "left top", at: "left top"}
+        {my: "center center", at: "center+20% center-100%"}
     });
     $('.ui-dialog').css("font-size", "small");
   }
@@ -15,6 +15,7 @@ function createDialog() {
 
 function getDefinition(selection, localStorage) {
   console.log("Getting definition");
+  selection = $.trim(selection);
   if (selection.indexOf(' ') != -1) {
     alert('More than one word selected!');
     return;
@@ -33,7 +34,10 @@ function getDefinition(selection, localStorage) {
   $.get(link, {word: selection}, function(data) {
     console.log("Response received");
     $('.ls_def_waiting').remove();
-    $('#ls_dialog').append('<div>' + data + '</div>');
+    var newDiv = $('<div>').append(data);
+    $('#ls_dialog').append(newDiv);
+    $('#ls_dialog').animate({scrollTop: $('#ls_dialog').prop('scrollHeight')},
+                            500);
   });
 }
 
