@@ -6,11 +6,10 @@ function getDefinition(info, tab) {
   var code = "var options = {request: 'definition', selection: '";
   code += info.selectionText + "', localStorage: '";
   code += JSON.stringify(localStorage) + "'};";
-  _getDefinition(code);
+  injectCode(code);
 };
 
-function _getDefinition(code) {
-  console.log("Injecting 'getDefinition' script");
+function injectCode(code) {
   chrome.tabs.executeScript(null, {file: jquery}, function() {
     chrome.tabs.executeScript(null, {file: jqueryui}, function() {
       chrome.tabs.insertCSS(null, {file: jquerycss}, function() {
@@ -25,24 +24,20 @@ function _getDefinition(code) {
 function submitAsRead(info, tab) {
   console.log("Injecting 'submitAsRead' script");
   var code = "var options = {request: 'submit', selection: '";
-  var text = info.selectionText.replace(/"/g, '');
+  var text = sanitizeText(info.selectionText);
+  code += text + "', localStorage: '";
+  code += JSON.stringify(localStorage) + "'};";
+  injectCode(code);
+};
+
+function sanitizeText(_text) {
+  var text = _text.replace(/"/g, '');
   text = text.replace(/'/g, '');
   text = text.replace(/;/g, '');
   text = text.replace(/\{/g, '');
   text = text.replace(/\}/g, '');
-  code += text + "', localStorage: '";
-  code += JSON.stringify(localStorage) + "'};";
-  console.log(code);
-  chrome.tabs.executeScript(null, {file: jquery}, function() {
-    chrome.tabs.executeScript(null, {file: jqueryui}, function() {
-      chrome.tabs.insertCSS(null, {file: jquerycss}, function() {
-        chrome.tabs.executeScript(null, {code: code}, function() {
-          chrome.tabs.executeScript(null, {file: "window.js"});
-        });
-      });
-    });
-  });
-};
+  return text;
+}
 
 chrome.contextMenus.create({"title": "Get definition",
   "contexts": ["selection"], "onclick": getDefinition});
@@ -55,8 +50,12 @@ chrome.commands.onCommand.addListener(function(command) {
     code += " localStorage: '";
     code += JSON.stringify(localStorage) + "'};";
     code += "options['selection'] = window.getSelection().toString();";
-    _getDefinition(code);
+    injectCode(code);
   } else if (command === "submit_as_read") {
-    submitAsRead();
+    var code = "var options = {request: 'submit',";
+    code += " localStorage: '";
+    code += JSON.stringify(localStorage) + "'};";
+    code += "options['selection'] = window.getSelection().toString();";
+    injectCode(code);
   }
 });
