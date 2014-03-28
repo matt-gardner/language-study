@@ -5,10 +5,38 @@ function createDialog() {
     console.log("Dialog not created; creating now");
     $('body').append('<div id="ls_dialog" title="Language Study">'
         + '</div>');
-    window['dialog'] = $('#ls_dialog').dialog({position:
-        {my: "center center", at: "center+20% center-100%"}
+    window['dialog'] = $('#ls_dialog').dialog(
+      {
+        position: {my: "center center", at: "center+20% center-80%"},
+        minHeight: "200px",
+        maxHeight: "200px",
+        width: "400px"
+      }
+    );
+    $('.ui-dialog').css(
+      {
+        "font-size": "small",
+        "position": "fixed",
+      }
+    );
+    $('#ls_dialog').css(
+      {
+        "height": "170px",
+        "width": "370px",
+        "overflow": "scroll"
+      }
+    );
+    $('.ui-dialog').resizable({
+        start: function(event, ui) {
+          $(this).css({"position": "fixed"});
+        },
+        stop: function(event, ui) {
+          $(this).css({"position": "fixed"});
+        },
+        resize: function(event, ui) {
+          $(this).css({"position": "fixed"});
+        }
     });
-    $('.ui-dialog').css("font-size", "small");
   }
   window['dialog'].dialog("open");
 }
