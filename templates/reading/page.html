@@ -5,7 +5,7 @@
 <div class="book-page" id="page-{{ page.id }}">
   <div class="info">
     <div class="title">
-      {{ page.book.book.title }} - {{ page.book.language.name }}
+      <a href="/book/{{page.book.id}}/">{{page.book.book.title}} - {{page.book.language.name}}</a>
     </div>
     <div class="chapter">
       Chapter <span class="edit-chapter">{{ page.chapter }}</span>

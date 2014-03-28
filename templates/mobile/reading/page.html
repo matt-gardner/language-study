@@ -1,0 +1,45 @@
+{% extends "mobile/base.html" %}
+
+{% load reading_extras %}
+{% block content %}
+
+<!-- TODO: make a page_base.html, or something, that I can extend from mobile
+and desktop, so that I don't have to duplicate most of this -->
+<div class="book-page" id="page-{{ page.id }}">
+  <div class="info">
+    <div class="title">
+      <a href="/book/{{page.book.id}}/">{{page.book.book.title}} - {{page.book.language.name}}</a>
+    </div>
+    <div class="chapter">
+      Chapter <span class="edit-chapter">{{ page.chapter }}</span>
+    </div>
+    <div class="page-num">
+      {% if prev_page %}
+      <a href="/book/{{ page.book.id }}/page/{{ prev_page }}/">&lt;&lt;</a>
+      &nbsp;&nbsp;
+      {% endif %}
+      page {{ page.page_number }}
+      {% if next_page %}
+      &nbsp;&nbsp;
+      <a href="/book/{{ page.book.id }}/page/{{ next_page }}/">&gt;&gt;</a>
+      {% endif %}
+    </div>
+    <div class="image-button">
+      <a href="/page-image/{{ page.id }}" data-role="button" data-rel="dialog">Show image</a>
+    </div>
+  </div>
+  <div class="text">
+    <div class="text-body">
+      {{ page.text|linebreaks|click_for_definition }}
+    </div>
+    <!-- TODO: check if next_page, and only do a submit, or something -->
+    <button class="next-page" data-book="{{ page.book.id }}" data-next-page="{{ next_page }}"
+      data-user="{{ username }}" data-wordlist="{{ wordlist.name }}">Next page</button>
+  </div>
+</div>
+
+<script charset="utf-8" type="text/javascript">
+  $.fn.csrf = function() {};
+  $.fn.csrf.csrf_token = "{{ csrf_token }}";
+</script>
+{% endblock %}

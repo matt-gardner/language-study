@@ -91,7 +91,7 @@ if __name__ == '__main__':
             dest='user',
             help='Username to look for the list')
     parser.add_option('-l', '--list',
-            default='Slovene',
+            default='Slovene (auto)',
             dest='list',
             help='Name of the list to show review dates for')
     parser.add_option('-n', '--num-words',

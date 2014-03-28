@@ -19,6 +19,7 @@ mood = '(?P<mood>[^/]+)'
 name = '(?P<name>[^/]+)'
 number = '(?P<number>[^/]+)'
 ordering = '(?P<ordering>[^/]+)'
+page_id = '(?P<page_id>[\d]+)'
 page_num = '(?P<page_num>[^/]+)'
 person = '(?P<person>[^/]+)'
 review_style = '(?P<review_style>[^/]+)'
@@ -29,6 +30,7 @@ user = '(?P<user>[^/]+)'
 value = '(?P<value>[^/]+)'
 verb_id = '(?P<verb_id>[^/]+)'
 voice = '(?P<voice>[^/]+)'
+word = '(?P<word>[^/]+)'
 word_id = r'(?P<word_id>[\d]+)'
 year = '(?P<year>[^/]+)'
 
@@ -48,6 +50,10 @@ urlpatterns = patterns('',
         'reading.views.edit_page_chapter'),
     (r'^book/'+book_id+'/page/'+page_num+'/edit-text$',
         'reading.views.edit_page_text'),
+    (r'^page-image/'+page_id+'$',
+        'reading.views.page_image'),
+    (r'^definition/'+word+'$',
+        'reading.views.definition'),
 
     # Extension urls
     (r'^extension/definition/' + user + '/' + listname + '$',

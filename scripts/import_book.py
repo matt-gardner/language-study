@@ -51,6 +51,7 @@ def main(base_dir, book_title, language_name, tesseract_language):
         proc = Popen(command, cwd=root)
         proc.wait()
         text = open(root + base + '.txt').read()
+        text = fix_text(text)
         image_path = root + filename
         chapter = -1 # I don't think we can do any better for now
         print 'Saving page'
@@ -58,6 +59,18 @@ def main(base_dir, book_title, language_name, tesseract_language):
                 page_number=pagenum, image_path=image_path, text=text)
         p.save()
 
+
+def fix_text(text):
+    paragraph_marker = '!PARAGRAPH!'
+    # First replace real paragraph boundaries with a marker.
+    text = text.replace('\n\n', paragraph_marker)
+    # Then de-hyphenate words.
+    text = text.replace('-\n', '')
+    # Then turn the remaining line breaks into spaces.
+    text = text.replace('\n', ' ')
+    # And finally, put the real paragraphs back in as line breaks.
+    text = text.replace(paragraph_marker, '\n\n')
+    return text
 
 
 if __name__ == '__main__':

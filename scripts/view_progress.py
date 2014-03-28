@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from language_study.drills.models import Word
 
 from collections import defaultdict
-from datetime import datetime, timedelta
 from optparse import OptionParser
 
 def main(username, listname):
@@ -36,7 +35,7 @@ if __name__ == '__main__':
             dest='user',
             help='Username to look for the list')
     parser.add_option('-l', '--list',
-            default='Slovene',
+            default='Slovene (auto)',
             dest='list',
             help='Name of the list to show review dates for')
     opts, args = parser.parse_args()
