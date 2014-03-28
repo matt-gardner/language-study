@@ -13,7 +13,8 @@ $('button.edit-text').live('click', function() {
   if ($(this).html() == "Edit") {
     $(this).html('Submit');
     $('<textarea rows="35" cols="50"></textarea>').appendTo('.text');
-    var text = $('.text-body').text().trim();
+    var text = $('.text-body').text().trim()
+        .replace('<', '&lt;').replace('>', '&gt;');
     $('.text-body').remove();
     $('textarea').append(text);
     $(this).remove().appendTo('.text');
