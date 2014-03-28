@@ -3,6 +3,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
@@ -101,6 +102,7 @@ def get_definition(request, user, listname):
     return HttpResponse(response);
 
 
+@transaction.commit_manually
 def submit_as_read(request, user, listname):
     user = get_object_or_404(User, username=user)
     wordlist = get_object_or_404(WordList, user=user, name=listname)
@@ -125,6 +127,7 @@ def submit_as_read(request, user, listname):
             #if 'database is locked' in tb:
                 #raise
             #return HttpResponseServerError("Error!\n" + tb)
+    transaction.commit()
     return HttpResponse("Success");
 
 
@@ -183,16 +186,33 @@ def process_word(word, user, wordlist, correct, always_get_definition=False):
 
 
 def get_definition_from_pons(word):
-    # TODO: get more than just the definition, get the morphology too, put it
-    # into a more complex object.
-    # Also keep the URL, for easy access
     print 'Getting definition for word', word
-    definition = ''
     url = 'http://en.pons.eu/translate'
     params = {'q': word, 'l': 'ensl', 'in': '', 'lf': 'en'}
     html = urlopen_with_chrome(url, params)
+    return parse_definition_from_html(html)
+
+
+def parse_definition_from_html(html):
+    # TODO: get more than just the definition, get the morphology too, put it
+    # into a more complex object.
+    # Also keep the URL, for easy access
+    definition = ''
     soup = BeautifulSoup(html)
     senses = []
+    # The structure of this html is as follows:
+    # results
+    #  - entry
+    #    - rom (this corresponds to a syntactic frame, essentially
+    #      - romhead (contains the pronunciation info in an h2 element)
+    #      - translations (corresponds to a sense of the word)
+    #      - translations
+    #        - kne (this is a usage example, with a translation)
+    #        - kne
+    #        - kne
+    #    - rom (perhaps there are several)
+    #  - entry (multiple possible entries if there was no exact match for the
+    #           query)
     for sense in soup.findAll('span', attrs={'class': 'sense'}):
         if sense.parent.name == 'th':
             table = sense.parent.parent.parent.parent
