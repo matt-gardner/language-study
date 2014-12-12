@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.utils import simplejson
 
-from BeautifulSoup import BeautifulSoup
+import lxml.html
 from datetime import datetime
 from random import Random
 
@@ -198,8 +198,7 @@ def parse_definition_from_html(html):
     # into a more complex object.
     # Also keep the URL, for easy access
     definition = ''
-    soup = BeautifulSoup(html)
-    senses = []
+    tree = lxml.html.fromstring(html)
     # The structure of this html is as follows:
     # results
     #  - entry
@@ -213,27 +212,24 @@ def parse_definition_from_html(html):
     #    - rom (perhaps there are several)
     #  - entry (multiple possible entries if there was no exact match for the
     #           query)
-    for sense in soup.findAll('span', attrs={'class': 'sense'}):
-        if sense.parent.name == 'th':
-            table = sense.parent.parent.parent.parent
-        else:
-            table = sense.parent.parent
-        senses.append((sense, table))
-    for sense in soup.findAll('span', attrs={'class': 'rhetoric'}):
-        table = sense.parent.parent
-        senses.append((sense, table))
-    for sense, table in senses:
-        definition += ''.join(sense.parent.findAll(text=True)).strip() + '\n'
-        for target in table.findAll('div', attrs={'class':'target'}):
-            source = target.findPrevious('div', attrs={'class': 'source'})
-            definition += ''.join(source.findAll(text=True)).strip() + ' : '
-            definition += ''.join(target.findAll(text=True)).strip() + '\n'
-        definition += '\n'
-    if not senses:
-        for target in soup.findAll('div', attrs={'class':'target'}):
-            source = target.findPrevious('div', attrs={'class': 'source'})
-            definition += ''.join(source.findAll(text=True)).strip() + ' : '
-            definition += ''.join(target.findAll(text=True)).strip() + '\n'
+    entries = tree.find_class('entry')
+    if len(entries) != 1:
+        # TODO: decide what to do here; we probably shouldn't just grab all of
+        # them.
+        return definition
+    entry = entries[0]
+    for rom in entry.find_class('rom'):
+        header = rom.find_class('romhead')[0]
+        # TODO: this could use some improvement to collapse runs of whitespace
+        # into a single space.
+        definition += header.find('h2').text_content().strip() + '\n';
+        for translation in rom.find_class('translations'):
+            for kne in translation.find_class('kne'):
+                source = kne.find_class('source')[0]
+                target = kne.find_class('target')[0]
+                definition += source.text_content().strip() + ' : '
+                definition += target.text_content().strip() + '\n'
+    print definition.strip()
     return definition.strip()
 
 
