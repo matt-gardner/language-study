@@ -85,7 +85,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'language_study.urls'
 
 TEMPLATE_DIRS = (
-    'templates'
+    '/home/mg1/language_study/templates',
 )
 
 INSTALLED_APPS = (

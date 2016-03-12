@@ -1,12 +1,10 @@
 
 from django.contrib.auth.decorators import login_required
-from django import forms
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 
 from language_study.drills.models import *
 from language_study.drills.views.common import base_context
@@ -34,7 +32,7 @@ def main(request):
         context['wordlists'] = lists
     # TODO: move this to a more general main page that includes both apps, so
     # we don't have this particular dependency between the apps.
-    from reading.models import BookTranslation
+    from language_study.reading.models import BookTranslation
     context['books'] = BookTranslation.objects.all()
     # Reset filters here - potentially nasty hidden functionality, but it works
     # for my personal use on a smartphone.  At least this isn't too

@@ -163,9 +163,13 @@ class Word(models.Model):
             time_since_last_seen = now - self.last_reviewed
             if time_in_memory > Word.REVIEW_PERIODS[self.memory_index][1]:
                 self.memory_index += 1
-            while (time_since_last_seen >
-                    Word.REVIEW_PERIODS[self.memory_index][1]):
-                self.memory_index += 1
+            if self.memory_index < len(Word.REVIEW_PERIODS) - 1:
+                while (self.memory_index < len(Word.REVIEW_PERIODS) - 1 and
+                       time_since_last_seen >
+                       Word.REVIEW_PERIODS[self.memory_index][1]):
+                    self.memory_index += 1
+            else:
+                self.memory_index = len(Word.REVIEW_PERIODS) - 1
         elif correct == False:
             self.memory_index = 0
             self.last_wrong = now

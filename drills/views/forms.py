@@ -5,14 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
-from django.utils import simplejson
+
+import simplejson
 
 from language_study.drills.models import *
 from language_study.drills.views.common import base_context
 from language_study.drills.views.common import devariablize
-from language_study.drills.views.filters import filter_words
-from language_study.drills.views import form_table_util
-from form_table_util import create_table
+from language_study.drills.views.form_table_util import create_table
 
 def base_form_drill_context(request, listname):
     context = base_context(request)

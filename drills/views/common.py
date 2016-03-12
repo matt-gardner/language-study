@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 
-from django import forms
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.utils import simplejson
 
-from datetime import datetime
+import simplejson
 
 from language_study.drills.models import Word, WordList, Tag, Verb
-from language_study.drills.views.filters import filter_words
 
 
 def logout(request):

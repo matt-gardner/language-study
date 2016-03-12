@@ -3,15 +3,15 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from django.utils import simplejson
+
+import simplejson
 
 from random import shuffle
 
 from language_study.drills.views import common
 from language_study.drills.views.common import AjaxWord
 from language_study.drills.views.common import base_context
-from language_study.drills.views.common import filter_words
-from language_study.drills.views.common import render_tags
+from language_study.drills.views.filters import filter_words
 from language_study.drills.views.vocab import set_reviewed_from_session
 from language_study.drills.models import Word
 
